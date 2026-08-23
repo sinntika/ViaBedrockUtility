@@ -31,6 +31,9 @@ repositories {
 
 		content {
 			includeGroup "com.github.Oryxel"
+			// CubeConverter moved to the Oryxel1 account, which is where
+			// ViaFabricPlus pulls it from.
+			includeGroup "com.github.Oryxel1"
 		}
 	}
 }
@@ -42,7 +45,11 @@ dependencies {
 
 	implementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
 
-	lib("com.github.Oryxel:CubeConverter:916cadb12a") {
+	// Must match the CubeConverter that ViaFabricPlus jar-in-jars, because its
+	// copy is a real mod and therefore wins over the one shaded in below. Compiling
+	// against anything else turns API drift into runtime NoSuchMethodError, which is
+	// exactly how GsonUtil.getGson() blew up on 26.2.
+	lib("com.github.Oryxel1:CubeConverter:abecffaaea") {
 		transitive = false
 	}
 

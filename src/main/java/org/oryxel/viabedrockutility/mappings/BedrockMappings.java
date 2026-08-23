@@ -1,9 +1,9 @@
 package org.oryxel.viabedrockutility.mappings;
 
+import com.google.gson.Gson;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import lombok.Getter;
-import org.cube.converter.util.GsonUtil;
 import org.oryxel.viabedrockutility.enums.bedrock.ActorFlags;
 
 import java.io.IOException;
@@ -15,6 +15,11 @@ import java.util.Map;
 import java.util.Set;
 
 public class BedrockMappings {
+    // These files are plain JSON trees, so this no longer borrows CubeConverter's
+    // GsonUtil: whichever copy of that library wins at runtime decides what its
+    // helpers look like, and the mod should not care.
+    private static final Gson GSON = new Gson();
+
     @Getter
     private static Map<ActorFlags, String> bedrockEntityFlagMoLangQueries;
 
@@ -48,7 +53,7 @@ public class BedrockMappings {
                 return null;
             }
 
-            return GsonUtil.getGson().fromJson(new InputStreamReader(inputStream), classOfT);
+            return GSON.fromJson(new InputStreamReader(inputStream), classOfT);
         } catch (IOException e) {
             return null;
         }

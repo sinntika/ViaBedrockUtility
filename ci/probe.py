@@ -4,10 +4,12 @@
 Reads the actual Minecraft jar on the compile classpath and reports which
 imports resolve, what a package contains, and the real member signatures of
 everything this port touches. It can also reach outside the Minecraft jar and
-probe any other dependency on the classpath, which is how Fabric API changes
-get caught. Finally it replays every "Cannot remap" warning Mixin produced,
-because those are stale injection targets that compile fine but break at
-runtime, and reports which Lombok release the build resolved.
+probe any other dependency on the classpath, which is how Fabric API and
+CubeConverter changes get caught. It replays every "Cannot remap" warning Mixin
+produced, because those are stale injection targets that compile fine but break
+at runtime, reports which Lombok release the build resolved, and diffs the
+branch against master so nothing that got dropped during the port stays
+unnoticed.
 """
 import os
 import re
@@ -31,6 +33,12 @@ VALIDATED_PREFIXES = (
     "com.mojang.blaze3d.",
     "com.mojang.math.",
 )
+# Third party libraries that are also provided by other mods at runtime, so the
+# build must compile against exactly the same classes.
+LIB_PREFIXES = (
+    "org.cube.converter.",
+    "team.unnamed.mocha.",
+)
 WIDTH = 600
 GRADLE_LOG = os.path.join(ROOT, "ci", "gradle.log")
 
@@ -38,22 +46,18 @@ SIMPLE_NAMES = []
 
 PACKAGE_LISTINGS = []
 
-JAVAP = [
-    (
-        "net.minecraft.client.Minecraft",
-        ["Atlas", "Skin", "MapRenderer", "ResourceManager", "Dispatcher", "Font"],
-        40,
-    ),
-    (
-        "net.minecraft.client.resources.model.EquipmentAssetManager",
-        ["EquipmentAssetManager("],
-        8,
-    ),
+JAVAP = []
+
+# Classes from the libraries above, probed out of the resolved dependency jars.
+LIB_JAVAP = [
+    ("org.cube.converter.util.GsonUtil", [], 30),
 ]
 
 # Classes outside the Minecraft jar, looked up across every cached dependency.
 EXTRA_JAVAP = []
 EXTRA_PACKAGES = []
+
+jarpath = None
 
 
 def find_jar():
@@ -128,17 +132,138 @@ def javap(cls, keywords, limit, classpath=None):
         print("   (no member matched: %s)" % ", ".join(keywords))
 
 
+def git(*args):
+    try:
+        proc = subprocess.run(
+            ["git"] + list(args), cwd=ROOT, capture_output=True, text=True, timeout=90
+        )
+    except Exception as exc:
+        return None, "git crashed: %s" % exc
+    if proc.returncode != 0:
+        err = (proc.stderr or "").strip().split("\n")
+        return None, "git error: %s" % (err[0][:200] if err else "unknown")
+    return proc.stdout.strip(), None
+
+
+import_re = re.compile(r"^\s*import\s+(static\s+)?([^;]+);")
+
+java_files = []
+for dirpath, dirnames, filenames in os.walk(SRC):
+    for fn in filenames:
+        if fn.endswith(".java"):
+            java_files.append(os.path.join(dirpath, fn))
+java_files.sort()
+
+lib_imports = {}
+for path in java_files:
+    rel = os.path.relpath(path, SRC)
+    with open(path, "r", encoding="utf-8") as fh:
+        for line in fh:
+            m = import_re.match(line)
+            if not m:
+                continue
+            spec = m.group(2).strip()
+            if spec.startswith(LIB_PREFIXES):
+                lib_imports.setdefault(spec, rel)
+
 print("== LOMBOK ==")
 print(
     "resolved in cache: %s"
     % (", ".join(sorted(os.listdir(LOMBOK_CACHE))) if os.path.isdir(LOMBOK_CACHE) else "(none)")
 )
+
 print("")
+print("== DIFF VS MASTER ==")
+base = None
+for ref in ("origin/master", "master"):
+    out, err = git("rev-parse", "--verify", ref)
+    if out:
+        base = ref
+        break
+if not base:
+    print("  (master is not available in this checkout)")
+else:
+    head, _ = git("rev-parse", "--short", "HEAD")
+    tip, _ = git("rev-parse", "--short", base)
+    print("  %s (%s) ... HEAD (%s)" % (base, tip or "?", head or "?"))
+    shortstat, err = git("diff", "--shortstat", "%s...HEAD" % base)
+    print("  %s" % (shortstat or err or "(no changes)"))
+    names, err = git("diff", "--name-status", "%s...HEAD" % base)
+    rows = [r for r in (names or "").split("\n") if r.strip()]
+    gone = [r for r in rows if r[:1] in ("D", "R")]
+    print("  -- deleted or renamed (%d) --" % len(gone))
+    for row in gone[:80]:
+        print("     %s" % row[:WIDTH])
+    shipped = [
+        r
+        for r in rows
+        if "src/main/java" in r or "src/main/resources" in r or "buildSrc" in r
+    ]
+    print("  -- shipped sources touched (%d) --" % len(shipped))
+    for row in shipped[:140]:
+        print("     %s" % row[:WIDTH])
+
+# Index the shared libraries so drift shows up before the game launches.
+lib_index = {}
+lib_jar_counts = {}
+if lib_imports or LIB_JAVAP:
+    for jar in dependency_jars():
+        try:
+            with zipfile.ZipFile(jar) as zf:
+                names = zf.namelist()
+        except Exception:
+            continue
+        for nm in names:
+            if not nm.endswith(".class"):
+                continue
+            dotted = nm[:-6].replace("/", ".")
+            if not dotted.startswith(LIB_PREFIXES):
+                continue
+            lib_index.setdefault(dotted, jar)
+            key = os.path.basename(jar)
+            lib_jar_counts[key] = lib_jar_counts.get(key, 0) + 1
+
+print("")
+print("== LIB JARS ==")
+if lib_jar_counts:
+    for name in sorted(lib_jar_counts):
+        print("  %-56s %d classes" % (name[:56], lib_jar_counts[name]))
+else:
+    print("  (none resolved)")
+
+print("")
+print("== LIB IMPORTS (%d) ==" % len(lib_imports))
+for spec in sorted(lib_imports):
+    rel = lib_imports[spec]
+    if spec.endswith(".*"):
+        pkg = spec[:-2] + "."
+        if any(c.startswith(pkg) for c in lib_index):
+            continue
+        print("  MISSING PACKAGE %s" % spec)
+        print("      in %s" % rel)
+        continue
+    if spec in lib_index:
+        continue
+    parent = spec.rsplit(".", 1)[0]
+    if parent in lib_index:
+        continue
+    simple = spec.rsplit(".", 1)[-1]
+    hits = sorted(c for c in lib_index if c.rsplit(".", 1)[-1] == simple)
+    print("  MISSING %s" % spec)
+    print("      -> %s" % (" | ".join(hits[:3]) if hits else "no class named " + simple))
+    print("      in %s" % rel)
+
+if LIB_JAVAP:
+    print("")
+    print("== LIB SIGNATURES ==")
+    for cls, keywords, limit in LIB_JAVAP:
+        javap(cls, keywords, limit, classpath=lib_index.get(cls))
 
 jarpath, jarcount = find_jar()
+print("")
 print("== JAR ==")
 if not jarpath:
-    print("no minecraft jar found, nothing to probe")
+    print("no minecraft jar found, nothing left to probe")
     raise SystemExit(0)
 print("%d classes  %s" % (jarcount, os.path.basename(jarpath)))
 
@@ -156,14 +281,6 @@ for entry in entries:
         classes.add(dotted.replace("$", "."))
 packages = set(e.rsplit("/", 1)[0] for e in entries if "/" in e)
 
-java_files = []
-for dirpath, dirnames, filenames in os.walk(SRC):
-    for fn in filenames:
-        if fn.endswith(".java"):
-            java_files.append(os.path.join(dirpath, fn))
-java_files.sort()
-
-import_re = re.compile(r"^\s*import\s+(static\s+)?([^;]+);")
 bad = []
 for path in java_files:
     rel = os.path.relpath(path, SRC)
@@ -298,10 +415,10 @@ if os.path.isfile(GRADLE_LOG):
 else:
     print("  (gradle log not written yet)")
 
-print("")
-print("== REAL SIGNATURES ==")
-for cls, keywords, limit in JAVAP:
-    javap(cls, keywords, limit)
-for cls, keywords, limit in EXTRA_JAVAP:
-    jar = located.get(cls)
-    javap(cls, keywords, limit, classpath=jar)
+if JAVAP or EXTRA_JAVAP:
+    print("")
+    print("== REAL SIGNATURES ==")
+    for cls, keywords, limit in JAVAP:
+        javap(cls, keywords, limit)
+    for cls, keywords, limit in EXTRA_JAVAP:
+        javap(cls, keywords, limit, classpath=located.get(cls))
