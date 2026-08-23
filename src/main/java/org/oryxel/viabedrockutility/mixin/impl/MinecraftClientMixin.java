@@ -1,16 +1,16 @@
 package org.oryxel.viabedrockutility.mixin.impl;
 
-import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.gui.screen.Screen;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.screens.Screen;
 import org.oryxel.viabedrockutility.ViaBedrockUtility;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-@Mixin(MinecraftClient.class)
+@Mixin(Minecraft.class)
 public class MinecraftClientMixin {
-    @Inject(method = "disconnect(Lnet/minecraft/client/gui/screen/Screen;Z)V", at = @At("HEAD"))
+    @Inject(method = "disconnect(Lnet/minecraft/client/gui/screens/Screen;Z)V", at = @At("HEAD"))
     private void disconnect(Screen disconnectionScreen, boolean transferring, CallbackInfo ci) {
         ViaBedrockUtility.getInstance().setViaBedrockPresent(false);
         if (ViaBedrockUtility.getInstance().getPayloadHandler() == null) {

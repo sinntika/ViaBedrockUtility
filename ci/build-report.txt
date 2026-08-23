@@ -1,0 +1,120 @@
+commit:  c1a228824296ccd49b73c7d83a5de31b7044caf9
+run_id:  32649176672
+outcome: success
+
+===== RENAME =====
+loaded mappings.tsv
+loaded mappings2.tsv
+loaded mappings3.tsv
+loaded mappings4.tsv
+loaded mappings5.tsv
+loaded mappings6.tsv
+loaded mappings7.tsv
+loaded mappings8.tsv
+rewrote 0 files
+renamed 0 files
+
+===== COMPILE ERRORS =====
+unique errors: 0
+
+===== CLASSPATH PROBE =====
+== JAR ==
+10291 classes  minecraft-merged-560387b4cf-1.21.11-loom.mappings.1_21_11.layered+hash.2198-v2.jar
+
+== BAD IMPORTS (0) ==
+
+== STALE MIXIN TARGETS ==
+  Cannot remap modifiers because it does not exist in any of the targets [] or their parents.
+
+== SOURCE GREP ==
+-- modifiers (0) --
+-- toProfiles (2) --
+   src/main/java/org/oryxel/viabedrockutility/mixin/impl/pack/ServerResourcePackLoaderMixin.java:22  // 1.21.11: toProfiles is now loadRequestedPacks.
+   src/main/java/org/oryxel/viabedrockutility/mixin/impl/pack/ServerResourcePackLoaderMixin.java:24  private void toProfiles(List<PackReloadConfig.IdAndPath> packs, CallbackInfoReturnable<List<Pack>> cir) {
+-- sendChatMessage (1) --
+   src/main/java/org/oryxel/viabedrockutility/mixin/impl/network/ClientPlayNetworkHandlerMixin.java:21  // 1.21.11: sendChatMessage is now sendChat.
+
+== FQN CHECK ==
+net.minecraft.client.resources.server.DownloadedPackSource    OK
+net.minecraft.client.resources.server.PackReloadConfig        OK
+
+== NESTED TYPES ==
+-- net.minecraft.client.resources.server.PackReloadConfig (2) --
+  Callbacks IdAndPath
+
+== REAL SIGNATURES ==
+-- net.minecraft.client.resources.server.DownloadedPackSource --
+   Compiled from "DownloadedPackSource.java"
+   public class net.minecraft.client.resources.server.DownloadedPackSource implements java.lang.AutoCloseable {
+   private static final net.minecraft.network.chat.Component SERVER_NAME;
+   private static final java.util.regex.Pattern SHA1;
+   static final org.slf4j.Logger LOGGER;
+   private static final net.minecraft.server.packs.repository.RepositorySource EMPTY_SOURCE;
+   private static final net.minecraft.server.packs.PackSelectionConfig DOWNLOADED_PACK_SELECTION;
+   private static final net.minecraft.client.resources.server.PackLoadFeedback LOG_ONLY_FEEDBACK;
+   final net.minecraft.client.Minecraft minecraft;
+   private net.minecraft.server.packs.repository.RepositorySource packSource;
+   private net.minecraft.client.resources.server.PackReloadConfig$Callbacks pendingReload;
+   final net.minecraft.client.resources.server.ServerPackManager manager;
+   private final net.minecraft.server.packs.DownloadQueue downloadQueue;
+   private net.minecraft.server.packs.repository.PackSource packType;
+   net.minecraft.client.resources.server.PackLoadFeedback packFeedback;
+   private int packIdSerialNumber;
+   public net.minecraft.client.resources.server.DownloadedPackSource(net.minecraft.client.Minecraft, java.nio.file.Path, net.minecraft.client.main.GameConfig$UserData);
+   net.minecraft.util.HttpUtil$DownloadProgressListener createDownloadNotifier(int);
+   private net.minecraft.client.resources.server.PackDownloader createDownloader(net.minecraft.server.packs.DownloadQueue, java.util.concurrent.Executor, net.minecraft.client.User, java.net.Proxy);
+   private java.lang.Runnable createUpdateScheduler(java.util.concurrent.Executor);
+   private net.minecraft.client.resources.server.PackReloadConfig createReloadConfig();
+   private java.util.List<net.minecraft.server.packs.repository.Pack> loadRequestedPacks(java.util.List<net.minecraft.client.resources.server.PackReloadConfig$IdAndPath>);
+   public net.minecraft.server.packs.repository.RepositorySource createRepositorySource();
+   private static net.minecraft.server.packs.repository.RepositorySource configureSource(java.util.List<net.minecraft.server.packs.repository.Pack>);
+   private void startReload(net.minecraft.client.resources.server.PackReloadConfig$Callbacks);
+   public void onRecovery();
+   public void onRecoveryFailure();
+   public void onReloadSuccess();
+   private static com.google.common.hash.HashCode tryParseSha1Hash(java.lang.String);
+   public void pushPack(java.util.UUID, java.net.URL, java.lang.String);
+   public void pushLocalPack(java.util.UUID, java.nio.file.Path);
+   public void popPack(java.util.UUID);
+   public void popAll();
+   private static net.minecraft.client.resources.server.PackLoadFeedback createPackResponseSender(net.minecraft.network.Connection);
+   public void configureForServerControl(net.minecraft.network.Connection, net.minecraft.client.resources.server.ServerPackManager$PackPromptStatus);
+   public void configureForLocalWorld();
+   public void allowServerPacks();
+   public void rejectServerPacks();
+   public java.util.concurrent.CompletableFuture<java.lang.Void> waitForPackFeedback(java.util.UUID);
+   public void cleanupAfterDisconnect();
+   ... (truncated)
+-- net.minecraft.client.multiplayer.ClientPacketListener --
+   private static final net.minecraft.network.chat.Component UNSECURE_SERVER_TOAST_TITLE;
+   private static final net.minecraft.network.chat.Component UNSERURE_SERVER_TOAST;
+   private static final net.minecraft.network.chat.Component INVALID_PACKET;
+   private static final net.minecraft.network.chat.Component RECONFIGURE_SCREEN_MESSAGE;
+   private static final net.minecraft.network.chat.Component BAD_CHAT_INDEX;
+   private static final net.minecraft.network.chat.Component COMMAND_SEND_CONFIRM_TITLE;
+   private static final net.minecraft.network.chat.Component BUTTON_RUN_COMMAND;
+   private static final net.minecraft.network.chat.Component BUTTON_SUGGEST_COMMAND;
+   private net.minecraft.network.chat.LocalChatSession chatSession;
+   private net.minecraft.network.chat.SignedMessageChain$Encoder signedMessageEncoder;
+   private int nextChatIndex;
+   private net.minecraft.network.chat.LastSeenMessagesTracker lastSeenMessages;
+   private net.minecraft.network.chat.MessageSignatureCache messageSignatureCache;
+   private boolean serverEnforcesSecureChat;
+   ... (truncated)
+
+===== TAIL =====
+> Task :compileTestJava
+> Task :processTestResources NO-SOURCE
+> Task :testClasses
+> Task :test
+> Task :validateAccessWidener
+> Task :check
+> Task :remapJar
+> Task :remapSourcesJar SKIPPED
+> Task :assemble
+> Task :build
+
+[Incubating] Problems report is available at: file:///home/runner/work/ViaBedrockUtility/ViaBedrockUtility/build/reports/problems/problems-report.html
+
+BUILD SUCCESSFUL in 1m 31s
+12 actionable tasks: 12 executed

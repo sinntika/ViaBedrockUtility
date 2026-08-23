@@ -1,8 +1,8 @@
 package org.oryxel.viabedrockutility.animation.vanilla;
 
 import net.minecraft.client.model.Model;
-import net.minecraft.client.model.ModelPart;
-import net.minecraft.util.math.MathHelper;
+import net.minecraft.client.model.geom.ModelPart;
+import net.minecraft.util.Mth;
 import org.joml.Vector3f;
 import org.oryxel.viabedrockutility.animation.Animation;
 import org.oryxel.viabedrockutility.mixin.interfaces.IModelPart;
@@ -12,11 +12,11 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
-public class AnimationHelper {
+public class KeyframeAnimations {
     public static void animate(Scope scope, Model model, VBUAnimation animation, long runningTime, float scale, Vector3f tempVec) {
-        float g = AnimationHelper.getRunningSeconds(animation, runningTime);
+        float g = KeyframeAnimations.getRunningSeconds(animation, runningTime);
         for (Map.Entry<String, List<AnimateTransformation>> entry : animation.boneAnimations().entrySet()) {
-            Optional<ModelPart> optional = getPartByName(model.getParts(), entry.getKey());
+            Optional<ModelPart> optional = getPartByName(model.allParts(), entry.getKey());
             if (optional.isEmpty()) {
                 continue;
             }
@@ -25,7 +25,7 @@ public class AnimationHelper {
             List<AnimateTransformation> list = entry.getValue();
             for (AnimateTransformation transformation : list) {
                 VBUKeyFrame[] lvs = transformation.keyframes();
-                int i = Math.max(0, MathHelper.binarySearch(0, lvs.length, index -> {
+                int i = Math.max(0, Mth.binarySearch(0, lvs.length, index -> {
                     if (lvs[index] == null) {
                         return false;
                     }
@@ -40,7 +40,7 @@ public class AnimationHelper {
                 VBUKeyFrame lv = lvs[i];
                 VBUKeyFrame lv2 = lvs[j];
                 float h = g - lv.timestamp();
-                float k = j != i ? MathHelper.clamp(h / (lv2.timestamp() - lv.timestamp()), 0.0f, 1.0f) : 1F;
+                float k = j != i ? Mth.clamp(h / (lv2.timestamp() - lv.timestamp()), 0.0f, 1.0f) : 1F;
 
                 lv2.interpolation().apply(scope, tempVec, k, lvs, i, j, scale);
                 transformation.target().apply(part, tempVec);

@@ -1,0 +1,24 @@
+# Repair pass. 1.21.11 ships deobfuscated official names that differ from the
+# classic mojang mapping names, so the first table's targets are corrected here.
+# Applied strictly after mappings.tsv, so chains like
+# Identifier -> ResourceLocation -> Identifier resolve to the right answer.
+N	ResourceLocation	Identifier
+I	net.minecraft.client.renderer.RenderType	net.minecraft.client.renderer.rendertype.RenderType
+I	net.minecraft.client.render.RenderLayer	net.minecraft.client.renderer.rendertype.RenderType
+I	net.minecraft.client.model.PlayerModel	net.minecraft.client.model.player.PlayerModel
+I	net.minecraft.client.resources.PlayerSkin	net.minecraft.world.entity.player.PlayerSkin
+# yarn leftovers found in the mixin sources
+I	net.minecraft.entity.decoration.DisplayEntity	net.minecraft.world.entity.Display
+N	DisplayEntity	Display
+L	Display.ItemDisplayEntity	Display.ItemDisplay
+I	net.minecraft.util.hit.BlockHitResult	net.minecraft.world.phys.BlockHitResult
+I	net.minecraft.util.hit.EntityHitResult	net.minecraft.world.phys.EntityHitResult
+I	net.minecraft.network.ClientConnection	net.minecraft.network.Connection
+N	ClientConnection	Connection
+I	net.minecraft.network.packet.c2s.common.CustomPayloadC2SPacket	net.minecraft.network.protocol.common.ServerboundCustomPayloadPacket
+N	CustomPayloadC2SPacket	ServerboundCustomPayloadPacket
+I	net.minecraft.network.packet.s2c.login.LoginSuccessS2CPacket	net.minecraft.network.protocol.login.ClientboundGameProfilePacket
+N	LoginSuccessS2CPacket	ClientboundGameProfilePacket
+I	net.minecraft.client.resource.server.ReloadScheduler	net.minecraft.client.resources.server.PackReloadConfig
+N	ReloadScheduler	PackReloadConfig
+L	PackReloadConfig.PackInfo	PackReloadConfig.IdAndPath

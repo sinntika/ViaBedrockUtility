@@ -1,14 +1,21 @@
 package org.oryxel.viabedrockutility.renderer;
 
 import lombok.Getter;
-import net.minecraft.client.render.*;
-import net.minecraft.client.render.entity.EntityRenderer;
-import net.minecraft.client.render.entity.EntityRendererFactory;
-import net.minecraft.client.render.entity.state.EntityRenderState;
-import net.minecraft.client.util.math.MatrixStack;
-import net.minecraft.entity.Entity;
-import net.minecraft.util.Identifier;
-import net.minecraft.util.math.RotationAxis;
+import net.minecraft.client.renderer.rendertype.RenderType;
+import net.minecraft.client.renderer.rendertype.RenderTypes;
+import net.minecraft.client.renderer.culling.Frustum;
+import net.minecraft.client.renderer.RenderPipelines;
+import net.minecraft.client.renderer.LightTexture;
+import net.minecraft.client.renderer.SubmitNodeCollector;
+import net.minecraft.client.renderer.state.CameraRenderState;
+import net.minecraft.client.renderer.texture.OverlayTexture;
+import net.minecraft.client.renderer.entity.EntityRenderer;
+import net.minecraft.client.renderer.entity.EntityRendererProvider;
+import net.minecraft.client.renderer.entity.state.EntityRenderState;
+import com.mojang.blaze3d.vertex.PoseStack;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.resources.Identifier;
+import com.mojang.math.Axis;
 import org.oryxel.viabedrockutility.animation.animator.Animator;
 import org.oryxel.viabedrockutility.entity.CustomEntityTicker;
 import org.oryxel.viabedrockutility.material.data.Material;
@@ -27,16 +34,18 @@ public class CustomEntityRenderer<T extends Entity> extends EntityRenderer<T, Cu
     private final CustomEntityTicker ticker;
     private final List<Model> models;
 
-    public CustomEntityRenderer(final CustomEntityTicker ticker, final List<Model> models, EntityRendererFactory.Context context) {
+    public CustomEntityRenderer(final CustomEntityTicker ticker, final List<Model> models, EntityRendererProvider.Context context) {
         super(context);
         this.models = models;
         this.ticker = ticker;
     }
 
+    // 1.21.11 replaced direct rendering with a submit pass: geometry is handed to
+    // a collector instead of writing into a VertexConsumer here.
     @Override
-    public void render(CustomEntityRenderState state, MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light) {
+    public void submit(CustomEntityRenderState state, PoseStack matrices, SubmitNodeCollector collector, CameraRenderState cameraState) {
         for (Model model : this.models) {
-            matrices.push();
+            matrices.pushPose();
 
             this.setupTransforms(state, matrices);
             matrices.scale(-1.0F, -1.0F, 1.0F);
@@ -49,33 +58,32 @@ public class CustomEntityRenderer<T extends Entity> extends EntityRenderer<T, Cu
                 }
             });
 
-            RenderLayer renderLayer = model.material.info().getVariants().get("skinning_color").build().apply(model.texture);
+            RenderType renderLayer = model.material.info().getVariants().get("skinning_color").build().apply(model.texture);
             if (renderLayer != null) {
-                VertexConsumer vertexConsumer = vertexConsumers.getBuffer(renderLayer);
-                model.model.render(matrices, vertexConsumer, light, OverlayTexture.packUv(0, 10));
+                collector.submitModel(model.model(), state, matrices, renderLayer, state.lightCoords, OverlayTexture.pack(0, 10), -1, null);
             }
 
-            matrices.pop();
+            matrices.popPose();
         }
     }
 
     @Override
     public boolean shouldRender(T entity, Frustum frustum, double x, double y, double z) {
-        double d = 64.0F * Entity.getRenderDistanceMultiplier();
-        return entity.squaredDistanceTo(x, y, z) <= d * d;
+        double d = 64.0F * Entity.getViewScale();
+        return entity.distanceToSqr(x, y, z) <= d * d;
     }
 
     @Override
-    public void updateRenderState(T entity, CustomEntityRenderState state, float tickDelta) {
-        super.updateRenderState(entity, state, tickDelta);
-        state.yaw = entity.getYaw(tickDelta);
-        state.bodyYaw = entity.getBodyYaw();
-        state.bodyPitch = entity.getPitch();
-        state.distanceTraveled = entity.distanceTraveled;
+    public void extractRenderState(T entity, CustomEntityRenderState state, float tickDelta) {
+        super.extractRenderState(entity, state, tickDelta);
+        state.yaw = entity.getViewYRot(tickDelta);
+        state.bodyYaw = entity.getVisualRotationYInDegrees();
+        state.bodyPitch = entity.getXRot();
+        state.distanceTraveled = entity.moveDist;
     }
 
-    private void setupTransforms(CustomEntityRenderState state, MatrixStack matrices) {
-        matrices.multiply(RotationAxis.POSITIVE_Y.rotationDegrees(180 - state.yaw));
+    private void setupTransforms(CustomEntityRenderState state, PoseStack matrices) {
+        matrices.mulPose(Axis.YP.rotationDegrees(180 - state.yaw));
     }
 
     @Override

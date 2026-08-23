@@ -1,0 +1,90 @@
+name: port-build
+
+on:
+  push:
+    branches:
+      - "port/**"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: port-build-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: setup jdk
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: "21"
+
+      - name: prepare
+        run: |
+          mkdir -p ci
+          chmod +x ./gradlew
+
+      - name: apply mapping rename
+        run: python3 tools/port/rename.py 2>&1 | tee ci/rename.log
+
+      - name: commit renamed sources
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A src/main/java
+          git commit -m "port: apply mapping rename [skip ci]" || echo "no rename changes"
+
+      - name: build
+        id: build
+        continue-on-error: true
+        run: |
+          set +e
+          ./gradlew build --stacktrace --no-daemon > ci/gradle.log 2>&1
+          code=$?
+          set -e
+          echo "code=$code" >> "$GITHUB_OUTPUT"
+          exit $code
+
+      - name: probe classpath
+        if: always()
+        run: python3 ci/probe.py > ci/probe.txt 2>&1 || true
+
+      - name: report
+        if: always()
+        run: |
+          {
+            echo "commit:  $(git rev-parse HEAD)"
+            echo "run_id:  ${{ github.run_id }}"
+            echo "outcome: ${{ steps.build.outcome }}"
+            echo ""
+            echo "===== RENAME ====="
+            tail -n 20 ci/rename.log || true
+            echo ""
+            echo "===== COMPILE ERRORS ====="
+            python3 ci/summarize.py ci/gradle.log "$GITHUB_WORKSPACE" || true
+            echo ""
+            echo "===== CLASSPATH PROBE ====="
+            cat ci/probe.txt || true
+            echo ""
+            echo "===== TAIL ====="
+            grep -v "^[[:space:]]*at " ci/gradle.log | tail -n 15 || true
+          } > ci/build-report.txt
+
+      - name: commit report
+        if: always()
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -f ci/build-report.txt
+          git commit -m "ci: build report [skip ci]" || echo "nothing to commit"
+          git pull --rebase --autostash origin "$GITHUB_REF_NAME" || true
+          git push origin "HEAD:$GITHUB_REF_NAME" || true

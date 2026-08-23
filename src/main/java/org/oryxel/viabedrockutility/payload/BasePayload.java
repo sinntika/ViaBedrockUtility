@@ -2,10 +2,10 @@ package org.oryxel.viabedrockutility.payload;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
-import net.minecraft.network.PacketByteBuf;
-import net.minecraft.network.codec.PacketCodec;
-import net.minecraft.network.packet.CustomPayload;
-import net.minecraft.util.Identifier;
+import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.network.codec.StreamCodec;
+import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
+import net.minecraft.resources.Identifier;
 import org.oryxel.viabedrockutility.ViaBedrockUtility;
 import org.oryxel.viabedrockutility.enums.bedrock.ActorFlags;
 import org.oryxel.viabedrockutility.fabric.ViaBedrockUtilityFabric;
@@ -19,10 +19,10 @@ import java.nio.charset.StandardCharsets;
 
 @RequiredArgsConstructor
 @Getter
-public class BasePayload implements CustomPayload {
-    public static Id<BasePayload> ID = new Id<>(Identifier.of(ViaBedrockUtilityFabric.MOD_ID, "data"));
+public class BasePayload implements CustomPacketPayload {
+    public static CustomPacketPayload.Type<BasePayload> ID = new CustomPacketPayload.Type<>(Identifier.fromNamespaceAndPath(ViaBedrockUtilityFabric.MOD_ID, "data"));
 
-    public static final PacketCodec<PacketByteBuf, BasePayload> STREAM_CODEC = PacketCodec.of(null, buf -> {
+    public static final StreamCodec<FriendlyByteBuf, BasePayload> STREAM_CODEC = StreamCodec.of(null, buf -> {
         final int type = buf.readInt();
         if (type > PayloadType.values().length - 1) {
             throw new RuntimeException("Invalid type: " + type);
@@ -53,7 +53,7 @@ public class BasePayload implements CustomPayload {
                     mark_variant = buf.readInt();
                 }
 
-                return new ModelRequestPayload(identifier, EnumUtil.getEnumSetFromBitmask(ActorFlags.class, combinedFlags, ActorFlags::getValue), variant, mark_variant, buf.readUuid());
+                return new ModelRequestPayload(identifier, EnumUtil.getEnumSetFromBitmask(ActorFlags.class, combinedFlags, ActorFlags::getValue), variant, mark_variant, buf.readUUID());
             }
 
             case ANIMATE -> {
@@ -84,11 +84,11 @@ public class BasePayload implements CustomPayload {
     }
 
     @Override
-    public Id<? extends CustomPayload> getId() {
+    public CustomPacketPayload.Type<? extends CustomPacketPayload> type() {
         return ID;
     }
 
-    public static String readString(PacketByteBuf buf) {
+    public static String readString(FriendlyByteBuf buf) {
         int length = buf.readInt();
         String result = buf.toString(buf.readerIndex(), length, StandardCharsets.UTF_8);
         buf.readerIndex(buf.readerIndex() + length);

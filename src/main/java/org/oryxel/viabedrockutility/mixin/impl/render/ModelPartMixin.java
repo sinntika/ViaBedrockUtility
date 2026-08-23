@@ -1,7 +1,7 @@
 package org.oryxel.viabedrockutility.mixin.impl.render;
 
-import net.minecraft.client.model.ModelPart;
-import net.minecraft.client.util.math.MatrixStack;
+import net.minecraft.client.model.geom.ModelPart;
+import com.mojang.blaze3d.vertex.PoseStack;
 import org.joml.Quaternionf;
 import org.joml.Vector3f;
 import org.oryxel.viabedrockutility.mixin.interfaces.IModelPart;
@@ -17,16 +17,16 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Stream;
 
 @Mixin(ModelPart.class)
 public abstract class ModelPartMixin implements IModelPart {
-    @Shadow public float originX;
-    @Shadow public float originZ;
+    // 1.21.11: originX/originZ are now x/z and traverse() is getAllParts().
+    @Shadow public float x;
+    @Shadow public float z;
 
     @Shadow @Final private Map<String, ModelPart> children;
 
-    @Shadow public abstract Stream<ModelPart> traverse();
+    @Shadow public abstract List<ModelPart> getAllParts();
 
     @Shadow public float xScale;
     @Shadow public float yScale;
@@ -52,20 +52,21 @@ public abstract class ModelPartMixin implements IModelPart {
     @Unique
     private boolean alreadySetRotation = false;
 
-    @Inject(method = "applyTransform", at = @At("HEAD"))
-    public void render(MatrixStack matrices, CallbackInfo ci) {
+    // 1.21.11: applyTransform is now translateAndRotate.
+    @Inject(method = "translateAndRotate", at = @At("HEAD"))
+    public void render(PoseStack matrices, CallbackInfo ci) {
         // Offset is needed for rotating too!
         matrices.translate(this.offset.x / 16.0F, this.offset.y / 16.0F, this.offset.z / 16.0F);
 
         matrices.translate(this.pivot.x / 16.0F, this.pivot.y / 16.0F, this.pivot.z / 16.0F);
-        matrices.multiply((new Quaternionf()).rotationXYZ(this.rotation.x * MathUtil.DEGREES_TO_RADIANS, this.rotation.y * MathUtil.DEGREES_TO_RADIANS, this.rotation.z * MathUtil.DEGREES_TO_RADIANS));
+        matrices.mulPose((new Quaternionf()).rotationXYZ(this.rotation.x * MathUtil.DEGREES_TO_RADIANS, this.rotation.y * MathUtil.DEGREES_TO_RADIANS, this.rotation.z * MathUtil.DEGREES_TO_RADIANS));
         matrices.translate(-this.pivot.x / 16.0F, -this.pivot.y / 16.0F, -this.pivot.z / 16.0F);
 
         matrices.translate(-this.offset.x / 16.0F, -this.offset.y / 16.0F, -this.offset.z / 16.0F);
     }
 
-    @Inject(method = "applyTransform", at = @At("TAIL"))
-    public void renderTail(MatrixStack matrices, CallbackInfo ci) {
+    @Inject(method = "translateAndRotate", at = @At("TAIL"))
+    public void renderTail(PoseStack matrices, CallbackInfo ci) {
         // Do this after scale since well, this shouldn't be affected by scaling.
         matrices.translate(this.offset.x / 16.0F, this.offset.y / 16.0F, this.offset.z / 16.0F);
 
@@ -74,7 +75,7 @@ public abstract class ModelPartMixin implements IModelPart {
         }
 
         // Have to do this because of how java pivot point and bedrock pivot point system works, I think? ehhh whatever it works, just don't touch it.
-        matrices.translate(-this.originX / 16.0F, 0, -this.originZ / 16.0F);
+        matrices.translate(-this.x / 16.0F, 0, -this.z / 16.0F);
     }
 
     @Inject(method = "getChild", at = @At("HEAD"), cancellable = true)
@@ -111,7 +112,7 @@ public abstract class ModelPartMixin implements IModelPart {
 
     @Override
     public void viaBedrockUtility$resetEverything() {
-        this.traverse().toList().forEach(part -> {
+        this.getAllParts().forEach(part -> {
             viaBedrockUtility$setOffset(this.offset);
             viaBedrockUtility$setAngles(this.defaultRotation);
             this.xScale = this.yScale = this.zScale = 1.0F;

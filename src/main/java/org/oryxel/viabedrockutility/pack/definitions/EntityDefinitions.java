@@ -2,7 +2,7 @@
 package org.oryxel.viabedrockutility.pack.definitions;
 
 import lombok.Getter;
-import net.minecraft.util.Identifier;
+import net.minecraft.resources.Identifier;
 import org.cube.converter.data.bedrock.BedrockEntityData;
 import org.cube.converter.parser.bedrock.data.impl.BedrockEntityParser;
 import org.oryxel.viabedrockutility.fabric.ViaBedrockUtilityFabric;
@@ -22,7 +22,7 @@ public class EntityDefinitions {
             for (final String entityPath : content.getFilesDeep("entity/", ".json")) {
                 try {
                     final BedrockEntityData entityData = BedrockEntityParser.parse(content.getString(entityPath));
-                    final Identifier identifier = Identifier.of(entityData.getIdentifier());
+                    final Identifier identifier = Identifier.parse(entityData.getIdentifier());
                     this.entities.put(identifier.toString(), new EntityDefinition(identifier, entityData));
                 } catch (Throwable e) {
                     ViaBedrockUtilityFabric.LOGGER.warn("Failed to parse entity definition {}", entityPath);

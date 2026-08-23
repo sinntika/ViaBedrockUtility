@@ -1,8 +1,8 @@
 package org.oryxel.viabedrockutility.animation.vanilla;
 
-import net.minecraft.client.model.ModelPart;
-import net.minecraft.client.render.entity.animation.Transformation;
-import net.minecraft.util.math.MathHelper;
+import net.minecraft.client.model.geom.ModelPart;
+import net.minecraft.client.animation.AnimationChannel;
+import net.minecraft.util.Mth;
 import org.joml.Vector3f;
 import org.oryxel.viabedrockutility.mixin.interfaces.IModelPart;
 import org.oryxel.viabedrockutility.mocha.MoLangEngine;
@@ -23,7 +23,7 @@ public record AnimateTransformation(Target target, VBUKeyFrame[] keyframes) {
             Vector3f vector3f3 = eval(scope, keyframes[start].target());
             Vector3f vector3f4 = eval(scope, keyframes[end].target());
             Vector3f vector3f5 = eval(scope, keyframes[Math.min(keyframes.length - 1, end + 1)].target());
-            dest.set(MathHelper.catmullRom(delta, vector3f2.x(), vector3f3.x(), vector3f4.x(), vector3f5.x()) * scale, MathHelper.catmullRom(delta, vector3f2.y(), vector3f3.y(), vector3f4.y(), vector3f5.y()) * scale, MathHelper.catmullRom(delta, vector3f2.z(), vector3f3.z(), vector3f4.z(), vector3f5.z()) * scale);
+            dest.set(Mth.catmullrom(delta, vector3f2.x(), vector3f3.x(), vector3f4.x(), vector3f5.x()) * scale, Mth.catmullrom(delta, vector3f2.y(), vector3f3.y(), vector3f4.y(), vector3f5.y()) * scale, Mth.catmullrom(delta, vector3f2.z(), vector3f3.z(), vector3f4.z(), vector3f5.z()) * scale);
             return dest;
         };
     }

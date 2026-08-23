@@ -1,9 +1,9 @@
 package org.oryxel.viabedrockutility.pack.processor;
 
-import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.texture.NativeImage;
-import net.minecraft.client.texture.NativeImageBackedTexture;
-import net.minecraft.util.Identifier;
+import net.minecraft.client.Minecraft;
+import com.mojang.blaze3d.platform.NativeImage;
+import net.minecraft.client.renderer.texture.DynamicTexture;
+import net.minecraft.resources.Identifier;
 import org.oryxel.viabedrockutility.fabric.ViaBedrockUtilityFabric;
 import org.oryxel.viabedrockutility.pack.content.Content;
 
@@ -13,7 +13,7 @@ import java.util.Locale;
 
 public class TextureProcessor {
     public static void process(final List<Content> packs) {
-        final MinecraftClient client = MinecraftClient.getInstance();
+        final Minecraft client = Minecraft.getInstance();
 
         for (final Content content : packs) {
             for (final String path : content.getFilesDeep("textures/", "")) {
@@ -23,9 +23,9 @@ public class TextureProcessor {
                 }
 
                 try {
-                    final Identifier identifier = Identifier.ofVanilla(path.toLowerCase(Locale.ROOT).replace(".png", "").replace(".jpg", ""));
+                    final Identifier identifier = Identifier.withDefaultNamespace(path.toLowerCase(Locale.ROOT).replace(".png", "").replace(".jpg", ""));
                     final NativeImage image1 = NativeImage.read(image.getPngBytes());
-                    client.getTextureManager().registerTexture(identifier, new NativeImageBackedTexture(() -> identifier.toString() + image1.hashCode(), image1));
+                    client.getTextureManager().register(identifier, new DynamicTexture(() -> identifier.toString() + image1.hashCode(), image1));
                 } catch (final IOException e) {
                     ViaBedrockUtilityFabric.LOGGER.warn("Unable to register texture {}", path);
                 }

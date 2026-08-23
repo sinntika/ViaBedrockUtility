@@ -9,21 +9,29 @@ import com.mojang.blaze3d.platform.DepthTestFunction;
 import com.mojang.blaze3d.platform.DestFactor;
 import com.mojang.blaze3d.platform.SourceFactor;
 import com.mojang.blaze3d.vertex.VertexFormat;
+import com.mojang.blaze3d.vertex.DefaultVertexFormat;
 import com.mojang.blaze3d.vertex.VertexFormatElement;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
-import net.minecraft.client.render.*;
-import net.minecraft.util.Identifier;
-import net.minecraft.util.TriState;
+import net.minecraft.client.renderer.rendertype.RenderSetup;
+import net.minecraft.client.renderer.rendertype.RenderType;
+import net.minecraft.client.renderer.rendertype.RenderTypes;
+import net.minecraft.client.renderer.MultiBufferSource;
+import net.minecraft.client.renderer.culling.Frustum;
+import net.minecraft.client.renderer.RenderPipelines;
+import net.minecraft.client.renderer.LightTexture;
+import net.minecraft.client.renderer.texture.OverlayTexture;
+import com.mojang.blaze3d.vertex.VertexConsumer;
+import net.minecraft.resources.Identifier;
 import net.minecraft.util.Util;
 
 import java.util.*;
 import java.util.function.Function;
 
-import static net.minecraft.client.gl.RenderPipelines.ENTITY_SNIPPET;
-import static net.minecraft.client.render.RenderPhase.*;
+import static net.minecraft.client.renderer.RenderPipelines.ENTITY_SNIPPET;
+// removed: RenderStateShard no longer exists in 1.21.11
 import static org.oryxel.viabedrockutility.util.JsonUtil.*;
 
 // https://wiki.bedrock.dev/visuals/materials
@@ -81,7 +89,7 @@ public record Material(String identifier, String baseIdentifier, MaterialInfo in
 
         protected final Map<String, Variant> variants = new HashMap<>();
 
-        private Function<Identifier, RenderLayer> function;
+        private Function<Identifier, RenderType> function;
 
         public void parse(final JsonObject object, boolean ignoreVariants) {
             final Set<String> extraStates = arrayToStringSet(object.getAsJsonArray("+states"));
@@ -162,7 +170,7 @@ public record Material(String identifier, String baseIdentifier, MaterialInfo in
             });
         }
 
-        public Function<Identifier, RenderLayer> build() {
+        public Function<Identifier, RenderType> build() {
             return Objects.requireNonNullElseGet(this.function, () -> this.function = Util.memoize(texture -> {
                 final VertexFormat vertexFormat;
                 if (!this.vertexFields.isEmpty()) {
@@ -201,7 +209,7 @@ public record Material(String identifier, String baseIdentifier, MaterialInfo in
                     }
                     vertexFormat = vertexBuilder.build();
                 } else {
-                    vertexFormat = VertexFormats.POSITION_COLOR_TEXTURE_OVERLAY_LIGHT_NORMAL;
+                    vertexFormat = DefaultVertexFormat.NEW_ENTITY;
                 }
 
                 final BlendFunction blend;
@@ -248,10 +256,10 @@ public record Material(String identifier, String baseIdentifier, MaterialInfo in
 
                 RenderPipeline.Builder builder = RenderPipeline.builder(ENTITY_SNIPPET).withSampler("Sampler1");
 
-                builder.withLocation(Identifier.of("viabedrockutility", "pipeline/" + UUID.randomUUID() + this.hashCode()));
+                builder.withLocation(Identifier.fromNamespaceAndPath("viabedrockutility", "pipeline/" + UUID.randomUUID() + this.hashCode()));
                 builder.withBlend(blend);
 
-                builder.withVertexFormat(vertexFormat, this.defines.contains("LINE_STRIP") ? VertexFormat.DrawMode.LINE_STRIP : VertexFormat.DrawMode.QUADS);
+                builder.withVertexFormat(vertexFormat, this.defines.contains("LINE_STRIP") ? VertexFormat.Mode.DEBUG_LINE_STRIP : VertexFormat.Mode.QUADS);
 
                 // Totally possible, but not now.
 //                if (!this.fragmentShader.isBlank()) {
@@ -279,14 +287,17 @@ public record Material(String identifier, String baseIdentifier, MaterialInfo in
                     builder.withShaderDefine("EMISSIVE");
                 }
 
-                final RenderLayer.MultiPhaseParameters.Builder renderLayerBuilder = RenderLayer.MultiPhaseParameters.builder();
+                // 1.21.11: RenderType.MultiPhaseParameters is gone, a render type is
+                // now a pipeline plus a RenderSetup that binds the samplers.
+                final RenderSetup.RenderSetupBuilder renderSetupBuilder = RenderSetup.builder(builder.build());
                 if (!this.defines.contains("NO_TEXTURE")) {
-                    renderLayerBuilder.texture(new Texture(texture, TriState.FALSE, false));
+                    renderSetupBuilder.withTexture("Sampler0", texture);
                 }
 
-                renderLayerBuilder.lightmap(ENABLE_LIGHTMAP);
-                renderLayerBuilder.overlay(ENABLE_OVERLAY_COLOR);
-                return RenderLayer.of("custom", 1536, true, true, builder.build(), renderLayerBuilder.build(false));
+                renderSetupBuilder.useLightmap();
+                renderSetupBuilder.useOverlay();
+                renderSetupBuilder.bufferSize(1536);
+                return RenderType.create("custom", renderSetupBuilder.createRenderSetup());
             }));
 
         }

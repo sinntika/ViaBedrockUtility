@@ -3,7 +3,7 @@ package org.oryxel.viabedrockutility.animation.animator;
 import lombok.Setter;
 import net.minecraft.client.model.Model;
 import org.joml.Vector3f;
-import org.oryxel.viabedrockutility.animation.vanilla.AnimationHelper;
+import org.oryxel.viabedrockutility.animation.vanilla.KeyframeAnimations;
 import org.oryxel.viabedrockutility.entity.CustomEntityTicker;
 import org.oryxel.viabedrockutility.mixin.interfaces.IModelPart;
 import org.oryxel.viabedrockutility.mocha.MoLangEngine;
@@ -78,7 +78,7 @@ public class Animator {
             }
 
             if (this.started && this.data.animation().isResetBeforePlay()) {
-                ((IModelPart)((Object)model.getRootPart())).viaBedrockUtility$resetEverything();
+                ((IModelPart)((Object)model.root())).viaBedrockUtility$resetEverything();
                 this.TEMP_VEC.set(0);
             }
 
@@ -87,12 +87,12 @@ public class Animator {
             }
         }
 
-        float runningTime = AnimationHelper.getRunningSeconds(data.animation(), data.compiled(), System.currentTimeMillis() - this.animationStartMS);
+        float runningTime = KeyframeAnimations.getRunningSeconds(data.animation(), data.compiled(), System.currentTimeMillis() - this.animationStartMS);
 
         queryBinding.set("anim_time", Value.of(runningTime));
         queryBinding.set("life_time", Value.of(runningTime));
 
-        AnimationHelper.animate(scope, model, data.compiled(), System.currentTimeMillis() - this.animationStartMS, 1, TEMP_VEC);
+        KeyframeAnimations.animate(scope, model, data.compiled(), System.currentTimeMillis() - this.animationStartMS, 1, TEMP_VEC);
 
         float runningTimeWithoutLoop = (System.currentTimeMillis() - this.animationStartMS) / 1000F;
         this.tickTimeline(runningTimeWithoutLoop);
@@ -134,7 +134,7 @@ public class Animator {
 
     public void stop(Model model, boolean forcefully) {
         if (this.data.animation().getLoop().getValue().equals(false) || forcefully) {
-            ((IModelPart)((Object)model.getRootPart())).viaBedrockUtility$resetEverything();
+            ((IModelPart)((Object)model.root())).viaBedrockUtility$resetEverything();
         }
 
         this.animationStartMS = System.currentTimeMillis();

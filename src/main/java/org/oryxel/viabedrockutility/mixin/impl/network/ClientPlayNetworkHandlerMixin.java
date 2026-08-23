@@ -1,10 +1,10 @@
 package org.oryxel.viabedrockutility.mixin.impl.network;
 
 import com.mojang.brigadier.arguments.StringArgumentType;
-import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.network.ClientPlayNetworkHandler;
-import net.minecraft.util.hit.EntityHitResult;
-import net.minecraft.util.hit.HitResult;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.multiplayer.ClientPacketListener;
+import net.minecraft.world.phys.EntityHitResult;
+import net.minecraft.world.phys.HitResult;
 import org.oryxel.viabedrockutility.ViaBedrockUtility;
 import org.oryxel.viabedrockutility.entity.CustomEntityTicker;
 import org.oryxel.viabedrockutility.payload.handler.CustomEntityPayloadHandler;
@@ -15,10 +15,11 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import java.util.UUID;
 
-@Mixin(ClientPlayNetworkHandler.class)
+@Mixin(ClientPacketListener.class)
 public class ClientPlayNetworkHandlerMixin {
     // Have to do this since you can't run custom command when playing in a server.
-    @Inject(method = "sendChatMessage", at = @At("HEAD"), cancellable = true)
+    // 1.21.11: sendChatMessage is now sendChat.
+    @Inject(method = "sendChat", at = @At("HEAD"), cancellable = true)
     private void injectSendMessage(String content, CallbackInfo ci) {
         if (!ViaBedrockUtility.DEBUGGING || !content.startsWith("$animate")) {
             return;
@@ -35,8 +36,8 @@ public class ClientPlayNetworkHandlerMixin {
             return;
         }
 
-        MinecraftClient client = MinecraftClient.getInstance();
-        if (client.crosshairTarget == null || client.crosshairTarget.getType() != HitResult.Type.ENTITY) {
+        Minecraft client = Minecraft.getInstance();
+        if (client.hitResult == null || client.hitResult.getType() != HitResult.Type.ENTITY) {
             System.out.println("No target!");
             return;
         }
@@ -45,7 +46,7 @@ public class ClientPlayNetworkHandlerMixin {
             return;
         }
 
-        final UUID uuid = ((EntityHitResult)client.crosshairTarget).getEntity().getUuid();
+        final UUID uuid = ((EntityHitResult)client.hitResult).getEntity().getUUID();
         if (!ViaBedrockUtility.getInstance().getPayloadHandler().getCachedCustomEntities().containsKey(uuid)) {
             System.out.println("couldn't find");
             return;
