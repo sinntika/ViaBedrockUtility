@@ -1,39 +1,47 @@
 #!/usr/bin/env python3
-# Applies the yarn -> mojang mapping table in mappings.tsv to all mod sources,
-# then repairs any file whose name no longer matches its public type.
+# Applies every tools/port/mappings*.tsv table, in file name order, to the mod
+# sources, then repairs any file whose name no longer matches its public type.
+# Tables are applied as separate sequential passes so a later table can correct
+# an earlier table's target without the two rules fighting each other.
+import glob
 import os
 import re
 
-ROOT = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+HERE = os.path.dirname(os.path.abspath(__file__))
+ROOT = os.path.dirname(os.path.dirname(HERE))
 SRC = os.path.join(ROOT, "src", "main", "java")
-MAP = os.path.join(os.path.dirname(os.path.abspath(__file__)), "mappings.tsv")
 
-imports = []
-names = []
-literals = []
 
-with open(MAP, "r", encoding="utf-8") as fh:
-    for raw in fh:
-        line = raw.rstrip("\n")
-        if not line.strip() or line.lstrip().startswith("#"):
-            continue
-        parts = [p for p in line.split("\t") if p != ""]
-        if len(parts) != 3:
-            print("bad line: %r" % line)
-            continue
-        kind, src, dst = parts[0].strip(), parts[1].strip(), parts[2].strip()
-        if kind == "I":
-            imports.append((src, dst))
-        elif kind == "N":
-            names.append((src, dst))
-        elif kind == "L":
-            literals.append((src, dst))
-        else:
-            print("bad kind: %r" % line)
+def load(path):
+    imports, names, literals = [], [], []
+    with open(path, "r", encoding="utf-8") as fh:
+        for raw in fh:
+            line = raw.rstrip("\n")
+            if not line.strip() or line.lstrip().startswith("#"):
+                continue
+            parts = [p for p in line.split("\t") if p != ""]
+            if len(parts) != 3:
+                print("bad line in %s: %r" % (os.path.basename(path), line))
+                continue
+            kind, src, dst = parts[0].strip(), parts[1].strip(), parts[2].strip()
+            if kind == "I":
+                imports.append((src, dst))
+            elif kind == "N":
+                names.append((src, dst))
+            elif kind == "L":
+                literals.append((src, dst))
+            else:
+                print("bad kind in %s: %r" % (os.path.basename(path), line))
+    # longest source first so EntityRenderer never clobbers EntityRendererFactory
+    imports.sort(key=lambda p: len(p[0]), reverse=True)
+    names.sort(key=lambda p: len(p[0]), reverse=True)
+    return imports, names, literals
 
-# longest source first so EntityRenderer never clobbers EntityRendererFactory
-imports.sort(key=lambda p: len(p[0]), reverse=True)
-names.sort(key=lambda p: len(p[0]), reverse=True)
+
+tables = []
+for mp in sorted(glob.glob(os.path.join(HERE, "mappings*.tsv"))):
+    tables.append((os.path.basename(mp), load(mp)))
+    print("loaded %s" % os.path.basename(mp))
 
 files = []
 for dirpath, dirnames, filenames in os.walk(SRC):
@@ -47,13 +55,14 @@ for path in files:
     with open(path, "r", encoding="utf-8") as fh:
         text = fh.read()
     orig = text
-    for s, d in imports:
-        text = text.replace(s, d)
-        text = text.replace(s.replace(".", "/"), d.replace(".", "/"))
-    for s, d in names:
-        text = re.sub(r"\b%s\b" % re.escape(s), d, text)
-    for s, d in literals:
-        text = text.replace(s, d)
+    for tname, (imports, names, literals) in tables:
+        for s, d in imports:
+            text = text.replace(s, d)
+            text = text.replace(s.replace(".", "/"), d.replace(".", "/"))
+        for s, d in names:
+            text = re.sub(r"\b%s\b" % re.escape(s), d, text)
+        for s, d in literals:
+            text = text.replace(s, d)
     if text != orig:
         with open(path, "w", encoding="utf-8") as fh:
             fh.write(text)
