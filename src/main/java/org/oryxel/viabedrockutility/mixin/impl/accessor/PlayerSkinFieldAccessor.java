@@ -11,7 +11,8 @@ import java.util.function.Supplier;
 
 @Mixin(PlayerInfo.class)
 public interface PlayerSkinFieldAccessor {
-    @Accessor("texturesSupplier")
+    // 1.21.11: PlayerInfo.texturesSupplier is now PlayerInfo.skinLookup.
+    @Accessor("skinLookup")
     @Mutable
     void setPlayerSkin(Supplier<PlayerSkin> playerSkin);
 }

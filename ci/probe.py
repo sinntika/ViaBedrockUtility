@@ -4,9 +4,9 @@
 Reads the actual Minecraft jar on the compile classpath and reports which
 imports resolve, which fully qualified names exist, what nested types a class
 owns, and the real member signatures of everything this port touches. Runs
-javap with -p so private members behind mixin shadows are visible too. 1.21.11
-uses deobfuscated official names that do not match the old Mojang mapping
-names, so nothing here is allowed to be a guess.
+javap with -p so private members behind mixin shadows are visible too, and
+replays every "Cannot remap" warning Mixin produced, because those are stale
+injection targets that compile fine but break at runtime.
 """
 import os
 import re
@@ -25,9 +25,10 @@ VALIDATED_PREFIXES = (
     "com.mojang.math.",
 )
 WIDTH = 300
+GRADLE_LOG = os.path.join(ROOT, "ci", "gradle.log")
 
 FQN_CHECKS = [
-    "net.minecraft.client.model.geom.ModelPart",
+    "net.minecraft.client.renderer.entity.layers.CapeLayer",
 ]
 
 NESTED_DUMPS = [
@@ -35,10 +36,11 @@ NESTED_DUMPS = [
 ]
 
 JAVAP = [
-    ("net.minecraft.client.player.AbstractClientPlayer", ["PlayerInfo", "Skin"], 10),
-    ("net.minecraft.world.entity.Entity", ["Vec3", "moveDist", "walkDist"], 16),
-    ("net.minecraft.client.model.geom.ModelPart", ["visit", "traverse", "Visitor", "getAllParts", "List"], 16),
-    ("net.minecraft.client.multiplayer.PlayerInfo", ["Supplier", "Skin", "private"], 16),
+    ("net.minecraft.client.model.geom.ModelPart", [], 45),
+    ("net.minecraft.client.renderer.entity.layers.CapeLayer", [], 16),
+    ("net.minecraft.client.multiplayer.ClientHandshakePacketListenerImpl", ["handle"], 20),
+    ("net.minecraft.client.renderer.rendertype.RenderTypes", ["entitySolid", "entityTranslucent"], 8),
+    ("net.minecraft.world.entity.Entity", ["setPos"], 6),
 ]
 
 
@@ -160,6 +162,24 @@ for spec, hint, rel in bad:
     print(spec)
     print("    -> %s" % hint)
     print("    in %s" % rel)
+
+print("")
+print("== STALE MIXIN TARGETS ==")
+if os.path.isfile(GRADLE_LOG):
+    seen = []
+    with open(GRADLE_LOG, "r", encoding="utf-8", errors="replace") as fh:
+        for line in fh:
+            text = line.strip()
+            if "Cannot remap" in text or "Cannot find" in text:
+                if text not in seen:
+                    seen.append(text)
+    if seen:
+        for text in seen:
+            print("  " + text[:WIDTH])
+    else:
+        print("  none")
+else:
+    print("  (gradle log not written yet)")
 
 print("")
 print("== FQN CHECK ==")

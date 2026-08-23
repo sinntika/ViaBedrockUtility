@@ -19,7 +19,8 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(AbstractClientPlayer.class)
 public abstract class AbstractClientPlayerMixin extends Entity {
-    @Shadow private PlayerInfo playerListEntry;
+    // 1.21.11: AbstractClientPlayer.playerListEntry is now playerInfo.
+    @Shadow private PlayerInfo playerInfo;
 
     public AbstractClientPlayerMixin(EntityType<?> type, Level world) {
         super(type, world);
@@ -33,7 +34,7 @@ public abstract class AbstractClientPlayerMixin extends Entity {
 
         Identifier cape = ViaBedrockUtility.getInstance().getPayloadHandler().getCachedPlayerCapes().get(getUUID());
         if (cape != null) {
-            PlayerSkin skin = playerListEntry == null ? DefaultPlayerSkin.get(this.getUUID()) : playerListEntry.getSkin();
+            PlayerSkin skin = playerInfo == null ? DefaultPlayerSkin.get(this.getUUID()) : playerInfo.getSkin();
             if (!cape.equals(PlayerSkinBuilder.path(skin.cape()))) {
                 cir.setReturnValue(new PlayerSkin(
                         skin.body(),

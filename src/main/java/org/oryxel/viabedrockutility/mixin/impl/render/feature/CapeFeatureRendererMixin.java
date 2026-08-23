@@ -11,10 +11,11 @@ import org.spongepowered.asm.mixin.injection.Redirect;
 
 @Mixin(CapeLayer.class)
 public class CapeFeatureRendererMixin {
+    // 1.21.11: layers submit geometry instead of rendering it directly.
     @Redirect(
-            method = "render(Lcom/mojang/blaze3d/vertex/PoseStack;Lnet/minecraft/client/renderer/MultiBufferSource;ILnet/minecraft/client/renderer/entity/state/AvatarRenderState;FF)V",
+            method = "submit(Lcom/mojang/blaze3d/vertex/PoseStack;Lnet/minecraft/client/renderer/SubmitNodeCollector;ILnet/minecraft/client/renderer/entity/state/AvatarRenderState;FF)V",
             at = @At(value = "INVOKE",
-                    target = "Lnet/minecraft/client/renderer/rendertype/RenderType;entitySolid(Lnet/minecraft/resources/Identifier;)Lnet/minecraft/client/renderer/rendertype/RenderType;"),
+                    target = "Lnet/minecraft/client/renderer/rendertype/RenderTypes;entitySolid(Lnet/minecraft/resources/Identifier;)Lnet/minecraft/client/renderer/rendertype/RenderType;"),
             require = 0 // Fail safely if other mods overwrite this
     )
     public RenderType solidToTranslucent(final Identifier texture) {
