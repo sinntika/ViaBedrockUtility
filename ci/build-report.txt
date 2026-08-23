@@ -1,156 +1,196 @@
-commit:  6ef4ec82181bece022ed9f71bcf7ed779da60591
-run_id:  32626560024
+commit:  0f285f96f878b67a3156e412d3a13e1f68402795
+run_id:  32626989364
 outcome: failure
 
-===== COMPILE ERRORS =====
-unique errors: 81
-src/main/java/org/oryxel/viabedrockutility/animation/vanilla/AnimationHelper.java:15: class KeyframeAnimations is public, should be declared in a file named KeyframeAnimations.java
-src/main/java/org/oryxel/viabedrockutility/payload/PayloadHandler.java:12: cannot find symbol
-src/main/java/org/oryxel/viabedrockutility/payload/PayloadHandler.java:15: cannot find symbol
-src/main/java/org/oryxel/viabedrockutility/payload/PayloadHandler.java:16: cannot find symbol
-src/main/java/org/oryxel/viabedrockutility/pack/definitions/EntityDefinitions.java:5: cannot find symbol
-src/main/java/org/oryxel/viabedrockutility/material/data/Material.java:18: cannot find symbol
-src/main/java/org/oryxel/viabedrockutility/material/data/Material.java:26: cannot find symbol
-src/main/java/org/oryxel/viabedrockutility/material/data/Material.java:84: cannot find symbol
-src/main/java/org/oryxel/viabedrockutility/material/data/Material.java:165: cannot find symbol
-src/main/java/org/oryxel/viabedrockutility/pack/definitions/EntityDefinitions.java:34: cannot find symbol
-src/main/java/org/oryxel/viabedrockutility/payload/BasePayload.java:8: cannot find symbol
-src/main/java/org/oryxel/viabedrockutility/payload/BasePayload.java:23: cannot find symbol
-src/main/java/org/oryxel/viabedrockutility/payload/BasePayload.java:87: cannot find symbol
-src/main/java/org/oryxel/viabedrockutility/entity/CustomEntityTicker.java:8: cannot find symbol
-src/main/java/org/oryxel/viabedrockutility/payload/PayloadHandler.java:41: cannot find symbol
-src/main/java/org/oryxel/viabedrockutility/payload/impl/skin/CapeDataPayload.java:7: cannot find symbol
-src/main/java/org/oryxel/viabedrockutility/payload/impl/skin/CapeDataPayload.java:32: cannot find symbol
-src/main/java/org/oryxel/viabedrockutility/renderer/CustomEntityRenderer.java:10: cannot find symbol
-src/main/java/org/oryxel/viabedrockutility/renderer/CustomEntityRenderer.java:86: cannot find symbol
-src/main/java/org/oryxel/viabedrockutility/renderer/CustomEntityRenderer.java:37: cannot find symbol
-src/main/java/org/oryxel/viabedrockutility/renderer/CustomEntityRenderer.java:63: cannot find symbol
-src/main/java/org/oryxel/viabedrockutility/material/data/Material.java:17: package net.minecraft.client.render does not exist
-src/main/java/org/oryxel/viabedrockutility/renderer/CustomEntityRenderer.java:4: package net.minecraft.client.render does not exist
-src/main/java/org/oryxel/viabedrockutility/pack/processor/TextureProcessor.java:6: cannot find symbol
-src/main/java/org/oryxel/viabedrockutility/mixin/impl/accessor/PlayerSkinFieldAccessor.java:4: cannot find symbol
-src/main/java/org/oryxel/viabedrockutility/mixin/impl/accessor/PlayerSkinFieldAccessor.java:15: cannot find symbol
-src/main/java/org/oryxel/viabedrockutility/mixin/impl/entity/player/AbstractClientPlayerMixin.java:6: cannot find symbol
-src/main/java/org/oryxel/viabedrockutility/mixin/impl/entity/player/AbstractClientPlayerMixin.java:9: cannot find symbol
-src/main/java/org/oryxel/viabedrockutility/mixin/impl/entity/player/AbstractClientPlayerMixin.java:10: cannot find symbol
-src/main/java/org/oryxel/viabedrockutility/mixin/impl/entity/player/AbstractClientPlayerMixin.java:22: cannot find symbol
-src/main/java/org/oryxel/viabedrockutility/mixin/impl/entity/player/AbstractClientPlayerMixin.java:27: cannot find symbol
-src/main/java/org/oryxel/viabedrockutility/mixin/impl/entity/EntityMixin.java:4: package net.minecraft.entity.decoration does not exist
-src/main/java/org/oryxel/viabedrockutility/mixin/impl/pack/ServerResourcePackLoaderMixin.java:3: package net.minecraft.client.resource.server does not exist
-src/main/java/org/oryxel/viabedrockutility/mixin/impl/pack/ServerResourcePackLoaderMixin.java:23: package ReloadScheduler does not exist
-src/main/java/org/oryxel/viabedrockutility/mixin/impl/network/ClientLoginNetworkHandlerMixin.java:5: cannot find symbol
-src/main/java/org/oryxel/viabedrockutility/mixin/impl/network/ClientLoginNetworkHandlerMixin.java:6: package net.minecraft.network.packet.c2s.common does not exist
-src/main/java/org/oryxel/viabedrockutility/mixin/impl/network/ClientLoginNetworkHandlerMixin.java:7: package net.minecraft.network.packet.s2c.login does not exist
-src/main/java/org/oryxel/viabedrockutility/mixin/impl/network/ClientLoginNetworkHandlerMixin.java:8: cannot find symbol
-src/main/java/org/oryxel/viabedrockutility/mixin/impl/network/ClientLoginNetworkHandlerMixin.java:25: cannot find symbol
-src/main/java/org/oryxel/viabedrockutility/mixin/impl/network/ClientLoginNetworkHandlerMixin.java:28: cannot find symbol
-src/main/java/org/oryxel/viabedrockutility/mixin/impl/network/ClientPlayNetworkHandlerMixin.java:6: package net.minecraft.util.hit does not exist
-src/main/java/org/oryxel/viabedrockutility/mixin/impl/network/ClientPlayNetworkHandlerMixin.java:7: package net.minecraft.util.hit does not exist
-src/main/java/org/oryxel/viabedrockutility/mixin/impl/render/feature/CapeFeatureRendererMixin.java:3: cannot find symbol
-src/main/java/org/oryxel/viabedrockutility/mixin/impl/render/feature/CapeFeatureRendererMixin.java:5: cannot find symbol
-src/main/java/org/oryxel/viabedrockutility/mixin/impl/render/feature/CapeFeatureRendererMixin.java:19: cannot find symbol
-src/main/java/org/oryxel/viabedrockutility/util/GeometryUtil.java:5: cannot find symbol
-src/main/java/org/oryxel/viabedrockutility/util/GeometryUtil.java:135: package ModelPart does not exist
-src/main/java/org/oryxel/viabedrockutility/util/GeometryUtil.java:132: cannot find symbol
-src/main/java/org/oryxel/viabedrockutility/util/PlayerSkinBuilder.java:3: cannot find symbol
-src/main/java/org/oryxel/viabedrockutility/util/PlayerSkinBuilder.java:4: cannot find symbol
-src/main/java/org/oryxel/viabedrockutility/util/PlayerSkinBuilder.java:7: cannot find symbol
-src/main/java/org/oryxel/viabedrockutility/util/PlayerSkinBuilder.java:9: cannot find symbol
-src/main/java/org/oryxel/viabedrockutility/util/PlayerSkinBuilder.java:10: cannot find symbol
-src/main/java/org/oryxel/viabedrockutility/util/PlayerSkinBuilder.java:11: package PlayerSkin does not exist
-src/main/java/org/oryxel/viabedrockutility/util/PlayerSkinBuilder.java:14: cannot find symbol
-src/main/java/org/oryxel/viabedrockutility/util/PlayerSkinBuilder.java:23: cannot find symbol
-src/main/java/org/oryxel/viabedrockutility/renderer/CustomPlayerRenderer.java:4: cannot find symbol
-src/main/java/org/oryxel/viabedrockutility/renderer/CustomPlayerRenderer.java:5: cannot find symbol
-src/main/java/org/oryxel/viabedrockutility/renderer/CustomPlayerRenderer.java:6: cannot find symbol
-src/main/java/org/oryxel/viabedrockutility/renderer/CustomPlayerRenderer.java:7: cannot find symbol
-src/main/java/org/oryxel/viabedrockutility/renderer/CustomPlayerRenderer.java:9: cannot find symbol
-src/main/java/org/oryxel/viabedrockutility/renderer/CustomPlayerRenderer.java:10: cannot find symbol
-src/main/java/org/oryxel/viabedrockutility/renderer/CustomPlayerRenderer.java:12: cannot find symbol
-src/main/java/org/oryxel/viabedrockutility/renderer/CustomPlayerRenderer.java:23: cannot find symbol
-src/main/java/org/oryxel/viabedrockutility/fabric/ViaBedrockUtilityFabric.java:16: cannot find symbol
-src/main/java/org/oryxel/viabedrockutility/payload/PayloadHandler.java:46: cannot find symbol
-src/main/java/org/oryxel/viabedrockutility/payload/PayloadHandler.java:47: cannot find symbol
-src/main/java/org/oryxel/viabedrockutility/payload/PayloadHandler.java:57: cannot find symbol
-src/main/java/org/oryxel/viabedrockutility/payload/PayloadHandler.java:68: cannot find symbol
-src/main/java/org/oryxel/viabedrockutility/payload/PayloadHandler.java:74: cannot find symbol
-src/main/java/org/oryxel/viabedrockutility/payload/PayloadHandler.java:76: cannot find symbol
-src/main/java/org/oryxel/viabedrockutility/payload/PayloadHandler.java:80: cannot find symbol
-src/main/java/org/oryxel/viabedrockutility/payload/PayloadHandler.java:84: cannot find symbol
-src/main/java/org/oryxel/viabedrockutility/payload/PayloadHandler.java:89: cannot find symbol
-src/main/java/org/oryxel/viabedrockutility/payload/PayloadHandler.java:90: cannot find symbol
-src/main/java/org/oryxel/viabedrockutility/payload/PayloadHandler.java:99: cannot find symbol
-src/main/java/org/oryxel/viabedrockutility/payload/PayloadHandler.java:105: cannot find symbol
-src/main/java/org/oryxel/viabedrockutility/payload/PayloadHandler.java:106: cannot find symbol
-src/main/java/org/oryxel/viabedrockutility/payload/PayloadHandler.java:110: cannot find symbol
-src/main/java/org/oryxel/viabedrockutility/payload/PayloadHandler.java:115: cannot find symbol
-src/main/java/org/oryxel/viabedrockutility/payload/PayloadHandler.java:122: cannot find symbol
+===== RENAME =====
+rewrote 0 files
+renamed file AnimationHelper.java -> KeyframeAnimations.java
+renamed 1 files
 
-===== WHAT WENT WRONG =====
-* What went wrong:
-Execution failed for task ':compileJava' (registered by plugin class 'org.gradle.api.plugins.JavaBasePlugin').
-> Compilation failed; see the compiler output below.
-  src/main/java/org/oryxel/viabedrockutility/payload/PayloadHandler.java:12: error: cannot find symbol
-  import net.minecraft.client.model.PlayerModel;
-                                   ^
-    symbol:   class PlayerModel
-    location: package net.minecraft.client.model
-  src/main/java/org/oryxel/viabedrockutility/payload/PayloadHandler.java:15: error: cannot find symbol
-  import net.minecraft.client.resources.PlayerSkin;
-                                       ^
-    symbol:   class PlayerSkin
-    location: package net.minecraft.client.resources
-  src/main/java/org/oryxel/viabedrockutility/payload/PayloadHandler.java:16: error: cannot find symbol
-  import net.minecraft.resources.ResourceLocation;
-                                ^
-    symbol:   class ResourceLocation
-    location: package net.minecraft.resources
-  src/main/java/org/oryxel/viabedrockutility/pack/definitions/EntityDefinitions.java:5: error: cannot find symbol
-  import net.minecraft.resources.ResourceLocation;
-                                ^
-    symbol:   class ResourceLocation
-    location: package net.minecraft.resources
-  src/main/java/org/oryxel/viabedrockutility/material/data/Material.java:18: error: cannot find symbol
-  import net.minecraft.resources.ResourceLocation;
-                                ^
-    symbol:   class ResourceLocation
-    location: package net.minecraft.resources
-  src/main/java/org/oryxel/viabedrockutility/material/data/Material.java:26: error: cannot find symbol
-  import static net.minecraft.client.renderer.RenderStateShard.*;
-                                             ^
-    symbol:   class RenderStateShard
-    location: package net.minecraft.client.renderer
-  src/main/java/org/oryxel/viabedrockutility/material/data/Material.java:84: error: cannot find symbol
-          private Function<ResourceLocation, RenderType> function;
-                           ^
-    symbol:   class ResourceLocation
-    location: class MaterialInfo
-  src/main/java/org/oryxel/viabedrockutility/material/data/Material.java:84: error: cannot find symbol
-          private Function<ResourceLocation, RenderType> function;
+===== COMPILE ERRORS =====
+unique errors: 65
+payload/PayloadHandler.java:12: cannot find symbol
+payload/PayloadHandler.java:15: cannot find symbol
+payload/PayloadHandler.java:16: cannot find symbol
+pack/definitions/EntityDefinitions.java:5: cannot find symbol
+material/data/Material.java:18: cannot find symbol
+material/data/Material.java:26: cannot find symbol
+material/data/Material.java:84: cannot find symbol
+material/data/Material.java:165: cannot find symbol
+material/data/Material.java:75: cannot find symbol
+pack/definitions/EntityDefinitions.java:34: cannot find symbol
+payload/BasePayload.java:8: cannot find symbol
+payload/BasePayload.java:23: cannot find symbol
+payload/BasePayload.java:87: cannot find symbol
+entity/CustomEntityTicker.java:8: cannot find symbol
+payload/PayloadHandler.java:41: cannot find symbol
+payload/impl/skin/CapeDataPayload.java:7: cannot find symbol
+payload/impl/skin/CapeDataPayload.java:32: cannot find symbol
+payload/impl/skin/CapeDataPayload.java:13: cannot find symbol
+renderer/CustomEntityRenderer.java:10: cannot find symbol
+renderer/CustomEntityRenderer.java:86: cannot find symbol
+renderer/CustomEntityRenderer.java:37: cannot find symbol
+renderer/CustomEntityRenderer.java:63: cannot find symbol
+material/data/Material.java:17: package net.minecraft.client.render does not exist
+renderer/CustomEntityRenderer.java:4: package net.minecraft.client.render does not exist
+pack/processor/TextureProcessor.java:6: cannot find symbol
+mixin/impl/accessor/PlayerSkinFieldAccessor.java:4: cannot find symbol
+mixin/impl/accessor/PlayerSkinFieldAccessor.java:15: cannot find symbol
+mixin/impl/entity/player/AbstractClientPlayerMixin.java:6: cannot find symbol
+mixin/impl/entity/player/AbstractClientPlayerMixin.java:9: cannot find symbol
+mixin/impl/entity/player/AbstractClientPlayerMixin.java:10: cannot find symbol
+mixin/impl/entity/player/AbstractClientPlayerMixin.java:22: cannot find symbol
+mixin/impl/entity/player/AbstractClientPlayerMixin.java:27: cannot find symbol
+mixin/impl/entity/EntityMixin.java:4: package net.minecraft.entity.decoration does not exist
+mixin/impl/pack/ServerResourcePackLoaderMixin.java:3: package net.minecraft.client.resource.server does not exist
+mixin/impl/pack/ServerResourcePackLoaderMixin.java:23: package ReloadScheduler does not exist
+mixin/impl/network/ClientLoginNetworkHandlerMixin.java:5: cannot find symbol
+mixin/impl/network/ClientLoginNetworkHandlerMixin.java:6: package net.minecraft.network.packet.c2s.common does not exist
+mixin/impl/network/ClientLoginNetworkHandlerMixin.java:7: package net.minecraft.network.packet.s2c.login does not exist
+mixin/impl/network/ClientLoginNetworkHandlerMixin.java:8: cannot find symbol
+mixin/impl/network/ClientLoginNetworkHandlerMixin.java:25: cannot find symbol
+mixin/impl/network/ClientLoginNetworkHandlerMixin.java:28: cannot find symbol
+mixin/impl/network/ClientPlayNetworkHandlerMixin.java:6: package net.minecraft.util.hit does not exist
+mixin/impl/network/ClientPlayNetworkHandlerMixin.java:7: package net.minecraft.util.hit does not exist
+mixin/impl/render/feature/CapeFeatureRendererMixin.java:3: cannot find symbol
+mixin/impl/render/feature/CapeFeatureRendererMixin.java:5: cannot find symbol
+mixin/impl/render/feature/CapeFeatureRendererMixin.java:19: cannot find symbol
+util/GeometryUtil.java:5: cannot find symbol
+util/GeometryUtil.java:135: package ModelPart does not exist
+util/GeometryUtil.java:132: cannot find symbol
+util/PlayerSkinBuilder.java:3: cannot find symbol
+util/PlayerSkinBuilder.java:4: cannot find symbol
+util/PlayerSkinBuilder.java:7: cannot find symbol
+util/PlayerSkinBuilder.java:9: cannot find symbol
+util/PlayerSkinBuilder.java:10: cannot find symbol
+util/PlayerSkinBuilder.java:11: package PlayerSkin does not exist
+util/PlayerSkinBuilder.java:14: cannot find symbol
+util/PlayerSkinBuilder.java:23: cannot find symbol
+renderer/CustomPlayerRenderer.java:4: cannot find symbol
+renderer/CustomPlayerRenderer.java:5: cannot find symbol
+renderer/CustomPlayerRenderer.java:6: cannot find symbol
+renderer/CustomPlayerRenderer.java:7: cannot find symbol
+renderer/CustomPlayerRenderer.java:9: cannot find symbol
+renderer/CustomPlayerRenderer.java:10: cannot find symbol
+renderer/CustomPlayerRenderer.java:12: cannot find symbol
+renderer/CustomPlayerRenderer.java:23: cannot find symbol
+
+===== CLASSPATH PROBE =====
+== JARS ==
+   6357 classes    32MB /home/runner/work/ViaBedrockUtility/ViaBedrockUtility/.gradle/loom-cache/minecraftMaven/net/minecraft/minecraft-merged-560387b4cf/1.21.11-loom.mappings.1_21_11.layered+hash.2198-v2/minecraft-merged-560387b4cf-1.21.11-loom.mappings.1_21_11.layered+hash.2198-v2.jar
+   6357 classes    32MB /home/runner/.gradle/caches/fabric-loom/minecraftMaven/net/minecraft/minecraft-merged/1.21.11-loom.mappings.1_21_11.layered+hash.2198-v2/minecraft-merged-1.21.11-loom.mappings.1_21_11.layered+hash.2198-v2.jar
+   6592 classes    30MB /home/runner/.gradle/caches/fabric-loom/minecraftMaven/net/minecraft/minecraft-merged-intermediary/1.21.11-loom.mappings.1_21_11.layered+hash.2198-v2/minecraft-merged-intermediary-1.21.11-loom.mappings.1_21_11.layered+hash.2198-v2.jar
+
+== NAME LOOKUP ==
+ResourceLocation                   MISSING
+Minecraft                          net/minecraft/client/Minecraft
+PlayerModel                        net/minecraft/client/model/player/PlayerModel
+PlayerSkin                         net/minecraft/world/entity/player/PlayerSkin
+RenderStateShard                   MISSING
+RenderType                         net/minecraft/client/renderer/rendertype/RenderType
+RenderPipelines                    net/minecraft/client/renderer/RenderPipelines
+PoseStack                          MISSING
+MultiBufferSource                  net/minecraft/client/renderer/MultiBufferSource
+VertexConsumer                     MISSING
+ModelPart                          net/minecraft/client/model/geom/ModelPart
+CubeDeformation                    net/minecraft/client/model/geom/builders/CubeDeformation
+MeshDefinition                     net/minecraft/client/model/geom/builders/MeshDefinition
+CubeListBuilder                    net/minecraft/client/model/geom/builders/CubeListBuilder
+PartDefinition                     net/minecraft/client/model/geom/builders/PartDefinition
+PartPose                           net/minecraft/client/model/geom/PartPose
+LayerDefinition                    net/minecraft/client/model/geom/builders/LayerDefinition
+EntityModel                        net/minecraft/client/model/EntityModel
+EntityRenderer                     net/minecraft/client/renderer/entity/EntityRenderer
+EntityRendererProvider             net/minecraft/client/renderer/entity/EntityRendererProvider
+EntityRenderDispatcher             net/minecraft/client/renderer/entity/EntityRenderDispatcher
+LivingEntityRenderer               net/minecraft/client/renderer/entity/LivingEntityRenderer
+PlayerRenderer                     MISSING
+CapeLayer                          net/minecraft/client/renderer/entity/layers/CapeLayer
+EntityRenderState                  net/minecraft/client/renderer/entity/state/EntityRenderState
+LivingEntityRenderState            net/minecraft/client/renderer/entity/state/LivingEntityRenderState
+PlayerRenderState                  MISSING
+ClientLevel                        net/minecraft/client/multiplayer/ClientLevel
+LocalPlayer                        net/minecraft/client/player/LocalPlayer
+AbstractClientPlayer               net/minecraft/client/player/AbstractClientPlayer
+ClientPacketListener               net/minecraft/client/multiplayer/ClientPacketListener
+ClientHandshakePacketListenerImpl  net/minecraft/client/multiplayer/ClientHandshakePacketListenerImpl
+PlayerInfo                         net/minecraft/client/multiplayer/PlayerInfo
+FriendlyByteBuf                    net/minecraft/network/FriendlyByteBuf
+StreamCodec                        net/minecraft/network/codec/StreamCodec
+StreamDecoder                      net/minecraft/network/codec/StreamDecoder
+StreamEncoder                      net/minecraft/network/codec/StreamEncoder
+CustomPacketPayload                net/minecraft/network/protocol/common/custom/CustomPacketPayload
+Commands                           net/minecraft/commands/Commands
+Vec3                               net/minecraft/world/phys/Vec3
+Mth                                net/minecraft/util/Mth
+BlockPos                           net/minecraft/core/BlockPos
+Direction                          net/minecraft/core/Direction
+Vec3i                              net/minecraft/core/Vec3i
+Axis                               MISSING
+LightTexture                       net/minecraft/client/renderer/LightTexture
+DeltaTracker                       net/minecraft/client/DeltaTracker
+OverlayTexture                     net/minecraft/client/renderer/texture/OverlayTexture
+Frustum                            net/minecraft/client/renderer/culling/Frustum
+NativeImage                        MISSING
+DynamicTexture                     net/minecraft/client/renderer/texture/DynamicTexture
+TextureManager                     net/minecraft/client/renderer/texture/TextureManager
+AbstractTexture                    net/minecraft/client/renderer/texture/AbstractTexture
+DefaultPlayerSkin                  net/minecraft/client/resources/DefaultPlayerSkin
+LevelEntityGetter                  net/minecraft/world/level/entity/LevelEntityGetter
+Entity                             net/minecraft/world/entity/Entity
+EntityType                         net/minecraft/world/entity/EntityType
+LivingEntity                       net/minecraft/world/entity/LivingEntity
+Player                             net/minecraft/world/entity/player/Player
+Screen                             net/minecraft/client/gui/screens/Screen
+EquipmentAssetManager              net/minecraft/client/resources/model/EquipmentAssetManager
+EquipmentClientInfo                net/minecraft/client/resources/model/EquipmentClientInfo
+EquipmentLayerRenderer             net/minecraft/client/renderer/entity/layers/EquipmentLayerRenderer
+KeyframeAnimations                 net/minecraft/client/animation/KeyframeAnimations
+AnimationDefinition                net/minecraft/client/animation/AnimationDefinition
+Keyframe                           net/minecraft/client/animation/Keyframe  net/minecraft/util/Keyframe
+AnimationChannel                   net/minecraft/client/animation/AnimationChannel
+DownloadedPackSource               net/minecraft/client/resources/server/DownloadedPackSource
+ResourceManager                    net/minecraft/server/packs/resources/ResourceManager
+PackResources                      net/minecraft/server/packs/PackResources
+PackType                           net/minecraft/server/packs/PackType
+Pack                               net/minecraft/server/packs/repository/Pack
+Util                               net/minecraft/util/Util
+BlockHitResult                     net/minecraft/world/phys/BlockHitResult
+EntityHitResult                    net/minecraft/world/phys/EntityHitResult
+Display                            net/minecraft/world/entity/Display
+Identifier                         net/minecraft/resources/Identifier
+MinecraftClient                    MISSING
+
+== PACKAGE DUMPS ==
+-- net/minecraft/resources (11) --
+  DelegatingOps DependantName FileToIdConverter HolderSetCodec Identifier RegistryDataLoader RegistryFileCodec RegistryFixedCodec RegistryOps ResourceKey package-info
+
+-- net/minecraft/client (36) --
+  AttackIndicatorStatus Camera CameraType ClientBootstrap ClientBrandRetriever ClientRecipeBook CloudStatus CommandHistory ComponentCollector DebugQueryHandler DeltaTracker GameNarrator GraphicsPreset GuiMessage GuiMessageTag HotbarManager InactivityFpsLimit InputType KeyMapping KeyboardHandler Minecraft MouseHandler MusicToastDisplayState NarratorStatus OptionInstance Options PeriodicNotificationManager PrioritizeChunkUpdates ResourceLoadStateTracker Screenshot ScrollWheelHandler StringSplitter TextureFilteringMethod ToggleKeyMapping User package-info
+
+-- net/minecraft/client/model (11) --
+  AdultAndBabyModelPair AnimationUtils ArmedModel BabyModelTransform EntityModel HeadedModel HumanoidModel Model QuadrupedModel VillagerLikeModel package-info
+
+-- net/minecraft/client/renderer (56) --
+  BiomeColors CachedOrthoProjectionMatrixBuffer CachedPerspectiveProjectionMatrixBuffer CloudRenderer CubeMap DynamicUniformStorage DynamicUniforms EndFlashState FaceInfo GameRenderer GlobalSettingsUniform GpuWarnlistManager ItemBlockRenderTypes ItemInHandRenderer LevelEventHandler LevelRenderer LevelTargetBundle LightTexture MapRenderer MappableRingBuffer MaterialMapper MultiBufferSource Octree OrderedSubmitNodeCollector OutlineBufferSource PanoramaRenderer PanoramicScreenshotParameters PerspectiveProjectionMatrixBuffer PlayerSkinRenderCache PostChain PostChainConfig PostPass Rect2i RenderBuffers RenderPipelines RunningTrimmedMean ScreenEffectRenderer SectionBufferBuilderPack SectionBufferBuilderPool SectionOcclusionGraph ShaderDefines ShaderManager ShapeRenderer Sheets SkyRenderer SpecialBlockModelRenderer SpriteCoordinateExpander SubmitNodeCollection SubmitNodeCollector SubmitNodeStorage UniformValue ViewArea VirtualScreen WeatherEffectRenderer WorldBorderRenderer package-info
+
+-- net/minecraft/client/resources (13) --
+  ClientPackSource DefaultPlayerSkin DryFoliageColorReloadListener FoliageColorReloadListener GrassColorReloadListener IndexedAssetSource LegacyStuffWrapper MapTextureManager SkinManager SplashManager WaypointStyle WaypointStyleManager package-info
+
 
 ===== TAIL =====
-	at org.gradle.internal.execution.steps.MutableStep.execute(MutableStep.java:26)
-	at org.gradle.internal.execution.steps.HandleStaleOutputsStep.executeMutable(HandleStaleOutputsStep.java:77)
-	at org.gradle.internal.execution.steps.HandleStaleOutputsStep.executeMutable(HandleStaleOutputsStep.java:43)
-	at org.gradle.internal.execution.steps.MutableStep.execute(MutableStep.java:26)
-	at org.gradle.internal.execution.steps.AssignMutableWorkspaceStep.lambda$executeMutable$0(AssignMutableWorkspaceStep.java:34)
-	at org.gradle.api.internal.tasks.execution.TaskExecution$4.withWorkspace(TaskExecution.java:305)
-	at org.gradle.internal.execution.steps.AssignMutableWorkspaceStep.executeMutable(AssignMutableWorkspaceStep.java:30)
-	at org.gradle.internal.execution.steps.AssignMutableWorkspaceStep.executeMutable(AssignMutableWorkspaceStep.java:21)
-	at org.gradle.internal.execution.steps.MutableStep.execute(MutableStep.java:26)
-	at org.gradle.internal.execution.steps.ChoosePipelineStep.execute(ChoosePipelineStep.java:40)
-	at org.gradle.internal.execution.steps.ChoosePipelineStep.execute(ChoosePipelineStep.java:23)
-	at org.gradle.internal.execution.steps.ExecuteWorkBuildOperationFiringStep.lambda$execute$2(ExecuteWorkBuildOperationFiringStep.java:67)
-	at org.gradle.internal.execution.steps.ExecuteWorkBuildOperationFiringStep.execute(ExecuteWorkBuildOperationFiringStep.java:67)
-	at org.gradle.internal.execution.steps.ExecuteWorkBuildOperationFiringStep.execute(ExecuteWorkBuildOperationFiringStep.java:39)
-	at org.gradle.internal.execution.steps.IdentityCacheStep.execute(IdentityCacheStep.java:46)
-	at org.gradle.internal.execution.steps.IdentityCacheStep.execute(IdentityCacheStep.java:34)
-	at org.gradle.internal.execution.steps.IdentifyStep.execute(IdentifyStep.java:56)
-	at org.gradle.internal.execution.steps.IdentifyStep.execute(IdentifyStep.java:38)
-	at org.gradle.internal.execution.impl.DefaultExecutionEngine$1.execute(DefaultExecutionEngine.java:68)
-	at org.gradle.api.internal.tasks.execution.ExecuteActionsTaskExecuter.executeIfValid(ExecuteActionsTaskExecuter.java:132)
-	... 61 more
+    public ResourceLocation getTexture(PlayerRenderState playerEntityRenderState) {
+                                       ^
+  symbol:   class PlayerRenderState
+  location: class CustomPlayerRenderer
+/home/runner/work/ViaBedrockUtility/ViaBedrockUtility/src/main/java/org/oryxel/viabedrockutility/renderer/CustomPlayerRenderer.java:23: error: cannot find symbol
+    public ResourceLocation getTexture(PlayerRenderState playerEntityRenderState) {
+           ^
+  symbol:   class ResourceLocation
+  location: class CustomPlayerRenderer
+74 errors
+	... 30 more
 
 
-BUILD FAILED in 1m 16s
+BUILD FAILED in 1m 10s
 5 actionable tasks: 5 executed
