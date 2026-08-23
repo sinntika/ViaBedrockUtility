@@ -1,5 +1,5 @@
-commit:  9edc4ea1cc7209e85e5c9fcbabfab68bb08d8998
-run_id:  32631578527
+commit:  7e460b9e2ec80d1a6640ec0e963a941027bf6f56
+run_id:  32631934554
 outcome: success
 
 ===== RENAME =====
@@ -11,7 +11,7 @@ loaded mappings5.tsv
 loaded mappings6.tsv
 loaded mappings7.tsv
 loaded mappings8.tsv
-rewrote 0 files
+rewrote 1 files
 renamed 0 files
 
 ===== COMPILE ERRORS =====
@@ -23,71 +23,109 @@ unique errors: 0
 
 == BAD IMPORTS (0) ==
 
+== STALE MIXIN TARGETS ==
+  Cannot remap modifiers because it does not exist in any of the targets [] or their parents.
+  Cannot remap toProfiles because it does not exist in any of the targets [net/minecraft/client/resources/server/DownloadedPackSource]
+  Cannot remap sendChatMessage because it does not exist in any of the targets [net/minecraft/client/multiplayer/ClientPacketListener]
+
 == FQN CHECK ==
-net.minecraft.client.model.geom.ModelPart    OK
+net.minecraft.client.renderer.entity.layers.CapeLayer    OK
 
 == NESTED TYPES ==
 -- net.minecraft.client.model.geom.ModelPart (4) --
   Cube Polygon Vertex Visitor
 
 == REAL SIGNATURES ==
--- net.minecraft.client.player.AbstractClientPlayer --
-   private net.minecraft.client.multiplayer.PlayerInfo playerInfo;
-   protected net.minecraft.client.multiplayer.PlayerInfo getPlayerInfo();
-   public net.minecraft.world.entity.player.PlayerSkin getSkin();
--- net.minecraft.world.entity.Entity --
-   private net.minecraft.world.phys.Vec3 position;
-   private net.minecraft.world.phys.Vec3 deltaMovement;
-   protected net.minecraft.world.phys.Vec3 stuckSpeedMultiplier;
-   public float moveDist;
-   private net.minecraft.world.phys.Vec3 lastKnownSpeed;
-   private net.minecraft.world.phys.Vec3 lastKnownPosition;
-   public final void setPos(net.minecraft.world.phys.Vec3);
-   protected net.minecraft.world.phys.AABB makeBoundingBox(net.minecraft.world.phys.Vec3);
-   public void setOnGroundWithMovement(boolean, net.minecraft.world.phys.Vec3);
-   public void setOnGroundWithMovement(boolean, boolean, net.minecraft.world.phys.Vec3);
-   protected void checkSupportingBlock(boolean, net.minecraft.world.phys.Vec3);
-   public void move(net.minecraft.world.entity.MoverType, net.minecraft.world.phys.Vec3);
-   private void applyMovementEmissionAndPlaySound(net.minecraft.world.entity.Entity$MovementEmission, net.minecraft.world.phys.Vec3, net.minecraft.core.BlockPos, net.minecraft.world.level.block.state.BlockState);
-   public void applyEffectsFromBlocks(net.minecraft.world.phys.Vec3, net.minecraft.world.phys.Vec3);
-   private boolean vibrationAndSoundEffectsFromBlock(net.minecraft.core.BlockPos, net.minecraft.world.level.block.state.BlockState, boolean, boolean, net.minecraft.world.phys.Vec3);
-   protected boolean isHorizontalCollisionMinor(net.minecraft.world.phys.Vec3);
-   ... (truncated)
 -- net.minecraft.client.model.geom.ModelPart --
+   Compiled from "ModelPart.java"
+   public final class net.minecraft.client.model.geom.ModelPart {
+   public static final float DEFAULT_SCALE;
+   public float x;
+   public float y;
+   public float z;
+   public float xRot;
+   public float yRot;
+   public float zRot;
+   public float xScale;
+   public float yScale;
+   public float zScale;
+   public boolean visible;
+   public boolean skipDraw;
    private final java.util.List<net.minecraft.client.model.geom.ModelPart$Cube> cubes;
+   private final java.util.Map<java.lang.String, net.minecraft.client.model.geom.ModelPart> children;
+   private net.minecraft.client.model.geom.PartPose initialPose;
    public net.minecraft.client.model.geom.ModelPart(java.util.List<net.minecraft.client.model.geom.ModelPart$Cube>, java.util.Map<java.lang.String, net.minecraft.client.model.geom.ModelPart>);
+   public net.minecraft.client.model.geom.PartPose storePose();
+   public net.minecraft.client.model.geom.PartPose getInitialPose();
+   public void setInitialPose(net.minecraft.client.model.geom.PartPose);
+   public void resetPose();
+   public void loadPose(net.minecraft.client.model.geom.PartPose);
+   public boolean hasChild(java.lang.String);
+   public net.minecraft.client.model.geom.ModelPart getChild(java.lang.String);
+   public void setPos(float, float, float);
+   public void setRotation(float, float, float);
+   public void render(com.mojang.blaze3d.vertex.PoseStack, com.mojang.blaze3d.vertex.VertexConsumer, int, int);
+   public void render(com.mojang.blaze3d.vertex.PoseStack, com.mojang.blaze3d.vertex.VertexConsumer, int, int, int);
+   public void rotateBy(org.joml.Quaternionf);
+   public void getExtentsForGui(com.mojang.blaze3d.vertex.PoseStack, java.util.function.Consumer<org.joml.Vector3fc>);
    public void visit(com.mojang.blaze3d.vertex.PoseStack, net.minecraft.client.model.geom.ModelPart$Visitor);
    private void visit(com.mojang.blaze3d.vertex.PoseStack, net.minecraft.client.model.geom.ModelPart$Visitor, java.lang.String);
+   public void translateAndRotate(com.mojang.blaze3d.vertex.PoseStack);
+   private void compile(com.mojang.blaze3d.vertex.PoseStack$Pose, com.mojang.blaze3d.vertex.VertexConsumer, int, int, int);
+   public net.minecraft.client.model.geom.ModelPart$Cube getRandomCube(net.minecraft.util.RandomSource);
+   public boolean isEmpty();
+   public void offsetPos(org.joml.Vector3f);
+   public void offsetRotation(org.joml.Vector3f);
+   public void offsetScale(org.joml.Vector3f);
    public java.util.List<net.minecraft.client.model.geom.ModelPart> getAllParts();
+   public java.util.function.Function<java.lang.String, net.minecraft.client.model.geom.ModelPart> createPartLookup();
+   private void addAllChildren(java.util.function.BiConsumer<java.lang.String, net.minecraft.client.model.geom.ModelPart>);
    private static void method_72013(java.util.List, java.lang.String, net.minecraft.client.model.geom.ModelPart);
    private static void method_35747(com.mojang.blaze3d.vertex.PoseStack, net.minecraft.client.model.geom.ModelPart$Visitor, java.lang.String, java.lang.String, net.minecraft.client.model.geom.ModelPart);
--- net.minecraft.client.multiplayer.PlayerInfo --
-   private final com.mojang.authlib.GameProfile profile;
-   private java.util.function.Supplier<net.minecraft.world.entity.player.PlayerSkin> skinLookup;
-   private net.minecraft.world.level.GameType gameMode;
-   private int latency;
-   private net.minecraft.network.chat.Component tabListDisplayName;
-   private boolean showHat;
-   private net.minecraft.network.chat.RemoteChatSession chatSession;
-   private net.minecraft.network.chat.SignedMessageValidator messageValidator;
-   private int tabListOrder;
-   private static java.util.function.Supplier<net.minecraft.world.entity.player.PlayerSkin> createSkinLookup(com.mojang.authlib.GameProfile);
-   private static net.minecraft.network.chat.SignedMessageValidator fallbackMessageValidator(boolean);
-   public net.minecraft.world.entity.player.PlayerSkin getSkin();
+   ... (truncated)
+-- net.minecraft.client.renderer.entity.layers.CapeLayer --
+   Compiled from "CapeLayer.java"
+   public class net.minecraft.client.renderer.entity.layers.CapeLayer extends net.minecraft.client.renderer.entity.layers.RenderLayer<net.minecraft.client.renderer.entity.state.AvatarRenderState, net.minecraft.client.model.player.PlayerModel> {
+   private final net.minecraft.client.model.HumanoidModel<net.minecraft.client.renderer.entity.state.AvatarRenderState> model;
+   private final net.minecraft.client.resources.model.EquipmentAssetManager equipmentAssets;
+   public net.minecraft.client.renderer.entity.layers.CapeLayer(net.minecraft.client.renderer.entity.RenderLayerParent<net.minecraft.client.renderer.entity.state.AvatarRenderState, net.minecraft.client.model.player.PlayerModel>, net.minecraft.client.model.geom.EntityModelSet, net.minecraft.client.resou
+   private boolean hasLayer(net.minecraft.world.item.ItemStack, net.minecraft.client.resources.model.EquipmentClientInfo$LayerType);
+   public void submit(com.mojang.blaze3d.vertex.PoseStack, net.minecraft.client.renderer.SubmitNodeCollector, int, net.minecraft.client.renderer.entity.state.AvatarRenderState, float, float);
+   public void submit(com.mojang.blaze3d.vertex.PoseStack, net.minecraft.client.renderer.SubmitNodeCollector, int, net.minecraft.client.renderer.entity.state.EntityRenderState, float, float);
+   }
+-- net.minecraft.client.multiplayer.ClientHandshakePacketListenerImpl --
+   public void handleHello(net.minecraft.network.protocol.login.ClientboundHelloPacket);
+   public void handleLoginFinished(net.minecraft.network.protocol.login.ClientboundLoginFinishedPacket);
+   public void handleDisconnect(net.minecraft.network.protocol.login.ClientboundLoginDisconnectPacket);
+   public void handleCompression(net.minecraft.network.protocol.login.ClientboundLoginCompressionPacket);
+   public void handleCustomQuery(net.minecraft.network.protocol.login.ClientboundCustomQueryPacket);
+   public void handleRequestCookie(net.minecraft.network.protocol.cookie.ClientboundCookieRequestPacket);
+-- net.minecraft.client.renderer.rendertype.RenderTypes --
+   public static net.minecraft.client.renderer.rendertype.RenderType entitySolid(net.minecraft.resources.Identifier);
+   public static net.minecraft.client.renderer.rendertype.RenderType entitySolidZOffsetForward(net.minecraft.resources.Identifier);
+   public static net.minecraft.client.renderer.rendertype.RenderType entityTranslucent(net.minecraft.resources.Identifier, boolean);
+   public static net.minecraft.client.renderer.rendertype.RenderType entityTranslucent(net.minecraft.resources.Identifier);
+   public static net.minecraft.client.renderer.rendertype.RenderType entityTranslucentEmissive(net.minecraft.resources.Identifier, boolean);
+   public static net.minecraft.client.renderer.rendertype.RenderType entityTranslucentEmissive(net.minecraft.resources.Identifier);
+-- net.minecraft.world.entity.Entity --
+   public void setPose(net.minecraft.world.entity.Pose);
+   public final void setPos(net.minecraft.world.phys.Vec3);
+   public void setPos(double, double, double);
+   public final void setPosRaw(double, double, double);
 
 ===== TAIL =====
-Cannot remap render(Lcom/mojang/blaze3d/vertex/PoseStack;Lnet/minecraft/client/renderer/MultiBufferSource;ILnet/minecraft/client/renderer/entity/state/AvatarRenderState;FF)V because it does not exist in any of the targets [net/minecraft/client/renderer/entity/layers/CapeLayer]
-Cannot remap texturesSupplier because it does not exist in any of the targets [net/minecraft/client/multiplayer/PlayerInfo] or their parents.
-Cannot remap applyTransform because it does not exist in any of the targets [net/minecraft/client/model/geom/ModelPart]
-Cannot remap onSuccess because it does not exist in any of the targets [net/minecraft/client/multiplayer/ClientHandshakePacketListenerImpl]
-
+> Task :testClasses
+> Task :test
+Cannot remap toProfiles because it does not exist in any of the targets [net/minecraft/client/resources/server/DownloadedPackSource]
+Cannot remap sendChatMessage because it does not exist in any of the targets [net/minecraft/client/multiplayer/ClientPacketListener]
 > Task :validateAccessWidener
 > Task :check
+> Task :remapJar
 > Task :remapSourcesJar SKIPPED
 > Task :assemble
 > Task :build
 
 [Incubating] Problems report is available at: file:///home/runner/work/ViaBedrockUtility/ViaBedrockUtility/build/reports/problems/problems-report.html
 
-BUILD SUCCESSFUL in 1m 26s
+BUILD SUCCESSFUL in 1m 29s
 12 actionable tasks: 12 executed
