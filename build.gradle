@@ -36,6 +36,15 @@ repositories {
 			includeGroup "com.github.Oryxel1"
 		}
 	}
+
+	maven {
+		name = "ViaVersion"
+		url = "https://repo.viaversion.com"
+
+		content {
+			includeGroup "com.viaversion"
+		}
+	}
 }
 
 dependencies {
@@ -50,6 +59,14 @@ dependencies {
 	// against anything else turns API drift into runtime NoSuchMethodError, which is
 	// exactly how GsonUtil.getGson() blew up on 26.2.
 	lib("com.github.Oryxel1:CubeConverter:abecffaaea") {
+		transitive = false
+	}
+
+	// Compile only, never shaded. CubeConverter's json entry points are typed
+	// against the gson ViaVersion relocates into its own package, and javac has to
+	// resolve every overload of a method that gets called, even the ones this mod
+	// never picks. ViaFabricPlus ships the real copy at runtime.
+	compileOnly("com.viaversion:viaversion-common:5.12.0-SNAPSHOT") {
 		transitive = false
 	}
 
