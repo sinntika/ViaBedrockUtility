@@ -1,0 +1,87 @@
+# Build workflow used while porting to newer Minecraft versions.
+# It never hides failures in the Actions log: a condensed report is written to
+# ci/build-report.txt and committed back to the branch so the compile errors
+# can be reviewed directly from the repository.
+
+name: port-build
+on:
+  push:
+    branches:
+      - 'port/**'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: port-build-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-24.04
+    steps:
+      - name: checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: setup jdk
+        uses: actions/setup-java@v4
+        with:
+          java-version: '21'
+          distribution: 'microsoft'
+
+      - name: setup gradle
+        uses: gradle/actions/setup-gradle@v4
+
+      - name: make gradle wrapper executable
+        run: chmod +x ./gradlew
+
+      - name: build
+        id: build
+        continue-on-error: true
+        run: |
+          set -o pipefail
+          ./gradlew build --stacktrace 2>&1 | tee /tmp/build.log
+
+      - name: write build report
+        if: always()
+        env:
+          BUILD_OUTCOME: ${{ steps.build.outcome }}
+        run: |
+          mkdir -p ci
+          touch /tmp/build.log
+          {
+            echo "commit:  ${GITHUB_SHA}"
+            echo "run_id:  ${GITHUB_RUN_ID}"
+            echo "outcome: ${BUILD_OUTCOME}"
+            echo "errors:  $(grep -c 'error:' /tmp/build.log || true)"
+            echo
+            echo "===== ERROR SUMMARY ====="
+            grep -E "error:|symbol:|location:|required:|found:|reason:" /tmp/build.log | sed "s|${GITHUB_WORKSPACE}/||g" | head -n 600 || true
+            echo
+            echo "===== WHAT WENT WRONG ====="
+            sed -n '/What went wrong/,/^\* Try:/p' /tmp/build.log | sed "s|${GITHUB_WORKSPACE}/||g" | head -n 120 || true
+            echo
+            echo "===== TAIL ====="
+            tail -n 120 /tmp/build.log | sed "s|${GITHUB_WORKSPACE}/||g"
+          } > ci/build-report.txt
+
+      - name: commit build report
+        if: always()
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -f ci/build-report.txt
+          if git diff --cached --quiet; then
+            echo "report unchanged"
+            exit 0
+          fi
+          git commit -m "ci: build report [skip ci]"
+          git pull --rebase --autostash origin "${GITHUB_REF_NAME}" || true
+          git push origin "HEAD:${GITHUB_REF_NAME}"
+
+      - name: fail if build failed
+        if: steps.build.outcome != 'success'
+        run: exit 1
