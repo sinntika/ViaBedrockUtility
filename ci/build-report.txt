@@ -1,5 +1,5 @@
-commit:  8a2e5a54d7ebcaba2a0981597373a74cee3661b2
-run_id:  32642115449
+commit:  3c4bf0ecc2ee98445c21edcc1c93f34ca5c471f4
+run_id:  32642508428
 outcome: failure
 
 ===== RENAME =====
@@ -15,11 +15,9 @@ rewrote 0 files
 renamed 0 files
 
 ===== COMPILE ERRORS =====
-unique errors: 9
+unique errors: 8
 payload/PayloadHandler.java:154: cannot access JsonObject
       src: geometries = BedrockGeometryModel.fromJson(object);
-pack/content/Content.java:134: cannot access Gson
-      src: return GsonUtil.getGson().fromJson(string.trim(), JsonObject.class);
 util/GeometryUtil.java:69: cannot find symbol   [symbol: method getMap() | location: variable uvMap of type UVMap]
       src: if (uvMap.getMap().containsKey(org.cube.converter.util.element.Direction.values()[direction.ordinal()])) {
 util/GeometryUtil.java:172: cannot find symbol   [symbol: method getMap() | location: variable map of type UVMap]
@@ -40,54 +38,298 @@ util/GeometryUtil.java:197: cannot find symbol   [symbol: method getMap() | loca
 resolved in cache: 1.18.46
 
 == DIFF VS MASTER ==
-  origin/master (8369667) ... HEAD (8a2e5a5)
-  52 files changed, 1513 insertions(+), 398 deletions(-)
+  origin/master (8369667) ... HEAD (3c4bf0e)
+  53 files changed, 1581 insertions(+), 404 deletions(-)
   -- deleted or renamed (1) --
      R083	src/main/java/org/oryxel/viabedrockutility/animation/vanilla/AnimationHelper.java	src/main/java/org/oryxel/viabedrockutility/animation/vanilla/KeyframeAnimations.java
-  -- shipped sources touched (35) --
-     M	src/main/java/org/oryxel/viabedrockutility/ViaBedrockUtility.java
-     M	src/main/java/org/oryxel/viabedrockutility/animation/animator/Animator.java
-     M	src/main/java/org/oryxel/viabedrockutility/animation/vanilla/AnimateTransformation.java
-     R083	src/main/java/org/oryxel/viabedrockutility/animation/vanilla/AnimationHelper.java	src/main/java/org/oryxel/viabedrockutility/animation/vanilla/KeyframeAnimations.java
-     M	src/main/java/org/oryxel/viabedrockutility/entity/CustomEntityTicker.java
-     M	src/main/java/org/oryxel/viabedrockutility/fabric/ViaBedrockUtilityFabric.java
-     M	src/main/java/org/oryxel/viabedrockutility/mappings/BedrockMappings.java
-     M	src/main/java/org/oryxel/viabedrockutility/material/data/Material.java
-     M	src/main/java/org/oryxel/viabedrockutility/mixin/impl/MinecraftClientMixin.java
-     M	src/main/java/org/oryxel/viabedrockutility/mixin/impl/accessor/PlayerSkinFieldAccessor.java
-     M	src/main/java/org/oryxel/viabedrockutility/mixin/impl/entity/EntityMixin.java
-     M	src/main/java/org/oryxel/viabedrockutility/mixin/impl/entity/player/AbstractClientPlayerMixin.java
-     M	src/main/java/org/oryxel/viabedrockutility/mixin/impl/network/ClientLoginNetworkHandlerMixin.java
-     M	src/main/java/org/oryxel/viabedrockutility/mixin/impl/network/ClientPlayNetworkHandlerMixin.java
-     M	src/main/java/org/oryxel/viabedrockutility/mixin/impl/pack/ServerResourcePackLoaderMixin.java
-     M	src/main/java/org/oryxel/viabedrockutility/mixin/impl/render/ModelPartMixin.java
-     M	src/main/java/org/oryxel/viabedrockutility/mixin/impl/render/dispatcher/EntityRenderDispatcherMixin.java
-     M	src/main/java/org/oryxel/viabedrockutility/mixin/impl/render/feature/CapeFeatureRendererMixin.java
-     M	src/main/java/org/oryxel/viabedrockutility/mixin/impl/world/ClientWorldMixin.java
-     M	src/main/java/org/oryxel/viabedrockutility/pack/definitions/EntityDefinitions.java
-     M	src/main/java/org/oryxel/viabedrockutility/pack/processor/TextureProcessor.java
-     M	src/main/java/org/oryxel/viabedrockutility/payload/BasePayload.java
-     M	src/main/java/org/oryxel/viabedrockutility/payload/PayloadHandler.java
-     M	src/main/java/org/oryxel/viabedrockutility/payload/impl/skin/BaseSkinPayload.java
-     M	src/main/java/org/oryxel/viabedrockutility/payload/impl/skin/CapeDataPayload.java
-     M	src/main/java/org/oryxel/viabedrockutility/payload/impl/skin/SkinDataPayload.java
-     M	src/main/java/org/oryxel/viabedrockutility/renderer/CustomEntityRenderer.java
-     M	src/main/java/org/oryxel/viabedrockutility/renderer/CustomPlayerRenderer.java
-     M	src/main/java/org/oryxel/viabedrockutility/renderer/model/CustomEntityModel.java
-     M	src/main/java/org/oryxel/viabedrockutility/util/GeometryUtil.java
-     M	src/main/java/org/oryxel/viabedrockutility/util/ImageUtil.java
-     M	src/main/java/org/oryxel/viabedrockutility/util/PlayerSkinBuilder.java
-     M	src/main/resources/fabric.mod.json
-     M	src/main/resources/viabedrockutility.accesswidener
-     M	src/main/resources/viabedrockutility.mixins.json
 
 == LIB JARS ==
   CubeConverter-abecffaaea.jar                             36 classes
   mocha-3.0.1.jar                                          93 classes
 
-== LIB IMPORTS (20) ==
+== LIB IMPORTS (19) ==
 
-== LIB SIGNATURES ==
+== LIB DUMP (36 classes) ==
+-- org.cube.converter.converter.FormatConverter --
+   Compiled from "FormatConverter.java"
+   public class org.cube.converter.converter.FormatConverter {
+   public org.cube.converter.converter.FormatConverter();
+   public static java.util.List<org.cube.converter.model.impl.java.JavaItemModel> geometryToMultiItemModel(java.lang.String, org.cube.converter.model.impl.bedrock.BedrockGeometryModel);
+   public static org.cube.converter.model.impl.java.JavaItemModel geometryToItemModel(java.lang.String, org.cube.converter.model.impl.bedrock.BedrockGeometryModel, org.cube.converter.converter.enums.RotationType);
+   public static org.cube.converter.model.impl.java.JavaItemModel geometryToItemModel(java.util.Map<org.cube.converter.util.element.Direction, java.lang.String>, org.cube.converter.model.impl.bedrock.BedrockGeometryModel, org.cube.converter.converter.enums.RotationType);
+   private static void scale(org.cube.converter.model.impl.java.JavaItemModel, float);
+   private static void scale(org.cube.converter.model.element.Cube, float);
+   private static void calculateMinMax(org.cube.converter.model.element.Cube, org.cube.converter.util.element.Position3V, org.cube.converter.util.element.Position3V);
+   private static float calculateMinSize(org.cube.converter.util.element.Position3V, org.cube.converter.util.element.Position3V);
+   public static void convertTo1Axis(org.cube.converter.model.element.Cube);
+   }
+-- org.cube.converter.converter.enums.RotationType --
+   Compiled from "RotationType.java"
+   public final class org.cube.converter.converter.enums.RotationType extends java.lang.Enum<org.cube.converter.converter.enums.RotationType> {
+   public static final org.cube.converter.converter.enums.RotationType PRE_1_21_6;
+   public static final org.cube.converter.converter.enums.RotationType HACKY_PRE_1_21_6;
+   public static final org.cube.converter.converter.enums.RotationType POST_1_21_6;
+   public static final org.cube.converter.converter.enums.RotationType HACKY_POST_1_21_6;
+   public static final org.cube.converter.converter.enums.RotationType POST_1_21_11;
+   private static final org.cube.converter.converter.enums.RotationType[] $VALUES;
+   public static org.cube.converter.converter.enums.RotationType[] values();
+   public static org.cube.converter.converter.enums.RotationType valueOf(java.lang.String);
+   private org.cube.converter.converter.enums.RotationType();
+   private static org.cube.converter.converter.enums.RotationType[] $values();
+   static {};
+   }
+-- org.cube.converter.data.bedrock.BedrockAttachableData --
+   Compiled from "BedrockAttachableData.java"
+   public class org.cube.converter.data.bedrock.BedrockAttachableData extends org.cube.converter.data.bedrock.BedrockEntityData {
+   public org.cube.converter.data.bedrock.BedrockAttachableData(java.lang.String, org.cube.converter.data.bedrock.BedrockEntityData$Scripts, java.util.List<org.cube.converter.data.bedrock.BedrockEntityData$RenderController>, java.util.Map<java.lang.String, java.lang.String>, java.util.Map<java.lang.String, java.lang.String>, java.util.Map<java.lang.String, java.lang.String>, java.util.Map<java.lang.String, java.lang.String>);
+   }
+-- org.cube.converter.data.bedrock.BedrockEntityData --
+   Compiled from "BedrockEntityData.java"
+   public class org.cube.converter.data.bedrock.BedrockEntityData {
+   private final java.lang.String identifier;
+   private final org.cube.converter.data.bedrock.BedrockEntityData$Scripts scripts;
+   private final java.util.List<org.cube.converter.data.bedrock.BedrockEntityData$RenderController> controllers;
+   private final java.util.Map<java.lang.String, java.lang.String> materials;
+   private final java.util.Map<java.lang.String, java.lang.String> animations;
+   private final java.util.Map<java.lang.String, java.lang.String> textures;
+   private final java.util.Map<java.lang.String, java.lang.String> geometries;
+   public org.cube.converter.data.bedrock.BedrockEntityData(java.lang.String, org.cube.converter.data.bedrock.BedrockEntityData$Scripts, java.util.List<org.cube.converter.data.bedrock.BedrockEntityData$RenderController>, java.util.Map<java.lang.String, java.lang.String>, java.util.Map<java.lang.String, java.lang.String>, java.util.Map<java.lang.String, java.lang.String>, java.util.Map<java.lang.String, java.lang.String>);
+   public java.lang.String toString();
+   public java.lang.String getIdentifier();
+   public org.cube.converter.data.bedrock.BedrockEntityData$Scripts getScripts();
+   public java.util.List<org.cube.converter.data.bedrock.BedrockEntityData$RenderController> getControllers();
+   public java.util.Map<java.lang.String, java.lang.String> getMaterials();
+   public java.util.Map<java.lang.String, java.lang.String> getAnimations();
+   public java.util.Map<java.lang.String, java.lang.String> getTextures();
+   public java.util.Map<java.lang.String, java.lang.String> getGeometries();
+   }
+-- org.cube.converter.data.bedrock.BedrockEntityData$RenderController --
+   Compiled from "BedrockEntityData.java"
+   public final class org.cube.converter.data.bedrock.BedrockEntityData$RenderController extends java.lang.Record {
+   private final java.lang.String identifier;
+   private final java.lang.String condition;
+   public org.cube.converter.data.bedrock.BedrockEntityData$RenderController(java.lang.String, java.lang.String);
+   public static java.util.List<org.cube.converter.data.bedrock.BedrockEntityData$RenderController> parse(com.viaversion.viaversion.libs.gson.JsonArray);
+   public final java.lang.String toString();
+   public final int hashCode();
+   public final boolean equals(java.lang.Object);
+   public java.lang.String identifier();
+   public java.lang.String condition();
+   }
+-- org.cube.converter.data.bedrock.BedrockEntityData$Scripts --
+   Compiled from "BedrockEntityData.java"
+   public final class org.cube.converter.data.bedrock.BedrockEntityData$Scripts extends java.lang.Record {
+   private final java.util.List<java.lang.String> initialize;
+   private final java.util.List<java.lang.String> pre_animation;
+   private final org.cube.converter.data.bedrock.BedrockEntityData$Scripts$Scale scale;
+   private final java.util.List<org.cube.converter.data.bedrock.BedrockEntityData$Scripts$Animate> animates;
+   public org.cube.converter.data.bedrock.BedrockEntityData$Scripts(java.util.List<java.lang.String>, java.util.List<java.lang.String>, org.cube.converter.data.bedrock.BedrockEntityData$Scripts$Scale, java.util.List<org.cube.converter.data.bedrock.BedrockEntityData$Scripts$Animate>);
+   public static org.cube.converter.data.bedrock.BedrockEntityData$Scripts parse(com.viaversion.viaversion.libs.gson.JsonObject);
+   public static org.cube.converter.data.bedrock.BedrockEntityData$Scripts emptyScript();
+   public final java.lang.String toString();
+   public final int hashCode();
+   public final boolean equals(java.lang.Object);
+   public java.util.List<java.lang.String> initialize();
+   public java.util.List<java.lang.String> pre_animation();
+   public org.cube.converter.data.bedrock.BedrockEntityData$Scripts$Scale scale();
+   public java.util.List<org.cube.converter.data.bedrock.BedrockEntityData$Scripts$Animate> animates();
+   }
+-- org.cube.converter.data.bedrock.BedrockEntityData$Scripts$Animate --
+   Compiled from "BedrockEntityData.java"
+   public final class org.cube.converter.data.bedrock.BedrockEntityData$Scripts$Animate extends java.lang.Record {
+   private final java.lang.String name;
+   private final java.lang.String expression;
+   public org.cube.converter.data.bedrock.BedrockEntityData$Scripts$Animate(java.lang.String, java.lang.String);
+   private static java.util.List<org.cube.converter.data.bedrock.BedrockEntityData$Scripts$Animate> parse(com.viaversion.viaversion.libs.gson.JsonArray);
+   public final java.lang.String toString();
+   public final int hashCode();
+   public final boolean equals(java.lang.Object);
+   public java.lang.String name();
+   public java.lang.String expression();
+   }
+-- org.cube.converter.data.bedrock.BedrockEntityData$Scripts$Scale --
+   Compiled from "BedrockEntityData.java"
+   public final class org.cube.converter.data.bedrock.BedrockEntityData$Scripts$Scale extends java.lang.Record {
+   private final java.lang.String scale;
+   private final java.lang.String scaleX;
+   private final java.lang.String scaleY;
+   private final java.lang.String scaleZ;
+   public org.cube.converter.data.bedrock.BedrockEntityData$Scripts$Scale(java.lang.String, java.lang.String, java.lang.String, java.lang.String);
+   public final java.lang.String toString();
+   public final int hashCode();
+   public final boolean equals(java.lang.Object);
+   public java.lang.String scale();
+   public java.lang.String scaleX();
+   public java.lang.String scaleY();
+   public java.lang.String scaleZ();
+   }
+-- org.cube.converter.data.bedrock.controller.BedrockRenderController --
+   Compiled from "BedrockRenderController.java"
+   public final class org.cube.converter.data.bedrock.controller.BedrockRenderController extends java.lang.Record {
+   private final java.lang.String identifier;
+   private final java.util.Map<java.lang.String, java.lang.String> materialsMap;
+   private final java.lang.String geometryExpression;
+   private final java.util.List<java.lang.String> textureExpressions;
+   private final java.util.List<org.cube.converter.data.bedrock.controller.BedrockRenderController$Array> materials;
+   private final java.util.List<org.cube.converter.data.bedrock.controller.BedrockRenderController$Array> textures;
+   private final java.util.List<org.cube.converter.data.bedrock.controller.BedrockRenderController$Array> geometries;
+   public org.cube.converter.data.bedrock.controller.BedrockRenderController(java.lang.String, java.util.Map<java.lang.String, java.lang.String>, java.lang.String, java.util.List<java.lang.String>, java.util.List<org.cube.converter.data.bedrock.controller.BedrockRenderController$Array>, java.util.List<org.cube.converter.data.bedrock.controller.BedrockRenderController$Array>, java.util.List<org.cube.converter.data.bedrock.controller.BedrockRenderController$Array>);
+   public final java.lang.String toString();
+   public final int hashCode();
+   public final boolean equals(java.lang.Object);
+   public java.lang.String identifier();
+   public java.util.Map<java.lang.String, java.lang.String> materialsMap();
+   public java.lang.String geometryExpression();
+   public java.util.List<java.lang.String> textureExpressions();
+   public java.util.List<org.cube.converter.data.bedrock.controller.BedrockRenderController$Array> materials();
+   public java.util.List<org.cube.converter.data.bedrock.controller.BedrockRenderController$Array> textures();
+   public java.util.List<org.cube.converter.data.bedrock.controller.BedrockRenderController$Array> geometries();
+   }
+-- org.cube.converter.data.bedrock.controller.BedrockRenderController$Array --
+   Compiled from "BedrockRenderController.java"
+   public final class org.cube.converter.data.bedrock.controller.BedrockRenderController$Array extends java.lang.Record {
+   private final java.lang.String name;
+   private final java.util.List<java.lang.String> values;
+   public org.cube.converter.data.bedrock.controller.BedrockRenderController$Array(java.lang.String, java.util.List<java.lang.String>);
+   public static java.util.List<org.cube.converter.data.bedrock.controller.BedrockRenderController$Array> parse(com.viaversion.viaversion.libs.gson.JsonObject);
+   public final java.lang.String toString();
+   public final int hashCode();
+   public final boolean equals(java.lang.Object);
+   public java.lang.String name();
+   public java.util.List<java.lang.String> values();
+   }
+-- org.cube.converter.model.GeneralModel --
+   Compiled from "GeneralModel.java"
+   public abstract class org.cube.converter.model.GeneralModel {
+   protected final java.util.List<org.cube.converter.model.element.Parent> parents;
+   protected final org.cube.converter.util.element.Position2V textureSize;
+   public abstract com.viaversion.viaversion.libs.gson.JsonObject compile();
+   public org.cube.converter.model.GeneralModel(org.cube.converter.util.element.Position2V);
+   public java.util.List<org.cube.converter.model.element.Parent> getParents();
+   public org.cube.converter.util.element.Position2V getTextureSize();
+   }
+-- org.cube.converter.model.element.Cube --
+   Compiled from "Cube.java"
+   public final class org.cube.converter.model.element.Cube {
+   private java.lang.String parent;
+   private float inflate;
+   private final org.cube.converter.util.element.Position3V pivot;
+   private final org.cube.converter.util.element.Position3V position;
+   private final org.cube.converter.util.element.Position3V size;
+   private final org.cube.converter.util.element.Position3V rotation;
+   private final boolean mirror;
+   private final org.cube.converter.util.element.UVMap uvMap;
+   public void inflate();
+   public void clampToJavaLimitedAngle(boolean);
+   public java.lang.String getAxis();
+   public int getAxisIndex();
+   public boolean isThereOneAngleOnly();
+   public org.cube.converter.model.element.Cube clone();
+   public org.cube.converter.model.element.Cube(org.cube.converter.util.element.Position3V, org.cube.converter.util.element.Position3V, org.cube.converter.util.element.Position3V, org.cube.converter.util.element.Position3V, boolean, org.cube.converter.util.element.UVMap);
+   public java.lang.String getParent();
+   public float getInflate();
+   public org.cube.converter.util.element.Position3V getPivot();
+   public org.cube.converter.util.element.Position3V getPosition();
+   public org.cube.converter.util.element.Position3V getSize();
+   public org.cube.converter.util.element.Position3V getRotation();
+   public boolean isMirror();
+   public org.cube.converter.util.element.UVMap getUvMap();
+   public void setParent(java.lang.String);
+   public void setInflate(float);
+   public java.lang.Object clone() throws java.lang.CloneNotSupportedException;
+   }
+-- org.cube.converter.model.element.Parent --
+   Compiled from "Parent.java"
+   public class org.cube.converter.model.element.Parent {
+   private java.lang.String parent;
+   private final java.lang.String name;
+   private final org.cube.converter.util.element.Position3V pivot;
+   private final org.cube.converter.util.element.Position3V rotation;
+   private final java.util.Map<java.lang.Integer, org.cube.converter.model.element.Cube> cubes;
+   public org.cube.converter.model.element.Parent clone();
+   public org.cube.converter.model.element.Parent(java.lang.String, org.cube.converter.util.element.Position3V, org.cube.converter.util.element.Position3V);
+   public java.lang.String getParent();
+   public java.lang.String getName();
+   public org.cube.converter.util.element.Position3V getPivot();
+   public org.cube.converter.util.element.Position3V getRotation();
+   public java.util.Map<java.lang.Integer, org.cube.converter.model.element.Cube> getCubes();
+   public void setParent(java.lang.String);
+   public java.lang.Object clone() throws java.lang.CloneNotSupportedException;
+   }
+-- org.cube.converter.model.impl.bedrock.BedrockGeometryModel --
+   Compiled from "BedrockGeometryModel.java"
+   public final class org.cube.converter.model.impl.bedrock.BedrockGeometryModel extends org.cube.converter.model.GeneralModel {
+   private final java.lang.String identifier;
+   public org.cube.converter.model.impl.bedrock.BedrockGeometryModel(java.lang.String, org.cube.converter.util.element.Position2V);
+   public com.viaversion.viaversion.libs.gson.JsonObject compile();
+   public org.cube.converter.model.impl.java.JavaItemModel toJavaItemModel(java.util.Map<org.cube.converter.util.element.Direction, java.lang.String>, org.cube.converter.converter.enums.RotationType);
+   public org.cube.converter.model.impl.java.JavaItemModel toJavaItemModel(java.lang.String, org.cube.converter.converter.enums.RotationType);
+   public java.util.List<org.cube.converter.model.impl.java.JavaItemModel> toJavaMultiItemModel(java.lang.String);
+   public static java.util.List<org.cube.converter.model.impl.bedrock.BedrockGeometryModel> fromJson(java.lang.String);
+   public static java.util.List<org.cube.converter.model.impl.bedrock.BedrockGeometryModel> fromJson(com.viaversion.viaversion.libs.gson.JsonObject);
+   public java.lang.String getIdentifier();
+   }
+-- org.cube.converter.model.impl.java.JavaItemModel --
+   Compiled from "JavaItemModel.java"
+   public final class org.cube.converter.model.impl.java.JavaItemModel extends org.cube.converter.model.GeneralModel {
+   private org.cube.converter.util.minecraft.Transformation defaultTransformation;
+   private final java.util.Map<org.cube.converter.util.element.Direction, java.lang.String> textures;
+   private float scale;
+   public org.cube.converter.model.impl.java.JavaItemModel(java.util.Map<org.cube.converter.util.element.Direction, java.lang.String>, org.cube.converter.util.element.Position2V);
+   public org.cube.converter.model.impl.java.JavaItemModel(java.lang.String, org.cube.converter.util.element.Position2V);
+   public org.cube.converter.model.impl.java.JavaItemModel(java.lang.String, org.cube.converter.util.element.Position2V, org.cube.converter.util.minecraft.Transformation);
+   public com.viaversion.viaversion.libs.gson.JsonObject compile();
+   private com.viaversion.viaversion.libs.gson.JsonObject compileRotation(org.cube.converter.model.element.Cube);
+   private com.viaversion.viaversion.libs.gson.JsonObject compileAxis(org.cube.converter.model.element.Cube);
+   private com.viaversion.viaversion.libs.gson.JsonObject compileUV(float, float, org.cube.converter.model.element.Cube);
+   public static org.cube.converter.model.impl.java.JavaItemModel fromJson(com.viaversion.viaversion.libs.gson.JsonObject);
+   public org.cube.converter.util.minecraft.Transformation getDefaultTransformation();
+   public java.util.Map<org.cube.converter.util.element.Direction, java.lang.String> getTextures();
+   public float getScale();
+   public void setDefaultTransformation(org.cube.converter.util.minecraft.Transformation);
+   public void setScale(float);
+   private static void lambda$compile$0(com.viaversion.viaversion.libs.gson.JsonArray, java.lang.Integer, org.cube.converter.model.element.Cube);
+   }
+-- org.cube.converter.parser.bedrock.controller.BedrockControllerParser --
+   Compiled from "BedrockControllerParser.java"
+   public class org.cube.converter.parser.bedrock.controller.BedrockControllerParser {
+   public org.cube.converter.parser.bedrock.controller.BedrockControllerParser();
+   public static java.util.List<org.cube.converter.data.bedrock.controller.BedrockRenderController> parse(java.lang.String);
+   public static java.util.List<org.cube.converter.data.bedrock.controller.BedrockRenderController> parse(com.viaversion.viaversion.libs.gson.JsonObject);
+   private static java.util.List<java.lang.String> arrayToList(com.viaversion.viaversion.libs.gson.JsonArray);
+   }
+-- org.cube.converter.parser.bedrock.data.BedrockDataParser --
+   Compiled from "BedrockDataParser.java"
+   public class org.cube.converter.parser.bedrock.data.BedrockDataParser {
+   public static org.cube.converter.data.bedrock.BedrockEntityData parseEntity(java.lang.String);
+   public static org.cube.converter.data.bedrock.BedrockAttachableData parseAttachable(java.lang.String);
+   private static org.cube.converter.data.bedrock.BedrockAttachableData parseAttachable(com.viaversion.viaversion.libs.gson.JsonObject);
+   private static org.cube.converter.data.bedrock.BedrockEntityData parseEntity(com.viaversion.viaversion.libs.gson.JsonObject);
+   private static org.cube.converter.data.bedrock.BedrockEntityData parse(com.viaversion.viaversion.libs.gson.JsonObject, java.lang.String, boolean);
+   public org.cube.converter.parser.bedrock.data.BedrockDataParser();
+   }
+-- org.cube.converter.parser.bedrock.data.impl.BedrockAttachableParser --
+   Compiled from "BedrockAttachableParser.java"
+   public class org.cube.converter.parser.bedrock.data.impl.BedrockAttachableParser {
+   public org.cube.converter.parser.bedrock.data.impl.BedrockAttachableParser();
+   public static org.cube.converter.data.bedrock.BedrockAttachableData parse(java.lang.String);
+   public static org.cube.converter.data.bedrock.BedrockAttachableData parse(com.viaversion.viaversion.libs.gson.JsonObject);
+   }
+-- org.cube.converter.parser.bedrock.data.impl.BedrockEntityParser --
+   Compiled from "BedrockEntityParser.java"
+   public class org.cube.converter.parser.bedrock.data.impl.BedrockEntityParser {
+   public org.cube.converter.parser.bedrock.data.impl.BedrockEntityParser();
+   public static org.cube.converter.data.bedrock.BedrockEntityData parse(java.lang.String);
+   public static org.cube.converter.data.bedrock.BedrockEntityData parse(com.viaversion.viaversion.libs.gson.JsonObject);
+   }
+-- org.cube.converter.parser.bedrock.geometry.BedrockGeometryParser --
+   Compiled from "BedrockGeometryParser.java"
+   public class org.cube.converter.parser.bedrock.geometry.BedrockGeometryParser {
+   public org.cube.converter.parser.bedrock.geometry.BedrockGeometryParser();
+   public static java.util.List<org.cube.converter.model.impl.bedrock.BedrockGeometryModel> parse(java.lang.String);
+   public static java.util.List<org.cube.converter.model.impl.bedrock.BedrockGeometryModel> parse(com.viaversion.viaversion.libs.gson.JsonObject);
+   private static org.cube.converter.model.impl.bedrock.BedrockGeometryModel getGeometry(com.viaversion.viaversion.libs.gson.JsonObject, java.lang.String, java.lang.String, java.lang.String);
+   }
 -- org.cube.converter.util.GsonUtil --
    Compiled from "GsonUtil.java"
    public final class org.cube.converter.util.GsonUtil {
@@ -98,6 +340,249 @@ resolved in cache: 1.18.46
    public static java.lang.String getOrDefault(com.viaversion.viaversion.libs.gson.JsonElement, java.lang.String);
    public static com.viaversion.viaversion.libs.gson.Gson getGson();
    static {};
+   }
+-- org.cube.converter.util.Triple --
+   Compiled from "Triple.java"
+   public final class org.cube.converter.util.Triple<A, B, C> extends java.lang.Record {
+   private final A left;
+   private final B middle;
+   private final C right;
+   public org.cube.converter.util.Triple(A, B, C);
+   public final java.lang.String toString();
+   public final int hashCode();
+   public final boolean equals(java.lang.Object);
+   public A left();
+   public B middle();
+   public C right();
+   }
+-- org.cube.converter.util.element.Direction --
+   Compiled from "Direction.java"
+   public final class org.cube.converter.util.element.Direction extends java.lang.Enum<org.cube.converter.util.element.Direction> {
+   public static final org.cube.converter.util.element.Direction DOWN;
+   public static final org.cube.converter.util.element.Direction UP;
+   public static final org.cube.converter.util.element.Direction NORTH;
+   public static final org.cube.converter.util.element.Direction SOUTH;
+   public static final org.cube.converter.util.element.Direction WEST;
+   public static final org.cube.converter.util.element.Direction EAST;
+   private static final org.cube.converter.util.element.Direction[] $VALUES;
+   public static org.cube.converter.util.element.Direction[] values();
+   public static org.cube.converter.util.element.Direction valueOf(java.lang.String);
+   private org.cube.converter.util.element.Direction();
+   private static org.cube.converter.util.element.Direction[] $values();
+   static {};
+   }
+-- org.cube.converter.util.element.Position2V --
+   Compiled from "Position2V.java"
+   public class org.cube.converter.util.element.Position2V {
+   private float x;
+   private float y;
+   public final org.cube.converter.util.element.Position2V add(org.cube.converter.util.element.Position2V);
+   public final org.cube.converter.util.element.Position2V add(float, float);
+   public org.cube.converter.util.element.Position2V clone();
+   public final com.viaversion.viaversion.libs.gson.JsonArray toJson();
+   public org.cube.converter.util.element.Position2V(float, float);
+   public float getX();
+   public float getY();
+   public void setX(float);
+   public void setY(float);
+   public java.lang.Object clone() throws java.lang.CloneNotSupportedException;
+   }
+-- org.cube.converter.util.element.Position3V --
+   Compiled from "Position3V.java"
+   public final class org.cube.converter.util.element.Position3V {
+   private float x;
+   private float y;
+   private float z;
+   public org.cube.converter.util.element.Position3V(com.viaversion.viaversion.libs.gson.JsonArray);
+   public org.cube.converter.util.element.Position3V(float[]);
+   public static org.cube.converter.util.element.Position3V zero();
+   public static org.cube.converter.util.element.Position3V fromOrigin(com.viaversion.viaversion.libs.gson.JsonArray, com.viaversion.viaversion.libs.gson.JsonArray);
+   public org.cube.converter.util.element.Position3V getJavaOverlap();
+   public void scale(float);
+   public org.cube.converter.util.element.Position3V multiply(float, float, float);
+   public void set(org.cube.converter.util.element.Position3V);
+   public void set(float, float, float);
+   public org.cube.converter.util.element.Position3V add(org.cube.converter.util.element.Position3V);
+   public org.cube.converter.util.element.Position3V add(float, float, float);
+   public org.cube.converter.util.element.Position3V subtract(org.cube.converter.util.element.Position3V);
+   public org.cube.converter.util.element.Position3V subtract(float, float, float);
+   public org.cube.converter.util.element.Position3V asJavaPosition(org.cube.converter.util.element.Position3V);
+   public org.cube.converter.util.element.Position3V asBedrockPosition(org.cube.converter.util.element.Position3V);
+   public org.cube.converter.util.element.Position3V withJavaOffset();
+   public boolean isZero();
+   public float[] toArray();
+   public org.cube.converter.util.element.Position3V clone();
+   public com.viaversion.viaversion.libs.gson.JsonArray toJson();
+   public org.cube.converter.util.element.Position3V(float, float, float);
+   public java.lang.String toString();
+   public float getX();
+   public float getY();
+   public float getZ();
+   ... (truncated)
+-- org.cube.converter.util.element.UVMap --
+   Compiled from "UVMap.java"
+   public final class org.cube.converter.util.element.UVMap {
+   private final org.cube.converter.util.element.UVMap$UVType uvType;
+   private final java.util.Map<org.cube.converter.util.element.Direction, java.lang.Float[]> uvMap;
+   private final java.util.Map<org.cube.converter.util.element.Direction, java.lang.Float> uvRotation;
+   private org.cube.converter.util.element.UVMap(org.cube.converter.util.element.UVMap$UVType);
+   public void rotate(org.cube.converter.util.element.Direction, int);
+   public org.cube.converter.util.element.UVMap toJavaPerfaceUV(float, float);
+   public static org.cube.converter.util.element.UVMap fromBoxUV(org.cube.converter.util.element.Position3V, java.lang.Float[], boolean);
+   public static org.cube.converter.util.element.UVMap fromPerfaceUV(com.viaversion.viaversion.libs.gson.JsonObject);
+   private static void putIfExist(org.cube.converter.util.element.Direction, com.viaversion.viaversion.libs.gson.JsonObject, java.util.Map<org.cube.converter.util.element.Direction, java.lang.Float[]>);
+   private static java.lang.Float[] getUVDirection(com.viaversion.viaversion.libs.gson.JsonObject);
+   public org.cube.converter.util.element.UVMap clone();
+   public org.cube.converter.util.element.UVMap$UVType getUvType();
+   public java.util.Map<org.cube.converter.util.element.Direction, java.lang.Float[]> getUvMap();
+   public java.util.Map<org.cube.converter.util.element.Direction, java.lang.Float> getUvRotation();
+   public java.lang.Object clone() throws java.lang.CloneNotSupportedException;
+   }
+-- org.cube.converter.util.element.UVMap$UVType --
+   Compiled from "UVMap.java"
+   public final class org.cube.converter.util.element.UVMap$UVType extends java.lang.Enum<org.cube.converter.util.element.UVMap$UVType> {
+   public static final org.cube.converter.util.element.UVMap$UVType PERFACE;
+   public static final org.cube.converter.util.element.UVMap$UVType BOX;
+   private static final org.cube.converter.util.element.UVMap$UVType[] $VALUES;
+   public static org.cube.converter.util.element.UVMap$UVType[] values();
+   public static org.cube.converter.util.element.UVMap$UVType valueOf(java.lang.String);
+   private org.cube.converter.util.element.UVMap$UVType();
+   private static org.cube.converter.util.element.UVMap$UVType[] $values();
+   static {};
+   }
+-- org.cube.converter.util.legacy.ArrayUtil --
+   Compiled from "ArrayUtil.java"
+   public class org.cube.converter.util.legacy.ArrayUtil {
+   private org.cube.converter.util.legacy.ArrayUtil();
+   public static float[] build(float, float);
+   public static float[] compileAngle(float[]);
+   public static float[] clone(float[]);
+   public static float[] cloneW2Index(float[]);
+   public static float[] size(float[], float[]);
+   public static float[] sizeAbs(float[], float[]);
+   public static float[] toArray(com.viaversion.viaversion.libs.gson.JsonArray);
+   public static float[] javaOffsetArray(float[]);
+   public static float[] add(float[], float[]);
+   public static float[] minus(float[], float[]);
+   public static boolean isAllEmpty(float[]);
+   public static boolean isOneNotEmpty(float[]);
+   public static float[] getFrom(float[], float[]);
+   public static float[] getOverlap(float[]);
+   }
+-- org.cube.converter.util.legacy.RotationUtil --
+   Compiled from "RotationUtil.java"
+   public class org.cube.converter.util.legacy.RotationUtil {
+   public org.cube.converter.util.legacy.RotationUtil();
+   public static void rotateBy90r180DegreesIfPossible(org.cube.converter.model.element.Cube);
+   public static void priorityBestAngle(org.cube.converter.model.element.Cube, boolean);
+   public static void doHackyRotationIfPossible(org.cube.converter.model.element.Cube, boolean);
+   public static void roll(org.cube.converter.model.element.Cube, float, int);
+   private static void roll(org.cube.converter.model.element.Cube, int, int, float[]);
+   private static void rotateCoord(float[], int, float[]);
+   }
+-- org.cube.converter.util.math.MathUtil --
+   Compiled from "MathUtil.java"
+   public class org.cube.converter.util.math.MathUtil {
+   private org.cube.converter.util.math.MathUtil();
+   public static boolean isValidRotation(org.cube.converter.util.element.Position3V);
+   public static boolean isValidJavaAngle(float, boolean);
+   public static float limitAngle(float, boolean);
+   public static float toHackyAngle(float);
+   public static boolean canDoHacky(float, boolean);
+   public static float clamp(float, float, float);
+   public static boolean closeEnoughAbs(float, float);
+   }
+-- org.cube.converter.util.math.Pair --
+   Compiled from "Pair.java"
+   public final class org.cube.converter.util.math.Pair<A, B> extends java.lang.Record {
+   private final A left;
+   private final B right;
+   public org.cube.converter.util.math.Pair(A, B);
+   public final java.lang.String toString();
+   public final int hashCode();
+   public final boolean equals(java.lang.Object);
+   public A left();
+   public B right();
+   }
+-- org.cube.converter.util.math.matrix.GivensPair --
+   Compiled from "GivensPair.java"
+   public final class org.cube.converter.util.math.matrix.GivensPair extends java.lang.Record {
+   private final float sinHalf;
+   private final float cosHalf;
+   public org.cube.converter.util.math.matrix.GivensPair(float, float);
+   public static org.cube.converter.util.math.matrix.GivensPair normalize(float, float);
+   public static org.cube.converter.util.math.matrix.GivensPair fromAngle(float);
+   public org.cube.converter.util.math.matrix.GivensPair negateSin();
+   public org.joml.Quaternionf setXRotation(org.joml.Quaternionf);
+   public org.joml.Quaternionf setYRotation(org.joml.Quaternionf);
+   public org.joml.Quaternionf setZRotation(org.joml.Quaternionf);
+   public float cosFloat();
+   public float sinFloat();
+   public org.joml.Matrix3f setRotationX(org.joml.Matrix3f);
+   public org.joml.Matrix3f setRotationY(org.joml.Matrix3f);
+   public org.joml.Matrix3f setRotationZ(org.joml.Matrix3f);
+   public final java.lang.String toString();
+   public final int hashCode();
+   public final boolean equals(java.lang.Object);
+   public float sinHalf();
+   public float cosHalf();
+   }
+-- org.cube.converter.util.math.matrix.MatrixUtil --
+   Compiled from "MatrixUtil.java"
+   public class org.cube.converter.util.math.matrix.MatrixUtil {
+   private static final float DEGREE_TO_RADS;
+   private static final float COT_PI_OVER_8;
+   private static final org.cube.converter.util.math.matrix.GivensPair SIN_COS_PI_OVER_8;
+   private org.cube.converter.util.math.matrix.MatrixUtil();
+   public static org.cube.converter.util.minecraft.Transformation toTransform(java.util.List<org.cube.converter.util.math.Pair<org.cube.converter.util.element.Position3V, org.cube.converter.util.element.Position3V>>, org.cube.converter.model.element.Cube);
+   public static org.cube.converter.util.minecraft.Transformation fromMatrix(org.joml.Matrix4f);
+   public static org.joml.Matrix4f scale(org.joml.Matrix4f, float);
+   private static org.joml.Quaternionf toQuaternion(org.cube.converter.util.element.Position3V);
+   private static org.cube.converter.util.math.matrix.GivensPair approximateGivensQuaternion(float, float, float);
+   private static org.cube.converter.util.math.matrix.GivensPair qrGivensQuaternion(float, float);
+   private static void conjugate(org.joml.Matrix3f, org.joml.Matrix3f);
+   private static void applyJacobiIteration(org.joml.Matrix3f, org.joml.Matrix3f, org.joml.Quaternionf, org.joml.Quaternionf);
+   public static org.joml.Quaternionf applyJacobiIterations(org.joml.Matrix3f, int);
+   public static org.cube.converter.util.Triple<org.joml.Quaternionf, org.joml.Vector3f, org.joml.Quaternionf> svdDecompose(org.joml.Matrix3f);
+   public static boolean isIdentity(org.joml.Matrix4f);
+   public static boolean isTranslation(org.joml.Matrix4f);
+   public static boolean isOrthonormal(org.joml.Matrix4f);
+   static {};
+   }
+-- org.cube.converter.util.minecraft.Transformation --
+   Compiled from "Transformation.java"
+   public final class org.cube.converter.util.minecraft.Transformation extends java.lang.Record {
+   private final org.joml.Vector3f translation;
+   private final org.joml.Quaternionf left;
+   private final org.joml.Vector3f scale;
+   private final org.joml.Quaternionf right;
+   public org.cube.converter.util.minecraft.Transformation(org.joml.Vector3f, org.joml.Quaternionf, org.joml.Vector3f, org.joml.Quaternionf);
+   public final java.lang.String toString();
+   public final int hashCode();
+   public final boolean equals(java.lang.Object);
+   public org.joml.Vector3f translation();
+   public org.joml.Quaternionf left();
+   public org.joml.Vector3f scale();
+   public org.joml.Quaternionf right();
+   }
+-- org.cube.converter.util.minecraft.UVUtil --
+   Compiled from "UVUtil.java"
+   public class org.cube.converter.util.minecraft.UVUtil {
+   public org.cube.converter.util.minecraft.UVUtil();
+   public static java.util.List<org.cube.converter.util.minecraft.UVUtil$Face> toUvFaces(org.cube.converter.util.element.Position3V, boolean);
+   }
+-- org.cube.converter.util.minecraft.UVUtil$Face --
+   Compiled from "UVUtil.java"
+   public class org.cube.converter.util.minecraft.UVUtil$Face {
+   private final org.cube.converter.util.element.Direction direction;
+   private org.cube.converter.util.element.Position2V start;
+   private org.cube.converter.util.element.Position2V end;
+   public org.cube.converter.util.minecraft.UVUtil$Face(org.cube.converter.util.element.Direction, org.cube.converter.util.element.Position2V, org.cube.converter.util.element.Position2V, boolean);
+   public org.cube.converter.util.element.Direction getDirection();
+   public org.cube.converter.util.element.Position2V getStart();
+   public org.cube.converter.util.element.Position2V getEnd();
+   public void setStart(org.cube.converter.util.element.Position2V);
+   public void setEnd(org.cube.converter.util.element.Position2V);
    }
 
 == JAR ==
@@ -118,9 +603,9 @@ resolved in cache: 1.18.46
   location: variable map of type UVMap
 Note: Some input files use unchecked or unsafe operations.
 Note: Recompile with -Xlint:unchecked for details.
-9 errors
-	... 30 more
+8 errors
+	... 61 more
 
 
-BUILD FAILED in 1m 41s
+BUILD FAILED in 50s
 5 actionable tasks: 5 executed
