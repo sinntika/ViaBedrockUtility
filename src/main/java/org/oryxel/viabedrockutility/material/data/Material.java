@@ -259,7 +259,7 @@ public record Material(String identifier, String baseIdentifier, MaterialInfo in
                 builder.withLocation(Identifier.fromNamespaceAndPath("viabedrockutility", "pipeline/" + UUID.randomUUID() + this.hashCode()));
                 builder.withBlend(blend);
 
-                builder.withVertexFormat(vertexFormat, this.defines.contains("LINE_STRIP") ? VertexFormat.Mode.LINE_STRIP : VertexFormat.Mode.QUADS);
+                builder.withVertexFormat(vertexFormat, this.defines.contains("LINE_STRIP") ? VertexFormat.Mode.DEBUG_LINE_STRIP : VertexFormat.Mode.QUADS);
 
                 // Totally possible, but not now.
 //                if (!this.fragmentShader.isBlank()) {
