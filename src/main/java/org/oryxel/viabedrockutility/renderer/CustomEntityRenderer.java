@@ -3,6 +3,7 @@ package org.oryxel.viabedrockutility.renderer;
 import lombok.Getter;
 import net.minecraft.client.renderer.rendertype.RenderType;
 import net.minecraft.client.renderer.MultiBufferSource;
+import net.minecraft.client.renderer.culling.Frustum;
 import net.minecraft.client.renderer.RenderPipelines;
 import net.minecraft.client.renderer.LightTexture;
 import net.minecraft.client.renderer.texture.OverlayTexture;

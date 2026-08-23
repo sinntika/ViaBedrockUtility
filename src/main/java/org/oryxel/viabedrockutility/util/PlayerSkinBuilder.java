@@ -1,6 +1,7 @@
 package org.oryxel.viabedrockutility.util;
 
 import net.minecraft.world.entity.player.PlayerSkin;
+import net.minecraft.world.entity.player.PlayerModelType;
 import net.minecraft.resources.Identifier;
 
 public final class PlayerSkinBuilder {
@@ -8,7 +9,7 @@ public final class PlayerSkinBuilder {
     public String textureUrl;
     public Identifier capeTexture;
     public Identifier elytraTexture;
-    public PlayerSkin.Model model;
+    public PlayerModelType model;
     public boolean secure;
 
     public PlayerSkinBuilder(final PlayerSkin base) {

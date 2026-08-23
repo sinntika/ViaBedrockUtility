@@ -20,7 +20,7 @@ import java.nio.charset.StandardCharsets;
 @RequiredArgsConstructor
 @Getter
 public class BasePayload implements CustomPacketPayload {
-    public static Id<BasePayload> ID = new Id<>(Identifier.fromNamespaceAndPath(ViaBedrockUtilityFabric.MOD_ID, "data"));
+    public static CustomPacketPayload.Type<BasePayload> ID = new CustomPacketPayload.Type<>(Identifier.fromNamespaceAndPath(ViaBedrockUtilityFabric.MOD_ID, "data"));
 
     public static final StreamCodec<FriendlyByteBuf, BasePayload> STREAM_CODEC = StreamCodec.of(null, buf -> {
         final int type = buf.readInt();
@@ -84,7 +84,7 @@ public class BasePayload implements CustomPacketPayload {
     }
 
     @Override
-    public Id<? extends CustomPacketPayload> getId() {
+    public CustomPacketPayload.Type<? extends CustomPacketPayload> type() {
         return ID;
     }
 

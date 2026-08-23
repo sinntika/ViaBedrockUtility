@@ -16,6 +16,7 @@ import lombok.Setter;
 import lombok.ToString;
 import net.minecraft.client.renderer.rendertype.RenderType;
 import net.minecraft.client.renderer.MultiBufferSource;
+import net.minecraft.client.renderer.culling.Frustum;
 import net.minecraft.client.renderer.RenderPipelines;
 import net.minecraft.client.renderer.LightTexture;
 import net.minecraft.client.renderer.texture.OverlayTexture;
@@ -28,7 +29,7 @@ import java.util.*;
 import java.util.function.Function;
 
 import static net.minecraft.client.renderer.RenderPipelines.ENTITY_SNIPPET;
-import static net.minecraft.client.renderer.RenderStateShard.*;
+// removed: RenderStateShard no longer exists in 1.21.11
 import static org.oryxel.viabedrockutility.util.JsonUtil.*;
 
 // https://wiki.bedrock.dev/visuals/materials

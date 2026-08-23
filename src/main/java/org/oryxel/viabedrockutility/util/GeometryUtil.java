@@ -1,6 +1,7 @@
 package org.oryxel.viabedrockutility.util;
 
 import com.google.common.collect.Maps;
+import net.minecraft.client.model.Model;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.CubeDeformation;

@@ -13,6 +13,7 @@ import net.minecraft.client.model.player.PlayerModel;
 import com.mojang.blaze3d.platform.NativeImage;
 import net.minecraft.client.renderer.texture.DynamicTexture;
 import net.minecraft.world.entity.player.PlayerSkin;
+import net.minecraft.world.entity.player.PlayerModelType;
 import net.minecraft.resources.Identifier;
 import org.cube.converter.model.impl.bedrock.BedrockGeometryModel;
 import org.oryxel.viabedrockutility.ViaBedrockUtility;
@@ -210,7 +211,7 @@ public class PayloadHandler {
         if (entry != null) {
             final PlayerSkinBuilder builder = new PlayerSkinBuilder(entry.getSkinTextures());
             builder.texture = identifier;
-            builder.model = slim ? PlayerSkin.Model.SLIM : PlayerSkin.Model.WIDE;
+            builder.model = slim ? PlayerModelType.SLIM : PlayerModelType.WIDE;
 
             ((PlayerSkinFieldAccessor)entry).setPlayerSkin(builder::build);
         }
