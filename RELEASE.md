@@ -14,3 +14,8 @@ The 26.2 jar compiles against the exact CubeConverter commit that ViaFabricPlus
 4.6.2 jar-in-jars, because that copy wins over the shaded one at runtime. When
 ViaFabricPlus bumps CubeConverter, this jar has to be rebuilt against the new
 commit.
+
+The bedrock `ActorFlags` enum is generated from Mojang's protocol docs at a
+pinned commit, so it can list flags the MoLang query mapping file has never
+heard of. Those flags are now logged once and treated as unmapped instead of
+stopping the game from starting.
