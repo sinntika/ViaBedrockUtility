@@ -2,11 +2,12 @@
 """Ground truth probe.
 
 Reads the actual Minecraft jar on the compile classpath and reports which
-imports resolve, where a simple class name actually lives now, what a package
-contains, and the real member signatures of everything this port touches. Also
-replays every "Cannot remap" warning Mixin produced, because those are stale
-injection targets that compile fine but break at runtime, and reports which
-Lombok release the build resolved, since Lombok has to keep up with the JDK.
+imports resolve, what a package contains, and the real member signatures of
+everything this port touches. It can also reach outside the Minecraft jar and
+probe any other dependency on the classpath, which is how Fabric API changes
+get caught. Finally it replays every "Cannot remap" warning Mixin produced,
+because those are stale injection targets that compile fine but break at
+runtime, and reports which Lombok release the build resolved.
 """
 import os
 import re
@@ -18,6 +19,9 @@ SRC = os.path.join(ROOT, "src", "main", "java")
 SEARCH_ROOTS = [
     os.path.join(ROOT, ".gradle", "loom-cache"),
     os.path.expanduser("~/.gradle/caches/fabric-loom"),
+]
+DEPENDENCY_ROOTS = SEARCH_ROOTS + [
+    os.path.expanduser("~/.gradle/caches/modules-2/files-2.1"),
 ]
 LOMBOK_CACHE = os.path.expanduser(
     "~/.gradle/caches/modules-2/files-2.1/org.projectlombok/lombok"
@@ -33,19 +37,24 @@ GRADLE_LOG = os.path.join(ROOT, "ci", "gradle.log")
 SIMPLE_NAMES = []
 
 PACKAGE_LISTINGS = [
-    "com.mojang.blaze3d",
+    "com.mojang.blaze3d.vertex",
 ]
 
 JAVAP = [
-    ("com.mojang.blaze3d.platform.BlendFactor", [], 40),
-    ("com.mojang.blaze3d.platform.CompareOp", [], 20),
-    ("com.mojang.blaze3d.PrimitiveTopology", [], 20),
-    ("com.mojang.blaze3d.pipeline.ColorTargetState", [], 25),
-    ("com.mojang.blaze3d.pipeline.DepthStencilState", [], 25),
-    ("net.minecraft.client.renderer.rendertype.RenderSetup", ["builder", "bufferSize", "create"], 12),
-    ("net.minecraft.client.renderer.rendertype.RenderType", ["create"], 10),
-    ("com.mojang.blaze3d.pipeline.RenderPipeline", ["builder"], 10),
-    ("net.minecraft.client.renderer.RenderPipelines", ["SNIPPET"], 12),
+    ("com.mojang.blaze3d.vertex.VertexFormat", ["builder", "public"], 30),
+    ("com.mojang.blaze3d.vertex.VertexFormat$Builder", [], 30),
+    ("com.mojang.blaze3d.vertex.VertexFormatElement", [], 45),
+    ("com.mojang.blaze3d.vertex.DefaultVertexFormat", ["ENTITY", "BLOCK"], 20),
+    ("net.minecraft.client.Minecraft", ["Block", "block"], 25),
+    ("net.minecraft.client.renderer.entity.EntityRendererProvider$Context", [], 25),
+]
+
+# Classes outside the Minecraft jar, looked up across every cached dependency.
+EXTRA_JAVAP = [
+    ("net.fabricmc.fabric.api.networking.v1.PayloadTypeRegistry", [], 25),
+]
+EXTRA_PACKAGES = [
+    "net.fabricmc.fabric.api.networking.v1",
 ]
 
 
@@ -73,11 +82,30 @@ def find_jar():
     return best, best_count
 
 
-def javap(cls, keywords, limit):
+def dependency_jars():
+    out = []
+    for base in DEPENDENCY_ROOTS:
+        if not os.path.isdir(base):
+            continue
+        for dirpath, dirnames, filenames in os.walk(base):
+            for fn in filenames:
+                if not fn.endswith(".jar"):
+                    continue
+                if "sources" in fn or "javadoc" in fn:
+                    continue
+                out.append(os.path.join(dirpath, fn))
+    return out
+
+
+def javap(cls, keywords, limit, classpath=None):
     print("-- %s --" % cls)
+    cp = classpath or jarpath
+    if not cp:
+        print("   (not found on the classpath)")
+        return
     try:
         proc = subprocess.run(
-            ["javap", "-p", "-cp", jarpath, cls], capture_output=True, text=True, timeout=90
+            ["javap", "-p", "-cp", cp, cls], capture_output=True, text=True, timeout=90
         )
     except Exception as exc:
         print("   javap crashed: %s" % exc)
@@ -207,6 +235,52 @@ for pkg in PACKAGE_LISTINGS:
     if line.strip():
         print(line)
 
+# Look up classes and packages that live in other dependencies, e.g. Fabric API.
+located = {}
+extra_pkg_hits = dict((pkg, set()) for pkg in EXTRA_PACKAGES)
+extra_pkg_jars = dict((pkg, None) for pkg in EXTRA_PACKAGES)
+if EXTRA_JAVAP or EXTRA_PACKAGES:
+    wanted = dict(
+        (cls.replace(".", "/") + ".class", cls) for cls, _, _ in EXTRA_JAVAP
+    )
+    for jar in dependency_jars():
+        try:
+            with zipfile.ZipFile(jar) as zf:
+                names = zf.namelist()
+        except Exception:
+            continue
+        for entry, cls in wanted.items():
+            if cls not in located and entry in names:
+                located[cls] = jar
+        for pkg in EXTRA_PACKAGES:
+            prefix = pkg.replace(".", "/") + "/"
+            for nm in names:
+                if not nm.startswith(prefix) or not nm.endswith(".class"):
+                    continue
+                tail = nm[len(prefix):-6]
+                if "/" in tail:
+                    continue
+                extra_pkg_hits[pkg].add(tail)
+                extra_pkg_jars[pkg] = jar
+
+    print("")
+    print("== EXTRA PACKAGES ==")
+    for pkg in EXTRA_PACKAGES:
+        names = sorted(extra_pkg_hits[pkg])
+        jar = extra_pkg_jars[pkg]
+        print(
+            "-- %s (%d) in %s --"
+            % (pkg, len(names), os.path.basename(jar) if jar else "nothing")
+        )
+        line = "  "
+        for name in names:
+            if len(line) + len(name) > WIDTH:
+                print(line)
+                line = "  "
+            line += name + " "
+        if line.strip():
+            print(line)
+
 print("")
 print("== STALE MIXIN TARGETS ==")
 if os.path.isfile(GRADLE_LOG):
@@ -229,3 +303,6 @@ print("")
 print("== REAL SIGNATURES ==")
 for cls, keywords, limit in JAVAP:
     javap(cls, keywords, limit)
+for cls, keywords, limit in EXTRA_JAVAP:
+    jar = located.get(cls)
+    javap(cls, keywords, limit, classpath=jar)

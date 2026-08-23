@@ -278,8 +278,8 @@ public record Material(String identifier, String baseIdentifier, MaterialInfo in
 
                 final CompareOp depthOp = switch (this.depthFunc) {
                     case "Equal" -> CompareOp.EQUAL;
-                    case "Bigger" -> CompareOp.GREATER;
-                    default -> CompareOp.LEQUAL;
+                    case "Bigger" -> CompareOp.GREATER_THAN;
+                    default -> CompareOp.LESS_THAN_OR_EQUAL;
                 };
                 builder.withDepthStencilState(new DepthStencilState(depthOp, !this.states.contains("DisableDepthWrite")));
 
