@@ -1,0 +1,110 @@
+===== 1.21.11 from port/1.21.11 =====
+Note: switching to 'origin/port/1.21.11'.
+
+You are in 'detached HEAD' state. You can look around, make experimental
+changes and commit them, and you can discard any commits you make in this
+state without impacting any branches by switching back to a branch.
+
+If you want to create a new branch to retain commits you create, you may
+do so (now or later) by using -c with the switch command. Example:
+
+  git switch -c <new-branch-name>
+
+Or undo this operation with:
+
+  git switch -
+
+Turn off this advice by setting config variable advice.detachedHead to false
+
+HEAD is now at 533b8c5 ci: build report [skip ci]
+-- gradle exit: 1 --
+FAILURE: Build failed with an exception.
+* What went wrong:
+Caused by: java.lang.RuntimeException: java.lang.ExceptionInInitializerError
+Caused by: java.lang.ExceptionInInitializerError
+Caused by: java.lang.NoSuchFieldException: com.sun.tools.javac.code.TypeTag :: UNKNOWN
+BUILD FAILED in 1m 10s
+-- tail --
+Caused by: java.lang.ExceptionInInitializerError
+	at lombok.javac.apt.LombokProcessor.placePostCompileAndDontMakeForceRoundDummiesHook(LombokProcessor.java:174)
+	at lombok.javac.apt.LombokProcessor.init(LombokProcessor.java:96)
+	at lombok.core.AnnotationProcessor$JavacDescriptor.want(AnnotationProcessor.java:160)
+	at lombok.core.AnnotationProcessor.init(AnnotationProcessor.java:213)
+	at lombok.launch.AnnotationProcessorHider$AnnotationProcessor.init(AnnotationProcessor.java:64)
+	at org.gradle.api.internal.tasks.compile.processing.DelegatingProcessor.init(DelegatingProcessor.java:57)
+	at org.gradle.api.internal.tasks.compile.processing.IsolatingProcessor.init(IsolatingProcessor.java:44)
+	at org.gradle.api.internal.tasks.compile.processing.DelegatingProcessor.init(DelegatingProcessor.java:57)
+	at org.gradle.api.internal.tasks.compile.processing.TimeTrackingProcessor.access$301(TimeTrackingProcessor.java:38)
+	at org.gradle.api.internal.tasks.compile.processing.TimeTrackingProcessor$4.create(TimeTrackingProcessor.java:89)
+	at org.gradle.api.internal.tasks.compile.processing.TimeTrackingProcessor$4.create(TimeTrackingProcessor.java:86)
+	at org.gradle.api.internal.tasks.compile.processing.TimeTrackingProcessor.track(TimeTrackingProcessor.java:119)
+	at org.gradle.api.internal.tasks.compile.processing.TimeTrackingProcessor.init(TimeTrackingProcessor.java:86)
+	... 195 more
+Caused by: java.lang.NoSuchFieldException: com.sun.tools.javac.code.TypeTag :: UNKNOWN
+	at lombok.permit.Permit.getField(Permit.java:144)
+	at lombok.javac.JavacTreeMaker$SchroedingerType.getFieldCached(JavacTreeMaker.java:171)
+	at lombok.javac.JavacTreeMaker$TypeTag.typeTag(JavacTreeMaker.java:259)
+	at lombok.javac.Javac.<clinit>(Javac.java:187)
+	... 208 more
+
+
+BUILD FAILED in 1m 10s
+5 actionable tasks: 5 executed
+-- build/libs --
+ls: cannot access 'build/libs': No such file or directory
+===== 26.2 from port/26.2 =====
+Previous HEAD position was 533b8c5 ci: build report [skip ci]
+HEAD is now at 7c8efeb ci: build report [skip ci]
+-- gradle exit: 0 --
+BUILD SUCCESSFUL in 42s
+-- tail --
+Fabric Loom: 1.17.19
+
+> Task :enumGeneratorTask UP-TO-DATE
+
+> Task :compileJava
+Note: Some input files use unchecked or unsafe operations.
+Note: Recompile with -Xlint:unchecked for details.
+
+> Task :processResources
+> Task :classes
+> Task :processIncludeJars
+> Task :jar
+> Task :compileTestJava
+> Task :assemble
+> Task :processTestResources NO-SOURCE
+> Task :testClasses
+> Task :test
+> Task :validateAccessWidener
+> Task :check
+> Task :build
+
+[Incubating] Problems report is available at: file:///home/runner/work/ViaBedrockUtility/ViaBedrockUtility/build/reports/problems/problems-report.html
+
+BUILD SUCCESSFUL in 42s
+11 actionable tasks: 7 executed, 4 up-to-date
+-- build/libs --
+total 2360
+-rw-r--r-- 1 runner runner 2413926 Aug 23 14:11 viabedrockutility-1.0.0.jar
+picked build/libs/viabedrockutility-1.0.0.jar
+===== release-out =====
+total 2360
+-rw-r--r-- 1 runner runner 2413926 Aug 23 14:11 viabedrockutility-1.0.0+26.2.jar
+===== release =====
+title:	ViaBedrockUtility 1.0.0
+tag:	1.0.0
+draft:	false
+prerelease:	false
+immutable:	false
+author:	github-actions[bot]
+created:	2026-08-23T14:09:40Z
+published:	2026-08-23T14:11:46Z
+url:	https://github.com/sinntika/ViaBedrockUtility/releases/tag/1.0.0
+asset:	viabedrockutility-1.0.0+26.2.jar
+--
+ViaBedrockUtility 1.0.0, built from one source tree for two Minecraft versions.
+
+- viabedrockutility-1.0.0+1.21.11.jar for Minecraft 1.21.11
+- viabedrockutility-1.0.0+26.2.jar for Minecraft 26.2
+
+Both jars need Fabric API and ViaFabricPlus. Install only the jar that matches the instance you play on.
