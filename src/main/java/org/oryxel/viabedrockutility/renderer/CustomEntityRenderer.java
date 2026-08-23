@@ -5,9 +5,8 @@ import net.minecraft.client.renderer.rendertype.RenderType;
 import net.minecraft.client.renderer.rendertype.RenderTypes;
 import net.minecraft.client.renderer.culling.Frustum;
 import net.minecraft.client.renderer.RenderPipelines;
-import net.minecraft.client.renderer.LightTexture;
 import net.minecraft.client.renderer.SubmitNodeCollector;
-import net.minecraft.client.renderer.state.CameraRenderState;
+import net.minecraft.client.renderer.state.level.CameraRenderState;
 import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.client.renderer.entity.EntityRenderer;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
@@ -42,6 +41,7 @@ public class CustomEntityRenderer<T extends Entity> extends EntityRenderer<T, Cu
 
     // 1.21.11 replaced direct rendering with a submit pass: geometry is handed to
     // a collector instead of writing into a VertexConsumer here.
+    // 26.2 moved CameraRenderState into the state.level package.
     @Override
     public void submit(CustomEntityRenderState state, PoseStack matrices, SubmitNodeCollector collector, CameraRenderState cameraState) {
         for (Model model : this.models) {

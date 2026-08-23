@@ -2,12 +2,11 @@
 """Ground truth probe.
 
 Reads the actual Minecraft jar on the compile classpath and reports which
-imports resolve, where a simple class name actually lives now, what nested
-types a class owns, and the real member signatures of everything this port
-touches. Also replays every "Cannot remap" warning Mixin produced, because
-those are stale injection targets that compile fine but break at runtime, and
-reports which Lombok release the build resolved, since Lombok has to keep up
-with the JDK.
+imports resolve, where a simple class name actually lives now, what a package
+contains, and the real member signatures of everything this port touches. Also
+replays every "Cannot remap" warning Mixin produced, because those are stale
+injection targets that compile fine but break at runtime, and reports which
+Lombok release the build resolved, since Lombok has to keep up with the JDK.
 """
 import os
 import re
@@ -23,7 +22,6 @@ SEARCH_ROOTS = [
 LOMBOK_CACHE = os.path.expanduser(
     "~/.gradle/caches/modules-2/files-2.1/org.projectlombok/lombok"
 )
-LOMBOK_METADATA = "https://repo1.maven.org/maven2/org/projectlombok/lombok/maven-metadata.xml"
 VALIDATED_PREFIXES = (
     "net.minecraft.",
     "com.mojang.blaze3d.",
@@ -32,28 +30,26 @@ VALIDATED_PREFIXES = (
 WIDTH = 300
 GRADLE_LOG = os.path.join(ROOT, "ci", "gradle.log")
 
-GREP_TOKENS = []
-
 # Simple names the port lost track of: report every place they live now.
 SIMPLE_NAMES = [
+    "BlendFunction",
     "DepthTestFunction",
-    "DestFactor",
+    "DepthTest",
+    "CompareFunction",
+    "BlendFactor",
     "SourceFactor",
-    "MultiBufferSource",
-    "LightTexture",
-    "CameraRenderState",
-    "SubmitNodeCollector",
-    "RenderSetup",
-    "RenderPipeline",
-    "OverlayTexture",
+    "DestFactor",
 ]
 
-FQN_CHECKS = []
-
-NESTED_DUMPS = []
+PACKAGE_LISTINGS = [
+    "com.mojang.blaze3d.platform",
+    "com.mojang.blaze3d.pipeline",
+]
 
 JAVAP = [
-    ("net.minecraft.client.renderer.entity.EntityRenderer", ["submit", "render"], 12),
+    ("com.mojang.blaze3d.pipeline.BlendFunction", [], 30),
+    ("com.mojang.blaze3d.pipeline.RenderPipeline$Builder", ["with"], 60),
+    ("net.minecraft.client.renderer.rendertype.RenderSetup$RenderSetupBuilder", [], 25),
 ]
 
 
@@ -79,25 +75,6 @@ def find_jar():
                 if count > best_count:
                     best, best_count = path, count
     return best, best_count
-
-
-def lombok_report():
-    print("== LOMBOK ==")
-    cached = []
-    if os.path.isdir(LOMBOK_CACHE):
-        cached = sorted(os.listdir(LOMBOK_CACHE))
-    print("resolved in cache: %s" % (", ".join(cached) if cached else "(none)"))
-    try:
-        import urllib.request
-
-        with urllib.request.urlopen(LOMBOK_METADATA, timeout=20) as resp:
-            body = resp.read().decode("utf-8", "replace")
-        latest = re.search(r"<latest>([^<]+)</latest>", body)
-        versions = re.findall(r"<version>([^<]+)</version>", body)
-        print("maven latest:      %s" % (latest.group(1) if latest else "unknown"))
-        print("maven recent:      %s" % ", ".join(versions[-6:]))
-    except Exception as exc:
-        print("maven metadata unavailable: %s" % exc)
 
 
 def javap(cls, keywords, limit):
@@ -129,7 +106,11 @@ def javap(cls, keywords, limit):
         print("   (no member matched: %s)" % ", ".join(keywords))
 
 
-lombok_report()
+print("== LOMBOK ==")
+print(
+    "resolved in cache: %s"
+    % (", ".join(sorted(os.listdir(LOMBOK_CACHE))) if os.path.isdir(LOMBOK_CACHE) else "(none)")
+)
 print("")
 
 jarpath, jarcount = find_jar()
@@ -159,16 +140,6 @@ for dirpath, dirnames, filenames in os.walk(SRC):
         if fn.endswith(".java"):
             java_files.append(os.path.join(dirpath, fn))
 java_files.sort()
-
-repo_files = []
-for dirpath, dirnames, filenames in os.walk(ROOT):
-    dirnames[:] = [d for d in dirnames if not d.startswith(".") and d != "run"]
-    if os.sep + "build" + os.sep in dirpath and "generated" not in dirpath:
-        continue
-    for fn in filenames:
-        if fn.endswith(".java") or fn.endswith(".json"):
-            repo_files.append(os.path.join(dirpath, fn))
-repo_files.sort()
 
 import_re = re.compile(r"^\s*import\s+(static\s+)?([^;]+);")
 bad = []
@@ -217,6 +188,29 @@ for simple in SIMPLE_NAMES:
     print("%s -> %s" % (simple.ljust(22), ", ".join(found[:6]) if found else "GONE"))
 
 print("")
+print("== PACKAGE LISTING ==")
+for pkg in PACKAGE_LISTINGS:
+    prefix = pkg.replace(".", "/") + "/"
+    names = sorted(
+        set(
+            e[len(prefix):]
+            for e in entries
+            if e.startswith(prefix)
+            and "/" not in e[len(prefix):]
+            and "$" not in e[len(prefix):]
+        )
+    )
+    print("-- %s (%d) --" % (pkg, len(names)))
+    line = "  "
+    for name in names:
+        if len(line) + len(name) > WIDTH:
+            print(line)
+            line = "  "
+        line += name + " "
+    if line.strip():
+        print(line)
+
+print("")
 print("== STALE MIXIN TARGETS ==")
 if os.path.isfile(GRADLE_LOG):
     seen = []
@@ -233,42 +227,6 @@ if os.path.isfile(GRADLE_LOG):
         print("  none")
 else:
     print("  (gradle log not written yet)")
-
-if GREP_TOKENS:
-    print("")
-    print("== SOURCE GREP ==")
-    for token in GREP_TOKENS:
-        hits = []
-        for path in repo_files:
-            rel = os.path.relpath(path, ROOT)
-            try:
-                with open(path, "r", encoding="utf-8", errors="replace") as fh:
-                    for no, line in enumerate(fh, 1):
-                        if token in line:
-                            hits.append("%s:%d  %s" % (rel, no, line.strip()[:200]))
-            except Exception:
-                continue
-        print("-- %s (%d) --" % (token, len(hits)))
-        for hit in hits[:10]:
-            print("   " + hit)
-
-if FQN_CHECKS:
-    print("")
-    print("== FQN CHECK ==")
-    width = max(len(f) for f in FQN_CHECKS) + 4
-    for fqn in FQN_CHECKS:
-        print("%s%s" % (fqn.ljust(width), "OK" if fqn in classes else "MISSING"))
-
-if NESTED_DUMPS:
-    print("")
-    print("== NESTED TYPES ==")
-    for outer in NESTED_DUMPS:
-        prefix = outer.replace(".", "/") + "$"
-        nested = sorted(
-            e[len(prefix):] for e in entries if e.startswith(prefix) and "$" not in e[len(prefix):]
-        )
-        print("-- %s (%d) --" % (outer, len(nested)))
-        print("  " + (" ".join(nested[:40]) if nested else "(none)"))
 
 print("")
 print("== REAL SIGNATURES ==")
