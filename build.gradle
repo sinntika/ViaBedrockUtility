@@ -2,7 +2,8 @@ import org.oryxel.viabedrockutility.generator.EnumGeneratorTask;
 
 plugins {
 	id 'idea'
-	id 'net.fabricmc.fabric-loom-remap' version "${loom_version}"
+	// 26.2 ships deobfuscated, so the plain loom plugin replaces the remapping one.
+	id 'net.fabricmc.fabric-loom' version "${loom_version}"
 	id 'maven-publish'
 }
 
@@ -30,23 +31,48 @@ repositories {
 
 		content {
 			includeGroup "com.github.Oryxel"
+			// CubeConverter moved to the Oryxel1 account, which is where
+			// ViaFabricPlus pulls it from.
+			includeGroup "com.github.Oryxel1"
+		}
+	}
+
+	maven {
+		name = "ViaVersion"
+		url = "https://repo.viaversion.com"
+
+		content {
+			includeGroup "com.viaversion"
 		}
 	}
 }
 
 dependencies {
 	minecraft "com.mojang:minecraft:${project.minecraft_version}"
-	mappings loom.officialMojangMappings()
-	modImplementation "net.fabricmc:fabric-loader:${project.loader_version}"
+	// No mappings entry: 26.2 is distributed with real names already.
+	implementation "net.fabricmc:fabric-loader:${project.loader_version}"
 
-	modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
+	implementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
 
-	lib("com.github.Oryxel:CubeConverter:916cadb12a") {
+	// Must match the CubeConverter that ViaFabricPlus jar-in-jars, because its
+	// copy is a real mod and therefore wins over the one shaded in below. Compiling
+	// against anything else turns API drift into runtime NoSuchMethodError, which is
+	// exactly how GsonUtil.getGson() blew up on 26.2.
+	lib("com.github.Oryxel1:CubeConverter:abecffaaea") {
 		transitive = false
 	}
 
-	lib 'org.projectlombok:lombok:1.18.36'
-	annotationProcessor 'org.projectlombok:lombok:1.18.36'
+	// Compile only, never shaded. CubeConverter's json entry points are typed
+	// against the gson ViaVersion relocates into its own package, and javac has to
+	// resolve every overload of a method that gets called, even the ones this mod
+	// never picks. ViaFabricPlus ships the real copy at runtime.
+	compileOnly("com.viaversion:viaversion-common:5.12.0-SNAPSHOT") {
+		transitive = false
+	}
+
+	// 1.18.36 dies on JDK 25 with NoSuchFieldException TypeTag :: UNKNOWN.
+	lib 'org.projectlombok:lombok:1.18.46'
+	annotationProcessor 'org.projectlombok:lombok:1.18.46'
 
 	lib("team.unnamed:mocha:3.0.1") {
 		transitive = false
@@ -62,7 +88,7 @@ processResources {
 }
 
 tasks.withType(JavaCompile).configureEach {
-	it.options.release = 21
+	it.options.release = 25
 }
 
 // The mod ships an empty test source set. Gradle 9 fails the build in that case
@@ -93,8 +119,8 @@ java {
 	// If you remove this line, sources will not be generated.
 	// withSourcesJar()
 
-	sourceCompatibility = JavaVersion.VERSION_21
-	targetCompatibility = JavaVersion.VERSION_21
+	sourceCompatibility = JavaVersion.VERSION_25
+	targetCompatibility = JavaVersion.VERSION_25
 }
 
 jar {

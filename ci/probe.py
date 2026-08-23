@@ -2,11 +2,14 @@
 """Ground truth probe.
 
 Reads the actual Minecraft jar on the compile classpath and reports which
-imports resolve, which fully qualified names exist, what nested types a class
-owns, and the real member signatures of everything this port touches. Runs
-javap with -p so private members behind mixin shadows are visible too, and
-replays every "Cannot remap" warning Mixin produced, because those are stale
-injection targets that compile fine but break at runtime.
+imports resolve, what a package contains, and the real member signatures of
+everything this port touches. It can also reach outside the Minecraft jar and
+probe any other dependency on the classpath, which is how Fabric API and
+CubeConverter changes get caught. It replays every "Cannot remap" warning Mixin
+produced, because those are stale injection targets that compile fine but break
+at runtime, reports which Lombok release the build resolved, and diffs the
+branch against master so nothing that got dropped during the port stays
+unnoticed.
 """
 import os
 import re
@@ -19,29 +22,45 @@ SEARCH_ROOTS = [
     os.path.join(ROOT, ".gradle", "loom-cache"),
     os.path.expanduser("~/.gradle/caches/fabric-loom"),
 ]
+DEPENDENCY_ROOTS = SEARCH_ROOTS + [
+    os.path.expanduser("~/.gradle/caches/modules-2/files-2.1"),
+]
+LOMBOK_CACHE = os.path.expanduser(
+    "~/.gradle/caches/modules-2/files-2.1/org.projectlombok/lombok"
+)
 VALIDATED_PREFIXES = (
     "net.minecraft.",
     "com.mojang.blaze3d.",
     "com.mojang.math.",
 )
-WIDTH = 300
+# Third party libraries that are also provided by other mods at runtime, so the
+# build must compile against exactly the same classes.
+LIB_PREFIXES = (
+    "org.cube.converter.",
+    "team.unnamed.mocha.",
+)
+WIDTH = 600
 GRADLE_LOG = os.path.join(ROOT, "ci", "gradle.log")
 
-GREP_TOKENS = ["modifiers", "toProfiles", "sendChatMessage"]
+SIMPLE_NAMES = []
 
-FQN_CHECKS = [
-    "net.minecraft.client.resources.server.DownloadedPackSource",
-    "net.minecraft.client.resources.server.PackReloadConfig",
-]
+PACKAGE_LISTINGS = []
 
-NESTED_DUMPS = [
-    "net.minecraft.client.resources.server.PackReloadConfig",
-]
+JAVAP = []
 
-JAVAP = [
-    ("net.minecraft.client.resources.server.DownloadedPackSource", [], 40),
-    ("net.minecraft.client.multiplayer.ClientPacketListener", ["Chat", "chat"], 14),
-]
+# Classes from the libraries above, probed out of the resolved dependency jars.
+LIB_JAVAP = []
+
+# Every class under these prefixes gets dumped. CubeConverter is small and its
+# api moved under the mod's feet, so the whole surface is worth printing once.
+LIB_DUMP = ("org.cube.converter.",)
+LIB_DUMP_LIMIT = 30
+
+# Classes outside the Minecraft jar, looked up across every cached dependency.
+EXTRA_JAVAP = []
+EXTRA_PACKAGES = []
+
+jarpath = None
 
 
 def find_jar():
@@ -51,13 +70,13 @@ def find_jar():
             continue
         for dirpath, dirnames, filenames in os.walk(base):
             for fn in filenames:
-                if not fn.endswith(".jar") or "sources" in fn:
+                if not fn.endswith(".jar"):
                     continue
-                if not fn.startswith("minecraft-merged"):
+                if "sources" in fn or "javadoc" in fn:
+                    continue
+                if not fn.startswith("minecraft"):
                     continue
                 path = os.path.join(dirpath, fn)
-                if "loom.mappings" not in path:
-                    continue
                 try:
                     with zipfile.ZipFile(path) as zf:
                         count = sum(1 for nm in zf.namelist() if nm.endswith(".class"))
@@ -68,11 +87,30 @@ def find_jar():
     return best, best_count
 
 
-def javap(cls, keywords, limit):
+def dependency_jars():
+    out = []
+    for base in DEPENDENCY_ROOTS:
+        if not os.path.isdir(base):
+            continue
+        for dirpath, dirnames, filenames in os.walk(base):
+            for fn in filenames:
+                if not fn.endswith(".jar"):
+                    continue
+                if "sources" in fn or "javadoc" in fn:
+                    continue
+                out.append(os.path.join(dirpath, fn))
+    return out
+
+
+def javap(cls, keywords, limit, classpath=None):
     print("-- %s --" % cls)
+    cp = classpath or jarpath
+    if not cp:
+        print("   (not found on the classpath)")
+        return
     try:
         proc = subprocess.run(
-            ["javap", "-p", "-cp", jarpath, cls], capture_output=True, text=True, timeout=90
+            ["javap", "-p", "-cp", cp, cls], capture_output=True, text=True, timeout=90
         )
     except Exception as exc:
         print("   javap crashed: %s" % exc)
@@ -97,10 +135,137 @@ def javap(cls, keywords, limit):
         print("   (no member matched: %s)" % ", ".join(keywords))
 
 
+def git(*args):
+    try:
+        proc = subprocess.run(
+            ["git"] + list(args), cwd=ROOT, capture_output=True, text=True, timeout=90
+        )
+    except Exception as exc:
+        return None, "git crashed: %s" % exc
+    if proc.returncode != 0:
+        err = (proc.stderr or "").strip().split("\n")
+        return None, "git error: %s" % (err[0][:200] if err else "unknown")
+    return proc.stdout.strip(), None
+
+
+import_re = re.compile(r"^\s*import\s+(static\s+)?([^;]+);")
+
+java_files = []
+for dirpath, dirnames, filenames in os.walk(SRC):
+    for fn in filenames:
+        if fn.endswith(".java"):
+            java_files.append(os.path.join(dirpath, fn))
+java_files.sort()
+
+lib_imports = {}
+for path in java_files:
+    rel = os.path.relpath(path, SRC)
+    with open(path, "r", encoding="utf-8") as fh:
+        for line in fh:
+            m = import_re.match(line)
+            if not m:
+                continue
+            spec = m.group(2).strip()
+            if spec.startswith(LIB_PREFIXES):
+                lib_imports.setdefault(spec, rel)
+
+print("== LOMBOK ==")
+print(
+    "resolved in cache: %s"
+    % (", ".join(sorted(os.listdir(LOMBOK_CACHE))) if os.path.isdir(LOMBOK_CACHE) else "(none)")
+)
+
+print("")
+print("== DIFF VS MASTER ==")
+base = None
+for ref in ("origin/master", "master"):
+    out, err = git("rev-parse", "--verify", ref)
+    if out:
+        base = ref
+        break
+if not base:
+    print("  (master is not available in this checkout)")
+else:
+    head, _ = git("rev-parse", "--short", "HEAD")
+    tip, _ = git("rev-parse", "--short", base)
+    print("  %s (%s) ... HEAD (%s)" % (base, tip or "?", head or "?"))
+    shortstat, err = git("diff", "--shortstat", "%s...HEAD" % base)
+    print("  %s" % (shortstat or err or "(no changes)"))
+    names, err = git("diff", "--name-status", "%s...HEAD" % base)
+    rows = [r for r in (names or "").split("\n") if r.strip()]
+    gone = [r for r in rows if r[:1] in ("D", "R")]
+    print("  -- deleted or renamed (%d) --" % len(gone))
+    for row in gone[:80]:
+        print("     %s" % row[:WIDTH])
+
+# Index the shared libraries so drift shows up before the game launches.
+lib_index = {}
+lib_jar_counts = {}
+if lib_imports or LIB_JAVAP or LIB_DUMP:
+    for jar in dependency_jars():
+        try:
+            with zipfile.ZipFile(jar) as zf:
+                names = zf.namelist()
+        except Exception:
+            continue
+        for nm in names:
+            if not nm.endswith(".class"):
+                continue
+            dotted = nm[:-6].replace("/", ".")
+            if not dotted.startswith(LIB_PREFIXES):
+                continue
+            lib_index.setdefault(dotted, jar)
+            key = os.path.basename(jar)
+            lib_jar_counts[key] = lib_jar_counts.get(key, 0) + 1
+
+print("")
+print("== LIB JARS ==")
+if lib_jar_counts:
+    for name in sorted(lib_jar_counts):
+        print("  %-56s %d classes" % (name[:56], lib_jar_counts[name]))
+else:
+    print("  (none resolved)")
+
+print("")
+print("== LIB IMPORTS (%d) ==" % len(lib_imports))
+for spec in sorted(lib_imports):
+    rel = lib_imports[spec]
+    if spec.endswith(".*"):
+        pkg = spec[:-2] + "."
+        if any(c.startswith(pkg) for c in lib_index):
+            continue
+        print("  MISSING PACKAGE %s" % spec)
+        print("      in %s" % rel)
+        continue
+    if spec in lib_index:
+        continue
+    parent = spec.rsplit(".", 1)[0]
+    if parent in lib_index:
+        continue
+    simple = spec.rsplit(".", 1)[-1]
+    hits = sorted(c for c in lib_index if c.rsplit(".", 1)[-1] == simple)
+    print("  MISSING %s" % spec)
+    print("      -> %s" % (" | ".join(hits[:3]) if hits else "no class named " + simple))
+    print("      in %s" % rel)
+
+if LIB_JAVAP:
+    print("")
+    print("== LIB SIGNATURES ==")
+    for cls, keywords, limit in LIB_JAVAP:
+        javap(cls, keywords, limit, classpath=lib_index.get(cls))
+
+if LIB_DUMP:
+    dump_targets = sorted(c for c in lib_index if c.startswith(LIB_DUMP))
+    print("")
+    print("== LIB DUMP (%d classes) ==" % len(dump_targets))
+    for cls in dump_targets:
+        javap(cls, [], LIB_DUMP_LIMIT, classpath=lib_index.get(cls))
+
 jarpath, jarcount = find_jar()
+print("")
 print("== JAR ==")
 if not jarpath:
-    print("no minecraft jar found, nothing to probe")
+    print("no minecraft jar found, nothing left to probe")
     raise SystemExit(0)
 print("%d classes  %s" % (jarcount, os.path.basename(jarpath)))
 
@@ -118,24 +283,6 @@ for entry in entries:
         classes.add(dotted.replace("$", "."))
 packages = set(e.rsplit("/", 1)[0] for e in entries if "/" in e)
 
-java_files = []
-for dirpath, dirnames, filenames in os.walk(SRC):
-    for fn in filenames:
-        if fn.endswith(".java"):
-            java_files.append(os.path.join(dirpath, fn))
-java_files.sort()
-
-repo_files = []
-for dirpath, dirnames, filenames in os.walk(ROOT):
-    dirnames[:] = [d for d in dirnames if not d.startswith(".") and d != "run"]
-    if os.sep + "build" + os.sep in dirpath and "generated" not in dirpath:
-        continue
-    for fn in filenames:
-        if fn.endswith(".java") or fn.endswith(".json"):
-            repo_files.append(os.path.join(dirpath, fn))
-repo_files.sort()
-
-import_re = re.compile(r"^\s*import\s+(static\s+)?([^;]+);")
 bad = []
 for path in java_files:
     rel = os.path.relpath(path, SRC)
@@ -173,6 +320,85 @@ for spec, hint, rel in bad:
     print("    -> %s" % hint)
     print("    in %s" % rel)
 
+if SIMPLE_NAMES:
+    print("")
+    print("== WHERE DID IT GO ==")
+    for simple in SIMPLE_NAMES:
+        hits = sorted(c for c in classes if c.rsplit(".", 1)[-1] == simple and "$" not in c)
+        nested = sorted(c for c in classes if c.endswith("." + simple) and "$" in c)
+        found = hits + [n for n in nested if n not in hits]
+        print("%s -> %s" % (simple.ljust(22), ", ".join(found[:6]) if found else "GONE"))
+
+if PACKAGE_LISTINGS:
+    print("")
+    print("== PACKAGE LISTING ==")
+    for pkg in PACKAGE_LISTINGS:
+        prefix = pkg.replace(".", "/") + "/"
+        names = sorted(
+            set(
+                e[len(prefix):]
+                for e in entries
+                if e.startswith(prefix)
+                and "/" not in e[len(prefix):]
+                and "$" not in e[len(prefix):]
+            )
+        )
+        print("-- %s (%d) --" % (pkg, len(names)))
+        line = "  "
+        for name in names:
+            if len(line) + len(name) > WIDTH:
+                print(line)
+                line = "  "
+            line += name + " "
+        if line.strip():
+            print(line)
+
+# Look up classes and packages that live in other dependencies, e.g. Fabric API.
+located = {}
+extra_pkg_hits = dict((pkg, set()) for pkg in EXTRA_PACKAGES)
+extra_pkg_jars = dict((pkg, None) for pkg in EXTRA_PACKAGES)
+if EXTRA_JAVAP or EXTRA_PACKAGES:
+    wanted = dict(
+        (cls.replace(".", "/") + ".class", cls) for cls, _, _ in EXTRA_JAVAP
+    )
+    for jar in dependency_jars():
+        try:
+            with zipfile.ZipFile(jar) as zf:
+                names = zf.namelist()
+        except Exception:
+            continue
+        for entry, cls in wanted.items():
+            if cls not in located and entry in names:
+                located[cls] = jar
+        for pkg in EXTRA_PACKAGES:
+            prefix = pkg.replace(".", "/") + "/"
+            for nm in names:
+                if not nm.startswith(prefix) or not nm.endswith(".class"):
+                    continue
+                tail = nm[len(prefix):-6]
+                if "/" in tail:
+                    continue
+                extra_pkg_hits[pkg].add(tail)
+                extra_pkg_jars[pkg] = jar
+
+    print("")
+    print("== EXTRA PACKAGES ==")
+    for pkg in EXTRA_PACKAGES:
+        names = sorted(extra_pkg_hits[pkg])
+        jar = extra_pkg_jars[pkg]
+        print(
+            "-- %s (%d) in %s --"
+            % (pkg, len(names), os.path.basename(jar) if jar else "nothing")
+        )
+        line = "  "
+        for name in names:
+            if len(line) + len(name) > WIDTH:
+                print(line)
+                line = "  "
+            line += name + " "
+        if line.strip():
+            print(line)
+
 print("")
 print("== STALE MIXIN TARGETS ==")
 if os.path.isfile(GRADLE_LOG):
@@ -191,40 +417,10 @@ if os.path.isfile(GRADLE_LOG):
 else:
     print("  (gradle log not written yet)")
 
-print("")
-print("== SOURCE GREP ==")
-for token in GREP_TOKENS:
-    hits = []
-    for path in repo_files:
-        rel = os.path.relpath(path, ROOT)
-        try:
-            with open(path, "r", encoding="utf-8", errors="replace") as fh:
-                for no, line in enumerate(fh, 1):
-                    if token in line:
-                        hits.append("%s:%d  %s" % (rel, no, line.strip()[:200]))
-        except Exception:
-            continue
-    print("-- %s (%d) --" % (token, len(hits)))
-    for hit in hits[:10]:
-        print("   " + hit)
-
-print("")
-print("== FQN CHECK ==")
-width = max(len(f) for f in FQN_CHECKS) + 4
-for fqn in FQN_CHECKS:
-    print("%s%s" % (fqn.ljust(width), "OK" if fqn in classes else "MISSING"))
-
-print("")
-print("== NESTED TYPES ==")
-for outer in NESTED_DUMPS:
-    prefix = outer.replace(".", "/") + "$"
-    nested = sorted(
-        e[len(prefix):] for e in entries if e.startswith(prefix) and "$" not in e[len(prefix):]
-    )
-    print("-- %s (%d) --" % (outer, len(nested)))
-    print("  " + (" ".join(nested[:40]) if nested else "(none)"))
-
-print("")
-print("== REAL SIGNATURES ==")
-for cls, keywords, limit in JAVAP:
-    javap(cls, keywords, limit)
+if JAVAP or EXTRA_JAVAP:
+    print("")
+    print("== REAL SIGNATURES ==")
+    for cls, keywords, limit in JAVAP:
+        javap(cls, keywords, limit)
+    for cls, keywords, limit in EXTRA_JAVAP:
+        javap(cls, keywords, limit, classpath=located.get(cls))

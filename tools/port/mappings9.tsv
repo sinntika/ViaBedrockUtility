@@ -1,0 +1,11 @@
+# CubeConverter abecffaaea, the build ViaFabricPlus 4.6.2 ships.
+#
+# UVMap#getMap became getUvMap, so the per face uv lookups follow the rename.
+#
+# The library now speaks ViaVersion's relocated Gson everywhere, so
+# BedrockGeometryModel#fromJson(JsonObject) wants a relocated JsonObject that is
+# not on our compile classpath. The String overload is still public and parses
+# the same text, so the geometry payload hands over the raw json instead.
+L	uvMap.getMap()	uvMap.getUvMap()
+L	map.getMap()	map.getUvMap()
+L	BedrockGeometryModel.fromJson(object)	BedrockGeometryModel.fromJson(object.toString())

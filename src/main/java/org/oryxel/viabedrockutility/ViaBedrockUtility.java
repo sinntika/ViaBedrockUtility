@@ -33,8 +33,9 @@ public class ViaBedrockUtility {
 
         // Register custom payload.
         this.payloadHandler = new CustomEntityPayloadHandler();
-        PayloadTypeRegistry.configurationS2C().register(BasePayload.ID, BasePayload.STREAM_CODEC);
-        PayloadTypeRegistry.playS2C().register(BasePayload.ID, BasePayload.STREAM_CODEC);
+        // Fabric API renamed these to say which direction they travel in.
+        PayloadTypeRegistry.clientboundConfiguration().register(BasePayload.ID, BasePayload.STREAM_CODEC);
+        PayloadTypeRegistry.clientboundPlay().register(BasePayload.ID, BasePayload.STREAM_CODEC);
         ClientPlayNetworking.registerGlobalReceiver(BasePayload.ID, (payload, context) -> payload.handle(this.payloadHandler));
 
         // To enable debugging in order to use animate test thingy (look at ClientPacketListener)
