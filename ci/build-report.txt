@@ -1,5 +1,5 @@
-commit:  8f2f031ec497cd376ea0a370229fe317e2a13dea
-run_id:  32629725994
+commit:  ee30d36ace974b7da0ffe8bf0c3698954d8ced3a
+run_id:  32630342596
 outcome: failure
 
 ===== RENAME =====
@@ -8,35 +8,30 @@ loaded mappings2.tsv
 loaded mappings3.tsv
 loaded mappings4.tsv
 loaded mappings5.tsv
-rewrote 19 files
+loaded mappings6.tsv
+rewrote 3 files
 renamed 0 files
 
 ===== COMPILE ERRORS =====
-unique errors: 22
-payload/PayloadHandler.java:196: cannot find symbol   [symbol: method createPart(int,int) | location: class PartDefinition]
-      src: model = new PlayerModel(PlayerModel.createMesh(CubeDeformation.NONE, slim).getRoot().createPart(64, 64), slim);
+unique errors: 19
 payload/PayloadHandler.java:199: constructor Context in class Context cannot be applied to given types;   [required: EntityRenderDispatcher,ItemModelResolver,MapRenderer,BlockRenderDispatcher,ResourceManager,EntityModelSet,EquipmentAssetManager,AtlasManager,Font,PlayerSkinRenderCache | found: EntityRenderDispatcher,ItemModelResolver,MapRenderer,BlockRenderDispatcher,ResourceManager,EntityModelSet,EquipmentAssetManager,Font | reason: actual and formal argument lists differ in length]
       src: final EntityRendererProvider.Context entityContext = new EntityRendererProvider.Context(client.getEntityRenderDispatcher(),
-material/data/Material.java:211: cannot find symbol   [symbol: variable VertexFormats | location: class MaterialInfo]
-      src: vertexFormat = VertexFormats.POSITION_COLOR_TEXTURE_OVERLAY_LIGHT_NORMAL;
-material/data/Material.java:261: cannot find symbol   [symbol: variable DrawMode | location: class VertexFormat]
-      src: builder.withVertexFormat(vertexFormat, this.defines.contains("LINE_STRIP") ? VertexFormat.DrawMode.LINE_STRIP : VertexFormat.DrawMode.QUADS);
-material/data/Material.java:289: cannot find symbol   [symbol: class MultiPhaseParameters | location: class RenderType]
+material/data/Material.java:262: cannot find symbol   [symbol: variable LINE_STRIP | location: class Mode]
+      src: builder.withVertexFormat(vertexFormat, this.defines.contains("LINE_STRIP") ? VertexFormat.Mode.LINE_STRIP : VertexFormat.Mode.QUADS);
+material/data/Material.java:290: cannot find symbol   [symbol: class MultiPhaseParameters | location: class RenderType]
       src: final RenderType.MultiPhaseParameters.Builder renderLayerBuilder = RenderType.MultiPhaseParameters.builder();
-material/data/Material.java:289: cannot find symbol   [symbol: variable MultiPhaseParameters | location: class RenderType]
+material/data/Material.java:290: cannot find symbol   [symbol: variable MultiPhaseParameters | location: class RenderType]
       src: final RenderType.MultiPhaseParameters.Builder renderLayerBuilder = RenderType.MultiPhaseParameters.builder();
-material/data/Material.java:291: cannot find symbol   [symbol: class Texture | location: class MaterialInfo]
+material/data/Material.java:292: cannot find symbol   [symbol: class Texture | location: class MaterialInfo]
       src: renderLayerBuilder.texture(new Texture(texture, TriState.FALSE, false));
-material/data/Material.java:294: cannot find symbol   [symbol: variable ENABLE_LIGHTMAP | location: class MaterialInfo]
+material/data/Material.java:295: cannot find symbol   [symbol: variable ENABLE_LIGHTMAP | location: class MaterialInfo]
       src: renderLayerBuilder.lightmap(ENABLE_LIGHTMAP);
-material/data/Material.java:295: cannot find symbol   [symbol: variable ENABLE_OVERLAY_COLOR | location: class MaterialInfo]
+material/data/Material.java:296: cannot find symbol   [symbol: variable ENABLE_OVERLAY_COLOR | location: class MaterialInfo]
       src: renderLayerBuilder.overlay(ENABLE_OVERLAY_COLOR);
 entity/CustomEntityTicker.java:62: constructor Context in class Context cannot be applied to given types;   [required: EntityRenderDispatcher,ItemModelResolver,MapRenderer,BlockRenderDispatcher,ResourceManager,EntityModelSet,EquipmentAssetManager,AtlasManager,Font,PlayerSkinRenderCache | found: EntityRenderDispatcher,ItemModelResolver,MapRenderer,BlockRenderDispatcher,ResourceManager,EntityModelSet,EquipmentAssetManager,Font | reason: actual and formal argument lists differ in length]
       src: final EntityRendererProvider.Context context = new EntityRendererProvider.Context(client.getEntityRenderDispatcher(),
 renderer/CustomEntityRenderer.java:43: method does not override or implement a method from a supertype
       src: @Override
-renderer/CustomEntityRenderer.java:62: cannot find symbol   [symbol: method render(PoseStack,VertexConsumer,int,int) | location: record component model of type CustomEntityModel<CustomEntityRenderState>]
-      src: model.model.render(matrices, vertexConsumer, light, OverlayTexture.pack(0, 10));
 mixin/impl/entity/player/AbstractClientPlayerMixin.java:36: cannot find symbol   [symbol: method capeTexture() | location: variable skin of type PlayerSkin]
       src: if (!cape.equals(skin.capeTexture())) {
 mixin/impl/entity/player/AbstractClientPlayerMixin.java:41: cannot find symbol   [symbol: method elytraTexture() | location: variable skin of type PlayerSkin]
@@ -65,213 +60,127 @@ renderer/CustomPlayerRenderer.java:22: method does not override or implement a m
 == BAD IMPORTS (0) ==
 
 == FQN CHECK ==
-net.minecraft.client.model.Model                                       OK
-net.minecraft.client.model.geom.ModelPart.Cube                         OK
-net.minecraft.client.model.geom.ModelPart.Polygon                      OK
-net.minecraft.world.entity.player.PlayerModelType                      OK
-net.minecraft.core.ClientAsset.Texture                                 OK
-net.minecraft.client.renderer.rendertype.RenderTypes                   OK
-net.minecraft.client.renderer.culling.Frustum                          OK
-com.mojang.blaze3d.vertex.DefaultVertexFormat                          OK
-com.mojang.blaze3d.vertex.VertexFormat.Mode                            OK
-net.minecraft.client.renderer.entity.EntityRendererProvider.Context    OK
-net.minecraft.client.renderer.entity.state.AvatarRenderState           OK
-net.minecraft.client.renderer.SubmitNodeCollector                      OK
+net.minecraft.client.renderer.SubmitNodeCollector          OK
+net.minecraft.client.renderer.state.CameraRenderState      OK
+net.minecraft.client.renderer.PlayerSkinRenderCache        OK
+net.minecraft.client.renderer.texture.AtlasManager         MISSING
+com.mojang.blaze3d.vertex.DefaultVertexFormat              OK
+net.minecraft.client.model.geom.builders.PartDefinition    OK
 
-== PACKAGE DUMPS ==
--- net/minecraft/client/renderer/rendertype (7) --
-  LayeringTransform OutputTarget RenderSetup RenderType RenderTypes TextureTransform package-info
--- net/minecraft/core (37) --
-  AxisCycle BlockBox BlockMath BlockPos ClientAsset Cloner Cursor3D DefaultedMappedRegistry DefaultedRegistry Direction Direction8 FrontAndTop GlobalPos Holder HolderGetter HolderLookup HolderOwner HolderSet IdMap IdMapper LayeredRegistryAccess MappedRegistry NonNullList Position QuartPos RegistrationInfo Registry RegistryAccess RegistryCodecs RegistrySetBuilder RegistrySynchronization Rotations SectionPos UUIDUtil Vec3i WritableRegistry package-info
+== NESTED TYPES ==
+-- net.minecraft.core.ClientAsset (3) --
+  DownloadedTexture ResourceTexture Texture
+-- net.minecraft.world.entity.player.PlayerSkin (1) --
+  Patch
+-- net.minecraft.client.renderer.rendertype.RenderType (0) --
+  (none)
 
 == REAL SIGNATURES ==
--- net.minecraft.client.multiplayer.PlayerInfo --
-   public net.minecraft.client.multiplayer.PlayerInfo(com.mojang.authlib.GameProfile, boolean);
-   public com.mojang.authlib.GameProfile getProfile();
-   public net.minecraft.world.entity.player.PlayerSkin getSkin();
--- net.minecraft.client.renderer.texture.TextureManager --
-   public void registerAndLoad(net.minecraft.resources.Identifier, net.minecraft.client.renderer.texture.ReloadableTexture);
-   public void registerForNextReload(net.minecraft.resources.Identifier);
-   public void register(net.minecraft.resources.Identifier, net.minecraft.client.renderer.texture.AbstractTexture);
-   public void release(net.minecraft.resources.Identifier);
--- net.minecraft.client.Minecraft --
-   public final net.minecraft.client.gui.Font font;
-   public final net.minecraft.client.gui.Font fontFilterFishy;
-   public net.minecraft.world.phys.HitResult hitResult;
-   public net.minecraft.client.multiplayer.ClientPacketListener getConnection();
-   public net.minecraft.client.renderer.block.BlockRenderDispatcher getBlockRenderer();
-   public net.minecraft.client.renderer.MapRenderer getMapRenderer();
-   public net.minecraft.client.model.geom.EntityModelSet getEntityModels();
-   public net.minecraft.client.renderer.item.ItemModelResolver getItemModelResolver();
--- net.minecraft.client.model.Model --
-   public abstract class net.minecraft.client.model.Model<S> implements net.fabricmc.fabric.api.client.rendering.v1.FabricModel<S> {
-   protected final net.minecraft.client.model.geom.ModelPart root;
-   public net.minecraft.client.model.Model(net.minecraft.client.model.geom.ModelPart, java.util.function.Function<net.minecraft.resources.Identifier, net
-   public final net.minecraft.client.renderer.rendertype.RenderType renderType(net.minecraft.resources.Identifier);
-   public final void renderToBuffer(com.mojang.blaze3d.vertex.PoseStack, com.mojang.blaze3d.vertex.VertexConsumer, int, int, int);
-   public final void renderToBuffer(com.mojang.blaze3d.vertex.PoseStack, com.mojang.blaze3d.vertex.VertexConsumer, int, int);
-   public final net.minecraft.client.model.geom.ModelPart root();
-   public final java.util.List<net.minecraft.client.model.geom.ModelPart> allParts();
-   public void setupAnim(S);
-   public final void resetPose();
--- net.minecraft.client.model.geom.ModelPart --
-   public final class net.minecraft.client.model.geom.ModelPart {
-   public net.minecraft.client.model.geom.ModelPart(java.util.List<net.minecraft.client.model.geom.ModelPart$Cube>, java.util.Map<java.lang.String, net.m
-   public net.minecraft.client.model.geom.PartPose storePose();
-   public net.minecraft.client.model.geom.PartPose getInitialPose();
-   public void setInitialPose(net.minecraft.client.model.geom.PartPose);
-   public void resetPose();
-   public void loadPose(net.minecraft.client.model.geom.PartPose);
-   public net.minecraft.client.model.geom.ModelPart getChild(java.lang.String);
-   public void setPos(float, float, float);
-   public void setRotation(float, float, float);
-   public void render(com.mojang.blaze3d.vertex.PoseStack, com.mojang.blaze3d.vertex.VertexConsumer, int, int);
-   public void render(com.mojang.blaze3d.vertex.PoseStack, com.mojang.blaze3d.vertex.VertexConsumer, int, int, int);
-   public void rotateBy(org.joml.Quaternionf);
-   public void getExtentsForGui(com.mojang.blaze3d.vertex.PoseStack, java.util.function.Consumer<org.joml.Vector3fc>);
-   public void visit(com.mojang.blaze3d.vertex.PoseStack, net.minecraft.client.model.geom.ModelPart$Visitor);
-   public void translateAndRotate(com.mojang.blaze3d.vertex.PoseStack);
+-- net.minecraft.client.renderer.SubmitNodeCollector --
+   public interface net.minecraft.client.renderer.SubmitNodeCollector extends net.minecraft.client.renderer.OrderedSubmitNodeCollector {
+   public abstract net.minecraft.client.renderer.OrderedSubmitNodeCollector order(int);
+-- net.minecraft.client.renderer.entity.LivingEntityRenderer --
+   public abstract class net.minecraft.client.renderer.entity.LivingEntityRenderer<T extends net.minecraft.world.entity.LivingEntity, S extends net.minecraft.clien
+   protected M model;
+   protected final net.minecraft.client.renderer.item.ItemModelResolver itemModelResolver;
+   protected final java.util.List<net.minecraft.client.renderer.entity.layers.RenderLayer<S, M>> layers;
+   protected final boolean addLayer(net.minecraft.client.renderer.entity.layers.RenderLayer<S, M>);
+   protected net.minecraft.world.phys.AABB getBoundingBoxForCulling(T);
+   public void submit(S, com.mojang.blaze3d.vertex.PoseStack, net.minecraft.client.renderer.SubmitNodeCollector, net.minecraft.client.renderer.state.CameraRenderSt
+   protected boolean shouldRenderLayers(S);
+   protected int getModelTint(S);
+   public abstract net.minecraft.resources.Identifier getTextureLocation(S);
+   protected net.minecraft.client.renderer.rendertype.RenderType getRenderType(S, boolean, boolean, boolean);
+   protected boolean isBodyVisible(S);
+   protected boolean isShaking(S);
+   protected void setupRotations(S, com.mojang.blaze3d.vertex.PoseStack, float, float);
    ... (truncated)
--- net.minecraft.client.model.geom.ModelPart$Cube --
-   public class net.minecraft.client.model.geom.ModelPart$Cube {
-   public final net.minecraft.client.model.geom.ModelPart$Polygon[] polygons;
-   public final float minX;
-   public final float minY;
-   public final float minZ;
-   public final float maxX;
-   public final float maxY;
-   public final float maxZ;
-   public net.minecraft.client.model.geom.ModelPart$Cube(int, int, float, float, float, float, float, float, float, float, float, boolean, float, float, 
-   public void compile(com.mojang.blaze3d.vertex.PoseStack$Pose, com.mojang.blaze3d.vertex.VertexConsumer, int, int, int);
--- net.minecraft.client.model.player.PlayerModel --
-   public class net.minecraft.client.model.player.PlayerModel extends net.minecraft.client.model.HumanoidModel<net.minecraft.client.renderer.entity.state
-   protected static final java.lang.String LEFT_SLEEVE;
-   protected static final java.lang.String RIGHT_SLEEVE;
-   protected static final java.lang.String LEFT_PANTS;
-   protected static final java.lang.String RIGHT_PANTS;
-   public final net.minecraft.client.model.geom.ModelPart leftSleeve;
-   public final net.minecraft.client.model.geom.ModelPart rightSleeve;
-   public final net.minecraft.client.model.geom.ModelPart leftPants;
-   public final net.minecraft.client.model.geom.ModelPart rightPants;
-   public final net.minecraft.client.model.geom.ModelPart jacket;
-   public net.minecraft.client.model.player.PlayerModel(net.minecraft.client.model.geom.ModelPart, boolean);
-   public static net.minecraft.client.model.geom.builders.MeshDefinition createMesh(net.minecraft.client.model.geom.builders.CubeDeformation, boolean);
-   public static net.minecraft.client.renderer.entity.ArmorModelSet<net.minecraft.client.model.geom.builders.MeshDefinition> createArmorMeshSet(net.minec
-   public void setupAnim(net.minecraft.client.renderer.entity.state.AvatarRenderState);
-   public void setAllVisible(boolean);
-   public void translateToHand(net.minecraft.client.renderer.entity.state.AvatarRenderState, net.minecraft.world.entity.HumanoidArm, com.mojang.blaze3d.v
+-- net.minecraft.client.renderer.entity.player.AvatarRenderer --
+   public class net.minecraft.client.renderer.entity.player.AvatarRenderer<AvatarlikeEntity extends net.minecraft.world.entity.Avatar & net.minecraft.client.entity
+   public net.minecraft.client.renderer.entity.player.AvatarRenderer(net.minecraft.client.renderer.entity.EntityRendererProvider$Context, boolean);
+   protected boolean shouldRenderLayers(net.minecraft.client.renderer.entity.state.AvatarRenderState);
+   public net.minecraft.world.phys.Vec3 getRenderOffset(net.minecraft.client.renderer.entity.state.AvatarRenderState);
+   public net.minecraft.resources.Identifier getTextureLocation(net.minecraft.client.renderer.entity.state.AvatarRenderState);
+   protected void scale(net.minecraft.client.renderer.entity.state.AvatarRenderState, com.mojang.blaze3d.vertex.PoseStack);
+   protected void submitNameTag(net.minecraft.client.renderer.entity.state.AvatarRenderState, com.mojang.blaze3d.vertex.PoseStack, net.minecraft.client.renderer.Su
+   public net.minecraft.client.renderer.entity.state.AvatarRenderState createRenderState();
+   public void extractRenderState(AvatarlikeEntity, net.minecraft.client.renderer.entity.state.AvatarRenderState, float);
+   protected boolean shouldShowName(AvatarlikeEntity, double);
+   public void renderRightHand(com.mojang.blaze3d.vertex.PoseStack, net.minecraft.client.renderer.SubmitNodeCollector, int, net.minecraft.resources.Identifier, boo
+   public void renderLeftHand(com.mojang.blaze3d.vertex.PoseStack, net.minecraft.client.renderer.SubmitNodeCollector, int, net.minecraft.resources.Identifier, bool
+   protected void setupRotations(net.minecraft.client.renderer.entity.state.AvatarRenderState, com.mojang.blaze3d.vertex.PoseStack, float, float);
+   public boolean isEntityUpsideDown(AvatarlikeEntity);
    ... (truncated)
--- net.minecraft.client.renderer.rendertype.RenderTypes --
-   public static net.minecraft.client.renderer.rendertype.RenderType entitySolid(net.minecraft.resources.Identifier);
-   public static net.minecraft.client.renderer.rendertype.RenderType entitySolidZOffsetForward(net.minecraft.resources.Identifier);
-   public static net.minecraft.client.renderer.rendertype.RenderType entityCutout(net.minecraft.resources.Identifier);
-   public static net.minecraft.client.renderer.rendertype.RenderType entityCutoutNoCull(net.minecraft.resources.Identifier, boolean);
-   public static net.minecraft.client.renderer.rendertype.RenderType entityCutoutNoCull(net.minecraft.resources.Identifier);
-   public static net.minecraft.client.renderer.rendertype.RenderType entityCutoutNoCullZOffset(net.minecraft.resources.Identifier, boolean);
-   public static net.minecraft.client.renderer.rendertype.RenderType entityCutoutNoCullZOffset(net.minecraft.resources.Identifier);
-   public static net.minecraft.client.renderer.rendertype.RenderType entityTranslucent(net.minecraft.resources.Identifier, boolean);
-   public static net.minecraft.client.renderer.rendertype.RenderType entityTranslucent(net.minecraft.resources.Identifier);
-   public static net.minecraft.client.renderer.rendertype.RenderType entityTranslucentEmissive(net.minecraft.resources.Identifier, boolean);
-   public static net.minecraft.client.renderer.rendertype.RenderType entityTranslucentEmissive(net.minecraft.resources.Identifier);
-   public static net.minecraft.client.renderer.rendertype.RenderType entitySmoothCutout(net.minecraft.resources.Identifier);
-   public static net.minecraft.client.renderer.rendertype.RenderType entityDecal(net.minecraft.resources.Identifier);
-   public static net.minecraft.client.renderer.rendertype.RenderType entityNoOutline(net.minecraft.resources.Identifier);
-   public static net.minecraft.client.renderer.rendertype.RenderType entityShadow(net.minecraft.resources.Identifier);
-   public static net.minecraft.client.renderer.rendertype.RenderType entityGlint();
-   ... (truncated)
--- net.minecraft.core.ClientAsset --
-   public interface net.minecraft.core.ClientAsset {
-   public abstract net.minecraft.resources.Identifier id();
--- net.minecraft.core.ClientAsset$Texture --
-   public interface net.minecraft.core.ClientAsset$Texture extends net.minecraft.core.ClientAsset {
-   public abstract net.minecraft.resources.Identifier texturePath();
--- net.minecraft.client.renderer.entity.EntityRenderer --
-   public abstract class net.minecraft.client.renderer.entity.EntityRenderer<T extends net.minecraft.world.entity.Entity, S extends net.minecraft.client.
-   public static final float NAMETAG_SCALE;
-   public final int getPackedLightCoords(T, float);
-   public boolean shouldRender(T, net.minecraft.client.renderer.culling.Frustum, double, double, double);
-   public net.minecraft.world.phys.Vec3 getRenderOffset(S);
-   public void submit(S, com.mojang.blaze3d.vertex.PoseStack, net.minecraft.client.renderer.SubmitNodeCollector, net.minecraft.client.renderer.state.Came
-   public net.minecraft.client.gui.Font getFont();
-   protected void submitNameTag(S, com.mojang.blaze3d.vertex.PoseStack, net.minecraft.client.renderer.SubmitNodeCollector, net.minecraft.client.renderer.
-   public abstract S createRenderState();
-   public final S createRenderState(T, float);
-   public void extractRenderState(T, S, float);
--- net.minecraft.client.renderer.entity.EntityRendererProvider$Context --
-   public class net.minecraft.client.renderer.entity.EntityRendererProvider$Context {
-   public net.minecraft.client.renderer.entity.EntityRendererProvider$Context(net.minecraft.client.renderer.entity.EntityRenderDispatcher, net.minecraft.
-   public net.minecraft.client.renderer.entity.EntityRenderDispatcher getEntityRenderDispatcher();
-   public net.minecraft.client.renderer.item.ItemModelResolver getItemModelResolver();
-   public net.minecraft.client.renderer.MapRenderer getMapRenderer();
-   public net.minecraft.client.renderer.block.BlockRenderDispatcher getBlockRenderDispatcher();
-   public net.minecraft.server.packs.resources.ResourceManager getResourceManager();
-   public net.minecraft.client.model.geom.EntityModelSet getModelSet();
-   public net.minecraft.client.resources.model.EquipmentAssetManager getEquipmentAssets();
-   public net.minecraft.client.renderer.entity.layers.EquipmentLayerRenderer getEquipmentRenderer();
-   public net.minecraft.client.resources.model.MaterialSet getMaterials();
-   public net.minecraft.client.renderer.texture.TextureAtlas getAtlas(net.minecraft.resources.Identifier);
-   public net.minecraft.client.model.geom.ModelPart bakeLayer(net.minecraft.client.model.geom.ModelLayerLocation);
-   public net.minecraft.client.gui.Font getFont();
-   public net.minecraft.client.renderer.PlayerSkinRenderCache getPlayerSkinRenderCache();
--- net.minecraft.client.resources.DefaultPlayerSkin --
-   public class net.minecraft.client.resources.DefaultPlayerSkin {
-   public net.minecraft.client.resources.DefaultPlayerSkin();
-   public static net.minecraft.resources.Identifier getDefaultTexture();
-   public static net.minecraft.world.entity.player.PlayerSkin getDefaultSkin();
-   public static net.minecraft.world.entity.player.PlayerSkin get(java.util.UUID);
-   public static net.minecraft.world.entity.player.PlayerSkin get(com.mojang.authlib.GameProfile);
-   static {};
--- net.minecraft.resources.Identifier --
-   public static net.minecraft.resources.Identifier fromNamespaceAndPath(java.lang.String, java.lang.String);
-   public static net.minecraft.resources.Identifier parse(java.lang.String);
-   public static net.minecraft.resources.Identifier withDefaultNamespace(java.lang.String);
--- com.mojang.blaze3d.vertex.VertexFormat --
-   public class com.mojang.blaze3d.vertex.VertexFormat {
-   public static final int UNKNOWN_ELEMENT;
-   public static com.mojang.blaze3d.vertex.VertexFormat$Builder builder();
+-- net.minecraft.client.renderer.rendertype.RenderType --
+   public class net.minecraft.client.renderer.rendertype.RenderType {
+   public static final int BIG_BUFFER_SIZE;
+   public static final int SMALL_BUFFER_SIZE;
+   public static final int TRANSIENT_BUFFER_SIZE;
+   public static net.minecraft.client.renderer.rendertype.RenderType create(java.lang.String, net.minecraft.client.renderer.rendertype.RenderSetup);
    public java.lang.String toString();
-   public int getVertexSize();
-   public java.util.List<com.mojang.blaze3d.vertex.VertexFormatElement> getElements();
-   public java.util.List<java.lang.String> getElementAttributeNames();
-   public int[] getOffsetsByElement();
-   public int getOffset(com.mojang.blaze3d.vertex.VertexFormatElement);
-   public boolean contains(com.mojang.blaze3d.vertex.VertexFormatElement);
-   public int getElementsMask();
-   public java.lang.String getElementName(com.mojang.blaze3d.vertex.VertexFormatElement);
-   public boolean equals(java.lang.Object);
-   public int hashCode();
-   public com.mojang.blaze3d.buffers.GpuBuffer uploadImmediateVertexBuffer(java.nio.ByteBuffer);
-   public com.mojang.blaze3d.buffers.GpuBuffer uploadImmediateIndexBuffer(java.nio.ByteBuffer);
+   public void draw(com.mojang.blaze3d.vertex.MeshData);
+   public int bufferSize();
+   public com.mojang.blaze3d.vertex.VertexFormat format();
+   public com.mojang.blaze3d.vertex.VertexFormat$Mode mode();
+   public java.util.Optional<net.minecraft.client.renderer.rendertype.RenderType> outline();
+   public boolean isOutline();
+   public com.mojang.blaze3d.pipeline.RenderPipeline pipeline();
+   public boolean affectsCrumbling();
+   public boolean canConsolidateConsecutiveGeometry();
+   public boolean sortOnUpload();
+-- net.minecraft.core.ClientAsset$DirectTexture --
+   javap error: Error: class not found: net.minecraft.core.ClientAsset$DirectTexture
+-- net.minecraft.world.entity.player.PlayerSkin$Patch --
+   public final class net.minecraft.world.entity.player.PlayerSkin$Patch extends java.lang.Record {
+   public static final net.minecraft.world.entity.player.PlayerSkin$Patch EMPTY;
+   public static final com.mojang.serialization.MapCodec<net.minecraft.world.entity.player.PlayerSkin$Patch> MAP_CODEC;
+   public static final net.minecraft.network.codec.StreamCodec<io.netty.buffer.ByteBuf, net.minecraft.world.entity.player.PlayerSkin$Patch> STREAM_CODEC;
+   public net.minecraft.world.entity.player.PlayerSkin$Patch(java.util.Optional<net.minecraft.core.ClientAsset$ResourceTexture>, java.util.Optional<net.minecraft.c
+   public static net.minecraft.world.entity.player.PlayerSkin$Patch create(java.util.Optional<net.minecraft.core.ClientAsset$ResourceTexture>, java.util.Optional<n
+   public final java.lang.String toString();
+   public final int hashCode();
+   public final boolean equals(java.lang.Object);
+   public java.util.Optional<net.minecraft.core.ClientAsset$ResourceTexture> body();
    ... (truncated)
--- net.minecraft.client.renderer.entity.state.AvatarRenderState --
-   public class net.minecraft.client.renderer.entity.state.AvatarRenderState extends net.minecraft.client.renderer.entity.state.HumanoidRenderState {
-   public net.minecraft.world.entity.player.PlayerSkin skin;
-   public float capeFlap;
-   public float capeLean;
-   public float capeLean2;
-   public int arrowCount;
-   public int stingerCount;
-   public boolean isSpectator;
-   public boolean showHat;
-   public boolean showJacket;
-   public boolean showLeftPants;
-   public boolean showRightPants;
-   public boolean showLeftSleeve;
-   public boolean showRightSleeve;
-   public boolean showCape;
-   public float fallFlyingTimeInTicks;
+-- net.minecraft.client.Minecraft --
+   public net.minecraft.server.packs.resources.ResourceManager getResourceManager();
+   public net.minecraft.client.renderer.entity.EntityRenderDispatcher getEntityRenderDispatcher();
+   public net.minecraft.client.resources.model.AtlasManager getAtlasManager();
+   public net.minecraft.client.renderer.PlayerSkinRenderCache playerSkinRenderCache();
+-- net.minecraft.client.renderer.PlayerSkinRenderCache --
+   public class net.minecraft.client.renderer.PlayerSkinRenderCache {
+   public static final net.minecraft.client.renderer.rendertype.RenderType DEFAULT_PLAYER_SKIN_RENDER_TYPE;
+   public static final java.time.Duration CACHE_DURATION;
+   public net.minecraft.client.renderer.PlayerSkinRenderCache(net.minecraft.client.renderer.texture.TextureManager, net.minecraft.client.resources.SkinManager, net
+   public net.minecraft.client.renderer.PlayerSkinRenderCache$RenderInfo getOrDefault(net.minecraft.world.item.component.ResolvableProfile);
+   public java.util.function.Supplier<net.minecraft.client.renderer.PlayerSkinRenderCache$RenderInfo> createLookup(net.minecraft.world.item.component.ResolvablePro
+   public java.util.concurrent.CompletableFuture<java.util.Optional<net.minecraft.client.renderer.PlayerSkinRenderCache$RenderInfo>> lookup(net.minecraft.world.ite
+-- net.minecraft.client.model.geom.builders.PartDefinition --
+   public class net.minecraft.client.model.geom.builders.PartDefinition {
+   public net.minecraft.client.model.geom.builders.PartDefinition addOrReplaceChild(java.lang.String, net.minecraft.client.model.geom.builders.CubeListBuilder, net
+   public net.minecraft.client.model.geom.builders.PartDefinition addOrReplaceChild(java.lang.String, net.minecraft.client.model.geom.builders.PartDefinition);
+   public net.minecraft.client.model.geom.builders.PartDefinition clearRecursively();
+   public net.minecraft.client.model.geom.builders.PartDefinition clearChild(java.lang.String);
+   public void retainPartsAndChildren(java.util.Set<java.lang.String>);
+   public void retainExactParts(java.util.Set<java.lang.String>);
+   public net.minecraft.client.model.geom.ModelPart bake(int, int);
+   public net.minecraft.client.model.geom.builders.PartDefinition getChild(java.lang.String);
+   public java.util.Set<java.util.Map$Entry<java.lang.String, net.minecraft.client.model.geom.builders.PartDefinition>> getChildren();
    ... (truncated)
--- net.minecraft.world.entity.Entity --
-   public double distanceToSqr(double, double, double);
-   public double distanceToSqr(net.minecraft.world.entity.Entity);
-   public double distanceToSqr(net.minecraft.world.phys.Vec3);
-   public float getViewYRot(float);
-   public float getXRot(float);
-   public float getYRot(float);
-   public static double getViewScale();
-   public float getYRot();
-   public float getVisualRotationYInDegrees();
-   public float getXRot();
+-- com.mojang.blaze3d.vertex.DefaultVertexFormat --
+   public static final com.mojang.blaze3d.vertex.VertexFormat NEW_ENTITY;
+   public static final com.mojang.blaze3d.vertex.VertexFormat POSITION_TEX;
+   public static final com.mojang.blaze3d.vertex.VertexFormat POSITION_TEX_COLOR;
+   public static final com.mojang.blaze3d.vertex.VertexFormat POSITION_TEX_LIGHTMAP_COLOR;
+   public static final com.mojang.blaze3d.vertex.VertexFormat POSITION_TEX_COLOR_NORMAL;
+-- net.minecraft.client.renderer.state.CameraRenderState --
+   public class net.minecraft.client.renderer.state.CameraRenderState implements net.fabricmc.fabric.api.client.rendering.v1.FabricRenderState {
+   public net.minecraft.core.BlockPos blockPos;
+   public net.minecraft.world.phys.Vec3 pos;
+   public boolean initialized;
+   public net.minecraft.world.phys.Vec3 entityPos;
+   public org.joml.Quaternionf orientation;
+   public net.minecraft.client.renderer.state.CameraRenderState();
 
 ===== TAIL =====
                ^
@@ -283,9 +192,9 @@ net.minecraft.client.renderer.SubmitNodeCollector                      OK
     ^
 Note: Some input files use unchecked or unsafe operations.
 Note: Recompile with -Xlint:unchecked for details.
-23 errors
+19 errors
 	... 30 more
 
 
-BUILD FAILED in 1m 6s
+BUILD FAILED in 1m 12s
 5 actionable tasks: 5 executed
