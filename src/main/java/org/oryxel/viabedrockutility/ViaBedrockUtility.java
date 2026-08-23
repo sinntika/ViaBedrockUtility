@@ -3,6 +3,7 @@ package org.oryxel.viabedrockutility;
 import com.mojang.brigadier.Command;
 import lombok.Getter;
 import lombok.Setter;
+import net.fabricmc.fabric.api.client.networking.v1.ClientConfigurationNetworking;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.fabricmc.fabric.api.command.v2.CommandRegistrationCallback;
 import net.fabricmc.fabric.api.networking.v1.PayloadTypeRegistry;
@@ -36,6 +37,12 @@ public class ViaBedrockUtility {
         // Fabric API renamed these to say which direction they travel in.
         PayloadTypeRegistry.clientboundConfiguration().register(BasePayload.ID, BasePayload.STREAM_CODEC);
         PayloadTypeRegistry.clientboundPlay().register(BasePayload.ID, BasePayload.STREAM_CODEC);
+
+        // ViaBedrock already talks to us while the client is still in the configuration phase
+        // (CONFIRM, skin information, capes), so a play-only receiver silently drops those packets
+        // and the game logs "Unknown custom packet payload: viabedrockutility:data".
+        // Both phases share the same handler; PayloadHandler is phase agnostic.
+        ClientConfigurationNetworking.registerGlobalReceiver(BasePayload.ID, (payload, context) -> payload.handle(this.payloadHandler));
         ClientPlayNetworking.registerGlobalReceiver(BasePayload.ID, (payload, context) -> payload.handle(this.payloadHandler));
 
         // To enable debugging in order to use animate test thingy (look at ClientPacketListener)
