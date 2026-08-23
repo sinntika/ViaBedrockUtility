@@ -1,6 +1,6 @@
-commit:  c9d0a27551ec7c1c8ffcea0e2c39caab507f60da
-run_id:  32631142036
-outcome: failure
+commit:  0cd8a3a547741033f08ca93a6e760ae150aa0ac2
+run_id:  32631355160
+outcome: success
 
 ===== RENAME =====
 loaded mappings.tsv
@@ -89,18 +89,18 @@ com.mojang.blaze3d.pipeline.RenderPipeline              OK
    public static net.minecraft.client.renderer.rendertype.RenderType create(java.lang.String, net.minecraft.client.renderer.rendertype.RenderSetup);
 
 ===== TAIL =====
-* What went wrong:
-Execution failed for task ':test'.
-> There are test sources present and no filters are applied, but the test task did not discover any tests to execute. This is likely due to a misconfiguration. Please check your test configuration. If this is not a misconfiguration, this error can be disabled by setting the 'failOnNoDiscoveredTests' property to false.
+Cannot remap traverse because it does not exist in any of the targets [net/minecraft/client/model/geom/ModelPart] or their parents.
+Cannot remap playerListEntry because it does not exist in any of the targets [net/minecraft/client/player/AbstractClientPlayer] or their parents.
+Cannot remap pos because it does not exist in any of the targets [net/minecraft/world/entity/Entity] or their parents.
+Cannot remap distanceTraveled because it does not exist in any of the targets [net/minecraft/world/entity/Entity] or their parents.
 
-* Try:
-> Run with --scan to get full insights from a Build Scan (powered by Develocity).
+> Task :validateAccessWidener
+> Task :check
+> Task :remapSourcesJar SKIPPED
+> Task :assemble
+> Task :build
 
-* Exception is:
-org.gradle.api.tasks.TaskExecutionException: Execution failed for task ':test'.
-Caused by: org.gradle.api.internal.exceptions.MarkedVerificationException: There are test sources present and no filters are applied, but the test task did not discover any tests to execute. This is likely due to a misconfiguration. Please check your test configuration. If this is not a misconfiguration, this error can be disabled by setting the 'failOnNoDiscoveredTests' property to false.
-	... 30 more
+[Incubating] Problems report is available at: file:///home/runner/work/ViaBedrockUtility/ViaBedrockUtility/build/reports/problems/problems-report.html
 
-
-BUILD FAILED in 1m 33s
-11 actionable tasks: 11 executed
+BUILD SUCCESSFUL in 1m 23s
+12 actionable tasks: 12 executed
