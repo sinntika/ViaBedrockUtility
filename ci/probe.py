@@ -30,26 +30,22 @@ VALIDATED_PREFIXES = (
 WIDTH = 300
 GRADLE_LOG = os.path.join(ROOT, "ci", "gradle.log")
 
-# Simple names the port lost track of: report every place they live now.
-SIMPLE_NAMES = [
-    "BlendFunction",
-    "DepthTestFunction",
-    "DepthTest",
-    "CompareFunction",
-    "BlendFactor",
-    "SourceFactor",
-    "DestFactor",
-]
+SIMPLE_NAMES = []
 
 PACKAGE_LISTINGS = [
-    "com.mojang.blaze3d.platform",
-    "com.mojang.blaze3d.pipeline",
+    "com.mojang.blaze3d",
 ]
 
 JAVAP = [
-    ("com.mojang.blaze3d.pipeline.BlendFunction", [], 30),
-    ("com.mojang.blaze3d.pipeline.RenderPipeline$Builder", ["with"], 60),
-    ("net.minecraft.client.renderer.rendertype.RenderSetup$RenderSetupBuilder", [], 25),
+    ("com.mojang.blaze3d.platform.BlendFactor", [], 40),
+    ("com.mojang.blaze3d.platform.CompareOp", [], 20),
+    ("com.mojang.blaze3d.PrimitiveTopology", [], 20),
+    ("com.mojang.blaze3d.pipeline.ColorTargetState", [], 25),
+    ("com.mojang.blaze3d.pipeline.DepthStencilState", [], 25),
+    ("net.minecraft.client.renderer.rendertype.RenderSetup", ["builder", "bufferSize", "create"], 12),
+    ("net.minecraft.client.renderer.rendertype.RenderType", ["create"], 10),
+    ("com.mojang.blaze3d.pipeline.RenderPipeline", ["builder"], 10),
+    ("net.minecraft.client.renderer.RenderPipelines", ["SNIPPET"], 12),
 ]
 
 
@@ -179,13 +175,14 @@ for spec, hint, rel in bad:
     print("    -> %s" % hint)
     print("    in %s" % rel)
 
-print("")
-print("== WHERE DID IT GO ==")
-for simple in SIMPLE_NAMES:
-    hits = sorted(c for c in classes if c.rsplit(".", 1)[-1] == simple and "$" not in c)
-    nested = sorted(c for c in classes if c.endswith("." + simple) and "$" in c)
-    found = hits + [n for n in nested if n not in hits]
-    print("%s -> %s" % (simple.ljust(22), ", ".join(found[:6]) if found else "GONE"))
+if SIMPLE_NAMES:
+    print("")
+    print("== WHERE DID IT GO ==")
+    for simple in SIMPLE_NAMES:
+        hits = sorted(c for c in classes if c.rsplit(".", 1)[-1] == simple and "$" not in c)
+        nested = sorted(c for c in classes if c.endswith("." + simple) and "$" in c)
+        found = hits + [n for n in nested if n not in hits]
+        print("%s -> %s" % (simple.ljust(22), ", ".join(found[:6]) if found else "GONE"))
 
 print("")
 print("== PACKAGE LISTING ==")

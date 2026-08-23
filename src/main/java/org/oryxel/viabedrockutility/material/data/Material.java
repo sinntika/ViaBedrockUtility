@@ -3,11 +3,13 @@ package org.oryxel.viabedrockutility.material.data;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
+import com.mojang.blaze3d.PrimitiveTopology;
 import com.mojang.blaze3d.pipeline.BlendFunction;
+import com.mojang.blaze3d.pipeline.ColorTargetState;
+import com.mojang.blaze3d.pipeline.DepthStencilState;
 import com.mojang.blaze3d.pipeline.RenderPipeline;
-import com.mojang.blaze3d.platform.DepthTestFunction;
-import com.mojang.blaze3d.platform.DestFactor;
-import com.mojang.blaze3d.platform.SourceFactor;
+import com.mojang.blaze3d.platform.BlendFactor;
+import com.mojang.blaze3d.platform.CompareOp;
 import com.mojang.blaze3d.vertex.VertexFormat;
 import com.mojang.blaze3d.vertex.DefaultVertexFormat;
 import com.mojang.blaze3d.vertex.VertexFormatElement;
@@ -18,10 +20,8 @@ import lombok.ToString;
 import net.minecraft.client.renderer.rendertype.RenderSetup;
 import net.minecraft.client.renderer.rendertype.RenderType;
 import net.minecraft.client.renderer.rendertype.RenderTypes;
-import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.culling.Frustum;
 import net.minecraft.client.renderer.RenderPipelines;
-import net.minecraft.client.renderer.LightTexture;
 import net.minecraft.client.renderer.texture.OverlayTexture;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import net.minecraft.resources.Identifier;
@@ -212,41 +212,42 @@ public record Material(String identifier, String baseIdentifier, MaterialInfo in
                     vertexFormat = DefaultVertexFormat.NEW_ENTITY;
                 }
 
+                // 26.2 merged SourceFactor and DestFactor into a single BlendFactor enum.
                 final BlendFunction blend;
                 if (!this.blendSrc.isBlank() && !this.blendDst.isBlank()) {
-                    final SourceFactor srcFactor = switch (this.blendSrc) {
-                        case "SourceAlpha" -> SourceFactor.SRC_ALPHA;
-                        case "SourceColor" -> SourceFactor.SRC_COLOR;
-                        case "ConstantAlpha" -> SourceFactor.CONSTANT_ALPHA;
-                        case "ConstantColor" -> SourceFactor.CONSTANT_COLOR;
-                        case "DstAlpha" -> SourceFactor.DST_ALPHA;
-                        case "DstColor" -> SourceFactor.DST_COLOR;
-                        case "OneMinusConstantAlpha" -> SourceFactor.ONE_MINUS_CONSTANT_ALPHA;
-                        case "OneMinusConstantColor" -> SourceFactor.ONE_MINUS_CONSTANT_COLOR;
-                        case "OneMinusDstAlpha" -> SourceFactor.ONE_MINUS_DST_ALPHA;
-                        case "OneMinusDstColor" -> SourceFactor.ONE_MINUS_DST_COLOR;
-                        case "OneMinusSrcAlpha" -> SourceFactor.ONE_MINUS_SRC_ALPHA;
-                        case "OneMinusSrcColor" -> SourceFactor.ONE_MINUS_SRC_COLOR;
-                        case "SourceAlphaSaturate" -> SourceFactor.SRC_ALPHA_SATURATE;
-                        case "Zero" -> SourceFactor.ZERO;
-                        default -> SourceFactor.ONE;
+                    final BlendFactor srcFactor = switch (this.blendSrc) {
+                        case "SourceAlpha" -> BlendFactor.SRC_ALPHA;
+                        case "SourceColor" -> BlendFactor.SRC_COLOR;
+                        case "ConstantAlpha" -> BlendFactor.CONSTANT_ALPHA;
+                        case "ConstantColor" -> BlendFactor.CONSTANT_COLOR;
+                        case "DstAlpha" -> BlendFactor.DST_ALPHA;
+                        case "DstColor" -> BlendFactor.DST_COLOR;
+                        case "OneMinusConstantAlpha" -> BlendFactor.ONE_MINUS_CONSTANT_ALPHA;
+                        case "OneMinusConstantColor" -> BlendFactor.ONE_MINUS_CONSTANT_COLOR;
+                        case "OneMinusDstAlpha" -> BlendFactor.ONE_MINUS_DST_ALPHA;
+                        case "OneMinusDstColor" -> BlendFactor.ONE_MINUS_DST_COLOR;
+                        case "OneMinusSrcAlpha" -> BlendFactor.ONE_MINUS_SRC_ALPHA;
+                        case "OneMinusSrcColor" -> BlendFactor.ONE_MINUS_SRC_COLOR;
+                        case "SourceAlphaSaturate" -> BlendFactor.SRC_ALPHA_SATURATE;
+                        case "Zero" -> BlendFactor.ZERO;
+                        default -> BlendFactor.ONE;
                     };
 
-                    final DestFactor dstFactor = switch (this.blendDst) {
-                        case "SourceAlpha" -> DestFactor.SRC_ALPHA;
-                        case "SourceColor" -> DestFactor.SRC_COLOR;
-                        case "ConstantAlpha" -> DestFactor.CONSTANT_ALPHA;
-                        case "ConstantColor" -> DestFactor.CONSTANT_COLOR;
-                        case "DstAlpha" -> DestFactor.DST_ALPHA;
-                        case "DstColor" -> DestFactor.DST_COLOR;
-                        case "OneMinusConstantAlpha" -> DestFactor.ONE_MINUS_CONSTANT_ALPHA;
-                        case "OneMinusConstantColor" -> DestFactor.ONE_MINUS_CONSTANT_COLOR;
-                        case "OneMinusDstAlpha" -> DestFactor.ONE_MINUS_DST_ALPHA;
-                        case "OneMinusDstColor" -> DestFactor.ONE_MINUS_DST_COLOR;
-                        case "OneMinusSrcAlpha" -> DestFactor.ONE_MINUS_SRC_ALPHA;
-                        case "OneMinusSrcColor" -> DestFactor.ONE_MINUS_SRC_COLOR;
-                        case "Zero" -> DestFactor.ZERO;
-                        default -> DestFactor.ONE;
+                    final BlendFactor dstFactor = switch (this.blendDst) {
+                        case "SourceAlpha" -> BlendFactor.SRC_ALPHA;
+                        case "SourceColor" -> BlendFactor.SRC_COLOR;
+                        case "ConstantAlpha" -> BlendFactor.CONSTANT_ALPHA;
+                        case "ConstantColor" -> BlendFactor.CONSTANT_COLOR;
+                        case "DstAlpha" -> BlendFactor.DST_ALPHA;
+                        case "DstColor" -> BlendFactor.DST_COLOR;
+                        case "OneMinusConstantAlpha" -> BlendFactor.ONE_MINUS_CONSTANT_ALPHA;
+                        case "OneMinusConstantColor" -> BlendFactor.ONE_MINUS_CONSTANT_COLOR;
+                        case "OneMinusDstAlpha" -> BlendFactor.ONE_MINUS_DST_ALPHA;
+                        case "OneMinusDstColor" -> BlendFactor.ONE_MINUS_DST_COLOR;
+                        case "OneMinusSrcAlpha" -> BlendFactor.ONE_MINUS_SRC_ALPHA;
+                        case "OneMinusSrcColor" -> BlendFactor.ONE_MINUS_SRC_COLOR;
+                        case "Zero" -> BlendFactor.ZERO;
+                        default -> BlendFactor.ONE;
                     };
 
                     blend = new BlendFunction(srcFactor, dstFactor);
@@ -254,12 +255,16 @@ public record Material(String identifier, String baseIdentifier, MaterialInfo in
                     blend = BlendFunction.TRANSLUCENT;
                 }
 
-                RenderPipeline.Builder builder = RenderPipeline.builder(ENTITY_SNIPPET).withSampler("Sampler1");
+                RenderPipeline.Builder builder = RenderPipeline.builder(ENTITY_SNIPPET);
 
                 builder.withLocation(Identifier.fromNamespaceAndPath("viabedrockutility", "pipeline/" + UUID.randomUUID() + this.hashCode()));
-                builder.withBlend(blend);
 
-                builder.withVertexFormat(vertexFormat, this.defines.contains("LINE_STRIP") ? VertexFormat.Mode.DEBUG_LINE_STRIP : VertexFormat.Mode.QUADS);
+                // 26.2: blending lives in the color target state and the depth test in the
+                // depth stencil state, and the vertex format is a binding plus a topology.
+                builder.withColorTargetState(new ColorTargetState(blend));
+
+                builder.withVertexBinding(0, vertexFormat);
+                builder.withPrimitiveTopology(this.defines.contains("LINE_STRIP") ? PrimitiveTopology.DEBUG_LINE_STRIP : PrimitiveTopology.QUADS);
 
                 // Totally possible, but not now.
 //                if (!this.fragmentShader.isBlank()) {
@@ -271,13 +276,12 @@ public record Material(String identifier, String baseIdentifier, MaterialInfo in
 
                 builder.withCull(!this.states.contains("DisableCulling"));
 
-                builder.withDepthTestFunction(switch (this.depthFunc) {
-                    case "Equal" -> DepthTestFunction.EQUAL_DEPTH_TEST;
-                    case "Bigger" -> DepthTestFunction.GREATER_DEPTH_TEST;
-                    default -> DepthTestFunction.LEQUAL_DEPTH_TEST;
-                });
-
-                builder.withDepthWrite(!this.states.contains("DisableDepthWrite"));
+                final CompareOp depthOp = switch (this.depthFunc) {
+                    case "Equal" -> CompareOp.EQUAL;
+                    case "Bigger" -> CompareOp.GREATER;
+                    default -> CompareOp.LEQUAL;
+                };
+                builder.withDepthStencilState(new DepthStencilState(depthOp, !this.states.contains("DisableDepthWrite")));
 
                 if (this.defines.contains("ALPHA_TEST")) {
                     builder.withShaderDefine("ALPHA_CUTOUT", 0.1F);
@@ -296,7 +300,6 @@ public record Material(String identifier, String baseIdentifier, MaterialInfo in
 
                 renderSetupBuilder.useLightmap();
                 renderSetupBuilder.useOverlay();
-                renderSetupBuilder.bufferSize(1536);
                 return RenderType.create("custom", renderSetupBuilder.createRenderSetup());
             }));
 
