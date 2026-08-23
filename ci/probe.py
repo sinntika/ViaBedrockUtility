@@ -27,20 +27,20 @@ VALIDATED_PREFIXES = (
 WIDTH = 300
 GRADLE_LOG = os.path.join(ROOT, "ci", "gradle.log")
 
+GREP_TOKENS = ["modifiers", "toProfiles", "sendChatMessage"]
+
 FQN_CHECKS = [
-    "net.minecraft.client.renderer.entity.layers.CapeLayer",
+    "net.minecraft.client.resources.server.DownloadedPackSource",
+    "net.minecraft.client.resources.server.PackReloadConfig",
 ]
 
 NESTED_DUMPS = [
-    "net.minecraft.client.model.geom.ModelPart",
+    "net.minecraft.client.resources.server.PackReloadConfig",
 ]
 
 JAVAP = [
-    ("net.minecraft.client.model.geom.ModelPart", [], 45),
-    ("net.minecraft.client.renderer.entity.layers.CapeLayer", [], 16),
-    ("net.minecraft.client.multiplayer.ClientHandshakePacketListenerImpl", ["handle"], 20),
-    ("net.minecraft.client.renderer.rendertype.RenderTypes", ["entitySolid", "entityTranslucent"], 8),
-    ("net.minecraft.world.entity.Entity", ["setPos"], 6),
+    ("net.minecraft.client.resources.server.DownloadedPackSource", [], 40),
+    ("net.minecraft.client.multiplayer.ClientPacketListener", ["Chat", "chat"], 14),
 ]
 
 
@@ -125,6 +125,16 @@ for dirpath, dirnames, filenames in os.walk(SRC):
             java_files.append(os.path.join(dirpath, fn))
 java_files.sort()
 
+repo_files = []
+for dirpath, dirnames, filenames in os.walk(ROOT):
+    dirnames[:] = [d for d in dirnames if not d.startswith(".") and d != "run"]
+    if os.sep + "build" + os.sep in dirpath and "generated" not in dirpath:
+        continue
+    for fn in filenames:
+        if fn.endswith(".java") or fn.endswith(".json"):
+            repo_files.append(os.path.join(dirpath, fn))
+repo_files.sort()
+
 import_re = re.compile(r"^\s*import\s+(static\s+)?([^;]+);")
 bad = []
 for path in java_files:
@@ -180,6 +190,23 @@ if os.path.isfile(GRADLE_LOG):
         print("  none")
 else:
     print("  (gradle log not written yet)")
+
+print("")
+print("== SOURCE GREP ==")
+for token in GREP_TOKENS:
+    hits = []
+    for path in repo_files:
+        rel = os.path.relpath(path, ROOT)
+        try:
+            with open(path, "r", encoding="utf-8", errors="replace") as fh:
+                for no, line in enumerate(fh, 1):
+                    if token in line:
+                        hits.append("%s:%d  %s" % (rel, no, line.strip()[:200]))
+        except Exception:
+            continue
+    print("-- %s (%d) --" % (token, len(hits)))
+    for hit in hits[:10]:
+        print("   " + hit)
 
 print("")
 print("== FQN CHECK ==")
