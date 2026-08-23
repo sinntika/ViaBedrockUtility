@@ -1,5 +1,5 @@
-commit:  0cd8a3a547741033f08ca93a6e760ae150aa0ac2
-run_id:  32631355160
+commit:  9edc4ea1cc7209e85e5c9fcbabfab68bb08d8998
+run_id:  32631578527
 outcome: success
 
 ===== RENAME =====
@@ -24,75 +24,62 @@ unique errors: 0
 == BAD IMPORTS (0) ==
 
 == FQN CHECK ==
-net.minecraft.client.renderer.rendertype.RenderSetup    OK
-com.mojang.blaze3d.pipeline.RenderPipeline              OK
+net.minecraft.client.model.geom.ModelPart    OK
 
 == NESTED TYPES ==
--- net.minecraft.client.renderer.SubmitNodeCollector (2) --
-  CustomGeometryRenderer ParticleGroupRenderer
--- net.minecraft.world.entity.player.PlayerSkin (1) --
-  Patch
+-- net.minecraft.client.model.geom.ModelPart (4) --
+  Cube Polygon Vertex Visitor
 
 == REAL SIGNATURES ==
--- net.minecraft.world.entity.player.PlayerSkin --
-   public final class net.minecraft.world.entity.player.PlayerSkin extends java.lang.Record {
-   public net.minecraft.world.entity.player.PlayerSkin(net.minecraft.core.ClientAsset$Texture, net.minecraft.core.ClientAsset$Texture, net.minecraft.core.ClientAsset$Texture, net.minecraft.world.entity.player.PlayerModelType, boolean);
-   public static net.minecraft.world.entity.player.PlayerSkin insecure(net.minecraft.core.ClientAsset$Texture, net.minecraft.core.ClientAsset$Texture, net.minecraft.core.ClientAsset$Texture, net.minecraft.world.entity.player.PlayerModelType);
-   public net.minecraft.world.entity.player.PlayerSkin with(net.minecraft.world.entity.player.PlayerSkin$Patch);
-   public final java.lang.String toString();
-   public final int hashCode();
-   public final boolean equals(java.lang.Object);
-   public net.minecraft.core.ClientAsset$Texture body();
-   public net.minecraft.core.ClientAsset$Texture cape();
-   public net.minecraft.core.ClientAsset$Texture elytra();
-   public net.minecraft.world.entity.player.PlayerModelType model();
-   public boolean secure();
 -- net.minecraft.client.player.AbstractClientPlayer --
+   private net.minecraft.client.multiplayer.PlayerInfo playerInfo;
+   protected net.minecraft.client.multiplayer.PlayerInfo getPlayerInfo();
    public net.minecraft.world.entity.player.PlayerSkin getSkin();
--- net.minecraft.client.renderer.rendertype.RenderSetup$RenderSetupBuilder --
-   public class net.minecraft.client.renderer.rendertype.RenderSetup$RenderSetupBuilder {
-   public net.minecraft.client.renderer.rendertype.RenderSetup$RenderSetupBuilder withTexture(java.lang.String, net.minecraft.resources.Identifier);
-   public net.minecraft.client.renderer.rendertype.RenderSetup$RenderSetupBuilder withTexture(java.lang.String, net.minecraft.resources.Identifier, java.util.function.Supplier<com.mojang.blaze3d.textures.GpuSampler>);
-   public net.minecraft.client.renderer.rendertype.RenderSetup$RenderSetupBuilder useLightmap();
-   public net.minecraft.client.renderer.rendertype.RenderSetup$RenderSetupBuilder useOverlay();
-   public net.minecraft.client.renderer.rendertype.RenderSetup$RenderSetupBuilder affectsCrumbling();
-   public net.minecraft.client.renderer.rendertype.RenderSetup$RenderSetupBuilder sortOnUpload();
-   public net.minecraft.client.renderer.rendertype.RenderSetup$RenderSetupBuilder bufferSize(int);
-   public net.minecraft.client.renderer.rendertype.RenderSetup$RenderSetupBuilder setLayeringTransform(net.minecraft.client.renderer.rendertype.LayeringTransform);
-   public net.minecraft.client.renderer.rendertype.RenderSetup$RenderSetupBuilder setOutputTarget(net.minecraft.client.renderer.rendertype.OutputTarget);
-   public net.minecraft.client.renderer.rendertype.RenderSetup$RenderSetupBuilder setTextureTransform(net.minecraft.client.renderer.rendertype.TextureTransform);
-   public net.minecraft.client.renderer.rendertype.RenderSetup$RenderSetupBuilder setOutline(net.minecraft.client.renderer.rendertype.RenderSetup$OutlineProperty);
-   public net.minecraft.client.renderer.rendertype.RenderSetup createRenderSetup();
--- net.minecraft.client.renderer.rendertype.RenderSetup$TextureAndSampler --
-   public final class net.minecraft.client.renderer.rendertype.RenderSetup$TextureAndSampler extends java.lang.Record {
-   public net.minecraft.client.renderer.rendertype.RenderSetup$TextureAndSampler(com.mojang.blaze3d.textures.GpuTextureView, com.mojang.blaze3d.textures.GpuSampler);
-   public final java.lang.String toString();
-   public final int hashCode();
-   public final boolean equals(java.lang.Object);
-   public com.mojang.blaze3d.textures.GpuTextureView textureView();
-   public com.mojang.blaze3d.textures.GpuSampler sampler();
--- net.minecraft.client.renderer.OrderedSubmitNodeCollector --
-   public abstract <S> void submitModel(net.minecraft.client.model.Model<? super S>, S, com.mojang.blaze3d.vertex.PoseStack, net.minecraft.client.renderer.rendertype.RenderType, int, int, int, net.minecraft.client.renderer.texture.TextureAtlasSprite, int, net.minecraft.client.renderer.feature.ModelFeatureRenderer$Crumblin
-   public default <S> void submitModel(net.minecraft.client.model.Model<? super S>, S, com.mojang.blaze3d.vertex.PoseStack, net.minecraft.client.renderer.rendertype.RenderType, int, int, int, net.minecraft.client.renderer.feature.ModelFeatureRenderer$CrumblingOverlay);
-   public default void submitModelPart(net.minecraft.client.model.geom.ModelPart, com.mojang.blaze3d.vertex.PoseStack, net.minecraft.client.renderer.rendertype.RenderType, int, int, net.minecraft.client.renderer.texture.TextureAtlasSprite);
-   public default void submitModelPart(net.minecraft.client.model.geom.ModelPart, com.mojang.blaze3d.vertex.PoseStack, net.minecraft.client.renderer.rendertype.RenderType, int, int, net.minecraft.client.renderer.texture.TextureAtlasSprite, int, net.minecraft.client.renderer.feature.ModelFeatureRenderer$CrumblingOverlay);
-   public default void submitModelPart(net.minecraft.client.model.geom.ModelPart, com.mojang.blaze3d.vertex.PoseStack, net.minecraft.client.renderer.rendertype.RenderType, int, int, net.minecraft.client.renderer.texture.TextureAtlasSprite, boolean, boolean);
-   public abstract void submitModelPart(net.minecraft.client.model.geom.ModelPart, com.mojang.blaze3d.vertex.PoseStack, net.minecraft.client.renderer.rendertype.RenderType, int, int, net.minecraft.client.renderer.texture.TextureAtlasSprite, boolean, boolean, int, net.minecraft.client.renderer.feature.ModelFeatureRenderer$
-   public abstract void submitCustomGeometry(com.mojang.blaze3d.vertex.PoseStack, net.minecraft.client.renderer.rendertype.RenderType, net.minecraft.client.renderer.SubmitNodeCollector$CustomGeometryRenderer);
--- net.minecraft.client.renderer.entity.EntityRenderer --
-   public void submit(S, com.mojang.blaze3d.vertex.PoseStack, net.minecraft.client.renderer.SubmitNodeCollector, net.minecraft.client.renderer.state.CameraRenderState);
-   protected void submitNameTag(S, com.mojang.blaze3d.vertex.PoseStack, net.minecraft.client.renderer.SubmitNodeCollector, net.minecraft.client.renderer.state.CameraRenderState);
--- net.minecraft.client.renderer.rendertype.RenderType --
-   public static final int BIG_BUFFER_SIZE;
-   public static final int SMALL_BUFFER_SIZE;
-   public static final int TRANSIENT_BUFFER_SIZE;
-   public static net.minecraft.client.renderer.rendertype.RenderType create(java.lang.String, net.minecraft.client.renderer.rendertype.RenderSetup);
+-- net.minecraft.world.entity.Entity --
+   private net.minecraft.world.phys.Vec3 position;
+   private net.minecraft.world.phys.Vec3 deltaMovement;
+   protected net.minecraft.world.phys.Vec3 stuckSpeedMultiplier;
+   public float moveDist;
+   private net.minecraft.world.phys.Vec3 lastKnownSpeed;
+   private net.minecraft.world.phys.Vec3 lastKnownPosition;
+   public final void setPos(net.minecraft.world.phys.Vec3);
+   protected net.minecraft.world.phys.AABB makeBoundingBox(net.minecraft.world.phys.Vec3);
+   public void setOnGroundWithMovement(boolean, net.minecraft.world.phys.Vec3);
+   public void setOnGroundWithMovement(boolean, boolean, net.minecraft.world.phys.Vec3);
+   protected void checkSupportingBlock(boolean, net.minecraft.world.phys.Vec3);
+   public void move(net.minecraft.world.entity.MoverType, net.minecraft.world.phys.Vec3);
+   private void applyMovementEmissionAndPlaySound(net.minecraft.world.entity.Entity$MovementEmission, net.minecraft.world.phys.Vec3, net.minecraft.core.BlockPos, net.minecraft.world.level.block.state.BlockState);
+   public void applyEffectsFromBlocks(net.minecraft.world.phys.Vec3, net.minecraft.world.phys.Vec3);
+   private boolean vibrationAndSoundEffectsFromBlock(net.minecraft.core.BlockPos, net.minecraft.world.level.block.state.BlockState, boolean, boolean, net.minecraft.world.phys.Vec3);
+   protected boolean isHorizontalCollisionMinor(net.minecraft.world.phys.Vec3);
+   ... (truncated)
+-- net.minecraft.client.model.geom.ModelPart --
+   private final java.util.List<net.minecraft.client.model.geom.ModelPart$Cube> cubes;
+   public net.minecraft.client.model.geom.ModelPart(java.util.List<net.minecraft.client.model.geom.ModelPart$Cube>, java.util.Map<java.lang.String, net.minecraft.client.model.geom.ModelPart>);
+   public void visit(com.mojang.blaze3d.vertex.PoseStack, net.minecraft.client.model.geom.ModelPart$Visitor);
+   private void visit(com.mojang.blaze3d.vertex.PoseStack, net.minecraft.client.model.geom.ModelPart$Visitor, java.lang.String);
+   public java.util.List<net.minecraft.client.model.geom.ModelPart> getAllParts();
+   private static void method_72013(java.util.List, java.lang.String, net.minecraft.client.model.geom.ModelPart);
+   private static void method_35747(com.mojang.blaze3d.vertex.PoseStack, net.minecraft.client.model.geom.ModelPart$Visitor, java.lang.String, java.lang.String, net.minecraft.client.model.geom.ModelPart);
+-- net.minecraft.client.multiplayer.PlayerInfo --
+   private final com.mojang.authlib.GameProfile profile;
+   private java.util.function.Supplier<net.minecraft.world.entity.player.PlayerSkin> skinLookup;
+   private net.minecraft.world.level.GameType gameMode;
+   private int latency;
+   private net.minecraft.network.chat.Component tabListDisplayName;
+   private boolean showHat;
+   private net.minecraft.network.chat.RemoteChatSession chatSession;
+   private net.minecraft.network.chat.SignedMessageValidator messageValidator;
+   private int tabListOrder;
+   private static java.util.function.Supplier<net.minecraft.world.entity.player.PlayerSkin> createSkinLookup(com.mojang.authlib.GameProfile);
+   private static net.minecraft.network.chat.SignedMessageValidator fallbackMessageValidator(boolean);
+   public net.minecraft.world.entity.player.PlayerSkin getSkin();
 
 ===== TAIL =====
-Cannot remap traverse because it does not exist in any of the targets [net/minecraft/client/model/geom/ModelPart] or their parents.
-Cannot remap playerListEntry because it does not exist in any of the targets [net/minecraft/client/player/AbstractClientPlayer] or their parents.
-Cannot remap pos because it does not exist in any of the targets [net/minecraft/world/entity/Entity] or their parents.
-Cannot remap distanceTraveled because it does not exist in any of the targets [net/minecraft/world/entity/Entity] or their parents.
+Cannot remap render(Lcom/mojang/blaze3d/vertex/PoseStack;Lnet/minecraft/client/renderer/MultiBufferSource;ILnet/minecraft/client/renderer/entity/state/AvatarRenderState;FF)V because it does not exist in any of the targets [net/minecraft/client/renderer/entity/layers/CapeLayer]
+Cannot remap texturesSupplier because it does not exist in any of the targets [net/minecraft/client/multiplayer/PlayerInfo] or their parents.
+Cannot remap applyTransform because it does not exist in any of the targets [net/minecraft/client/model/geom/ModelPart]
+Cannot remap onSuccess because it does not exist in any of the targets [net/minecraft/client/multiplayer/ClientHandshakePacketListenerImpl]
 
 > Task :validateAccessWidener
 > Task :check
@@ -102,5 +89,5 @@ Cannot remap distanceTraveled because it does not exist in any of the targets [n
 
 [Incubating] Problems report is available at: file:///home/runner/work/ViaBedrockUtility/ViaBedrockUtility/build/reports/problems/problems-report.html
 
-BUILD SUCCESSFUL in 1m 23s
+BUILD SUCCESSFUL in 1m 26s
 12 actionable tasks: 12 executed
