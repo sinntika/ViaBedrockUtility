@@ -1,0 +1,76 @@
+name: release
+
+# Pushing a release/<version> branch builds every supported Minecraft version
+# and publishes one jar per version under the <version> tag.
+on:
+  push:
+    branches: ["release/**"]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: release-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up JDK 25
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: "25"
+
+      - name: Build every supported target
+        run: |
+          set -euo pipefail
+          mkdir -p release-out
+          build() {
+            branch="$1"
+            label="$2"
+            echo "::group::$label from $branch"
+            git checkout --force "origin/$branch"
+            chmod +x ./gradlew
+            ./gradlew clean build --no-daemon --stacktrace
+            jar="$(ls build/libs/*.jar | grep -v -e '-sources' -e '-dev' | head -n 1)"
+            cp "$jar" "release-out/viabedrockutility-1.0.0+$label.jar"
+            echo "::endgroup::"
+          }
+          build port/1.21.11 1.21.11
+          build port/26.2 26.2
+          ls -l release-out
+
+      - name: Publish the release
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          set -euo pipefail
+          tag="${GITHUB_REF_NAME#release/}"
+          notes="$(cat <<'EOF'
+          Fabric builds of ViaBedrockUtility for two Minecraft versions.
+
+          - viabedrockutility-1.0.0+1.21.11.jar for Minecraft 1.21.11
+          - viabedrockutility-1.0.0+26.2.jar for Minecraft 26.2
+
+          Both jars need ViaFabricPlus. The 26.2 jar is compiled against the
+          CubeConverter build that ViaFabricPlus 4.6.2 ships, because that copy
+          wins at runtime.
+          EOF
+          )"
+          if gh release view "$tag" >/dev/null 2>&1; then
+            gh release upload "$tag" release-out/*.jar --clobber
+          else
+            gh release create "$tag" release-out/*.jar \
+              --target "$GITHUB_SHA" \
+              --title "ViaBedrockUtility $tag" \
+              --notes "$notes"
+          fi
+          gh release view "$tag"
