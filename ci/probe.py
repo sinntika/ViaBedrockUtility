@@ -2,11 +2,12 @@
 """Ground truth probe.
 
 Reads the actual Minecraft jar on the compile classpath and reports which
-imports resolve, which fully qualified names exist, what nested types a class
-owns, and the real member signatures of everything this port touches. Runs
-javap with -p so private members behind mixin shadows are visible too, and
-replays every "Cannot remap" warning Mixin produced, because those are stale
-injection targets that compile fine but break at runtime.
+imports resolve, where a simple class name actually lives now, what nested
+types a class owns, and the real member signatures of everything this port
+touches. Also replays every "Cannot remap" warning Mixin produced, because
+those are stale injection targets that compile fine but break at runtime, and
+reports which Lombok release the build resolved, since Lombok has to keep up
+with the JDK.
 """
 import os
 import re
@@ -19,6 +20,10 @@ SEARCH_ROOTS = [
     os.path.join(ROOT, ".gradle", "loom-cache"),
     os.path.expanduser("~/.gradle/caches/fabric-loom"),
 ]
+LOMBOK_CACHE = os.path.expanduser(
+    "~/.gradle/caches/modules-2/files-2.1/org.projectlombok/lombok"
+)
+LOMBOK_METADATA = "https://repo1.maven.org/maven2/org/projectlombok/lombok/maven-metadata.xml"
 VALIDATED_PREFIXES = (
     "net.minecraft.",
     "com.mojang.blaze3d.",
@@ -27,20 +32,28 @@ VALIDATED_PREFIXES = (
 WIDTH = 300
 GRADLE_LOG = os.path.join(ROOT, "ci", "gradle.log")
 
-GREP_TOKENS = ["modifiers", "toProfiles", "sendChatMessage"]
+GREP_TOKENS = []
 
-FQN_CHECKS = [
-    "net.minecraft.client.resources.server.DownloadedPackSource",
-    "net.minecraft.client.resources.server.PackReloadConfig",
+# Simple names the port lost track of: report every place they live now.
+SIMPLE_NAMES = [
+    "DepthTestFunction",
+    "DestFactor",
+    "SourceFactor",
+    "MultiBufferSource",
+    "LightTexture",
+    "CameraRenderState",
+    "SubmitNodeCollector",
+    "RenderSetup",
+    "RenderPipeline",
+    "OverlayTexture",
 ]
 
-NESTED_DUMPS = [
-    "net.minecraft.client.resources.server.PackReloadConfig",
-]
+FQN_CHECKS = []
+
+NESTED_DUMPS = []
 
 JAVAP = [
-    ("net.minecraft.client.resources.server.DownloadedPackSource", [], 40),
-    ("net.minecraft.client.multiplayer.ClientPacketListener", ["Chat", "chat"], 14),
+    ("net.minecraft.client.renderer.entity.EntityRenderer", ["submit", "render"], 12),
 ]
 
 
@@ -51,13 +64,13 @@ def find_jar():
             continue
         for dirpath, dirnames, filenames in os.walk(base):
             for fn in filenames:
-                if not fn.endswith(".jar") or "sources" in fn:
+                if not fn.endswith(".jar"):
                     continue
-                if not fn.startswith("minecraft-merged"):
+                if "sources" in fn or "javadoc" in fn:
+                    continue
+                if not fn.startswith("minecraft"):
                     continue
                 path = os.path.join(dirpath, fn)
-                if "loom.mappings" not in path:
-                    continue
                 try:
                     with zipfile.ZipFile(path) as zf:
                         count = sum(1 for nm in zf.namelist() if nm.endswith(".class"))
@@ -66,6 +79,25 @@ def find_jar():
                 if count > best_count:
                     best, best_count = path, count
     return best, best_count
+
+
+def lombok_report():
+    print("== LOMBOK ==")
+    cached = []
+    if os.path.isdir(LOMBOK_CACHE):
+        cached = sorted(os.listdir(LOMBOK_CACHE))
+    print("resolved in cache: %s" % (", ".join(cached) if cached else "(none)"))
+    try:
+        import urllib.request
+
+        with urllib.request.urlopen(LOMBOK_METADATA, timeout=20) as resp:
+            body = resp.read().decode("utf-8", "replace")
+        latest = re.search(r"<latest>([^<]+)</latest>", body)
+        versions = re.findall(r"<version>([^<]+)</version>", body)
+        print("maven latest:      %s" % (latest.group(1) if latest else "unknown"))
+        print("maven recent:      %s" % ", ".join(versions[-6:]))
+    except Exception as exc:
+        print("maven metadata unavailable: %s" % exc)
 
 
 def javap(cls, keywords, limit):
@@ -96,6 +128,9 @@ def javap(cls, keywords, limit):
     if shown == 0:
         print("   (no member matched: %s)" % ", ".join(keywords))
 
+
+lombok_report()
+print("")
 
 jarpath, jarcount = find_jar()
 print("== JAR ==")
@@ -174,6 +209,14 @@ for spec, hint, rel in bad:
     print("    in %s" % rel)
 
 print("")
+print("== WHERE DID IT GO ==")
+for simple in SIMPLE_NAMES:
+    hits = sorted(c for c in classes if c.rsplit(".", 1)[-1] == simple and "$" not in c)
+    nested = sorted(c for c in classes if c.endswith("." + simple) and "$" in c)
+    found = hits + [n for n in nested if n not in hits]
+    print("%s -> %s" % (simple.ljust(22), ", ".join(found[:6]) if found else "GONE"))
+
+print("")
 print("== STALE MIXIN TARGETS ==")
 if os.path.isfile(GRADLE_LOG):
     seen = []
@@ -191,38 +234,41 @@ if os.path.isfile(GRADLE_LOG):
 else:
     print("  (gradle log not written yet)")
 
-print("")
-print("== SOURCE GREP ==")
-for token in GREP_TOKENS:
-    hits = []
-    for path in repo_files:
-        rel = os.path.relpath(path, ROOT)
-        try:
-            with open(path, "r", encoding="utf-8", errors="replace") as fh:
-                for no, line in enumerate(fh, 1):
-                    if token in line:
-                        hits.append("%s:%d  %s" % (rel, no, line.strip()[:200]))
-        except Exception:
-            continue
-    print("-- %s (%d) --" % (token, len(hits)))
-    for hit in hits[:10]:
-        print("   " + hit)
+if GREP_TOKENS:
+    print("")
+    print("== SOURCE GREP ==")
+    for token in GREP_TOKENS:
+        hits = []
+        for path in repo_files:
+            rel = os.path.relpath(path, ROOT)
+            try:
+                with open(path, "r", encoding="utf-8", errors="replace") as fh:
+                    for no, line in enumerate(fh, 1):
+                        if token in line:
+                            hits.append("%s:%d  %s" % (rel, no, line.strip()[:200]))
+            except Exception:
+                continue
+        print("-- %s (%d) --" % (token, len(hits)))
+        for hit in hits[:10]:
+            print("   " + hit)
 
-print("")
-print("== FQN CHECK ==")
-width = max(len(f) for f in FQN_CHECKS) + 4
-for fqn in FQN_CHECKS:
-    print("%s%s" % (fqn.ljust(width), "OK" if fqn in classes else "MISSING"))
+if FQN_CHECKS:
+    print("")
+    print("== FQN CHECK ==")
+    width = max(len(f) for f in FQN_CHECKS) + 4
+    for fqn in FQN_CHECKS:
+        print("%s%s" % (fqn.ljust(width), "OK" if fqn in classes else "MISSING"))
 
-print("")
-print("== NESTED TYPES ==")
-for outer in NESTED_DUMPS:
-    prefix = outer.replace(".", "/") + "$"
-    nested = sorted(
-        e[len(prefix):] for e in entries if e.startswith(prefix) and "$" not in e[len(prefix):]
-    )
-    print("-- %s (%d) --" % (outer, len(nested)))
-    print("  " + (" ".join(nested[:40]) if nested else "(none)"))
+if NESTED_DUMPS:
+    print("")
+    print("== NESTED TYPES ==")
+    for outer in NESTED_DUMPS:
+        prefix = outer.replace(".", "/") + "$"
+        nested = sorted(
+            e[len(prefix):] for e in entries if e.startswith(prefix) and "$" not in e[len(prefix):]
+        )
+        print("-- %s (%d) --" % (outer, len(nested)))
+        print("  " + (" ".join(nested[:40]) if nested else "(none)"))
 
 print("")
 print("== REAL SIGNATURES ==")

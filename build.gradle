@@ -46,8 +46,10 @@ dependencies {
 		transitive = false
 	}
 
-	lib 'org.projectlombok:lombok:1.18.36'
-	annotationProcessor 'org.projectlombok:lombok:1.18.36'
+	// Lombok 1.18.36 dies on JDK 25 with NoSuchFieldException TypeTag :: UNKNOWN.
+	// Resolve the newest release for now; CI reports the resolved version so it can be pinned.
+	lib "org.projectlombok:lombok:latest.release"
+	annotationProcessor "org.projectlombok:lombok:latest.release"
 
 	lib("team.unnamed:mocha:3.0.1") {
 		transitive = false
