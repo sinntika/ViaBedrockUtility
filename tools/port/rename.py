@@ -1,107 +1,82 @@
 #!/usr/bin/env python3
-"""Rewrite yarn (1.21.5) names to official Mojang names.
-
-The mapping table lives next to this script in mappings.tsv. Each line is
-"<kind>\t<from>\t<to>" where kind is:
-
-  I  fully qualified name. Both the dotted form (imports, javadoc) and the
-     slash form (mixin descriptors such as Lnet/minecraft/util/Identifier;)
-     are rewritten.
-  N  simple name, rewritten on word boundaries only.
-  L  plain literal substring, applied last (method renames, descriptors).
-
-Longer keys are applied first so that e.g. EntityRendererFactory is handled
-before EntityRenderer. The script is idempotent: once a name has been
-rewritten it no longer matches any key, so it can run on every build.
-"""
-
+# Applies the yarn -> mojang mapping table in mappings.tsv to all mod sources,
+# then repairs any file whose name no longer matches its public type.
 import os
 import re
-import sys
 
-SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
-REPO_ROOT = os.path.dirname(os.path.dirname(SCRIPT_DIR))
-SOURCE_DIR = os.path.join(REPO_ROOT, "src", "main", "java")
-MAPPING_FILE = os.path.join(SCRIPT_DIR, "mappings.tsv")
+ROOT = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+SRC = os.path.join(ROOT, "src", "main", "java")
+MAP = os.path.join(os.path.dirname(os.path.abspath(__file__)), "mappings.tsv")
 
+imports = []
+names = []
+literals = []
 
-def load_mappings():
-    qualified = []
-    simple = []
-    literal = []
+with open(MAP, "r", encoding="utf-8") as fh:
+    for raw in fh:
+        line = raw.rstrip("\n")
+        if not line.strip() or line.lstrip().startswith("#"):
+            continue
+        parts = [p for p in line.split("\t") if p != ""]
+        if len(parts) != 3:
+            print("bad line: %r" % line)
+            continue
+        kind, src, dst = parts[0].strip(), parts[1].strip(), parts[2].strip()
+        if kind == "I":
+            imports.append((src, dst))
+        elif kind == "N":
+            names.append((src, dst))
+        elif kind == "L":
+            literals.append((src, dst))
+        else:
+            print("bad kind: %r" % line)
 
-    with open(MAPPING_FILE, encoding="utf-8") as handle:
-        for number, raw in enumerate(handle, start=1):
-            line = raw.rstrip("\n")
-            if not line.strip() or line.lstrip().startswith("#"):
-                continue
+# longest source first so EntityRenderer never clobbers EntityRendererFactory
+imports.sort(key=lambda p: len(p[0]), reverse=True)
+names.sort(key=lambda p: len(p[0]), reverse=True)
 
-            parts = [part for part in line.split("\t") if part != ""]
-            if len(parts) != 3:
-                print("mappings.tsv:%d: ignoring malformed line" % number)
-                continue
+files = []
+for dirpath, dirnames, filenames in os.walk(SRC):
+    for fn in filenames:
+        if fn.endswith(".java"):
+            files.append(os.path.join(dirpath, fn))
+files.sort()
 
-            kind, source, target = parts[0].strip(), parts[1].strip(), parts[2].strip()
-            if kind == "I":
-                qualified.append((source, target))
-            elif kind == "N":
-                simple.append((source, target))
-            elif kind == "L":
-                literal.append((source, target))
-            else:
-                print("mappings.tsv:%d: unknown kind %r" % (number, kind))
+changed = 0
+for path in files:
+    with open(path, "r", encoding="utf-8") as fh:
+        text = fh.read()
+    orig = text
+    for s, d in imports:
+        text = text.replace(s, d)
+        text = text.replace(s.replace(".", "/"), d.replace(".", "/"))
+    for s, d in names:
+        text = re.sub(r"\b%s\b" % re.escape(s), d, text)
+    for s, d in literals:
+        text = text.replace(s, d)
+    if text != orig:
+        with open(path, "w", encoding="utf-8") as fh:
+            fh.write(text)
+        changed += 1
+print("rewrote %d files" % changed)
 
-    qualified.sort(key=lambda pair: len(pair[0]), reverse=True)
-    simple.sort(key=lambda pair: len(pair[0]), reverse=True)
-    return qualified, simple, literal
-
-
-def convert(text, qualified, simple, literal):
-    for source, target in qualified:
-        text = text.replace(source, target)
-        text = text.replace(source.replace(".", "/"), target.replace(".", "/"))
-
-    for source, target in simple:
-        text = re.sub(r"\b%s\b" % re.escape(source), target, text)
-
-    for source, target in literal:
-        text = text.replace(source, target)
-
-    return text
-
-
-def main():
-    if not os.path.isdir(SOURCE_DIR):
-        print("no source directory at %s" % SOURCE_DIR)
-        return 1
-
-    qualified, simple, literal = load_mappings()
-    print(
-        "loaded %d qualified, %d simple and %d literal rules"
-        % (len(qualified), len(simple), len(literal))
-    )
-
-    changed = []
-    for directory, _subdirectories, filenames in os.walk(SOURCE_DIR):
-        for filename in sorted(filenames):
-            if not filename.endswith(".java"):
-                continue
-
-            path = os.path.join(directory, filename)
-            with open(path, encoding="utf-8") as handle:
-                original = handle.read()
-
-            updated = convert(original, qualified, simple, literal)
-            if updated != original:
-                with open(path, "w", encoding="utf-8") as handle:
-                    handle.write(updated)
-                changed.append(os.path.relpath(path, REPO_ROOT))
-
-    print("rewrote %d files" % len(changed))
-    for path in changed:
-        print("  %s" % path)
-    return 0
-
-
-if __name__ == "__main__":
-    sys.exit(main())
+type_re = re.compile(
+    r"^public\s+(?:final\s+|abstract\s+|sealed\s+|non-sealed\s+|static\s+)*"
+    r"(?:@interface|class|interface|enum|record)\s+(\w+)",
+    re.M,
+)
+renamed = 0
+for path in files:
+    if not os.path.exists(path):
+        continue
+    base = os.path.basename(path)[:-5]
+    with open(path, "r", encoding="utf-8") as fh:
+        text = fh.read()
+    m = type_re.search(text)
+    if m and m.group(1) != base:
+        new_path = os.path.join(os.path.dirname(path), m.group(1) + ".java")
+        if not os.path.exists(new_path):
+            os.rename(path, new_path)
+            print("renamed file %s.java -> %s.java" % (base, m.group(1)))
+            renamed += 1
+print("renamed %d files" % renamed)

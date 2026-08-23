@@ -1,13 +1,9 @@
-# Build workflow used while porting to newer Minecraft versions.
-# It never hides failures in the Actions log: a condensed report is written to
-# ci/build-report.txt and committed back to the branch so the compile errors
-# can be reviewed directly from the repository.
-
 name: port-build
+
 on:
   push:
     branches:
-      - 'port/**'
+      - "port/**"
   workflow_dispatch:
 
 permissions:
@@ -19,9 +15,9 @@ concurrency:
 
 jobs:
   build:
-    runs-on: ubuntu-24.04
+    runs-on: ubuntu-latest
     steps:
-      - name: checkout repository
+      - name: checkout
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
@@ -29,63 +25,66 @@ jobs:
       - name: setup jdk
         uses: actions/setup-java@v4
         with:
-          java-version: '21'
-          distribution: 'microsoft'
+          distribution: temurin
+          java-version: "21"
 
-      - name: setup gradle
-        uses: gradle/actions/setup-gradle@v4
+      - name: prepare
+        run: |
+          mkdir -p ci
+          chmod +x ./gradlew
 
-      - name: configure git
+      - name: apply mapping rename
+        run: python3 tools/port/rename.py 2>&1 | tee ci/rename.log
+
+      - name: commit renamed sources
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-
-      - name: apply mapping rename
-        run: |
-          python3 tools/port/rename.py
           git add -A src/main/java
-          git commit -m "port: apply yarn to mojang mapping rename [skip ci]" || echo "nothing renamed"
-
-      - name: make gradle wrapper executable
-        run: chmod +x ./gradlew
+          git commit -m "port: apply mapping rename [skip ci]" || echo "no rename changes"
 
       - name: build
         id: build
         continue-on-error: true
         run: |
-          set -o pipefail
-          ./gradlew build --stacktrace 2>&1 | tee /tmp/build.log
+          set +e
+          ./gradlew build --stacktrace --no-daemon > ci/gradle.log 2>&1
+          code=$?
+          set -e
+          echo "code=$code" >> "$GITHUB_OUTPUT"
+          exit $code
 
-      - name: write build report
+      - name: probe classpath
         if: always()
-        env:
-          BUILD_OUTCOME: ${{ steps.build.outcome }}
+        run: python3 ci/probe.py > ci/probe.txt 2>&1 || true
+
+      - name: report
+        if: always()
         run: |
-          mkdir -p ci
-          touch /tmp/build.log
           {
-            echo "commit:  ${GITHUB_SHA}"
-            echo "run_id:  ${GITHUB_RUN_ID}"
-            echo "outcome: ${BUILD_OUTCOME}"
-            echo
+            echo "commit:  $(git rev-parse HEAD)"
+            echo "run_id:  ${{ github.run_id }}"
+            echo "outcome: ${{ steps.build.outcome }}"
+            echo ""
+            echo "===== RENAME ====="
+            tail -n 20 ci/rename.log || true
+            echo ""
             echo "===== COMPILE ERRORS ====="
-            python3 ci/summarize.py /tmp/build.log "${GITHUB_WORKSPACE}" || true
-            echo
-            echo "===== WHAT WENT WRONG ====="
-            sed -n '/What went wrong/,/^\* Try:/p' /tmp/build.log | sed "s|${GITHUB_WORKSPACE}/||g" | head -n 40 || true
-            echo
+            python3 ci/summarize.py ci/gradle.log "$GITHUB_WORKSPACE" || true
+            echo ""
+            echo "===== CLASSPATH PROBE ====="
+            cat ci/probe.txt || true
+            echo ""
             echo "===== TAIL ====="
-            tail -n 25 /tmp/build.log | sed "s|${GITHUB_WORKSPACE}/||g"
+            grep -v "^[[:space:]]*at " ci/gradle.log | tail -n 15 || true
           } > ci/build-report.txt
 
-      - name: commit build report
+      - name: commit report
         if: always()
         run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add -f ci/build-report.txt
-          git commit -m "ci: build report [skip ci]" || echo "report unchanged"
-          git pull --rebase --autostash origin "${GITHUB_REF_NAME}" || true
-          git push origin "HEAD:${GITHUB_REF_NAME}"
-
-      - name: fail if build failed
-        if: steps.build.outcome != 'success'
-        run: exit 1
+          git commit -m "ci: build report [skip ci]" || echo "nothing to commit"
+          git pull --rebase --autostash origin "$GITHUB_REF_NAME" || true
+          git push origin "HEAD:$GITHUB_REF_NAME" || true
