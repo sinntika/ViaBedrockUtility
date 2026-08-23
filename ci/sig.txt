@@ -1,0 +1,173 @@
+jar: minecraft-merged-a76db1c7b4-26.2.jar (10952 classes)
+
+== SIGNATURES ==
+-- net.minecraft.client.renderer.entity.EntityRenderDispatcher --
+   public <T extends net.minecraft.world.entity.Entity> net.minecraft.client.renderer.entity.EntityRenderer<? super T, ?> getRenderer(T);
+   public <S extends net.minecraft.client.renderer.entity.state.EntityRenderState> net.minecraft.client.renderer.entity.EntityRenderer<?, ? super S> getRenderer(S);
+-- net.minecraft.client.renderer.entity.state.EntityRenderState --
+   Compiled from "EntityRenderState.java"
+   public class net.minecraft.client.renderer.entity.state.EntityRenderState implements net.fabricmc.fabric.api.client.rendering.v1.FabricRenderState {
+   public static final int NO_OUTLINE;
+   public net.minecraft.world.entity.EntityType<?> entityType;
+   public double x;
+   public double y;
+   public double z;
+   public float ageInTicks;
+   public float boundingBoxWidth;
+   public float boundingBoxHeight;
+   public float eyeHeight;
+   public double distanceToCameraSq;
+   public boolean isInvisible;
+   public boolean isDiscrete;
+   public boolean displayFireAnimation;
+   public int lightCoords;
+   public int outlineColor;
+   public net.minecraft.world.phys.Vec3 passengerOffset;
+   public net.minecraft.network.chat.Component nameTag;
+   public net.minecraft.network.chat.Component scoreText;
+   public net.minecraft.world.phys.Vec3 nameTagAttachment;
+   public java.util.List<net.minecraft.client.renderer.entity.state.EntityRenderState$LeashState> leashStates;
+   public float shadowRadius;
+   public final java.util.List<net.minecraft.client.renderer.entity.state.EntityRenderState$ShadowPiece> shadowPieces;
+   public net.minecraft.client.renderer.entity.state.EntityRenderState();
+   public boolean appearsGlowing();
+   public void fillCrashReportCategory(net.minecraft.CrashReportCategory);
+   }
+-- net.minecraft.client.renderer.entity.state.PlayerRenderState --
+   javap error: Error: class not found: net.minecraft.client.renderer.entity.state.PlayerRenderState
+-- net.minecraft.client.renderer.entity.state.LivingEntityRenderState --
+   Compiled from "LivingEntityRenderState.java"
+   public class net.minecraft.client.renderer.entity.state.LivingEntityRenderState extends net.minecraft.client.renderer.entity.state.EntityRenderState {
+   public float bodyRot;
+   public float yRot;
+   public float xRot;
+   public float deathTime;
+   public float walkAnimationPos;
+   public float walkAnimationSpeed;
+   public float scale;
+   public float ageScale;
+   public float ticksSinceKineticHitFeedback;
+   public boolean isUpsideDown;
+   public boolean isFullyFrozen;
+   public boolean isBaby;
+   public boolean isInWater;
+   public boolean isAutoSpinAttack;
+   public boolean hasRedOverlay;
+   public boolean isInvisibleToPlayer;
+   public net.minecraft.core.Direction bedOrientation;
+   public net.minecraft.world.entity.Pose pose;
+   public final net.minecraft.client.renderer.item.ItemStackRenderState headItem;
+   public float wornHeadAnimationPos;
+   public net.minecraft.world.level.block.SkullBlock$Type wornHeadType;
+   public net.minecraft.world.item.component.ResolvableProfile wornHeadProfile;
+   public net.minecraft.client.renderer.entity.state.LivingEntityRenderState();
+   public boolean hasPose(net.minecraft.world.entity.Pose);
+   }
+-- net.minecraft.world.entity.player.PlayerSkin --
+   Compiled from "PlayerSkin.java"
+   public final class net.minecraft.world.entity.player.PlayerSkin extends java.lang.Record {
+   private final net.minecraft.core.ClientAsset$Texture body;
+   private final net.minecraft.core.ClientAsset$Texture cape;
+   private final net.minecraft.core.ClientAsset$Texture elytra;
+   private final net.minecraft.world.entity.player.PlayerModelType model;
+   private final boolean secure;
+   public net.minecraft.world.entity.player.PlayerSkin(net.minecraft.core.ClientAsset$Texture, net.minecraft.core.ClientAsset$Texture, net.minecraft.core.ClientAsset$Texture, net.minecraft.world.entity.player.PlayerModelType, boolean);
+   public static net.minecraft.world.entity.player.PlayerSkin insecure(net.minecraft.core.ClientAsset$Texture, net.minecraft.core.ClientAsset$Texture, net.minecraft.core.ClientAsset$Texture, net.minecraft.world.entity.player.PlayerModelType);
+   public net.minecraft.world.entity.player.PlayerSkin with(net.minecraft.world.entity.player.PlayerSkin$Patch);
+   public final java.lang.String toString();
+   public final int hashCode();
+   public final boolean equals(java.lang.Object);
+   public net.minecraft.core.ClientAsset$Texture body();
+   public net.minecraft.core.ClientAsset$Texture cape();
+   public net.minecraft.core.ClientAsset$Texture elytra();
+   public net.minecraft.world.entity.player.PlayerModelType model();
+   public boolean secure();
+   }
+-- net.minecraft.client.renderer.entity.EntityRenderer --
+   public abstract class net.minecraft.client.renderer.entity.EntityRenderer<T extends net.minecraft.world.entity.Entity, S extends net.minecraft.client.renderer.entity.state.EntityRenderState> {
+   public void submit(S, com.mojang.blaze3d.vertex.PoseStack, net.minecraft.client.renderer.SubmitNodeCollector, net.minecraft.client.renderer.state.level.CameraRenderState);
+   protected void submitNameDisplay(S, com.mojang.blaze3d.vertex.PoseStack, net.minecraft.client.renderer.SubmitNodeCollector, net.minecraft.client.renderer.state.level.CameraRenderState);
+   protected final <S extends net.minecraft.client.renderer.entity.state.EntityRenderState> void submitNameDisplay(S, com.mojang.blaze3d.vertex.PoseStack, net.minecraft.client.renderer.SubmitNodeCollector, net.minecraft.client.renderer.state.level.CameraRenderState, int);
+   public abstract S createRenderState();
+   public final S createRenderState(T, float);
+   public void extractRenderState(T, S, float);
+   protected void finalizeRenderState(T, S);
+
+== BYTECODE net.minecraft.client.renderer.entity.EntityRenderDispatcher ==
+   public <T extends net.minecraft.world.entity.Entity> net.minecraft.client.renderer.entity.EntityRenderer<? super T, ?> getRenderer(T);
+   Code:
+   0: aload_1
+   1: dup
+   2: invokestatic  #128                // Method java/util/Objects.requireNonNull:(Ljava/lang/Object;)Ljava/lang/Object;
+   5: pop
+   6: astore_2
+   7: iconst_0
+   8: istore_3
+   9: aload_2
+   10: iload_3
+   11: invokedynamic #144,  0            // InvokeDynamic #0:typeSwitch:(Lnet/minecraft/world/entity/Entity;I)I
+   16: lookupswitch  { // 2
+   0: 44
+   1: 63
+   default: 82
+   }
+   44: aload_2
+   45: checkcast     #132                // class net/minecraft/client/player/AbstractClientPlayer
+   48: astore        4
+   50: aload_0
+   51: aload_0
+   52: getfield      #91                 // Field playerRenderers:Ljava/util/Map;
+   55: aload         4
+   57: invokevirtual #148                // Method getAvatarRenderer:(Ljava/util/Map;Lnet/minecraft/world/entity/Avatar;)Lnet/minecraft/client/renderer/entity/player/AvatarRenderer;
+   60: goto          98
+   63: aload_2
+   64: checkcast     #134                // class net/minecraft/client/entity/ClientMannequin
+   67: astore        5
+   69: aload_0
+   70: aload_0
+   71: getfield      #93                 // Field mannequinRenderers:Ljava/util/Map;
+   74: aload         5
+   76: invokevirtual #148                // Method getAvatarRenderer:(Ljava/util/Map;Lnet/minecraft/world/entity/Avatar;)Lnet/minecraft/client/renderer/entity/player/AvatarRenderer;
+   79: goto          98
+   82: aload_0
+   83: getfield      #84                 // Field renderers:Ljava/util/Map;
+   86: aload_1
+   87: invokevirtual #152                // Method net/minecraft/world/entity/Entity.getType:()Lnet/minecraft/world/entity/EntityType;
+   90: invokeinterface #155,  2          // InterfaceMethod java/util/Map.get:(Ljava/lang/Object;)Ljava/lang/Object;
+   95: checkcast     #63                 // class net/minecraft/client/renderer/entity/EntityRenderer
+   98: areturn
+   public <S extends net.minecraft.client.renderer.entity.state.EntityRenderState> net.minecraft.client.renderer.entity.EntityRenderer<?, ? super S> getRenderer(S);
+   Code:
+   0: aload_1
+   1: instanceof    #194                // class net/minecraft/client/renderer/entity/state/AvatarRenderState
+   4: ifeq          59
+   7: aload_1
+   8: checkcast     #194                // class net/minecraft/client/renderer/entity/state/AvatarRenderState
+   11: astore_2
+   12: aload_2
+   13: getfield      #198                // Field net/minecraft/client/renderer/entity/state/AvatarRenderState.skin:Lnet/minecraft/world/entity/player/PlayerSkin;
+   16: invokevirtual #176                // Method net/minecraft/world/entity/player/PlayerSkin.model:()Lnet/minecraft/world/entity/player/PlayerModelType;
+   19: astore_3
+   20: aload_0
+   21: getfield      #91                 // Field playerRenderers:Ljava/util/Map;
+   24: aload_3
+   25: invokeinterface #155,  2          // InterfaceMethod java/util/Map.get:(Ljava/lang/Object;)Ljava/lang/Object;
+   30: checkcast     #63                 // class net/minecraft/client/renderer/entity/EntityRenderer
+   33: astore        4
+   35: aload         4
+   37: ifnull        43
+   40: aload         4
+   42: areturn
+   43: aload_0
+   44: getfield      #91                 // Field playerRenderers:Ljava/util/Map;
+   47: getstatic     #184                // Field net/minecraft/world/entity/player/PlayerModelType.WIDE:Lnet/minecraft/world/entity/player/PlayerModelType;
+   50: invokeinterface #155,  2          // InterfaceMethod java/util/Map.get:(Ljava/lang/Object;)Ljava/lang/Object;
+   55: checkcast     #63                 // class net/minecraft/client/renderer/entity/EntityRenderer
+   58: areturn
+   59: aload_0
+   60: getfield      #84                 // Field renderers:Ljava/util/Map;
+   63: aload_1
+   64: getfield      #204                // Field net/minecraft/client/renderer/entity/state/EntityRenderState.entityType:Lnet/minecraft/world/entity/EntityType;
+   67: invokeinterface #155,  2          // InterfaceMethod java/util/Map.get:(Ljava/lang/Object;)Ljava/lang/Object;
+   72: checkcast     #63                 // class net/minecraft/client/renderer/entity/EntityRenderer
+   75: areturn
