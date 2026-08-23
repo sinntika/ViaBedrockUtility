@@ -1,37 +1,173 @@
-commit:  99e186782f348d3bbaab83ba8f8acdaf3b434ab4
-run_id:  32627631917
+commit:  00451f69f03055c2cdf99f70194763d06c22f7e2
+run_id:  32629393661
 outcome: failure
 
 ===== RENAME =====
 loaded mappings.tsv
 loaded mappings2.tsv
 loaded mappings3.tsv
+loaded mappings4.tsv
 rewrote 9 files
 renamed 0 files
 
 ===== COMPILE ERRORS =====
-unique errors: 6
-material/data/Material.java:31: cannot find symbol   [symbol: class RenderStateShard | location: package net.minecraft.client.renderer]
-      src: import static net.minecraft.client.renderer.RenderStateShard.*;
-payload/BasePayload.java:23: cannot find symbol   [symbol: class Id | location: class BasePayload]
-      src: public static Id<BasePayload> ID = new Id<>(Identifier.fromNamespaceAndPath(ViaBedrockUtilityFabric.MOD_ID, "data"));
-payload/BasePayload.java:87: cannot find symbol   [symbol: class Id | location: class BasePayload]
-      src: public Id<? extends CustomPacketPayload> getId() {
-renderer/CustomEntityRenderer.java:68: cannot find symbol   [symbol: class Frustum | location: class CustomEntityRenderer<T>]
-      src: public boolean shouldRender(T entity, Frustum frustum, double x, double y, double z) {
-util/GeometryUtil.java:27: cannot find symbol   [symbol: class Model | location: class GeometryUtil]
-      src: public static Model buildModel(final BedrockGeometryModel geometry, final boolean player, boolean slim) {
-util/PlayerSkinBuilder.java:11: cannot find symbol   [symbol: class Model | location: class PlayerSkin]
-      src: public PlayerSkin.Model model;
+unique errors: 75
+payload/PayloadHandler.java:75: cannot find symbol   [symbol: method registerTexture(Identifier,DynamicTexture) | location: class TextureManager]
+      src: client.getTextureManager().registerTexture(payload.getIdentifier(), new DynamicTexture(() -> payload.getIdentifier().toString() + capeImage.hashCode() , capeImage));
+payload/PayloadHandler.java:77: cannot find symbol   [symbol: method getNetworkHandler() | location: variable client of type Minecraft]
+      src: if (client.getNetworkHandler() == null) {
+payload/PayloadHandler.java:85: cannot find symbol   [symbol: method getNetworkHandler() | location: variable client of type Minecraft]
+      src: final PlayerInfo entry = client.getNetworkHandler().getPlayerListEntry(payload.getPlayerUuid());
+payload/PayloadHandler.java:90: cannot find symbol   [symbol: method getSkinTextures() | location: variable entry of type PlayerInfo]
+      src: final PlayerSkinBuilder builder = new PlayerSkinBuilder(entry.getSkinTextures());
+payload/PayloadHandler.java:124: cannot find symbol   [symbol: method registerTexture(Identifier,DynamicTexture) | location: class TextureManager]
+      src: client.getTextureManager().registerTexture(identifier, new DynamicTexture(() -> identifier.toString() + skinImage.hashCode(), skinImage));
+payload/PayloadHandler.java:126: cannot find symbol   [symbol: method getNetworkHandler() | location: variable client of type Minecraft]
+      src: if (client.getNetworkHandler() != null) {
+payload/PayloadHandler.java:127: cannot find symbol   [symbol: method getNetworkHandler() | location: variable client of type Minecraft]
+      src: final PlayerInfo entry = client.getNetworkHandler().getPlayerListEntry(payload.getPlayerUuid());
+payload/PayloadHandler.java:131: cannot find symbol   [symbol: method getSkinTextures() | location: variable entry of type PlayerInfo]
+      src: final PlayerSkinBuilder builder = new PlayerSkinBuilder(entry.getSkinTextures());
+payload/PayloadHandler.java:196: cannot find symbol   [symbol: method getTexturedModelData(CubeDeformation,boolean) | location: class PlayerModel]
+      src: model = new PlayerModel(PlayerModel.getTexturedModelData(CubeDeformation.NONE, slim).getRoot().createPart(64, 64), slim);
+payload/PayloadHandler.java:201: cannot find symbol   [symbol: variable textRenderer | location: variable client of type Minecraft]
+      src: client.getResourceManager(), client.getLoadedEntityModels(), new EquipmentAssetManager(), client.textRenderer);
+payload/PayloadHandler.java:201: cannot find symbol   [symbol: method getLoadedEntityModels() | location: variable client of type Minecraft]
+      src: client.getResourceManager(), client.getLoadedEntityModels(), new EquipmentAssetManager(), client.textRenderer);
+payload/PayloadHandler.java:200: cannot find symbol   [symbol: method getBlockRenderManager() | location: variable client of type Minecraft]
+      src: client.getItemModelManager(), client.getMapRenderer(), client.getBlockRenderManager(),
+payload/PayloadHandler.java:200: cannot find symbol   [symbol: method getItemModelManager() | location: variable client of type Minecraft]
+      src: client.getItemModelManager(), client.getMapRenderer(), client.getBlockRenderManager(),
+payload/PayloadHandler.java:204: cannot find symbol   [symbol: method getNetworkHandler() | location: variable client of type Minecraft]
+      src: if (client.getNetworkHandler() == null) {
+payload/PayloadHandler.java:208: cannot find symbol   [symbol: method getNetworkHandler() | location: variable client of type Minecraft]
+      src: final PlayerInfo entry = client.getNetworkHandler().getPlayerListEntry(payload.getPlayerUuid());
+payload/PayloadHandler.java:212: cannot find symbol   [symbol: method getSkinTextures() | location: variable entry of type PlayerInfo]
+      src: final PlayerSkinBuilder builder = new PlayerSkinBuilder(entry.getSkinTextures());
+payload/handler/CustomEntityPayloadHandler.java:35: cannot find symbol   [symbol: method getUUID() | location: variable payload of type ModelRequestPayload]
+      src: CustomEntityTicker ticker = this.cachedCustomEntities.get(payload.getUUID());
+payload/handler/CustomEntityPayloadHandler.java:38: cannot find symbol   [symbol: method getUUID() | location: variable payload of type ModelRequestPayload]
+      src: this.cachedCustomEntities.put(payload.getUUID(), ticker);
+pack/definitions/EntityDefinitions.java:25: method fromNamespaceAndPath in class Identifier cannot be applied to given types;   [required: String,String | found: String | reason: actual and formal argument lists differ in length]
+      src: final Identifier identifier = Identifier.fromNamespaceAndPath(entityData.getIdentifier());
+animation/vanilla/AnimateTransformation.java:26: cannot find symbol   [symbol: method catmullRom(float,float,float,float,float) | location: class Mth]
+      src: dest.set(Mth.catmullRom(delta, vector3f2.x(), vector3f3.x(), vector3f4.x(), vector3f5.x()) * scale, Mth.catmullRom(delta, vector3f2.y(), vector3f3.y(), vector3f4.y(), vec
+material/data/Material.java:210: cannot find symbol   [symbol: variable VertexFormats | location: class MaterialInfo]
+      src: vertexFormat = VertexFormats.POSITION_COLOR_TEXTURE_OVERLAY_LIGHT_NORMAL;
+material/data/Material.java:260: cannot find symbol   [symbol: variable DrawMode | location: class VertexFormat]
+      src: builder.withVertexFormat(vertexFormat, this.defines.contains("LINE_STRIP") ? VertexFormat.DrawMode.LINE_STRIP : VertexFormat.DrawMode.QUADS);
+material/data/Material.java:288: cannot find symbol   [symbol: class MultiPhaseParameters | location: class RenderType]
+      src: final RenderType.MultiPhaseParameters.Builder renderLayerBuilder = RenderType.MultiPhaseParameters.builder();
+material/data/Material.java:288: cannot find symbol   [symbol: variable MultiPhaseParameters | location: class RenderType]
+      src: final RenderType.MultiPhaseParameters.Builder renderLayerBuilder = RenderType.MultiPhaseParameters.builder();
+material/data/Material.java:290: cannot find symbol   [symbol: class Texture | location: class MaterialInfo]
+      src: renderLayerBuilder.texture(new Texture(texture, TriState.FALSE, false));
+material/data/Material.java:293: cannot find symbol   [symbol: variable ENABLE_LIGHTMAP | location: class MaterialInfo]
+      src: renderLayerBuilder.lightmap(ENABLE_LIGHTMAP);
+material/data/Material.java:294: cannot find symbol   [symbol: variable ENABLE_OVERLAY_COLOR | location: class MaterialInfo]
+      src: renderLayerBuilder.overlay(ENABLE_OVERLAY_COLOR);
+payload/BasePayload.java:56: cannot find symbol   [symbol: method readUuid() | location: variable buf of type FriendlyByteBuf]
+      src: return new ModelRequestPayload(identifier, EnumUtil.getEnumSetFromBitmask(ActorFlags.class, combinedFlags, ActorFlags::getValue), variant, mark_variant, buf.readUuid());
+entity/CustomEntityTicker.java:64: cannot find symbol   [symbol: variable textRenderer | location: variable client of type Minecraft]
+      src: client.getResourceManager(), client.getLoadedEntityModels(), new EquipmentAssetManager(), client.textRenderer);
+entity/CustomEntityTicker.java:64: cannot find symbol   [symbol: method getLoadedEntityModels() | location: variable client of type Minecraft]
+      src: client.getResourceManager(), client.getLoadedEntityModels(), new EquipmentAssetManager(), client.textRenderer);
+entity/CustomEntityTicker.java:63: cannot find symbol   [symbol: method getBlockRenderManager() | location: variable client of type Minecraft]
+      src: client.getItemModelManager(), client.getMapRenderer(), client.getBlockRenderManager(),
+entity/CustomEntityTicker.java:63: cannot find symbol   [symbol: method getItemModelManager() | location: variable client of type Minecraft]
+      src: client.getItemModelManager(), client.getMapRenderer(), client.getBlockRenderManager(),
+entity/CustomEntityTicker.java:161: method fromNamespaceAndPath in class Identifier cannot be applied to given types;   [required: String,String | found: String | reason: actual and formal argument lists differ in length]
+      src: final Identifier texture = Identifier.fromNamespaceAndPath(model.textureValue().toLowerCase(Locale.ROOT));
+payload/impl/skin/CapeDataPayload.java:17: cannot find symbol   [symbol: method readUuid() | location: variable buf of type FriendlyByteBuf]
+      src: UUID playerUuid = buf.readUuid();
+payload/impl/skin/SkinDataPayload.java:15: cannot find symbol   [symbol: method readUuid() | location: variable buf of type FriendlyByteBuf]
+      src: UUID playerUuid = buf.readUuid();
+renderer/CustomEntityRenderer.java:42: method does not override or implement a method from a supertype
+      src: @Override
+renderer/CustomEntityRenderer.java:45: cannot find symbol   [symbol: method push() | location: variable matrices of type PoseStack]
+      src: matrices.push();
+renderer/CustomEntityRenderer.java:61: cannot find symbol   [symbol: method packUv(int,int) | location: class OverlayTexture]
+      src: model.model.render(matrices, vertexConsumer, light, OverlayTexture.packUv(0, 10));
+renderer/CustomEntityRenderer.java:64: cannot find symbol   [symbol: method pop() | location: variable matrices of type PoseStack]
+      src: matrices.pop();
+renderer/CustomEntityRenderer.java:70: cannot find symbol   [symbol: method getRenderDistanceMultiplier() | location: class Entity]
+      src: double d = 64.0F * Entity.getRenderDistanceMultiplier();
+renderer/CustomEntityRenderer.java:71: cannot find symbol   [symbol: method squaredDistanceTo(double,double,double) | location: variable entity of type T]
+      src: return entity.squaredDistanceTo(x, y, z) <= d * d;
+renderer/CustomEntityRenderer.java:74: method does not override or implement a method from a supertype
+      src: @Override
+renderer/CustomEntityRenderer.java:76: cannot find symbol   [symbol: method updateRenderState(T,CustomEntityRenderState,float)]
+      src: super.updateRenderState(entity, state, tickDelta);
+renderer/CustomEntityRenderer.java:77: cannot find symbol   [symbol: method getYaw(float) | location: variable entity of type T]
+      src: state.yaw = entity.getYaw(tickDelta);
+renderer/CustomEntityRenderer.java:78: cannot find symbol   [symbol: method getBodyYaw() | location: variable entity of type T]
+      src: state.bodyYaw = entity.getBodyYaw();
+renderer/CustomEntityRenderer.java:79: cannot find symbol   [symbol: method getPitch() | location: variable entity of type T]
+      src: state.bodyPitch = entity.getPitch();
+renderer/CustomEntityRenderer.java:80: cannot find symbol   [symbol: variable distanceTraveled | location: variable entity of type T]
+      src: state.distanceTraveled = entity.distanceTraveled;
+renderer/CustomEntityRenderer.java:84: cannot find symbol   [symbol: variable POSITIVE_Y | location: interface Axis]
+      src: matrices.multiply(Axis.POSITIVE_Y.rotationDegrees(180 - state.yaw));
+animation/animator/Animator.java:81: cannot find symbol   [symbol: method getRootPart() | location: variable model of type Model]
+      src: ((IModelPart)((Object)model.getRootPart())).viaBedrockUtility$resetEverything();
+animation/animator/Animator.java:137: cannot find symbol   [symbol: method getRootPart() | location: variable model of type Model]
+      src: ((IModelPart)((Object)model.getRootPart())).viaBedrockUtility$resetEverything();
+pack/processor/TextureProcessor.java:26: cannot find symbol   [symbol: method ofVanilla(String) | location: class Identifier]
+      src: final Identifier identifier = Identifier.ofVanilla(path.toLowerCase(Locale.ROOT).replace(".png", "").replace(".jpg", ""));
+pack/processor/TextureProcessor.java:28: cannot find symbol   [symbol: method registerTexture(Identifier,DynamicTexture) | location: class TextureManager]
+      src: client.getTextureManager().registerTexture(identifier, new DynamicTexture(() -> identifier.toString() + image1.hashCode(), image1));
+mixin/impl/entity/player/AbstractClientPlayerMixin.java:33: cannot find symbol   [symbol: method getUuid() | location: class AbstractClientPlayerMixin]
+      src: Identifier cape = ViaBedrockUtility.getInstance().getPayloadHandler().getCachedPlayerCapes().get(getUuid());
+mixin/impl/entity/player/AbstractClientPlayerMixin.java:35: cannot find symbol   [symbol: method getSkinTextures(UUID) | location: class DefaultPlayerSkin]
+      src: PlayerSkin skin = playerListEntry == null ? DefaultPlayerSkin.getSkinTextures(this.getUUID()) : playerListEntry.getSkinTextures();
+mixin/impl/entity/player/AbstractClientPlayerMixin.java:35: cannot find symbol   [symbol: method getSkinTextures() | location: variable playerListEntry of type PlayerInfo]
+      src: PlayerSkin skin = playerListEntry == null ? DefaultPlayerSkin.getSkinTextures(this.getUUID()) : playerListEntry.getSkinTextures();
+mixin/impl/entity/player/AbstractClientPlayerMixin.java:36: cannot find symbol   [symbol: method capeTexture() | location: variable skin of type PlayerSkin]
+      src: if (!cape.equals(skin.capeTexture())) {
+mixin/impl/entity/player/AbstractClientPlayerMixin.java:41: cannot find symbol   [symbol: method elytraTexture() | location: variable skin of type PlayerSkin]
+      src: skin.elytraTexture(),
+mixin/impl/entity/player/AbstractClientPlayerMixin.java:39: cannot find symbol   [symbol: method textureUrl() | location: variable skin of type PlayerSkin]
+      src: skin.textureUrl(),
+mixin/impl/entity/player/AbstractClientPlayerMixin.java:38: cannot find symbol   [symbol: method texture() | location: variable skin of type PlayerSkin]
+      src: skin.texture(),
+mixin/impl/network/ClientPlayNetworkHandlerMixin.java:39: cannot find symbol   [symbol: variable crosshairTarget | location: variable client of type Minecraft]
+      src: if (client.crosshairTarget == null || client.crosshairTarget.getType() != HitResult.Type.ENTITY) {
+mixin/impl/network/ClientPlayNetworkHandlerMixin.java:48: cannot find symbol   [symbol: variable crosshairTarget | location: variable client of type Minecraft]
+      src: final UUID uuid = ((EntityHitResult)client.crosshairTarget).getEntity().getUUID();
+mixin/impl/render/ModelPartMixin.java:61: cannot find symbol   [symbol: method multiply(Quaternionf) | location: variable matrices of type PoseStack]
+      src: matrices.multiply((new Quaternionf()).rotationXYZ(this.rotation.x * MathUtil.DEGREES_TO_RADIANS, this.rotation.y * MathUtil.DEGREES_TO_RADIANS, this.rotation.z * MathUtil
+mixin/impl/render/feature/CapeFeatureRendererMixin.java:22: cannot find symbol   [symbol: method entityTranslucent(Identifier,boolean) | location: class RenderType]
+      src: return RenderType.entityTranslucent(texture, true);
+mixin/impl/render/feature/CapeFeatureRendererMixin.java:24: cannot find symbol   [symbol: method entitySolid(Identifier) | location: class RenderType]
+      src: return RenderType.entitySolid(texture);
+animation/vanilla/KeyframeAnimations.java:19: cannot find symbol   [symbol: method getParts() | location: variable model of type Model]
+      src: Optional<ModelPart> optional = getPartByName(model.getParts(), entry.getKey());
+util/GeometryUtil.java:52: cannot find symbol   [symbol: method setOrigin(int,float,int) | location: variable part of type ModelPart]
+      src: part.setOrigin(0, bone.getPivot().getY(), 0);
+util/GeometryUtil.java:53: cannot find symbol   [symbol: method getTransform() | location: variable part of type ModelPart]
+      src: part.setDefaultTransform(part.getTransform());
+util/GeometryUtil.java:168: cannot find symbol   [symbol: variable sides | location: variable cuboid of type Cube]
+      src: final ModelPart.Polygon[] sides = cuboid.sides;
+util/PlayerSkinBuilder.java:16: cannot find symbol   [symbol: method texture() | location: variable base of type PlayerSkin]
+      src: this.texture = base.texture();
+util/PlayerSkinBuilder.java:17: cannot find symbol   [symbol: method textureUrl() | location: variable base of type PlayerSkin]
+      src: this.textureUrl = base.textureUrl();
+util/PlayerSkinBuilder.java:18: cannot find symbol   [symbol: method capeTexture() | location: variable base of type PlayerSkin]
+      src: this.capeTexture = base.capeTexture();
+util/PlayerSkinBuilder.java:19: cannot find symbol   [symbol: method elytraTexture() | location: variable base of type PlayerSkin]
+      src: this.elytraTexture = base.elytraTexture();
+util/PlayerSkinBuilder.java:25: constructor PlayerSkin in record PlayerSkin cannot be applied to given types;   [required: Texture,Texture,Texture,PlayerModelType,boolean | found: Identifier,String,Identifier,Identifier,PlayerModelType,boolean | reason: actual and formal argument lists differ in length]
+      src: return new PlayerSkin(texture, textureUrl, capeTexture, elytraTexture, model, secure);
+payload/impl/skin/BaseSkinPayload.java:15: cannot find symbol   [symbol: method readUuid() | location: variable buf of type FriendlyByteBuf]
+      src: final UUID playerUuid = buf.readUuid();
+renderer/CustomPlayerRenderer.java:22: method does not override or implement a method from a supertype
+      src: @Override
 
 ===== CLASSPATH PROBE =====
 == JAR ==
 10291 classes  minecraft-merged-560387b4cf-1.21.11-loom.mappings.1_21_11.layered+hash.2198-v2.jar
 
-== BAD IMPORTS (1) ==
-net.minecraft.client.renderer.RenderStateShard
-    -> NO CLASS NAMED RenderStateShard
-    in org/oryxel/viabedrockutility/material/data/Material.java
+== BAD IMPORTS (0) ==
 
 == FQN CHECK ==
 net.minecraft.world.level.Level                                        OK
@@ -125,18 +261,18 @@ net.minecraft.world.entity.player.PlayerSkin.Model                     MISSING
    }
 
 ===== TAIL =====
-    public static Model buildModel(final BedrockGeometryModel geometry, final boolean player, boolean slim) {
-                  ^
-  symbol:   class Model
-  location: class GeometryUtil
-/home/runner/work/ViaBedrockUtility/ViaBedrockUtility/src/main/java/org/oryxel/viabedrockutility/util/PlayerSkinBuilder.java:11: error: cannot find symbol
-    public PlayerSkin.Model model;
-                     ^
-  symbol:   class Model
-  location: class PlayerSkin
-6 errors
+        final UUID playerUuid = buf.readUuid();
+                                   ^
+  symbol:   method readUuid()
+  location: variable buf of type FriendlyByteBuf
+/home/runner/work/ViaBedrockUtility/ViaBedrockUtility/src/main/java/org/oryxel/viabedrockutility/renderer/CustomPlayerRenderer.java:22: error: method does not override or implement a method from a supertype
+    @Override
+    ^
+Note: Some input files use unchecked or unsafe operations.
+Note: Recompile with -Xlint:unchecked for details.
+79 errors
 	... 30 more
 
 
-BUILD FAILED in 1m 15s
+BUILD FAILED in 1m 16s
 5 actionable tasks: 5 executed
