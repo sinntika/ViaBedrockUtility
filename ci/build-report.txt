@@ -1,6 +1,6 @@
-commit:  bb70dfa6d9c3d8e7ce7d0ff370af0fc92522726b
-run_id:  32634683392
-outcome: success
+commit:  8a2e5a54d7ebcaba2a0981597373a74cee3661b2
+run_id:  32642115449
+outcome: failure
 
 ===== RENAME =====
 loaded mappings.tsv
@@ -15,11 +15,90 @@ rewrote 0 files
 renamed 0 files
 
 ===== COMPILE ERRORS =====
-unique errors: 0
+unique errors: 9
+payload/PayloadHandler.java:154: cannot access JsonObject
+      src: geometries = BedrockGeometryModel.fromJson(object);
+pack/content/Content.java:134: cannot access Gson
+      src: return GsonUtil.getGson().fromJson(string.trim(), JsonObject.class);
+util/GeometryUtil.java:69: cannot find symbol   [symbol: method getMap() | location: variable uvMap of type UVMap]
+      src: if (uvMap.getMap().containsKey(org.cube.converter.util.element.Direction.values()[direction.ordinal()])) {
+util/GeometryUtil.java:172: cannot find symbol   [symbol: method getMap() | location: variable map of type UVMap]
+      src: final Float[] uv = map.getMap().get(org.cube.converter.util.element.Direction.DOWN);
+util/GeometryUtil.java:177: cannot find symbol   [symbol: method getMap() | location: variable map of type UVMap]
+      src: final Float[] uv = map.getMap().get(org.cube.converter.util.element.Direction.UP);
+util/GeometryUtil.java:182: cannot find symbol   [symbol: method getMap() | location: variable map of type UVMap]
+      src: final Float[] uv = map.getMap().get(org.cube.converter.util.element.Direction.WEST);
+util/GeometryUtil.java:187: cannot find symbol   [symbol: method getMap() | location: variable map of type UVMap]
+      src: final Float[] uv = map.getMap().get(org.cube.converter.util.element.Direction.NORTH);
+util/GeometryUtil.java:192: cannot find symbol   [symbol: method getMap() | location: variable map of type UVMap]
+      src: final Float[] uv = map.getMap().get(org.cube.converter.util.element.Direction.EAST);
+util/GeometryUtil.java:197: cannot find symbol   [symbol: method getMap() | location: variable map of type UVMap]
+      src: final Float[] uv = map.getMap().get(org.cube.converter.util.element.Direction.SOUTH);
 
 ===== CLASSPATH PROBE =====
 == LOMBOK ==
 resolved in cache: 1.18.46
+
+== DIFF VS MASTER ==
+  origin/master (8369667) ... HEAD (8a2e5a5)
+  52 files changed, 1513 insertions(+), 398 deletions(-)
+  -- deleted or renamed (1) --
+     R083	src/main/java/org/oryxel/viabedrockutility/animation/vanilla/AnimationHelper.java	src/main/java/org/oryxel/viabedrockutility/animation/vanilla/KeyframeAnimations.java
+  -- shipped sources touched (35) --
+     M	src/main/java/org/oryxel/viabedrockutility/ViaBedrockUtility.java
+     M	src/main/java/org/oryxel/viabedrockutility/animation/animator/Animator.java
+     M	src/main/java/org/oryxel/viabedrockutility/animation/vanilla/AnimateTransformation.java
+     R083	src/main/java/org/oryxel/viabedrockutility/animation/vanilla/AnimationHelper.java	src/main/java/org/oryxel/viabedrockutility/animation/vanilla/KeyframeAnimations.java
+     M	src/main/java/org/oryxel/viabedrockutility/entity/CustomEntityTicker.java
+     M	src/main/java/org/oryxel/viabedrockutility/fabric/ViaBedrockUtilityFabric.java
+     M	src/main/java/org/oryxel/viabedrockutility/mappings/BedrockMappings.java
+     M	src/main/java/org/oryxel/viabedrockutility/material/data/Material.java
+     M	src/main/java/org/oryxel/viabedrockutility/mixin/impl/MinecraftClientMixin.java
+     M	src/main/java/org/oryxel/viabedrockutility/mixin/impl/accessor/PlayerSkinFieldAccessor.java
+     M	src/main/java/org/oryxel/viabedrockutility/mixin/impl/entity/EntityMixin.java
+     M	src/main/java/org/oryxel/viabedrockutility/mixin/impl/entity/player/AbstractClientPlayerMixin.java
+     M	src/main/java/org/oryxel/viabedrockutility/mixin/impl/network/ClientLoginNetworkHandlerMixin.java
+     M	src/main/java/org/oryxel/viabedrockutility/mixin/impl/network/ClientPlayNetworkHandlerMixin.java
+     M	src/main/java/org/oryxel/viabedrockutility/mixin/impl/pack/ServerResourcePackLoaderMixin.java
+     M	src/main/java/org/oryxel/viabedrockutility/mixin/impl/render/ModelPartMixin.java
+     M	src/main/java/org/oryxel/viabedrockutility/mixin/impl/render/dispatcher/EntityRenderDispatcherMixin.java
+     M	src/main/java/org/oryxel/viabedrockutility/mixin/impl/render/feature/CapeFeatureRendererMixin.java
+     M	src/main/java/org/oryxel/viabedrockutility/mixin/impl/world/ClientWorldMixin.java
+     M	src/main/java/org/oryxel/viabedrockutility/pack/definitions/EntityDefinitions.java
+     M	src/main/java/org/oryxel/viabedrockutility/pack/processor/TextureProcessor.java
+     M	src/main/java/org/oryxel/viabedrockutility/payload/BasePayload.java
+     M	src/main/java/org/oryxel/viabedrockutility/payload/PayloadHandler.java
+     M	src/main/java/org/oryxel/viabedrockutility/payload/impl/skin/BaseSkinPayload.java
+     M	src/main/java/org/oryxel/viabedrockutility/payload/impl/skin/CapeDataPayload.java
+     M	src/main/java/org/oryxel/viabedrockutility/payload/impl/skin/SkinDataPayload.java
+     M	src/main/java/org/oryxel/viabedrockutility/renderer/CustomEntityRenderer.java
+     M	src/main/java/org/oryxel/viabedrockutility/renderer/CustomPlayerRenderer.java
+     M	src/main/java/org/oryxel/viabedrockutility/renderer/model/CustomEntityModel.java
+     M	src/main/java/org/oryxel/viabedrockutility/util/GeometryUtil.java
+     M	src/main/java/org/oryxel/viabedrockutility/util/ImageUtil.java
+     M	src/main/java/org/oryxel/viabedrockutility/util/PlayerSkinBuilder.java
+     M	src/main/resources/fabric.mod.json
+     M	src/main/resources/viabedrockutility.accesswidener
+     M	src/main/resources/viabedrockutility.mixins.json
+
+== LIB JARS ==
+  CubeConverter-abecffaaea.jar                             36 classes
+  mocha-3.0.1.jar                                          93 classes
+
+== LIB IMPORTS (20) ==
+
+== LIB SIGNATURES ==
+-- org.cube.converter.util.GsonUtil --
+   Compiled from "GsonUtil.java"
+   public final class org.cube.converter.util.GsonUtil {
+   private static final com.viaversion.viaversion.libs.gson.Gson gson;
+   private org.cube.converter.util.GsonUtil();
+   public static java.util.List<java.lang.String> arrayToList(com.viaversion.viaversion.libs.gson.JsonArray);
+   public static java.util.Map<java.lang.String, java.lang.String> objectToMap(com.viaversion.viaversion.libs.gson.JsonObject);
+   public static java.lang.String getOrDefault(com.viaversion.viaversion.libs.gson.JsonElement, java.lang.String);
+   public static com.viaversion.viaversion.libs.gson.Gson getGson();
+   static {};
+   }
 
 == JAR ==
 10952 classes  minecraft-merged-a76db1c7b4-26.2.jar
@@ -29,42 +108,19 @@ resolved in cache: 1.18.46
 == STALE MIXIN TARGETS ==
   none
 
-== REAL SIGNATURES ==
--- net.minecraft.client.Minecraft --
-   private final net.minecraft.client.renderer.entity.EntityRenderDispatcher entityRenderDispatcher;
-   private final net.minecraft.client.renderer.MapRenderer mapRenderer;
-   public final net.minecraft.client.gui.Font font;
-   public final net.minecraft.client.gui.Font fontFilterFishy;
-   private final net.minecraft.server.packs.resources.ReloadableResourceManager resourceManager;
-   private final net.minecraft.client.gui.font.FontManager fontManager;
-   private final net.minecraft.client.resources.SkinManager skinManager;
-   private final net.minecraft.client.resources.model.sprite.AtlasManager atlasManager;
-   private final net.minecraft.client.renderer.blockentity.BlockEntityRenderDispatcher blockEntityRenderDispatcher;
-   private final net.minecraft.client.renderer.PlayerSkinRenderCache playerSkinRenderCache;
-   void updateFontOptions();
-   public net.minecraft.server.packs.resources.ResourceManager getResourceManager();
-   public net.minecraft.client.resources.SkinManager getSkinManager();
-   public net.minecraft.client.renderer.entity.EntityRenderDispatcher getEntityRenderDispatcher();
-   public net.minecraft.client.renderer.blockentity.BlockEntityRenderDispatcher getBlockEntityRenderDispatcher();
-   public net.minecraft.client.renderer.MapRenderer getMapRenderer();
-   public net.minecraft.client.resources.model.sprite.AtlasManager getAtlasManager();
-   public net.minecraft.client.renderer.PlayerSkinRenderCache playerSkinRenderCache();
--- net.minecraft.client.resources.model.EquipmentAssetManager --
-   public net.minecraft.client.resources.model.EquipmentAssetManager();
-
 ===== TAIL =====
-> Task :processIncludeJars
-> Task :jar
-> Task :compileTestJava
-> Task :assemble
-> Task :processTestResources NO-SOURCE
-> Task :testClasses
-> Task :test
-> Task :validateAccessWidener
-> Task :check
-> Task :build
+  symbol:   method getMap()
+  location: variable map of type UVMap
+/home/runner/work/ViaBedrockUtility/ViaBedrockUtility/src/main/java/org/oryxel/viabedrockutility/util/GeometryUtil.java:197: error: cannot find symbol
+            final Float[] uv = map.getMap().get(org.cube.converter.util.element.Direction.SOUTH);
+                                  ^
+  symbol:   method getMap()
+  location: variable map of type UVMap
+Note: Some input files use unchecked or unsafe operations.
+Note: Recompile with -Xlint:unchecked for details.
+9 errors
+	... 30 more
 
-[Incubating] Problems report is available at: file:///home/runner/work/ViaBedrockUtility/ViaBedrockUtility/build/reports/problems/problems-report.html
 
-BUILD SUCCESSFUL in 1m 8s
-11 actionable tasks: 11 executed
+BUILD FAILED in 1m 41s
+5 actionable tasks: 5 executed
