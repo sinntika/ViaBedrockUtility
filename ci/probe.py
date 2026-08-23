@@ -3,7 +3,8 @@
 
 Reads the actual Minecraft jar on the compile classpath and reports which
 imports resolve, which fully qualified names exist, what nested types a class
-owns, and the real member signatures of everything this port touches. 1.21.11
+owns, and the real member signatures of everything this port touches. Runs
+javap with -p so private members behind mixin shadows are visible too. 1.21.11
 uses deobfuscated official names that do not match the old Mojang mapping
 names, so nothing here is allowed to be a guess.
 """
@@ -23,30 +24,21 @@ VALIDATED_PREFIXES = (
     "com.mojang.blaze3d.",
     "com.mojang.math.",
 )
-WIDTH = 320
+WIDTH = 300
 
 FQN_CHECKS = [
-    "net.minecraft.client.renderer.rendertype.RenderSetup",
-    "com.mojang.blaze3d.pipeline.RenderPipeline",
+    "net.minecraft.client.model.geom.ModelPart",
 ]
 
 NESTED_DUMPS = [
-    "net.minecraft.client.renderer.SubmitNodeCollector",
-    "net.minecraft.world.entity.player.PlayerSkin",
+    "net.minecraft.client.model.geom.ModelPart",
 ]
 
 JAVAP = [
-    ("net.minecraft.world.entity.player.PlayerSkin", ["public"], 14),
-    ("net.minecraft.client.player.AbstractClientPlayer", ["kin"], 10),
-    ("net.minecraft.client.renderer.rendertype.RenderSetup$RenderSetupBuilder", ["public"], 20),
-    ("net.minecraft.client.renderer.rendertype.RenderSetup$TextureAndSampler", ["public"], 10),
-    (
-        "net.minecraft.client.renderer.OrderedSubmitNodeCollector",
-        ["submitModel", "submitCustomGeometry"],
-        8,
-    ),
-    ("net.minecraft.client.renderer.entity.EntityRenderer", ["submit"], 8),
-    ("net.minecraft.client.renderer.rendertype.RenderType", ["static"], 10),
+    ("net.minecraft.client.player.AbstractClientPlayer", ["PlayerInfo", "Skin"], 10),
+    ("net.minecraft.world.entity.Entity", ["Vec3", "moveDist", "walkDist"], 16),
+    ("net.minecraft.client.model.geom.ModelPart", ["visit", "traverse", "Visitor", "getAllParts", "List"], 16),
+    ("net.minecraft.client.multiplayer.PlayerInfo", ["Supplier", "Skin", "private"], 16),
 ]
 
 
@@ -78,7 +70,7 @@ def javap(cls, keywords, limit):
     print("-- %s --" % cls)
     try:
         proc = subprocess.run(
-            ["javap", "-cp", jarpath, cls], capture_output=True, text=True, timeout=90
+            ["javap", "-p", "-cp", jarpath, cls], capture_output=True, text=True, timeout=90
         )
     except Exception as exc:
         print("   javap crashed: %s" % exc)
