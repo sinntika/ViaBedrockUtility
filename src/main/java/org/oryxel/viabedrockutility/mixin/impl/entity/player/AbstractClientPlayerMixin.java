@@ -4,12 +4,12 @@ import net.minecraft.client.player.AbstractClientPlayer;
 import net.minecraft.client.multiplayer.PlayerInfo;
 import net.minecraft.client.resources.DefaultPlayerSkin;
 import net.minecraft.world.entity.player.PlayerSkin;
-import net.minecraft.world.entity.player.PlayerModelType;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.resources.Identifier;
 import net.minecraft.world.level.Level;
 import org.oryxel.viabedrockutility.ViaBedrockUtility;
+import org.oryxel.viabedrockutility.util.PlayerSkinBuilder;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
@@ -24,7 +24,7 @@ public abstract class AbstractClientPlayerMixin extends Entity {
         super(type, world);
     }
 
-    @Inject(method = "getSkinTextures", at = @At(value = "TAIL"), cancellable = true)
+    @Inject(method = "getSkin", at = @At(value = "TAIL"), cancellable = true)
     public void injectGetSkin(CallbackInfoReturnable<PlayerSkin> cir) {
         if (!ViaBedrockUtility.getInstance().isViaBedrockPresent()) {
             return;
@@ -33,12 +33,11 @@ public abstract class AbstractClientPlayerMixin extends Entity {
         Identifier cape = ViaBedrockUtility.getInstance().getPayloadHandler().getCachedPlayerCapes().get(getUUID());
         if (cape != null) {
             PlayerSkin skin = playerListEntry == null ? DefaultPlayerSkin.get(this.getUUID()) : playerListEntry.getSkin();
-            if (!cape.equals(skin.capeTexture())) {
+            if (!cape.equals(PlayerSkinBuilder.path(skin.cape()))) {
                 cir.setReturnValue(new PlayerSkin(
-                        skin.texture(),
-                        skin.textureUrl(),
-                        cape,
-                        skin.elytraTexture(),
+                        skin.body(),
+                        PlayerSkinBuilder.asset(cape, null),
+                        skin.elytra(),
                         skin.model(),
                         skin.secure()
                 ));

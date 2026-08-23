@@ -3,10 +3,9 @@
 
 Reads the actual Minecraft jar on the compile classpath and reports which
 imports resolve, which fully qualified names exist, what nested types a class
-owns, whether an interface is sealed, and the real member signatures of
-everything this port touches. 1.21.11 uses deobfuscated official names that do
-not match the old Mojang mapping names, so nothing here is allowed to be a
-guess.
+owns, and the real member signatures of everything this port touches. 1.21.11
+uses deobfuscated official names that do not match the old Mojang mapping
+names, so nothing here is allowed to be a guess.
 """
 import os
 import re
@@ -24,30 +23,30 @@ VALIDATED_PREFIXES = (
     "com.mojang.blaze3d.",
     "com.mojang.math.",
 )
+WIDTH = 320
 
 FQN_CHECKS = [
-    "net.minecraft.client.renderer.OrderedSubmitNodeCollector",
     "net.minecraft.client.renderer.rendertype.RenderSetup",
-    "net.minecraft.client.resources.model.AtlasManager",
+    "com.mojang.blaze3d.pipeline.RenderPipeline",
 ]
 
 NESTED_DUMPS = [
-    "net.minecraft.client.renderer.rendertype.RenderSetup",
-    "net.minecraft.client.renderer.OrderedSubmitNodeCollector",
-]
-
-SEALED_CHECKS = [
-    "net.minecraft.core.ClientAsset",
+    "net.minecraft.client.renderer.SubmitNodeCollector",
+    "net.minecraft.world.entity.player.PlayerSkin",
 ]
 
 JAVAP = [
-    ("net.minecraft.client.renderer.OrderedSubmitNodeCollector", ["submit"], 30),
-    ("com.mojang.blaze3d.vertex.VertexFormat$Mode", ["public static final"], 16),
-    ("net.minecraft.client.renderer.rendertype.RenderSetup", ["public"], 26),
-    ("net.minecraft.core.ClientAsset$Texture", ["public"], 10),
-    ("net.minecraft.core.ClientAsset$ResourceTexture", ["public"], 10),
-    ("net.minecraft.core.ClientAsset$DownloadedTexture", ["public"], 10),
-    ("net.minecraft.client.renderer.rendertype.RenderTypes", ["create", "builder"], 12),
+    ("net.minecraft.world.entity.player.PlayerSkin", ["public"], 14),
+    ("net.minecraft.client.player.AbstractClientPlayer", ["kin"], 10),
+    ("net.minecraft.client.renderer.rendertype.RenderSetup$RenderSetupBuilder", ["public"], 20),
+    ("net.minecraft.client.renderer.rendertype.RenderSetup$TextureAndSampler", ["public"], 10),
+    (
+        "net.minecraft.client.renderer.OrderedSubmitNodeCollector",
+        ["submitModel", "submitCustomGeometry"],
+        8,
+    ),
+    ("net.minecraft.client.renderer.entity.EntityRenderer", ["submit"], 8),
+    ("net.minecraft.client.renderer.rendertype.RenderType", ["static"], 10),
 ]
 
 
@@ -75,18 +74,14 @@ def find_jar():
     return best, best_count
 
 
-def run_javap(args, timeout=90):
-    try:
-        return subprocess.run(args, capture_output=True, text=True, timeout=timeout)
-    except Exception as exc:
-        print("   javap crashed: %s" % exc)
-        return None
-
-
 def javap(cls, keywords, limit):
     print("-- %s --" % cls)
-    proc = run_javap(["javap", "-cp", jarpath, cls])
-    if proc is None:
+    try:
+        proc = subprocess.run(
+            ["javap", "-cp", jarpath, cls], capture_output=True, text=True, timeout=90
+        )
+    except Exception as exc:
+        print("   javap crashed: %s" % exc)
         return
     if proc.returncode != 0:
         err = (proc.stderr or "").strip().split("\n")
@@ -99,7 +94,7 @@ def javap(cls, keywords, limit):
             continue
         if keywords and not any(k in text for k in keywords):
             continue
-        print("   %s" % text[:170])
+        print("   %s" % text[:WIDTH])
         shown += 1
         if shown >= limit:
             print("   ... (truncated)")
@@ -189,23 +184,6 @@ for outer in NESTED_DUMPS:
     )
     print("-- %s (%d) --" % (outer, len(nested)))
     print("  " + (" ".join(nested[:40]) if nested else "(none)"))
-
-print("")
-print("== SEALED CHECK ==")
-for cls in SEALED_CHECKS:
-    proc = run_javap(["javap", "-v", "-cp", jarpath, cls])
-    print("-- %s --" % cls)
-    if proc is None or proc.returncode != 0:
-        print("   javap -v failed")
-        continue
-    hit = False
-    for line in proc.stdout.split("\n"):
-        text = line.strip()
-        if "PermittedSubclasses" in text or text.startswith("flags:"):
-            print("   %s" % text[:170])
-            hit = True
-    if not hit:
-        print("   not sealed (no PermittedSubclasses attribute)")
 
 print("")
 print("== REAL SIGNATURES ==")

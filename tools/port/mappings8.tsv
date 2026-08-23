@@ -1,0 +1,2 @@
+# VertexFormat.Mode lost LINE_STRIP, the remaining strip mode is DEBUG_LINE_STRIP.
+L	VertexFormat.Mode.LINE_STRIP :	VertexFormat.Mode.DEBUG_LINE_STRIP :
