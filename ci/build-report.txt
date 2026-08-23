@@ -1,5 +1,5 @@
-commit:  8d5507eb36278f6705bf729e97919571ae9c3ba0
-run_id:  32633935192
+commit:  d5507f20510589c00b916eab67c4a8dcf5f6ed0c
+run_id:  32634379467
 outcome: failure
 
 ===== RENAME =====
@@ -15,35 +15,9 @@ rewrote 0 files
 renamed 0 files
 
 ===== COMPILE ERRORS =====
-unique errors: 15
-ViaBedrockUtility.java:36: cannot find symbol   [symbol: method configurationS2C() | location: interface PayloadTypeRegistry]
-      src: PayloadTypeRegistry.configurationS2C().register(BasePayload.ID, BasePayload.STREAM_CODEC);
-ViaBedrockUtility.java:37: cannot find symbol   [symbol: method playS2C() | location: interface PayloadTypeRegistry]
-      src: PayloadTypeRegistry.playS2C().register(BasePayload.ID, BasePayload.STREAM_CODEC);
+unique errors: 2
 payload/PayloadHandler.java:200: cannot find symbol   [symbol: method getBlockRenderer() | location: variable client of type Minecraft]
       src: client.getItemModelResolver(), client.getMapRenderer(), client.getBlockRenderer(),
-material/data/Material.java:177: method builder in class VertexFormat cannot be applied to given types;   [required: int | found: no arguments | reason: actual and formal argument lists differ in length]
-      src: VertexFormat.Builder vertexBuilder = VertexFormat.builder();
-material/data/Material.java:184: cannot find symbol   [symbol: variable POSITION | location: class VertexFormatElement]
-      src: vertexBuilder.add("Position", VertexFormatElement.POSITION);
-material/data/Material.java:187: cannot find symbol   [symbol: variable COLOR | location: class VertexFormatElement]
-      src: vertexBuilder.add("Color", VertexFormatElement.COLOR);
-material/data/Material.java:190: cannot find symbol   [symbol: variable UV | location: class VertexFormatElement]
-      src: vertexBuilder.add("UV", VertexFormatElement.UV);
-material/data/Material.java:193: cannot find symbol   [symbol: variable UV0 | location: class VertexFormatElement]
-      src: vertexBuilder.add("UV0", VertexFormatElement.UV0);
-material/data/Material.java:197: cannot find symbol   [symbol: variable UV1 | location: class VertexFormatElement]
-      src: vertexBuilder.add("UV1", VertexFormatElement.UV1);
-material/data/Material.java:198: cannot find symbol   [symbol: variable UV2 | location: class VertexFormatElement]
-      src: vertexBuilder.add("UV2", VertexFormatElement.UV2);
-material/data/Material.java:201: cannot find symbol   [symbol: variable UV1 | location: class VertexFormatElement]
-      src: vertexBuilder.add("UV1", VertexFormatElement.UV1);
-material/data/Material.java:204: cannot find symbol   [symbol: variable UV2 | location: class VertexFormatElement]
-      src: vertexBuilder.add("UV2", VertexFormatElement.UV2);
-material/data/Material.java:208: cannot find symbol   [symbol: variable NORMAL | location: class VertexFormatElement]
-      src: vertexBuilder.add("Normal", VertexFormatElement.NORMAL).padding(1);
-material/data/Material.java:212: cannot find symbol   [symbol: variable NEW_ENTITY | location: class DefaultVertexFormat]
-      src: vertexFormat = DefaultVertexFormat.NEW_ENTITY;
 entity/CustomEntityTicker.java:63: cannot find symbol   [symbol: method getBlockRenderer() | location: variable client of type Minecraft]
       src: client.getItemModelResolver(), client.getMapRenderer(), client.getBlockRenderer(),
 
@@ -56,116 +30,86 @@ resolved in cache: 1.18.46
 
 == BAD IMPORTS (0) ==
 
-== PACKAGE LISTING ==
--- com.mojang.blaze3d.vertex (16) --
-  BufferBuilder ByteBufferBuilder CompactVectorArray DefaultVertexFormat MeshData PoseStack QuadInstance SheetedDecalTextureGenerator StagingBuffer TlsfAllocator UberGpuBuffer VertexConsumer VertexFormat VertexFormatElement VertexSorting package-info 
+== WHERE DID IT GO ==
+BlockRenderDispatcher  -> GONE
+BlockModelResolver     -> net.minecraft.client.renderer.block.BlockModelResolver
 
-== EXTRA PACKAGES ==
--- net.fabricmc.fabric.api.networking.v1 (36) in fabric-networking-api-v1-6.3.3+72073ef09e.jar --
-  ClientboundConfigurationChannelEvents ClientboundConfigurationChannelEvents$Register ClientboundConfigurationChannelEvents$Unregister ClientboundPlayChannelEvents ClientboundPlayChannelEvents$Register ClientboundPlayChannelEvents$Unregister EntityTrackingEvents EntityTrackingEvents$StartTracking 
-  EntityTrackingEvents$StopTracking FabricServerConfigurationPacketListenerImpl FriendlyByteBufs LoginPacketSender PacketSender PayloadTypeRegistry PlayerLookup ServerConfigurationConnectionEvents ServerConfigurationConnectionEvents$Configure ServerConfigurationConnectionEvents$Disconnect 
-  ServerConfigurationNetworking ServerConfigurationNetworking$ConfigurationPacketHandler ServerConfigurationNetworking$Context ServerLoginConnectionEvents ServerLoginConnectionEvents$Disconnect ServerLoginConnectionEvents$Init ServerLoginConnectionEvents$QueryStart ServerLoginNetworking 
-  ServerLoginNetworking$LoginQueryResponseHandler ServerLoginNetworking$LoginSynchronizer ServerPlayConnectionEvents ServerPlayConnectionEvents$Disconnect ServerPlayConnectionEvents$Init ServerPlayConnectionEvents$Join ServerPlayNetworking ServerPlayNetworking$Context 
-  ServerPlayNetworking$PlayPayloadHandler package-info 
+== PACKAGE LISTING ==
+-- net.minecraft.client.renderer.block (16) --
+  BlockAndTintGetter BlockModelLighter BlockModelRenderState BlockModelResolver BlockModelSet BlockQuadOutput BlockStateModelSet BuiltInBlockModels FluidModel FluidRenderer FluidStateModelSet LoadedBlockModels ModelBlockRenderer MovingBlockRenderState SelectBlockModel package-info 
 
 == STALE MIXIN TARGETS ==
   none
 
 == REAL SIGNATURES ==
--- com.mojang.blaze3d.vertex.VertexFormat --
-   public class com.mojang.blaze3d.vertex.VertexFormat {
-   public static final int MAX_VERTEX_ELEMENTS;
-   public static com.mojang.blaze3d.vertex.VertexFormat$Builder builder(int);
-   public java.lang.String toString();
-   public int getVertexSize();
-   public int getStepRate();
-   public java.util.List<com.mojang.blaze3d.vertex.VertexFormatElement> getElements();
-   public com.mojang.blaze3d.vertex.VertexFormatElement getElement(java.lang.String);
-   public boolean contains(java.lang.String);
-   public boolean equals(java.lang.Object);
-   public int hashCode();
--- com.mojang.blaze3d.vertex.VertexFormat$Builder --
-   Compiled from "VertexFormat.java"
-   public class com.mojang.blaze3d.vertex.VertexFormat$Builder {
-   private final java.util.List<com.mojang.blaze3d.vertex.VertexFormatElement> elements;
-   private int offset;
-   private final int stepRate;
-   private com.mojang.blaze3d.vertex.VertexFormat$Builder(int);
-   private void createAttribute(java.lang.String, int, com.mojang.blaze3d.GpuFormat);
-   private void validateUniqueName(java.lang.String);
-   public com.mojang.blaze3d.vertex.VertexFormat$Builder addAttribute(java.lang.String, com.mojang.blaze3d.GpuFormat);
-   public com.mojang.blaze3d.vertex.VertexFormat$Builder addAttribute(java.lang.String, int, com.mojang.blaze3d.GpuFormat);
-   public com.mojang.blaze3d.vertex.VertexFormat$Builder addAttribute(java.lang.String, com.mojang.blaze3d.GpuFormat, int);
-   public com.mojang.blaze3d.vertex.VertexFormat$Builder addAttribute(java.lang.String, int, int, com.mojang.blaze3d.GpuFormat, int);
-   public com.mojang.blaze3d.vertex.VertexFormat build();
+-- net.minecraft.client.renderer.block.BlockModelResolver --
+   Compiled from "BlockModelResolver.java"
+   public class net.minecraft.client.renderer.block.BlockModelResolver {
+   private static final long MODEL_SEED;
+   private final net.minecraft.client.resources.model.ModelManager modelManager;
+   public net.minecraft.client.renderer.block.BlockModelResolver(net.minecraft.client.resources.model.ModelManager);
+   public void update(net.minecraft.client.renderer.block.BlockModelRenderState, net.minecraft.world.level.block.state.BlockState, net.minecraft.client.renderer.block.model.BlockDisplayContext);
+   public void updateForItemFrame(net.minecraft.client.renderer.block.BlockModelRenderState, boolean, boolean);
    }
--- com.mojang.blaze3d.vertex.VertexFormatElement --
-   Compiled from "VertexFormatElement.java"
-   public final class com.mojang.blaze3d.vertex.VertexFormatElement extends java.lang.Record {
-   private final java.lang.String name;
-   private final int offset;
-   private final com.mojang.blaze3d.GpuFormat format;
-   public com.mojang.blaze3d.vertex.VertexFormatElement(java.lang.String, int, com.mojang.blaze3d.GpuFormat);
-   public java.lang.String toString();
-   public final int hashCode();
-   public final boolean equals(java.lang.Object);
-   public java.lang.String name();
-   public int offset();
-   public com.mojang.blaze3d.GpuFormat format();
-   }
--- com.mojang.blaze3d.vertex.DefaultVertexFormat --
-   public static final com.mojang.blaze3d.vertex.VertexFormat BLOCK;
-   public static final com.mojang.blaze3d.vertex.VertexFormat ENTITY;
 -- net.minecraft.client.Minecraft --
-   public class net.minecraft.client.Minecraft extends net.minecraft.util.thread.ReentrantBlockableEventLoop<java.lang.Runnable> implements com.mojang.blaze3d.platform.WindowEventHandler {
-   private final net.minecraft.client.color.block.BlockColors blockColors;
-   private final net.minecraft.client.renderer.blockentity.BlockEntityRenderDispatcher blockEntityRenderDispatcher;
-   public boolean isBlocked(java.util.UUID);
-   private void pickBlockOrEntity();
-   public net.minecraft.client.renderer.blockentity.BlockEntityRenderDispatcher getBlockEntityRenderDispatcher();
-   public net.minecraft.client.color.block.BlockColors getBlockColors();
--- net.minecraft.client.renderer.entity.EntityRendererProvider$Context --
-   Compiled from "EntityRendererProvider.java"
-   public class net.minecraft.client.renderer.entity.EntityRendererProvider$Context {
-   private final net.minecraft.client.renderer.entity.EntityRenderDispatcher entityRenderDispatcher;
-   private final net.minecraft.client.renderer.block.BlockModelResolver blockModelResolver;
    private final net.minecraft.client.renderer.item.ItemModelResolver itemModelResolver;
-   private final net.minecraft.client.renderer.MapRenderer mapRenderer;
-   private final net.minecraft.server.packs.resources.ResourceManager resourceManager;
-   private final net.minecraft.client.model.geom.EntityModelSet modelSet;
-   private final net.minecraft.client.resources.model.EquipmentAssetManager equipmentAssets;
-   private final net.minecraft.client.gui.Font font;
-   private final net.minecraft.client.renderer.entity.layers.EquipmentLayerRenderer equipmentRenderer;
-   private final net.minecraft.client.resources.model.sprite.AtlasManager atlasManager;
-   private final net.minecraft.client.renderer.PlayerSkinRenderCache playerSkinRenderCache;
-   public net.minecraft.client.renderer.entity.EntityRendererProvider$Context(net.minecraft.client.renderer.entity.EntityRenderDispatcher, net.minecraft.client.renderer.block.BlockModelResolver, net.minecraft.client.renderer.item.ItemModelResolver, net.minecraft.client.renderer.MapRenderer, net.minecra
-   public net.minecraft.client.renderer.entity.EntityRenderDispatcher getEntityRenderDispatcher();
-   public net.minecraft.client.renderer.block.BlockModelResolver getBlockModelResolver();
+   private final net.minecraft.client.resources.model.ModelManager modelManager;
+   public net.minecraft.client.resources.model.ModelManager getModelManager();
+   public net.minecraft.client.model.geom.EntityModelSet getEntityModels();
    public net.minecraft.client.renderer.item.ItemModelResolver getItemModelResolver();
-   public net.minecraft.client.renderer.MapRenderer getMapRenderer();
-   public net.minecraft.server.packs.resources.ResourceManager getResourceManager();
-   public net.minecraft.client.model.geom.EntityModelSet getModelSet();
-   public net.minecraft.client.resources.model.EquipmentAssetManager getEquipmentAssets();
-   public net.minecraft.client.renderer.entity.layers.EquipmentLayerRenderer getEquipmentRenderer();
-   public net.minecraft.client.resources.model.sprite.SpriteGetter getSprites();
-   public net.minecraft.client.renderer.texture.TextureAtlas getAtlas(net.minecraft.resources.Identifier);
-   public net.minecraft.client.model.geom.ModelPart bakeLayer(net.minecraft.client.model.geom.ModelLayerLocation);
+-- net.minecraft.client.renderer.entity.EntityRendererProvider$Context --
+   public net.minecraft.client.renderer.entity.EntityRendererProvider$Context(net.minecraft.client.renderer.entity.EntityRenderDispatcher, net.minecraft.client.renderer.block.BlockModelResolver, net.minecraft.client.renderer.item.ItemModelResolver, net.minecraft.client.renderer.MapRenderer, net.minecraft.server.packs.resources.ResourceManager, net.minecraft.client.model.geom.EntityModelSet, net.minecraft.client.resources.model.EquipmentAssetManager, net.minecraft.client.resources.model.sprite.AtlasManager, net.minecraft.client.gui.Font, net.minecraft.client.renderer.PlayerSkinRenderCache);
+-- com.mojang.blaze3d.GpuFormat --
+   Compiled from "GpuFormat.java"
+   public final class com.mojang.blaze3d.GpuFormat extends java.lang.Enum<com.mojang.blaze3d.GpuFormat> {
+   public static final com.mojang.blaze3d.GpuFormat R8_UNORM;
+   public static final com.mojang.blaze3d.GpuFormat R8_SNORM;
+   public static final com.mojang.blaze3d.GpuFormat RG8_UNORM;
+   public static final com.mojang.blaze3d.GpuFormat RG8_SNORM;
+   public static final com.mojang.blaze3d.GpuFormat RGB8_UNORM;
+   public static final com.mojang.blaze3d.GpuFormat RGB8_SNORM;
+   public static final com.mojang.blaze3d.GpuFormat RGBA8_UNORM;
+   public static final com.mojang.blaze3d.GpuFormat RGBA8_SNORM;
+   public static final com.mojang.blaze3d.GpuFormat R16_UNORM;
+   public static final com.mojang.blaze3d.GpuFormat R16_SNORM;
+   public static final com.mojang.blaze3d.GpuFormat RG16_UNORM;
+   public static final com.mojang.blaze3d.GpuFormat RG16_SNORM;
+   public static final com.mojang.blaze3d.GpuFormat RGB16_UNORM;
+   public static final com.mojang.blaze3d.GpuFormat RGB16_SNORM;
+   public static final com.mojang.blaze3d.GpuFormat RGBA16_UNORM;
+   public static final com.mojang.blaze3d.GpuFormat RGBA16_SNORM;
+   public static final com.mojang.blaze3d.GpuFormat R8_UINT;
+   public static final com.mojang.blaze3d.GpuFormat R8_SINT;
+   public static final com.mojang.blaze3d.GpuFormat RG8_UINT;
+   public static final com.mojang.blaze3d.GpuFormat RG8_SINT;
+   public static final com.mojang.blaze3d.GpuFormat RGB8_UINT;
+   public static final com.mojang.blaze3d.GpuFormat RGB8_SINT;
+   public static final com.mojang.blaze3d.GpuFormat RGBA8_UINT;
+   public static final com.mojang.blaze3d.GpuFormat RGBA8_SINT;
+   public static final com.mojang.blaze3d.GpuFormat R16_UINT;
+   public static final com.mojang.blaze3d.GpuFormat R16_SINT;
+   public static final com.mojang.blaze3d.GpuFormat RG16_UINT;
+   public static final com.mojang.blaze3d.GpuFormat RG16_SINT;
+   public static final com.mojang.blaze3d.GpuFormat RGB16_UINT;
+   public static final com.mojang.blaze3d.GpuFormat RGB16_SINT;
+   public static final com.mojang.blaze3d.GpuFormat RGBA16_UINT;
+   public static final com.mojang.blaze3d.GpuFormat RGBA16_SINT;
+   public static final com.mojang.blaze3d.GpuFormat R32_UINT;
+   public static final com.mojang.blaze3d.GpuFormat R32_SINT;
+   public static final com.mojang.blaze3d.GpuFormat RG32_UINT;
+   public static final com.mojang.blaze3d.GpuFormat RG32_SINT;
+   public static final com.mojang.blaze3d.GpuFormat RGB32_UINT;
+   public static final com.mojang.blaze3d.GpuFormat RGB32_SINT;
+   public static final com.mojang.blaze3d.GpuFormat RGBA32_UINT;
+   public static final com.mojang.blaze3d.GpuFormat RGBA32_SINT;
+   public static final com.mojang.blaze3d.GpuFormat R16_FLOAT;
+   public static final com.mojang.blaze3d.GpuFormat RG16_FLOAT;
+   public static final com.mojang.blaze3d.GpuFormat RGB16_FLOAT;
    ... (truncated)
--- net.fabricmc.fabric.api.networking.v1.PayloadTypeRegistry --
-   Compiled from "PayloadTypeRegistry.java"
-   public interface net.fabricmc.fabric.api.networking.v1.PayloadTypeRegistry<B extends net.minecraft.network.FriendlyByteBuf> {
-   public abstract <T extends net.minecraft.network.protocol.common.custom.CustomPacketPayload> net.minecraft.network.protocol.common.custom.CustomPacketPayload$TypeAndCodec<? super B, T> register(net.minecraft.network.protocol.common.custom.CustomPacketPayload$Type<T>, net.minecraft.network.codec.Stre
-   public abstract <T extends net.minecraft.network.protocol.common.custom.CustomPacketPayload> net.minecraft.network.protocol.common.custom.CustomPacketPayload$TypeAndCodec<? super B, T> registerLarge(net.minecraft.network.protocol.common.custom.CustomPacketPayload$Type<T>, net.minecraft.network.codec
-   public abstract <T extends net.minecraft.network.protocol.common.custom.CustomPacketPayload> net.minecraft.network.protocol.common.custom.CustomPacketPayload$TypeAndCodec<? super B, T> registerLarge(net.minecraft.network.protocol.common.custom.CustomPacketPayload$Type<T>, net.minecraft.network.codec
-   public static net.fabricmc.fabric.api.networking.v1.PayloadTypeRegistry<net.minecraft.network.FriendlyByteBuf> serverboundConfiguration();
-   public static net.fabricmc.fabric.api.networking.v1.PayloadTypeRegistry<net.minecraft.network.FriendlyByteBuf> clientboundConfiguration();
-   public static net.fabricmc.fabric.api.networking.v1.PayloadTypeRegistry<net.minecraft.network.RegistryFriendlyByteBuf> serverboundPlay();
-   public static net.fabricmc.fabric.api.networking.v1.PayloadTypeRegistry<net.minecraft.network.RegistryFriendlyByteBuf> clientboundPlay();
-   }
 
 ===== TAIL =====
-  symbol:   variable NEW_ENTITY
-  location: class DefaultVertexFormat
+  symbol:   method getBlockRenderer()
+  location: variable client of type Minecraft
 /home/runner/work/ViaBedrockUtility/ViaBedrockUtility/src/main/java/org/oryxel/viabedrockutility/entity/CustomEntityTicker.java:63: error: cannot find symbol
                 client.getItemModelResolver(), client.getMapRenderer(), client.getBlockRenderer(),
                                                                               ^
@@ -173,7 +117,7 @@ resolved in cache: 1.18.46
   location: variable client of type Minecraft
 Note: Some input files use unchecked or unsafe operations.
 Note: Recompile with -Xlint:unchecked for details.
-15 errors
+2 errors
 	... 61 more
 
 
