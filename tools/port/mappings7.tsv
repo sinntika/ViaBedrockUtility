@@ -1,0 +1,2 @@
+# EntityRendererProvider.Context gained AtlasManager and PlayerSkinRenderCache.
+L	client.getResourceManager(), client.getEntityModels(), new EquipmentAssetManager(), client.font);	client.getResourceManager(), client.getEntityModels(), new EquipmentAssetManager(), client.getAtlasManager(), client.font, client.playerSkinRenderCache());

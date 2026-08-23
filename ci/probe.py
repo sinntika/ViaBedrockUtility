@@ -3,9 +3,10 @@
 
 Reads the actual Minecraft jar on the compile classpath and reports which
 imports resolve, which fully qualified names exist, what nested types a class
-owns, and the real member signatures of everything this port touches. 1.21.11
-uses deobfuscated official names that do not match the old Mojang mapping
-names, so nothing here is allowed to be a guess.
+owns, whether an interface is sealed, and the real member signatures of
+everything this port touches. 1.21.11 uses deobfuscated official names that do
+not match the old Mojang mapping names, so nothing here is allowed to be a
+guess.
 """
 import os
 import re
@@ -25,40 +26,28 @@ VALIDATED_PREFIXES = (
 )
 
 FQN_CHECKS = [
-    "net.minecraft.client.renderer.SubmitNodeCollector",
-    "net.minecraft.client.renderer.state.CameraRenderState",
-    "net.minecraft.client.renderer.PlayerSkinRenderCache",
-    "net.minecraft.client.renderer.texture.AtlasManager",
-    "com.mojang.blaze3d.vertex.DefaultVertexFormat",
-    "net.minecraft.client.model.geom.builders.PartDefinition",
+    "net.minecraft.client.renderer.OrderedSubmitNodeCollector",
+    "net.minecraft.client.renderer.rendertype.RenderSetup",
+    "net.minecraft.client.resources.model.AtlasManager",
 ]
 
 NESTED_DUMPS = [
+    "net.minecraft.client.renderer.rendertype.RenderSetup",
+    "net.minecraft.client.renderer.OrderedSubmitNodeCollector",
+]
+
+SEALED_CHECKS = [
     "net.minecraft.core.ClientAsset",
-    "net.minecraft.world.entity.player.PlayerSkin",
-    "net.minecraft.client.renderer.rendertype.RenderType",
 ]
 
 JAVAP = [
-    ("net.minecraft.client.renderer.SubmitNodeCollector", ["public"], 26),
-    (
-        "net.minecraft.client.renderer.entity.LivingEntityRenderer",
-        ["model", "submit", "getTextureLocation", "protected"],
-        14,
-    ),
-    ("net.minecraft.client.renderer.entity.player.AvatarRenderer", ["public", "protected"], 14),
-    ("net.minecraft.client.renderer.rendertype.RenderType", ["public"], 20),
-    ("net.minecraft.core.ClientAsset$DirectTexture", ["public"], 8),
-    ("net.minecraft.world.entity.player.PlayerSkin$Patch", ["public"], 10),
-    (
-        "net.minecraft.client.Minecraft",
-        ["Atlas", "SkinRenderCache", "getEntityRenderDispatcher", "getResourceManager", "EquipmentAssets"],
-        12,
-    ),
-    ("net.minecraft.client.renderer.PlayerSkinRenderCache", ["public"], 10),
-    ("net.minecraft.client.model.geom.builders.PartDefinition", ["public"], 10),
-    ("com.mojang.blaze3d.vertex.DefaultVertexFormat", ["NEW_ENTITY", "POSITION_TEX"], 6),
-    ("net.minecraft.client.renderer.state.CameraRenderState", ["public"], 8),
+    ("net.minecraft.client.renderer.OrderedSubmitNodeCollector", ["submit"], 30),
+    ("com.mojang.blaze3d.vertex.VertexFormat$Mode", ["public static final"], 16),
+    ("net.minecraft.client.renderer.rendertype.RenderSetup", ["public"], 26),
+    ("net.minecraft.core.ClientAsset$Texture", ["public"], 10),
+    ("net.minecraft.core.ClientAsset$ResourceTexture", ["public"], 10),
+    ("net.minecraft.core.ClientAsset$DownloadedTexture", ["public"], 10),
+    ("net.minecraft.client.renderer.rendertype.RenderTypes", ["create", "builder"], 12),
 ]
 
 
@@ -86,14 +75,18 @@ def find_jar():
     return best, best_count
 
 
-def javap(cls, keywords, limit):
-    print("-- %s --" % cls)
+def run_javap(args, timeout=90):
     try:
-        proc = subprocess.run(
-            ["javap", "-cp", jarpath, cls], capture_output=True, text=True, timeout=90
-        )
+        return subprocess.run(args, capture_output=True, text=True, timeout=timeout)
     except Exception as exc:
         print("   javap crashed: %s" % exc)
+        return None
+
+
+def javap(cls, keywords, limit):
+    print("-- %s --" % cls)
+    proc = run_javap(["javap", "-cp", jarpath, cls])
+    if proc is None:
         return
     if proc.returncode != 0:
         err = (proc.stderr or "").strip().split("\n")
@@ -106,7 +99,7 @@ def javap(cls, keywords, limit):
             continue
         if keywords and not any(k in text for k in keywords):
             continue
-        print("   %s" % text[:160])
+        print("   %s" % text[:170])
         shown += 1
         if shown >= limit:
             print("   ... (truncated)")
@@ -196,6 +189,23 @@ for outer in NESTED_DUMPS:
     )
     print("-- %s (%d) --" % (outer, len(nested)))
     print("  " + (" ".join(nested[:40]) if nested else "(none)"))
+
+print("")
+print("== SEALED CHECK ==")
+for cls in SEALED_CHECKS:
+    proc = run_javap(["javap", "-v", "-cp", jarpath, cls])
+    print("-- %s --" % cls)
+    if proc is None or proc.returncode != 0:
+        print("   javap -v failed")
+        continue
+    hit = False
+    for line in proc.stdout.split("\n"):
+        text = line.strip()
+        if "PermittedSubclasses" in text or text.startswith("flags:"):
+            print("   %s" % text[:170])
+            hit = True
+    if not hit:
+        print("   not sealed (no PermittedSubclasses attribute)")
 
 print("")
 print("== REAL SIGNATURES ==")
