@@ -1,5 +1,5 @@
-commit:  7f87aab8a7be7d154e30dbf8e7e6f5135927d0f2
-run_id:  32630587916
+commit:  74e6fcd6255cd496e1ac2b4b7c0deb0e2e8d37ad
+run_id:  32630852237
 outcome: failure
 
 ===== RENAME =====
@@ -10,13 +10,12 @@ loaded mappings4.tsv
 loaded mappings5.tsv
 loaded mappings6.tsv
 loaded mappings7.tsv
-rewrote 3 files
+loaded mappings8.tsv
+rewrote 2 files
 renamed 0 files
 
 ===== COMPILE ERRORS =====
-unique errors: 16
-material/data/Material.java:262: cannot find symbol   [symbol: variable LINE_STRIP | location: class Mode]
-      src: builder.withVertexFormat(vertexFormat, this.defines.contains("LINE_STRIP") ? VertexFormat.Mode.LINE_STRIP : VertexFormat.Mode.QUADS);
+unique errors: 6
 material/data/Material.java:290: cannot find symbol   [symbol: class MultiPhaseParameters | location: class RenderType]
       src: final RenderType.MultiPhaseParameters.Builder renderLayerBuilder = RenderType.MultiPhaseParameters.builder();
 material/data/Material.java:290: cannot find symbol   [symbol: variable MultiPhaseParameters | location: class RenderType]
@@ -29,24 +28,6 @@ material/data/Material.java:296: cannot find symbol   [symbol: variable ENABLE_O
       src: renderLayerBuilder.overlay(ENABLE_OVERLAY_COLOR);
 renderer/CustomEntityRenderer.java:43: method does not override or implement a method from a supertype
       src: @Override
-mixin/impl/entity/player/AbstractClientPlayerMixin.java:36: cannot find symbol   [symbol: method capeTexture() | location: variable skin of type PlayerSkin]
-      src: if (!cape.equals(skin.capeTexture())) {
-mixin/impl/entity/player/AbstractClientPlayerMixin.java:41: cannot find symbol   [symbol: method elytraTexture() | location: variable skin of type PlayerSkin]
-      src: skin.elytraTexture(),
-mixin/impl/entity/player/AbstractClientPlayerMixin.java:39: cannot find symbol   [symbol: method textureUrl() | location: variable skin of type PlayerSkin]
-      src: skin.textureUrl(),
-mixin/impl/entity/player/AbstractClientPlayerMixin.java:38: cannot find symbol   [symbol: method texture() | location: variable skin of type PlayerSkin]
-      src: skin.texture(),
-util/PlayerSkinBuilder.java:16: cannot find symbol   [symbol: method texture() | location: variable base of type PlayerSkin]
-      src: this.texture = base.texture();
-util/PlayerSkinBuilder.java:17: cannot find symbol   [symbol: method textureUrl() | location: variable base of type PlayerSkin]
-      src: this.textureUrl = base.textureUrl();
-util/PlayerSkinBuilder.java:18: cannot find symbol   [symbol: method capeTexture() | location: variable base of type PlayerSkin]
-      src: this.capeTexture = base.capeTexture();
-util/PlayerSkinBuilder.java:19: cannot find symbol   [symbol: method elytraTexture() | location: variable base of type PlayerSkin]
-      src: this.elytraTexture = base.elytraTexture();
-util/PlayerSkinBuilder.java:25: constructor PlayerSkin in record PlayerSkin cannot be applied to given types;   [required: Texture,Texture,Texture,PlayerModelType,boolean | found: Identifier,String,Identifier,Identifier,PlayerModelType,boolean | reason: actual and formal argument lists differ in length]
-      src: return new PlayerSkin(texture, textureUrl, capeTexture, elytraTexture, model, secure);
 
 ===== CLASSPATH PROBE =====
 == JAR ==
@@ -55,94 +36,83 @@ util/PlayerSkinBuilder.java:25: constructor PlayerSkin in record PlayerSkin cann
 == BAD IMPORTS (0) ==
 
 == FQN CHECK ==
-net.minecraft.client.renderer.OrderedSubmitNodeCollector    OK
-net.minecraft.client.renderer.rendertype.RenderSetup        OK
-net.minecraft.client.resources.model.AtlasManager           OK
+net.minecraft.client.renderer.rendertype.RenderSetup    OK
+com.mojang.blaze3d.pipeline.RenderPipeline              OK
 
 == NESTED TYPES ==
--- net.minecraft.client.renderer.rendertype.RenderSetup (4) --
-  OutlineProperty RenderSetupBuilder TextureAndSampler TextureBinding
--- net.minecraft.client.renderer.OrderedSubmitNodeCollector (0) --
-  (none)
-
-== SEALED CHECK ==
--- net.minecraft.core.ClientAsset --
-   flags: (0x0601) ACC_PUBLIC, ACC_INTERFACE, ACC_ABSTRACT
-   flags: (0x0401) ACC_PUBLIC, ACC_ABSTRACT
+-- net.minecraft.client.renderer.SubmitNodeCollector (2) --
+  CustomGeometryRenderer ParticleGroupRenderer
+-- net.minecraft.world.entity.player.PlayerSkin (1) --
+  Patch
 
 == REAL SIGNATURES ==
+-- net.minecraft.world.entity.player.PlayerSkin --
+   public final class net.minecraft.world.entity.player.PlayerSkin extends java.lang.Record {
+   public net.minecraft.world.entity.player.PlayerSkin(net.minecraft.core.ClientAsset$Texture, net.minecraft.core.ClientAsset$Texture, net.minecraft.core.ClientAsset$Texture, net.minecraft.world.entity.player.PlayerModelType, boolean);
+   public static net.minecraft.world.entity.player.PlayerSkin insecure(net.minecraft.core.ClientAsset$Texture, net.minecraft.core.ClientAsset$Texture, net.minecraft.core.ClientAsset$Texture, net.minecraft.world.entity.player.PlayerModelType);
+   public net.minecraft.world.entity.player.PlayerSkin with(net.minecraft.world.entity.player.PlayerSkin$Patch);
+   public final java.lang.String toString();
+   public final int hashCode();
+   public final boolean equals(java.lang.Object);
+   public net.minecraft.core.ClientAsset$Texture body();
+   public net.minecraft.core.ClientAsset$Texture cape();
+   public net.minecraft.core.ClientAsset$Texture elytra();
+   public net.minecraft.world.entity.player.PlayerModelType model();
+   public boolean secure();
+-- net.minecraft.client.player.AbstractClientPlayer --
+   public net.minecraft.world.entity.player.PlayerSkin getSkin();
+-- net.minecraft.client.renderer.rendertype.RenderSetup$RenderSetupBuilder --
+   public class net.minecraft.client.renderer.rendertype.RenderSetup$RenderSetupBuilder {
+   public net.minecraft.client.renderer.rendertype.RenderSetup$RenderSetupBuilder withTexture(java.lang.String, net.minecraft.resources.Identifier);
+   public net.minecraft.client.renderer.rendertype.RenderSetup$RenderSetupBuilder withTexture(java.lang.String, net.minecraft.resources.Identifier, java.util.function.Supplier<com.mojang.blaze3d.textures.GpuSampler>);
+   public net.minecraft.client.renderer.rendertype.RenderSetup$RenderSetupBuilder useLightmap();
+   public net.minecraft.client.renderer.rendertype.RenderSetup$RenderSetupBuilder useOverlay();
+   public net.minecraft.client.renderer.rendertype.RenderSetup$RenderSetupBuilder affectsCrumbling();
+   public net.minecraft.client.renderer.rendertype.RenderSetup$RenderSetupBuilder sortOnUpload();
+   public net.minecraft.client.renderer.rendertype.RenderSetup$RenderSetupBuilder bufferSize(int);
+   public net.minecraft.client.renderer.rendertype.RenderSetup$RenderSetupBuilder setLayeringTransform(net.minecraft.client.renderer.rendertype.LayeringTransform);
+   public net.minecraft.client.renderer.rendertype.RenderSetup$RenderSetupBuilder setOutputTarget(net.minecraft.client.renderer.rendertype.OutputTarget);
+   public net.minecraft.client.renderer.rendertype.RenderSetup$RenderSetupBuilder setTextureTransform(net.minecraft.client.renderer.rendertype.TextureTransform);
+   public net.minecraft.client.renderer.rendertype.RenderSetup$RenderSetupBuilder setOutline(net.minecraft.client.renderer.rendertype.RenderSetup$OutlineProperty);
+   public net.minecraft.client.renderer.rendertype.RenderSetup createRenderSetup();
+-- net.minecraft.client.renderer.rendertype.RenderSetup$TextureAndSampler --
+   public final class net.minecraft.client.renderer.rendertype.RenderSetup$TextureAndSampler extends java.lang.Record {
+   public net.minecraft.client.renderer.rendertype.RenderSetup$TextureAndSampler(com.mojang.blaze3d.textures.GpuTextureView, com.mojang.blaze3d.textures.GpuSampler);
+   public final java.lang.String toString();
+   public final int hashCode();
+   public final boolean equals(java.lang.Object);
+   public com.mojang.blaze3d.textures.GpuTextureView textureView();
+   public com.mojang.blaze3d.textures.GpuSampler sampler();
 -- net.minecraft.client.renderer.OrderedSubmitNodeCollector --
-   public abstract void submitShadow(com.mojang.blaze3d.vertex.PoseStack, float, java.util.List<net.minecraft.client.renderer.entity.state.EntityRenderState$ShadowPiece>);
-   public abstract void submitNameTag(com.mojang.blaze3d.vertex.PoseStack, net.minecraft.world.phys.Vec3, int, net.minecraft.network.chat.Component, boolean, int, double, ne
-   public abstract void submitText(com.mojang.blaze3d.vertex.PoseStack, float, float, net.minecraft.util.FormattedCharSequence, boolean, net.minecraft.client.gui.Font$Displa
-   public abstract void submitFlame(com.mojang.blaze3d.vertex.PoseStack, net.minecraft.client.renderer.entity.state.EntityRenderState, org.joml.Quaternionf);
-   public abstract void submitLeash(com.mojang.blaze3d.vertex.PoseStack, net.minecraft.client.renderer.entity.state.EntityRenderState$LeashState);
-   public abstract <S> void submitModel(net.minecraft.client.model.Model<? super S>, S, com.mojang.blaze3d.vertex.PoseStack, net.minecraft.client.renderer.rendertype.RenderT
-   public default <S> void submitModel(net.minecraft.client.model.Model<? super S>, S, com.mojang.blaze3d.vertex.PoseStack, net.minecraft.client.renderer.rendertype.RenderTy
-   public default void submitModelPart(net.minecraft.client.model.geom.ModelPart, com.mojang.blaze3d.vertex.PoseStack, net.minecraft.client.renderer.rendertype.RenderType, i
-   public default void submitModelPart(net.minecraft.client.model.geom.ModelPart, com.mojang.blaze3d.vertex.PoseStack, net.minecraft.client.renderer.rendertype.RenderType, i
-   public default void submitModelPart(net.minecraft.client.model.geom.ModelPart, com.mojang.blaze3d.vertex.PoseStack, net.minecraft.client.renderer.rendertype.RenderType, i
-   public abstract void submitModelPart(net.minecraft.client.model.geom.ModelPart, com.mojang.blaze3d.vertex.PoseStack, net.minecraft.client.renderer.rendertype.RenderType, 
-   public abstract void submitBlock(com.mojang.blaze3d.vertex.PoseStack, net.minecraft.world.level.block.state.BlockState, int, int, int);
-   public abstract void submitMovingBlock(com.mojang.blaze3d.vertex.PoseStack, net.minecraft.client.renderer.block.MovingBlockRenderState);
-   public abstract void submitBlockModel(com.mojang.blaze3d.vertex.PoseStack, net.minecraft.client.renderer.rendertype.RenderType, net.minecraft.client.renderer.block.model.
-   public abstract void submitItem(com.mojang.blaze3d.vertex.PoseStack, net.minecraft.world.item.ItemDisplayContext, int, int, int, int[], java.util.List<net.minecraft.clien
-   public abstract void submitCustomGeometry(com.mojang.blaze3d.vertex.PoseStack, net.minecraft.client.renderer.rendertype.RenderType, net.minecraft.client.renderer.SubmitNo
-   public abstract void submitParticleGroup(net.minecraft.client.renderer.SubmitNodeCollector$ParticleGroupRenderer);
--- com.mojang.blaze3d.vertex.VertexFormat$Mode --
-   public static final com.mojang.blaze3d.vertex.VertexFormat$Mode LINES;
-   public static final com.mojang.blaze3d.vertex.VertexFormat$Mode DEBUG_LINES;
-   public static final com.mojang.blaze3d.vertex.VertexFormat$Mode DEBUG_LINE_STRIP;
-   public static final com.mojang.blaze3d.vertex.VertexFormat$Mode POINTS;
-   public static final com.mojang.blaze3d.vertex.VertexFormat$Mode TRIANGLES;
-   public static final com.mojang.blaze3d.vertex.VertexFormat$Mode TRIANGLE_STRIP;
-   public static final com.mojang.blaze3d.vertex.VertexFormat$Mode TRIANGLE_FAN;
-   public static final com.mojang.blaze3d.vertex.VertexFormat$Mode QUADS;
--- net.minecraft.client.renderer.rendertype.RenderSetup --
-   public final class net.minecraft.client.renderer.rendertype.RenderSetup {
-   public java.lang.String toString();
-   public static net.minecraft.client.renderer.rendertype.RenderSetup$RenderSetupBuilder builder(com.mojang.blaze3d.pipeline.RenderPipeline);
-   public java.util.Map<java.lang.String, net.minecraft.client.renderer.rendertype.RenderSetup$TextureAndSampler> getTextures();
--- net.minecraft.core.ClientAsset$Texture --
-   public interface net.minecraft.core.ClientAsset$Texture extends net.minecraft.core.ClientAsset {
-   public abstract net.minecraft.resources.Identifier texturePath();
--- net.minecraft.core.ClientAsset$ResourceTexture --
-   public final class net.minecraft.core.ClientAsset$ResourceTexture extends java.lang.Record implements net.minecraft.core.ClientAsset$Texture {
-   public static final com.mojang.serialization.Codec<net.minecraft.core.ClientAsset$ResourceTexture> CODEC;
-   public static final com.mojang.serialization.MapCodec<net.minecraft.core.ClientAsset$ResourceTexture> DEFAULT_FIELD_CODEC;
-   public static final net.minecraft.network.codec.StreamCodec<io.netty.buffer.ByteBuf, net.minecraft.core.ClientAsset$ResourceTexture> STREAM_CODEC;
-   public net.minecraft.core.ClientAsset$ResourceTexture(net.minecraft.resources.Identifier);
-   public net.minecraft.core.ClientAsset$ResourceTexture(net.minecraft.resources.Identifier, net.minecraft.resources.Identifier);
-   public final java.lang.String toString();
-   public final int hashCode();
-   public final boolean equals(java.lang.Object);
-   public net.minecraft.resources.Identifier id();
-   ... (truncated)
--- net.minecraft.core.ClientAsset$DownloadedTexture --
-   public final class net.minecraft.core.ClientAsset$DownloadedTexture extends java.lang.Record implements net.minecraft.core.ClientAsset$Texture {
-   public net.minecraft.core.ClientAsset$DownloadedTexture(net.minecraft.resources.Identifier, java.lang.String);
-   public net.minecraft.resources.Identifier id();
-   public final java.lang.String toString();
-   public final int hashCode();
-   public final boolean equals(java.lang.Object);
-   public net.minecraft.resources.Identifier texturePath();
-   public java.lang.String url();
--- net.minecraft.client.renderer.rendertype.RenderTypes --
-   public static net.minecraft.client.renderer.rendertype.RenderType createArmorDecalCutoutNoCull(net.minecraft.resources.Identifier);
+   public abstract <S> void submitModel(net.minecraft.client.model.Model<? super S>, S, com.mojang.blaze3d.vertex.PoseStack, net.minecraft.client.renderer.rendertype.RenderType, int, int, int, net.minecraft.client.renderer.texture.TextureAtlasSprite, int, net.minecraft.client.renderer.feature.ModelFeatureRenderer$Crumblin
+   public default <S> void submitModel(net.minecraft.client.model.Model<? super S>, S, com.mojang.blaze3d.vertex.PoseStack, net.minecraft.client.renderer.rendertype.RenderType, int, int, int, net.minecraft.client.renderer.feature.ModelFeatureRenderer$CrumblingOverlay);
+   public default void submitModelPart(net.minecraft.client.model.geom.ModelPart, com.mojang.blaze3d.vertex.PoseStack, net.minecraft.client.renderer.rendertype.RenderType, int, int, net.minecraft.client.renderer.texture.TextureAtlasSprite);
+   public default void submitModelPart(net.minecraft.client.model.geom.ModelPart, com.mojang.blaze3d.vertex.PoseStack, net.minecraft.client.renderer.rendertype.RenderType, int, int, net.minecraft.client.renderer.texture.TextureAtlasSprite, int, net.minecraft.client.renderer.feature.ModelFeatureRenderer$CrumblingOverlay);
+   public default void submitModelPart(net.minecraft.client.model.geom.ModelPart, com.mojang.blaze3d.vertex.PoseStack, net.minecraft.client.renderer.rendertype.RenderType, int, int, net.minecraft.client.renderer.texture.TextureAtlasSprite, boolean, boolean);
+   public abstract void submitModelPart(net.minecraft.client.model.geom.ModelPart, com.mojang.blaze3d.vertex.PoseStack, net.minecraft.client.renderer.rendertype.RenderType, int, int, net.minecraft.client.renderer.texture.TextureAtlasSprite, boolean, boolean, int, net.minecraft.client.renderer.feature.ModelFeatureRenderer$
+   public abstract void submitCustomGeometry(com.mojang.blaze3d.vertex.PoseStack, net.minecraft.client.renderer.rendertype.RenderType, net.minecraft.client.renderer.SubmitNodeCollector$CustomGeometryRenderer);
+-- net.minecraft.client.renderer.entity.EntityRenderer --
+   public void submit(S, com.mojang.blaze3d.vertex.PoseStack, net.minecraft.client.renderer.SubmitNodeCollector, net.minecraft.client.renderer.state.CameraRenderState);
+   protected void submitNameTag(S, com.mojang.blaze3d.vertex.PoseStack, net.minecraft.client.renderer.SubmitNodeCollector, net.minecraft.client.renderer.state.CameraRenderState);
+-- net.minecraft.client.renderer.rendertype.RenderType --
+   public static final int BIG_BUFFER_SIZE;
+   public static final int SMALL_BUFFER_SIZE;
+   public static final int TRANSIENT_BUFFER_SIZE;
+   public static net.minecraft.client.renderer.rendertype.RenderType create(java.lang.String, net.minecraft.client.renderer.rendertype.RenderSetup);
 
 ===== TAIL =====
-  location: variable base of type PlayerSkin
-/home/runner/work/ViaBedrockUtility/ViaBedrockUtility/src/main/java/org/oryxel/viabedrockutility/util/PlayerSkinBuilder.java:25: error: constructor PlayerSkin in record PlayerSkin cannot be applied to given types;
-        return new PlayerSkin(texture, textureUrl, capeTexture, elytraTexture, model, secure);
-               ^
-  required: Texture,Texture,Texture,PlayerModelType,boolean
-  found:    Identifier,String,Identifier,Identifier,PlayerModelType,boolean
-  reason: actual and formal argument lists differ in length
+                renderLayerBuilder.overlay(ENABLE_OVERLAY_COLOR);
+                                           ^
+  symbol:   variable ENABLE_OVERLAY_COLOR
+  location: class MaterialInfo
+/home/runner/work/ViaBedrockUtility/ViaBedrockUtility/src/main/java/org/oryxel/viabedrockutility/renderer/CustomEntityRenderer.java:43: error: method does not override or implement a method from a supertype
+    @Override
+    ^
 Note: Some input files use unchecked or unsafe operations.
 Note: Recompile with -Xlint:unchecked for details.
-16 errors
+6 errors
 	... 30 more
 
 
-BUILD FAILED in 1m 15s
+BUILD FAILED in 1m 18s
 5 actionable tasks: 5 executed
