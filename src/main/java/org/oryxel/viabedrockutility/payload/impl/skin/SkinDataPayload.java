@@ -2,8 +2,8 @@ package org.oryxel.viabedrockutility.payload.impl.skin;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
-import net.minecraft.network.PacketByteBuf;
-import net.minecraft.network.codec.PacketDecoder;
+import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.network.codec.StreamDecoder;
 import org.oryxel.viabedrockutility.payload.BasePayload;
 
 import java.util.UUID;
@@ -11,7 +11,7 @@ import java.util.UUID;
 @RequiredArgsConstructor
 @Getter
 public final class SkinDataPayload extends BasePayload {
-    public static final PacketDecoder<PacketByteBuf, SkinDataPayload> STREAM_DECODER = buf -> {
+    public static final StreamDecoder<FriendlyByteBuf, SkinDataPayload> STREAM_DECODER = buf -> {
         UUID playerUuid = buf.readUuid();
         int chunkPosition = buf.readInt();
         int available = buf.readableBytes();

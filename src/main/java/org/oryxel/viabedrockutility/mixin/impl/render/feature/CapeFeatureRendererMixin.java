@@ -1,26 +1,26 @@
 package org.oryxel.viabedrockutility.mixin.impl.render.feature;
 
-import net.minecraft.client.render.RenderLayer;
-import net.minecraft.client.render.entity.feature.CapeFeatureRenderer;
-import net.minecraft.util.Identifier;
+import net.minecraft.client.renderer.RenderType;
+import net.minecraft.client.renderer.entity.layers.CapeLayer;
+import net.minecraft.resources.ResourceLocation;
 import org.oryxel.viabedrockutility.fabric.ViaBedrockUtilityFabric;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Redirect;
 
-@Mixin(CapeFeatureRenderer.class)
+@Mixin(CapeLayer.class)
 public class CapeFeatureRendererMixin {
     @Redirect(
-            method = "render(Lnet/minecraft/client/util/math/MatrixStack;Lnet/minecraft/client/render/VertexConsumerProvider;ILnet/minecraft/client/render/entity/state/PlayerEntityRenderState;FF)V",
+            method = "render(Lcom/mojang/blaze3d/vertex/PoseStack;Lnet/minecraft/client/renderer/MultiBufferSource;ILnet/minecraft/client/renderer/entity/state/PlayerRenderState;FF)V",
             at = @At(value = "INVOKE",
-                    target = "Lnet/minecraft/client/render/RenderLayer;getEntitySolid(Lnet/minecraft/util/Identifier;)Lnet/minecraft/client/render/RenderLayer;"),
+                    target = "Lnet/minecraft/client/renderer/RenderType;entitySolid(Lnet/minecraft/resources/ResourceLocation;)Lnet/minecraft/client/renderer/RenderType;"),
             require = 0 // Fail safely if other mods overwrite this
     )
-    public RenderLayer solidToTranslucent(final Identifier texture) {
+    public RenderType solidToTranslucent(final ResourceLocation texture) {
         if (texture.getNamespace().equals(ViaBedrockUtilityFabric.MOD_ID)) {
             // Capes can be translucent in Bedrock
-            return RenderLayer.getEntityTranslucent(texture, true);
+            return RenderType.entityTranslucent(texture, true);
         }
-        return RenderLayer.getEntitySolid(texture);
+        return RenderType.entitySolid(texture);
     }
 }

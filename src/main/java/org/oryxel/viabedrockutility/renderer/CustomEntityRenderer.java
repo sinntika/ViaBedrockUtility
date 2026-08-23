@@ -2,13 +2,13 @@ package org.oryxel.viabedrockutility.renderer;
 
 import lombok.Getter;
 import net.minecraft.client.render.*;
-import net.minecraft.client.render.entity.EntityRenderer;
-import net.minecraft.client.render.entity.EntityRendererFactory;
-import net.minecraft.client.render.entity.state.EntityRenderState;
-import net.minecraft.client.util.math.MatrixStack;
-import net.minecraft.entity.Entity;
-import net.minecraft.util.Identifier;
-import net.minecraft.util.math.RotationAxis;
+import net.minecraft.client.renderer.entity.EntityRenderer;
+import net.minecraft.client.renderer.entity.EntityRendererProvider;
+import net.minecraft.client.renderer.entity.state.EntityRenderState;
+import com.mojang.blaze3d.vertex.PoseStack;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.resources.ResourceLocation;
+import com.mojang.math.Axis;
 import org.oryxel.viabedrockutility.animation.animator.Animator;
 import org.oryxel.viabedrockutility.entity.CustomEntityTicker;
 import org.oryxel.viabedrockutility.material.data.Material;
@@ -27,14 +27,14 @@ public class CustomEntityRenderer<T extends Entity> extends EntityRenderer<T, Cu
     private final CustomEntityTicker ticker;
     private final List<Model> models;
 
-    public CustomEntityRenderer(final CustomEntityTicker ticker, final List<Model> models, EntityRendererFactory.Context context) {
+    public CustomEntityRenderer(final CustomEntityTicker ticker, final List<Model> models, EntityRendererProvider.Context context) {
         super(context);
         this.models = models;
         this.ticker = ticker;
     }
 
     @Override
-    public void render(CustomEntityRenderState state, MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light) {
+    public void render(CustomEntityRenderState state, PoseStack matrices, MultiBufferSource vertexConsumers, int light) {
         for (Model model : this.models) {
             matrices.push();
 
@@ -49,7 +49,7 @@ public class CustomEntityRenderer<T extends Entity> extends EntityRenderer<T, Cu
                 }
             });
 
-            RenderLayer renderLayer = model.material.info().getVariants().get("skinning_color").build().apply(model.texture);
+            RenderType renderLayer = model.material.info().getVariants().get("skinning_color").build().apply(model.texture);
             if (renderLayer != null) {
                 VertexConsumer vertexConsumer = vertexConsumers.getBuffer(renderLayer);
                 model.model.render(matrices, vertexConsumer, light, OverlayTexture.packUv(0, 10));
@@ -74,8 +74,8 @@ public class CustomEntityRenderer<T extends Entity> extends EntityRenderer<T, Cu
         state.distanceTraveled = entity.distanceTraveled;
     }
 
-    private void setupTransforms(CustomEntityRenderState state, MatrixStack matrices) {
-        matrices.multiply(RotationAxis.POSITIVE_Y.rotationDegrees(180 - state.yaw));
+    private void setupTransforms(CustomEntityRenderState state, PoseStack matrices) {
+        matrices.multiply(Axis.POSITIVE_Y.rotationDegrees(180 - state.yaw));
     }
 
     @Override
@@ -83,7 +83,7 @@ public class CustomEntityRenderer<T extends Entity> extends EntityRenderer<T, Cu
         return new CustomEntityRenderState();
     }
 
-    public record Model(String key, String geometry, CustomEntityModel<CustomEntityRenderState> model, Identifier texture, Material material) {
+    public record Model(String key, String geometry, CustomEntityModel<CustomEntityRenderState> model, ResourceLocation texture, Material material) {
     }
 
     @Getter

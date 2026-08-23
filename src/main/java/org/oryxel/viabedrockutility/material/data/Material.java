@@ -15,15 +15,15 @@ import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 import net.minecraft.client.render.*;
-import net.minecraft.util.Identifier;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.TriState;
 import net.minecraft.util.Util;
 
 import java.util.*;
 import java.util.function.Function;
 
-import static net.minecraft.client.gl.RenderPipelines.ENTITY_SNIPPET;
-import static net.minecraft.client.render.RenderPhase.*;
+import static net.minecraft.client.renderer.RenderPipelines.ENTITY_SNIPPET;
+import static net.minecraft.client.renderer.RenderStateShard.*;
 import static org.oryxel.viabedrockutility.util.JsonUtil.*;
 
 // https://wiki.bedrock.dev/visuals/materials
@@ -81,7 +81,7 @@ public record Material(String identifier, String baseIdentifier, MaterialInfo in
 
         protected final Map<String, Variant> variants = new HashMap<>();
 
-        private Function<Identifier, RenderLayer> function;
+        private Function<ResourceLocation, RenderType> function;
 
         public void parse(final JsonObject object, boolean ignoreVariants) {
             final Set<String> extraStates = arrayToStringSet(object.getAsJsonArray("+states"));
@@ -162,7 +162,7 @@ public record Material(String identifier, String baseIdentifier, MaterialInfo in
             });
         }
 
-        public Function<Identifier, RenderLayer> build() {
+        public Function<ResourceLocation, RenderType> build() {
             return Objects.requireNonNullElseGet(this.function, () -> this.function = Util.memoize(texture -> {
                 final VertexFormat vertexFormat;
                 if (!this.vertexFields.isEmpty()) {
@@ -248,7 +248,7 @@ public record Material(String identifier, String baseIdentifier, MaterialInfo in
 
                 RenderPipeline.Builder builder = RenderPipeline.builder(ENTITY_SNIPPET).withSampler("Sampler1");
 
-                builder.withLocation(Identifier.of("viabedrockutility", "pipeline/" + UUID.randomUUID() + this.hashCode()));
+                builder.withLocation(ResourceLocation.fromNamespaceAndPath("viabedrockutility", "pipeline/" + UUID.randomUUID() + this.hashCode()));
                 builder.withBlend(blend);
 
                 builder.withVertexFormat(vertexFormat, this.defines.contains("LINE_STRIP") ? VertexFormat.DrawMode.LINE_STRIP : VertexFormat.DrawMode.QUADS);
@@ -279,14 +279,14 @@ public record Material(String identifier, String baseIdentifier, MaterialInfo in
                     builder.withShaderDefine("EMISSIVE");
                 }
 
-                final RenderLayer.MultiPhaseParameters.Builder renderLayerBuilder = RenderLayer.MultiPhaseParameters.builder();
+                final RenderType.MultiPhaseParameters.Builder renderLayerBuilder = RenderType.MultiPhaseParameters.builder();
                 if (!this.defines.contains("NO_TEXTURE")) {
                     renderLayerBuilder.texture(new Texture(texture, TriState.FALSE, false));
                 }
 
                 renderLayerBuilder.lightmap(ENABLE_LIGHTMAP);
                 renderLayerBuilder.overlay(ENABLE_OVERLAY_COLOR);
-                return RenderLayer.of("custom", 1536, true, true, builder.build(), renderLayerBuilder.build(false));
+                return RenderType.of("custom", 1536, true, true, builder.build(), renderLayerBuilder.build(false));
             }));
 
         }

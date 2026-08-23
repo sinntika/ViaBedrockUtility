@@ -2,8 +2,8 @@ package org.oryxel.viabedrockutility.util;
 
 import com.google.common.collect.Maps;
 import net.minecraft.client.model.*;
-import net.minecraft.client.render.entity.model.PlayerEntityModel;
-import net.minecraft.util.math.Direction;
+import net.minecraft.client.model.PlayerModel;
+import net.minecraft.core.Direction;
 import org.cube.converter.model.element.Cube;
 import org.cube.converter.model.element.Parent;
 import org.cube.converter.model.impl.bedrock.BedrockGeometryModel;
@@ -108,7 +108,7 @@ public final class GeometryUtil {
             }
         }
 
-        return player ? new PlayerEntityModel(root.part(), slim) : new CustomEntityModel<>(root.part());
+        return player ? new PlayerModel(root.part(), slim) : new CustomEntityModel<>(root.part());
     }
 
     private static String adjustFormatting(boolean player, String name) {

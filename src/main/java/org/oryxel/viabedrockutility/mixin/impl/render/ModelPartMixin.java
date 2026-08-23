@@ -1,7 +1,7 @@
 package org.oryxel.viabedrockutility.mixin.impl.render;
 
-import net.minecraft.client.model.ModelPart;
-import net.minecraft.client.util.math.MatrixStack;
+import net.minecraft.client.model.geom.ModelPart;
+import com.mojang.blaze3d.vertex.PoseStack;
 import org.joml.Quaternionf;
 import org.joml.Vector3f;
 import org.oryxel.viabedrockutility.mixin.interfaces.IModelPart;
@@ -53,7 +53,7 @@ public abstract class ModelPartMixin implements IModelPart {
     private boolean alreadySetRotation = false;
 
     @Inject(method = "applyTransform", at = @At("HEAD"))
-    public void render(MatrixStack matrices, CallbackInfo ci) {
+    public void render(PoseStack matrices, CallbackInfo ci) {
         // Offset is needed for rotating too!
         matrices.translate(this.offset.x / 16.0F, this.offset.y / 16.0F, this.offset.z / 16.0F);
 
@@ -65,7 +65,7 @@ public abstract class ModelPartMixin implements IModelPart {
     }
 
     @Inject(method = "applyTransform", at = @At("TAIL"))
-    public void renderTail(MatrixStack matrices, CallbackInfo ci) {
+    public void renderTail(PoseStack matrices, CallbackInfo ci) {
         // Do this after scale since well, this shouldn't be affected by scaling.
         matrices.translate(this.offset.x / 16.0F, this.offset.y / 16.0F, this.offset.z / 16.0F);
 

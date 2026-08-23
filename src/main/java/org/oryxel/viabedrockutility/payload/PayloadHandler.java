@@ -3,17 +3,17 @@ package org.oryxel.viabedrockutility.payload;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import lombok.Getter;
-import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.model.Dilation;
-import net.minecraft.client.network.PlayerListEntry;
-import net.minecraft.client.render.entity.EntityRenderer;
-import net.minecraft.client.render.entity.EntityRendererFactory;
-import net.minecraft.client.render.entity.equipment.EquipmentModelLoader;
-import net.minecraft.client.render.entity.model.PlayerEntityModel;
-import net.minecraft.client.texture.NativeImage;
-import net.minecraft.client.texture.NativeImageBackedTexture;
-import net.minecraft.client.util.SkinTextures;
-import net.minecraft.util.Identifier;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.model.geom.builders.CubeDeformation;
+import net.minecraft.client.multiplayer.PlayerInfo;
+import net.minecraft.client.renderer.entity.EntityRenderer;
+import net.minecraft.client.renderer.entity.EntityRendererProvider;
+import net.minecraft.client.resources.model.EquipmentAssetManager;
+import net.minecraft.client.model.PlayerModel;
+import com.mojang.blaze3d.platform.NativeImage;
+import net.minecraft.client.renderer.texture.DynamicTexture;
+import net.minecraft.client.resources.PlayerSkin;
+import net.minecraft.resources.ResourceLocation;
 import org.cube.converter.model.impl.bedrock.BedrockGeometryModel;
 import org.oryxel.viabedrockutility.ViaBedrockUtility;
 import org.oryxel.viabedrockutility.entity.CustomEntityTicker;
@@ -38,7 +38,7 @@ import java.util.concurrent.ConcurrentHashMap;
 public class PayloadHandler {
     protected final Map<UUID, CustomEntityTicker> cachedCustomEntities = new ConcurrentHashMap<>();
     protected final Map<UUID, EntityRenderer<?, ?>> cachedPlayerRenderers = new ConcurrentHashMap<>();
-    protected final Map<UUID, Identifier> cachedPlayerCapes = new ConcurrentHashMap<>();
+    protected final Map<UUID, ResourceLocation> cachedPlayerCapes = new ConcurrentHashMap<>();
     protected final Map<UUID, SkinInfo> cachedSkinInfo = new ConcurrentHashMap<>();
     protected PackManager packManager;
 
@@ -70,8 +70,8 @@ public class PayloadHandler {
             return;
         }
 
-        final MinecraftClient client = MinecraftClient.getInstance();
-        client.getTextureManager().registerTexture(payload.getIdentifier(), new NativeImageBackedTexture(() -> payload.getIdentifier().toString() + capeImage.hashCode() , capeImage));
+        final Minecraft client = Minecraft.getInstance();
+        client.getTextureManager().registerTexture(payload.getIdentifier(), new DynamicTexture(() -> payload.getIdentifier().toString() + capeImage.hashCode() , capeImage));
 
         if (client.getNetworkHandler() == null) {
             return;
@@ -81,7 +81,7 @@ public class PayloadHandler {
 
         // It's ok to use this here, the reason we don't use this for player geometry because there can be fake entity.
         // But most fake entity don't have cape so we should be fine!
-        final PlayerListEntry entry = client.getNetworkHandler().getPlayerListEntry(payload.getPlayerUuid());
+        final PlayerInfo entry = client.getNetworkHandler().getPlayerListEntry(payload.getPlayerUuid());
         if (entry == null) {
             return;
         }
@@ -117,13 +117,13 @@ public class PayloadHandler {
             return;
         }
 
-        final MinecraftClient client = MinecraftClient.getInstance();
+        final Minecraft client = Minecraft.getInstance();
 
-        final Identifier identifier = Identifier.of(ViaBedrockUtilityFabric.MOD_ID, payload.getPlayerUuid().toString());
-        client.getTextureManager().registerTexture(identifier, new NativeImageBackedTexture(() -> identifier.toString() + skinImage.hashCode(), skinImage));
+        final ResourceLocation identifier = ResourceLocation.fromNamespaceAndPath(ViaBedrockUtilityFabric.MOD_ID, payload.getPlayerUuid().toString());
+        client.getTextureManager().registerTexture(identifier, new DynamicTexture(() -> identifier.toString() + skinImage.hashCode(), skinImage));
 
         if (client.getNetworkHandler() != null) {
-            final PlayerListEntry entry = client.getNetworkHandler().getPlayerListEntry(payload.getPlayerUuid());
+            final PlayerInfo entry = client.getNetworkHandler().getPlayerListEntry(payload.getPlayerUuid());
 
             // If we can still get player list entry then use this to set skin still a good idea!
             if (entry != null) {
@@ -144,7 +144,7 @@ public class PayloadHandler {
         // Hardcoded I know...
         boolean slim = requiredGeometry != null && "geometry.humanoid.customSlim".contains(requiredGeometry);
 
-        PlayerEntityModel model = null;
+        PlayerModel model = null;
         if (!info.getGeometryRaw().isEmpty()) {
             final List<BedrockGeometryModel> geometries;
             try {
@@ -162,7 +162,7 @@ public class PayloadHandler {
                         }
                     }
 
-                    model = (PlayerEntityModel) GeometryUtil.buildModel(geometry, true, slim);
+                    model = (PlayerModel) GeometryUtil.buildModel(geometry, true, slim);
                 }
             } catch (final Exception ignored) {
             }
@@ -192,25 +192,25 @@ public class PayloadHandler {
 
         if (model == null) {
             // This is likely a classic skin with hardcoded identifier! TODO: 128x128
-            model = new PlayerEntityModel(PlayerEntityModel.getTexturedModelData(Dilation.NONE, slim).getRoot().createPart(64, 64), slim);
+            model = new PlayerModel(PlayerModel.getTexturedModelData(CubeDeformation.NONE, slim).getRoot().createPart(64, 64), slim);
         }
 
-        final EntityRendererFactory.Context entityContext = new EntityRendererFactory.Context(client.getEntityRenderDispatcher(),
+        final EntityRendererProvider.Context entityContext = new EntityRendererProvider.Context(client.getEntityRenderDispatcher(),
                 client.getItemModelManager(), client.getMapRenderer(), client.getBlockRenderManager(),
-                client.getResourceManager(), client.getLoadedEntityModels(), new EquipmentModelLoader(), client.textRenderer);
+                client.getResourceManager(), client.getLoadedEntityModels(), new EquipmentAssetManager(), client.textRenderer);
         this.cachedPlayerRenderers.put(payload.getPlayerUuid(), new CustomPlayerRenderer(entityContext, model, slim, identifier));
 
         if (client.getNetworkHandler() == null) {
             return;
         }
 
-        final PlayerListEntry entry = client.getNetworkHandler().getPlayerListEntry(payload.getPlayerUuid());
+        final PlayerInfo entry = client.getNetworkHandler().getPlayerListEntry(payload.getPlayerUuid());
 
         // Do this once again for emmmm the slim or wide model.
         if (entry != null) {
             final PlayerSkinBuilder builder = new PlayerSkinBuilder(entry.getSkinTextures());
             builder.texture = identifier;
-            builder.model = slim ? SkinTextures.Model.SLIM : SkinTextures.Model.WIDE;
+            builder.model = slim ? PlayerSkin.Model.SLIM : PlayerSkin.Model.WIDE;
 
             ((PlayerSkinFieldAccessor)entry).setPlayerSkin(builder::build);
         }

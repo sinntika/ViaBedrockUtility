@@ -1,8 +1,8 @@
 package org.oryxel.viabedrockutility.mixin.impl.network;
 
 import com.mojang.brigadier.arguments.StringArgumentType;
-import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.network.ClientPlayNetworkHandler;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.multiplayer.ClientPacketListener;
 import net.minecraft.util.hit.EntityHitResult;
 import net.minecraft.util.hit.HitResult;
 import org.oryxel.viabedrockutility.ViaBedrockUtility;
@@ -15,7 +15,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import java.util.UUID;
 
-@Mixin(ClientPlayNetworkHandler.class)
+@Mixin(ClientPacketListener.class)
 public class ClientPlayNetworkHandlerMixin {
     // Have to do this since you can't run custom command when playing in a server.
     @Inject(method = "sendChatMessage", at = @At("HEAD"), cancellable = true)
@@ -35,7 +35,7 @@ public class ClientPlayNetworkHandlerMixin {
             return;
         }
 
-        MinecraftClient client = MinecraftClient.getInstance();
+        Minecraft client = Minecraft.getInstance();
         if (client.crosshairTarget == null || client.crosshairTarget.getType() != HitResult.Type.ENTITY) {
             System.out.println("No target!");
             return;
@@ -45,7 +45,7 @@ public class ClientPlayNetworkHandlerMixin {
             return;
         }
 
-        final UUID uuid = ((EntityHitResult)client.crosshairTarget).getEntity().getUuid();
+        final UUID uuid = ((EntityHitResult)client.crosshairTarget).getEntity().getUUID();
         if (!ViaBedrockUtility.getInstance().getPayloadHandler().getCachedCustomEntities().containsKey(uuid)) {
             System.out.println("couldn't find");
             return;

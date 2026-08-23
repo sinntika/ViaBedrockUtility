@@ -1,8 +1,8 @@
 package org.oryxel.viabedrockutility.mixin.impl.render.dispatcher;
 
-import net.minecraft.client.render.entity.EntityRenderDispatcher;
-import net.minecraft.client.render.entity.EntityRenderer;
-import net.minecraft.entity.Entity;
+import net.minecraft.client.renderer.entity.EntityRenderDispatcher;
+import net.minecraft.client.renderer.entity.EntityRenderer;
+import net.minecraft.world.entity.Entity;
 import org.oryxel.viabedrockutility.ViaBedrockUtility;
 import org.oryxel.viabedrockutility.entity.CustomEntityTicker;
 import org.oryxel.viabedrockutility.payload.handler.CustomEntityPayloadHandler;
@@ -14,13 +14,13 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 @SuppressWarnings("unchecked")
 @Mixin(EntityRenderDispatcher.class)
 public abstract class EntityRenderDispatcherMixin {
-    @Inject(method = "getRenderer", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/util/SkinTextures;model()Lnet/minecraft/client/util/SkinTextures$Model;"), cancellable = true)
+    @Inject(method = "getRenderer", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/resources/PlayerSkin;model()Lnet/minecraft/client/resources/PlayerSkin$Model;"), cancellable = true)
     public <T extends Entity> void getPlayerRenderer(T entity, CallbackInfoReturnable<EntityRenderer<? super T, ?>> cir) {
         if (!ViaBedrockUtility.getInstance().isViaBedrockPresent()) {
             return;
         }
 
-        final EntityRenderer<?, ?> renderer = ViaBedrockUtility.getInstance().getPayloadHandler().getCachedPlayerRenderers().get(entity.getUuid());
+        final EntityRenderer<?, ?> renderer = ViaBedrockUtility.getInstance().getPayloadHandler().getCachedPlayerRenderers().get(entity.getUUID());
         if (renderer != null) {
             cir.setReturnValue((EntityRenderer<? super T, ?>) renderer);
         }
@@ -32,7 +32,7 @@ public abstract class EntityRenderDispatcherMixin {
             return;
         }
 
-        final CustomEntityTicker data = ViaBedrockUtility.getInstance().getPayloadHandler().getCachedCustomEntities().get(entity.getUuid());
+        final CustomEntityTicker data = ViaBedrockUtility.getInstance().getPayloadHandler().getCachedCustomEntities().get(entity.getUUID());
         if (data != null && data.getRenderer() != null) {
             cir.setReturnValue((EntityRenderer<? super T, ?>) data.getRenderer());
         }

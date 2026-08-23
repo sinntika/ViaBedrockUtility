@@ -1,8 +1,8 @@
 package org.oryxel.viabedrockutility.mixin.impl.pack;
 
 import net.minecraft.client.resource.server.ReloadScheduler;
-import net.minecraft.client.resource.server.ServerResourcePackLoader;
-import net.minecraft.resource.ResourcePackProfile;
+import net.minecraft.client.resources.server.DownloadedPackSource;
+import net.minecraft.server.packs.repository.Pack;
 import org.oryxel.viabedrockutility.ViaBedrockUtility;
 import org.oryxel.viabedrockutility.fabric.ViaBedrockUtilityFabric;
 import org.oryxel.viabedrockutility.pack.PackManager;
@@ -17,10 +17,10 @@ import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.List;
 
-@Mixin(ServerResourcePackLoader.class)
+@Mixin(DownloadedPackSource.class)
 public class ServerResourcePackLoaderMixin {
     @Inject(method = "toProfiles", at = @At("HEAD"))
-    private void toProfiles(List<ReloadScheduler.PackInfo> packs, CallbackInfoReturnable<List<ResourcePackProfile>> cir) {
+    private void toProfiles(List<ReloadScheduler.PackInfo> packs, CallbackInfoReturnable<List<Pack>> cir) {
         if (!ViaBedrockUtility.getInstance().isViaBedrockPresent()) {
             return;
         }

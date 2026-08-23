@@ -1,6 +1,6 @@
 package org.oryxel.viabedrockutility.util;
 
-import net.minecraft.client.texture.NativeImage;
+import com.mojang.blaze3d.platform.NativeImage;
 
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayOutputStream;

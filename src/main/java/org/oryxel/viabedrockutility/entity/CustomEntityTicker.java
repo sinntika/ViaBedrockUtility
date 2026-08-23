@@ -2,10 +2,10 @@ package org.oryxel.viabedrockutility.entity;
 
 import lombok.Getter;
 import lombok.Setter;
-import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.render.entity.EntityRendererFactory;
-import net.minecraft.client.render.entity.equipment.EquipmentModelLoader;
-import net.minecraft.util.Identifier;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.entity.EntityRendererProvider;
+import net.minecraft.client.resources.model.EquipmentAssetManager;
+import net.minecraft.resources.ResourceLocation;
 import org.cube.converter.data.bedrock.BedrockEntityData;
 import org.cube.converter.data.bedrock.controller.BedrockRenderController;
 import org.cube.converter.model.impl.bedrock.BedrockGeometryModel;
@@ -58,10 +58,10 @@ public class CustomEntityTicker {
     private boolean hasPlayInitAnimation;
 
     public CustomEntityTicker(final EntityDefinitions.EntityDefinition entityDefinition) {
-        final MinecraftClient client = MinecraftClient.getInstance();
-        final EntityRendererFactory.Context context = new EntityRendererFactory.Context(client.getEntityRenderDispatcher(),
+        final Minecraft client = Minecraft.getInstance();
+        final EntityRendererProvider.Context context = new EntityRendererProvider.Context(client.getEntityRenderDispatcher(),
                 client.getItemModelManager(), client.getMapRenderer(), client.getBlockRenderManager(),
-                client.getResourceManager(), client.getLoadedEntityModels(), new EquipmentModelLoader(), client.textRenderer);
+                client.getResourceManager(), client.getLoadedEntityModels(), new EquipmentAssetManager(), client.textRenderer);
         this.renderer = new CustomEntityRenderer<>(this, new CopyOnWriteArrayList<>(), context);
 
         this.entityDefinition = entityDefinition;
@@ -158,7 +158,7 @@ public class CustomEntityTicker {
         final Set<String> old = new HashSet<>(this.availableModels);
         this.availableModels.clear();
         for (EvaluatedModel model : this.models) {
-            final Identifier texture = Identifier.of(model.textureValue().toLowerCase(Locale.ROOT));
+            final ResourceLocation texture = ResourceLocation.fromNamespaceAndPath(model.textureValue().toLowerCase(Locale.ROOT));
 
             BedrockGeometryModel geometry = this.packManager.getModelDefinitions().getEntityModels().get(model.geometryValue());
             if (geometry == null) {

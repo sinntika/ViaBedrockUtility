@@ -3,7 +3,7 @@ package org.oryxel.viabedrockutility.animation.animator;
 import lombok.Setter;
 import net.minecraft.client.model.Model;
 import org.joml.Vector3f;
-import org.oryxel.viabedrockutility.animation.vanilla.AnimationHelper;
+import org.oryxel.viabedrockutility.animation.vanilla.KeyframeAnimations;
 import org.oryxel.viabedrockutility.entity.CustomEntityTicker;
 import org.oryxel.viabedrockutility.mixin.interfaces.IModelPart;
 import org.oryxel.viabedrockutility.mocha.MoLangEngine;
@@ -87,12 +87,12 @@ public class Animator {
             }
         }
 
-        float runningTime = AnimationHelper.getRunningSeconds(data.animation(), data.compiled(), System.currentTimeMillis() - this.animationStartMS);
+        float runningTime = KeyframeAnimations.getRunningSeconds(data.animation(), data.compiled(), System.currentTimeMillis() - this.animationStartMS);
 
         queryBinding.set("anim_time", Value.of(runningTime));
         queryBinding.set("life_time", Value.of(runningTime));
 
-        AnimationHelper.animate(scope, model, data.compiled(), System.currentTimeMillis() - this.animationStartMS, 1, TEMP_VEC);
+        KeyframeAnimations.animate(scope, model, data.compiled(), System.currentTimeMillis() - this.animationStartMS, 1, TEMP_VEC);
 
         float runningTimeWithoutLoop = (System.currentTimeMillis() - this.animationStartMS) / 1000F;
         this.tickTimeline(runningTimeWithoutLoop);

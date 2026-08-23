@@ -1,15 +1,15 @@
 package org.oryxel.viabedrockutility.renderer;
 
-import net.minecraft.client.render.entity.EntityRendererFactory;
-import net.minecraft.client.render.entity.PlayerEntityRenderer;
-import net.minecraft.client.render.entity.model.PlayerEntityModel;
-import net.minecraft.client.render.entity.state.PlayerEntityRenderState;
-import net.minecraft.util.Identifier;
+import net.minecraft.client.renderer.entity.EntityRendererProvider;
+import net.minecraft.client.renderer.entity.player.PlayerRenderer;
+import net.minecraft.client.model.PlayerModel;
+import net.minecraft.client.renderer.entity.state.PlayerRenderState;
+import net.minecraft.resources.ResourceLocation;
 
-public class CustomPlayerRenderer extends PlayerEntityRenderer {
-    private final Identifier texture;
+public class CustomPlayerRenderer extends PlayerRenderer {
+    private final ResourceLocation texture;
 
-    public CustomPlayerRenderer(final EntityRendererFactory.Context ctx, final PlayerEntityModel model, final boolean slim, Identifier texture) {
+    public CustomPlayerRenderer(final EntityRendererProvider.Context ctx, final PlayerModel model, final boolean slim, ResourceLocation texture) {
         super(ctx, slim);
 
         if (model != null) {
@@ -20,7 +20,7 @@ public class CustomPlayerRenderer extends PlayerEntityRenderer {
     }
 
     @Override
-    public Identifier getTexture(PlayerEntityRenderState playerEntityRenderState) {
+    public ResourceLocation getTexture(PlayerRenderState playerEntityRenderState) {
         return this.texture;
     }
 }
