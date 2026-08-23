@@ -1,12 +1,12 @@
 package org.oryxel.viabedrockutility.renderer;
 
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
-import net.minecraft.client.renderer.entity.player.PlayerRenderer;
+import net.minecraft.client.renderer.entity.player.AvatarRenderer;
 import net.minecraft.client.model.player.PlayerModel;
-import net.minecraft.client.renderer.entity.state.PlayerRenderState;
+import net.minecraft.client.renderer.entity.state.AvatarRenderState;
 import net.minecraft.resources.Identifier;
 
-public class CustomPlayerRenderer extends PlayerRenderer {
+public class CustomPlayerRenderer extends AvatarRenderer {
     private final Identifier texture;
 
     public CustomPlayerRenderer(final EntityRendererProvider.Context ctx, final PlayerModel model, final boolean slim, Identifier texture) {
@@ -20,7 +20,7 @@ public class CustomPlayerRenderer extends PlayerRenderer {
     }
 
     @Override
-    public Identifier getTexture(PlayerRenderState playerEntityRenderState) {
+    public Identifier getTexture(AvatarRenderState playerEntityRenderState) {
         return this.texture;
     }
 }

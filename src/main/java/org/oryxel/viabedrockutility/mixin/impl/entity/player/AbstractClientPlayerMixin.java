@@ -7,7 +7,7 @@ import net.minecraft.world.entity.player.PlayerSkin;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.resources.Identifier;
-import net.minecraft.world.World;
+import net.minecraft.world.level.Level;
 import org.oryxel.viabedrockutility.ViaBedrockUtility;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -19,7 +19,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 public abstract class AbstractClientPlayerMixin extends Entity {
     @Shadow private PlayerInfo playerListEntry;
 
-    public AbstractClientPlayerMixin(EntityType<?> type, World world) {
+    public AbstractClientPlayerMixin(EntityType<?> type, Level world) {
         super(type, world);
     }
 

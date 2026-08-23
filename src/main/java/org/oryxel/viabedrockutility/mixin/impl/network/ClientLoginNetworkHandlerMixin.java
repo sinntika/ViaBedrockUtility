@@ -4,7 +4,7 @@ import net.fabricmc.fabric.impl.networking.RegistrationPayload;
 import net.minecraft.client.multiplayer.ClientHandshakePacketListenerImpl;
 import net.minecraft.network.Connection;
 import net.minecraft.network.protocol.common.ServerboundCustomPayloadPacket;
-import net.minecraft.network.protocol.login.ClientboundGameProfilePacket;
+import net.minecraft.network.protocol.login.ClientboundLoginFinishedPacket;
 import net.minecraft.resources.Identifier;
 import org.oryxel.viabedrockutility.ViaBedrockUtility;
 import org.oryxel.viabedrockutility.fabric.ViaBedrockUtilityFabric;
@@ -25,7 +25,7 @@ public class ClientLoginNetworkHandlerMixin {
     private Connection connection;
 
     @Inject(method = "onSuccess", at = @At("RETURN"))
-    public void onSuccess(ClientboundGameProfilePacket packet, CallbackInfo ci) {
+    public void onSuccess(ClientboundLoginFinishedPacket packet, CallbackInfo ci) {
         // Let ViaBedrock know that we want to receive full bedrock pack, also we have to do this to send it early.
         // Also use a different identifier to avoiding sending the same one twice.
         ViaBedrockUtility.getInstance().setViaBedrockPresent(false);
