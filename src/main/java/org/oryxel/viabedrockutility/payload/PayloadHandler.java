@@ -9,11 +9,11 @@ import net.minecraft.client.multiplayer.PlayerInfo;
 import net.minecraft.client.renderer.entity.EntityRenderer;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.resources.model.EquipmentAssetManager;
-import net.minecraft.client.model.PlayerModel;
+import net.minecraft.client.model.player.PlayerModel;
 import com.mojang.blaze3d.platform.NativeImage;
 import net.minecraft.client.renderer.texture.DynamicTexture;
-import net.minecraft.client.resources.PlayerSkin;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.entity.player.PlayerSkin;
+import net.minecraft.resources.Identifier;
 import org.cube.converter.model.impl.bedrock.BedrockGeometryModel;
 import org.oryxel.viabedrockutility.ViaBedrockUtility;
 import org.oryxel.viabedrockutility.entity.CustomEntityTicker;
@@ -38,7 +38,7 @@ import java.util.concurrent.ConcurrentHashMap;
 public class PayloadHandler {
     protected final Map<UUID, CustomEntityTicker> cachedCustomEntities = new ConcurrentHashMap<>();
     protected final Map<UUID, EntityRenderer<?, ?>> cachedPlayerRenderers = new ConcurrentHashMap<>();
-    protected final Map<UUID, ResourceLocation> cachedPlayerCapes = new ConcurrentHashMap<>();
+    protected final Map<UUID, Identifier> cachedPlayerCapes = new ConcurrentHashMap<>();
     protected final Map<UUID, SkinInfo> cachedSkinInfo = new ConcurrentHashMap<>();
     protected PackManager packManager;
 
@@ -119,7 +119,7 @@ public class PayloadHandler {
 
         final Minecraft client = Minecraft.getInstance();
 
-        final ResourceLocation identifier = ResourceLocation.fromNamespaceAndPath(ViaBedrockUtilityFabric.MOD_ID, payload.getPlayerUuid().toString());
+        final Identifier identifier = Identifier.fromNamespaceAndPath(ViaBedrockUtilityFabric.MOD_ID, payload.getPlayerUuid().toString());
         client.getTextureManager().registerTexture(identifier, new DynamicTexture(() -> identifier.toString() + skinImage.hashCode(), skinImage));
 
         if (client.getNetworkHandler() != null) {

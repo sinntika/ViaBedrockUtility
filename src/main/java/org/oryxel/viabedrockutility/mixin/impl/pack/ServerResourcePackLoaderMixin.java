@@ -1,6 +1,6 @@
 package org.oryxel.viabedrockutility.mixin.impl.pack;
 
-import net.minecraft.client.resource.server.ReloadScheduler;
+import net.minecraft.client.resources.server.PackReloadConfig;
 import net.minecraft.client.resources.server.DownloadedPackSource;
 import net.minecraft.server.packs.repository.Pack;
 import org.oryxel.viabedrockutility.ViaBedrockUtility;
@@ -20,13 +20,13 @@ import java.util.List;
 @Mixin(DownloadedPackSource.class)
 public class ServerResourcePackLoaderMixin {
     @Inject(method = "toProfiles", at = @At("HEAD"))
-    private void toProfiles(List<ReloadScheduler.PackInfo> packs, CallbackInfoReturnable<List<Pack>> cir) {
+    private void toProfiles(List<PackReloadConfig.IdAndPath> packs, CallbackInfoReturnable<List<Pack>> cir) {
         if (!ViaBedrockUtility.getInstance().isViaBedrockPresent()) {
             return;
         }
 
         final List<Content> contents = new ArrayList<>();
-        packs.stream().map(ReloadScheduler.PackInfo::path).forEach(pack -> {
+        packs.stream().map(PackReloadConfig.IdAndPath::path).forEach(pack -> {
             try {
                 final Content content = new Content(Files.readAllBytes(pack));
                 for (final String path : content.getFilesDeep("bedrock/", ".mcpack")) {

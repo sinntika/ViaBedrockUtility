@@ -3,10 +3,10 @@ package org.oryxel.viabedrockutility.mixin.impl.entity.player;
 import net.minecraft.client.player.AbstractClientPlayer;
 import net.minecraft.client.multiplayer.PlayerInfo;
 import net.minecraft.client.resources.DefaultPlayerSkin;
-import net.minecraft.client.resources.PlayerSkin;
+import net.minecraft.world.entity.player.PlayerSkin;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.World;
 import org.oryxel.viabedrockutility.ViaBedrockUtility;
 import org.spongepowered.asm.mixin.Mixin;
@@ -29,7 +29,7 @@ public abstract class AbstractClientPlayerMixin extends Entity {
             return;
         }
 
-        ResourceLocation cape = ViaBedrockUtility.getInstance().getPayloadHandler().getCachedPlayerCapes().get(getUuid());
+        Identifier cape = ViaBedrockUtility.getInstance().getPayloadHandler().getCachedPlayerCapes().get(getUuid());
         if (cape != null) {
             PlayerSkin skin = playerListEntry == null ? DefaultPlayerSkin.getSkinTextures(this.getUUID()) : playerListEntry.getSkinTextures();
             if (!cape.equals(skin.capeTexture())) {

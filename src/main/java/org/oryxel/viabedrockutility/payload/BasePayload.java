@@ -5,7 +5,7 @@ import lombok.RequiredArgsConstructor;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import org.oryxel.viabedrockutility.ViaBedrockUtility;
 import org.oryxel.viabedrockutility.enums.bedrock.ActorFlags;
 import org.oryxel.viabedrockutility.fabric.ViaBedrockUtilityFabric;
@@ -20,7 +20,7 @@ import java.nio.charset.StandardCharsets;
 @RequiredArgsConstructor
 @Getter
 public class BasePayload implements CustomPacketPayload {
-    public static Id<BasePayload> ID = new Id<>(ResourceLocation.fromNamespaceAndPath(ViaBedrockUtilityFabric.MOD_ID, "data"));
+    public static Id<BasePayload> ID = new Id<>(Identifier.fromNamespaceAndPath(ViaBedrockUtilityFabric.MOD_ID, "data"));
 
     public static final StreamCodec<FriendlyByteBuf, BasePayload> STREAM_CODEC = StreamCodec.of(null, buf -> {
         final int type = buf.readInt();

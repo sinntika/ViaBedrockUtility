@@ -1,13 +1,13 @@
 package org.oryxel.viabedrockutility.util;
 
-import net.minecraft.client.resources.PlayerSkin;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.entity.player.PlayerSkin;
+import net.minecraft.resources.Identifier;
 
 public final class PlayerSkinBuilder {
-    public ResourceLocation texture;
+    public Identifier texture;
     public String textureUrl;
-    public ResourceLocation capeTexture;
-    public ResourceLocation elytraTexture;
+    public Identifier capeTexture;
+    public Identifier elytraTexture;
     public PlayerSkin.Model model;
     public boolean secure;
 

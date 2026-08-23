@@ -2,7 +2,7 @@ package org.oryxel.viabedrockutility.util;
 
 import com.google.common.collect.Maps;
 import net.minecraft.client.model.*;
-import net.minecraft.client.model.PlayerModel;
+import net.minecraft.client.model.player.PlayerModel;
 import net.minecraft.core.Direction;
 import org.cube.converter.model.element.Cube;
 import org.cube.converter.model.element.Parent;

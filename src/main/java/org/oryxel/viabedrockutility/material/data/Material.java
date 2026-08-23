@@ -15,7 +15,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 import net.minecraft.client.render.*;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.util.TriState;
 import net.minecraft.util.Util;
 
@@ -81,7 +81,7 @@ public record Material(String identifier, String baseIdentifier, MaterialInfo in
 
         protected final Map<String, Variant> variants = new HashMap<>();
 
-        private Function<ResourceLocation, RenderType> function;
+        private Function<Identifier, RenderType> function;
 
         public void parse(final JsonObject object, boolean ignoreVariants) {
             final Set<String> extraStates = arrayToStringSet(object.getAsJsonArray("+states"));
@@ -162,7 +162,7 @@ public record Material(String identifier, String baseIdentifier, MaterialInfo in
             });
         }
 
-        public Function<ResourceLocation, RenderType> build() {
+        public Function<Identifier, RenderType> build() {
             return Objects.requireNonNullElseGet(this.function, () -> this.function = Util.memoize(texture -> {
                 final VertexFormat vertexFormat;
                 if (!this.vertexFields.isEmpty()) {
@@ -248,7 +248,7 @@ public record Material(String identifier, String baseIdentifier, MaterialInfo in
 
                 RenderPipeline.Builder builder = RenderPipeline.builder(ENTITY_SNIPPET).withSampler("Sampler1");
 
-                builder.withLocation(ResourceLocation.fromNamespaceAndPath("viabedrockutility", "pipeline/" + UUID.randomUUID() + this.hashCode()));
+                builder.withLocation(Identifier.fromNamespaceAndPath("viabedrockutility", "pipeline/" + UUID.randomUUID() + this.hashCode()));
                 builder.withBlend(blend);
 
                 builder.withVertexFormat(vertexFormat, this.defines.contains("LINE_STRIP") ? VertexFormat.DrawMode.LINE_STRIP : VertexFormat.DrawMode.QUADS);

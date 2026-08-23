@@ -5,7 +5,7 @@ import lombok.Setter;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.resources.model.EquipmentAssetManager;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import org.cube.converter.data.bedrock.BedrockEntityData;
 import org.cube.converter.data.bedrock.controller.BedrockRenderController;
 import org.cube.converter.model.impl.bedrock.BedrockGeometryModel;
@@ -158,7 +158,7 @@ public class CustomEntityTicker {
         final Set<String> old = new HashSet<>(this.availableModels);
         this.availableModels.clear();
         for (EvaluatedModel model : this.models) {
-            final ResourceLocation texture = ResourceLocation.fromNamespaceAndPath(model.textureValue().toLowerCase(Locale.ROOT));
+            final Identifier texture = Identifier.fromNamespaceAndPath(model.textureValue().toLowerCase(Locale.ROOT));
 
             BedrockGeometryModel geometry = this.packManager.getModelDefinitions().getEntityModels().get(model.geometryValue());
             if (geometry == null) {

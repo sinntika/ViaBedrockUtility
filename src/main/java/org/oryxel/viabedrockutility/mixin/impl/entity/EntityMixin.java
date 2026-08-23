@@ -1,7 +1,7 @@
 package org.oryxel.viabedrockutility.mixin.impl.entity;
 
 import net.minecraft.world.entity.Entity;
-import net.minecraft.entity.decoration.DisplayEntity;
+import net.minecraft.world.entity.Display;
 import net.minecraft.world.phys.Vec3;
 import org.oryxel.viabedrockutility.ViaBedrockUtility;
 import org.spongepowered.asm.mixin.Mixin;
@@ -19,7 +19,7 @@ public class EntityMixin {
 
     @Inject(method = "setPos", at = @At("HEAD"))
     private void injectSetPos(double x, double y, double z, CallbackInfo ci) {
-        if (!(((Object)this) instanceof DisplayEntity.ItemDisplayEntity) || !ViaBedrockUtility.getInstance().isViaBedrockPresent()) {
+        if (!(((Object)this) instanceof Display.ItemDisplay) || !ViaBedrockUtility.getInstance().isViaBedrockPresent()) {
             return;
         }
 

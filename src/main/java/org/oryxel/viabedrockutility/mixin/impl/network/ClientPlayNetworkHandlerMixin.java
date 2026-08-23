@@ -3,7 +3,7 @@ package org.oryxel.viabedrockutility.mixin.impl.network;
 import com.mojang.brigadier.arguments.StringArgumentType;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.ClientPacketListener;
-import net.minecraft.util.hit.EntityHitResult;
+import net.minecraft.world.phys.EntityHitResult;
 import net.minecraft.util.hit.HitResult;
 import org.oryxel.viabedrockutility.ViaBedrockUtility;
 import org.oryxel.viabedrockutility.entity.CustomEntityTicker;

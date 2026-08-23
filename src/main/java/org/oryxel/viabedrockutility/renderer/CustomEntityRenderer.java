@@ -7,7 +7,7 @@ import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.state.EntityRenderState;
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.world.entity.Entity;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import com.mojang.math.Axis;
 import org.oryxel.viabedrockutility.animation.animator.Animator;
 import org.oryxel.viabedrockutility.entity.CustomEntityTicker;
@@ -83,7 +83,7 @@ public class CustomEntityRenderer<T extends Entity> extends EntityRenderer<T, Cu
         return new CustomEntityRenderState();
     }
 
-    public record Model(String key, String geometry, CustomEntityModel<CustomEntityRenderState> model, ResourceLocation texture, Material material) {
+    public record Model(String key, String geometry, CustomEntityModel<CustomEntityRenderState> model, Identifier texture, Material material) {
     }
 
     @Getter

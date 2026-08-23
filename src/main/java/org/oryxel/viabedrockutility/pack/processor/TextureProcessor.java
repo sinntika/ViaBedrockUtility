@@ -3,7 +3,7 @@ package org.oryxel.viabedrockutility.pack.processor;
 import net.minecraft.client.Minecraft;
 import com.mojang.blaze3d.platform.NativeImage;
 import net.minecraft.client.renderer.texture.DynamicTexture;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import org.oryxel.viabedrockutility.fabric.ViaBedrockUtilityFabric;
 import org.oryxel.viabedrockutility.pack.content.Content;
 
@@ -23,7 +23,7 @@ public class TextureProcessor {
                 }
 
                 try {
-                    final ResourceLocation identifier = ResourceLocation.ofVanilla(path.toLowerCase(Locale.ROOT).replace(".png", "").replace(".jpg", ""));
+                    final Identifier identifier = Identifier.ofVanilla(path.toLowerCase(Locale.ROOT).replace(".png", "").replace(".jpg", ""));
                     final NativeImage image1 = NativeImage.read(image.getPngBytes());
                     client.getTextureManager().registerTexture(identifier, new DynamicTexture(() -> identifier.toString() + image1.hashCode(), image1));
                 } catch (final IOException e) {

@@ -14,7 +14,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 @SuppressWarnings("unchecked")
 @Mixin(EntityRenderDispatcher.class)
 public abstract class EntityRenderDispatcherMixin {
-    @Inject(method = "getRenderer", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/resources/PlayerSkin;model()Lnet/minecraft/client/resources/PlayerSkin$Model;"), cancellable = true)
+    @Inject(method = "getRenderer", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/player/PlayerSkin;model()Lnet/minecraft/world/entity/player/PlayerSkin$Model;"), cancellable = true)
     public <T extends Entity> void getPlayerRenderer(T entity, CallbackInfoReturnable<EntityRenderer<? super T, ?>> cir) {
         if (!ViaBedrockUtility.getInstance().isViaBedrockPresent()) {
             return;
