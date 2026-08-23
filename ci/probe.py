@@ -49,9 +49,12 @@ PACKAGE_LISTINGS = []
 JAVAP = []
 
 # Classes from the libraries above, probed out of the resolved dependency jars.
-LIB_JAVAP = [
-    ("org.cube.converter.util.GsonUtil", [], 30),
-]
+LIB_JAVAP = []
+
+# Every class under these prefixes gets dumped. CubeConverter is small and its
+# api moved under the mod's feet, so the whole surface is worth printing once.
+LIB_DUMP = ("org.cube.converter.",)
+LIB_DUMP_LIMIT = 30
 
 # Classes outside the Minecraft jar, looked up across every cached dependency.
 EXTRA_JAVAP = []
@@ -194,19 +197,11 @@ else:
     print("  -- deleted or renamed (%d) --" % len(gone))
     for row in gone[:80]:
         print("     %s" % row[:WIDTH])
-    shipped = [
-        r
-        for r in rows
-        if "src/main/java" in r or "src/main/resources" in r or "buildSrc" in r
-    ]
-    print("  -- shipped sources touched (%d) --" % len(shipped))
-    for row in shipped[:140]:
-        print("     %s" % row[:WIDTH])
 
 # Index the shared libraries so drift shows up before the game launches.
 lib_index = {}
 lib_jar_counts = {}
-if lib_imports or LIB_JAVAP:
+if lib_imports or LIB_JAVAP or LIB_DUMP:
     for jar in dependency_jars():
         try:
             with zipfile.ZipFile(jar) as zf:
@@ -258,6 +253,13 @@ if LIB_JAVAP:
     print("== LIB SIGNATURES ==")
     for cls, keywords, limit in LIB_JAVAP:
         javap(cls, keywords, limit, classpath=lib_index.get(cls))
+
+if LIB_DUMP:
+    dump_targets = sorted(c for c in lib_index if c.startswith(LIB_DUMP))
+    print("")
+    print("== LIB DUMP (%d classes) ==" % len(dump_targets))
+    for cls in dump_targets:
+        javap(cls, [], LIB_DUMP_LIMIT, classpath=lib_index.get(cls))
 
 jarpath, jarcount = find_jar()
 print("")

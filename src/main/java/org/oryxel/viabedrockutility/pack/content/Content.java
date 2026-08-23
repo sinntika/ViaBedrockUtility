@@ -1,7 +1,7 @@
 package org.oryxel.viabedrockutility.pack.content;
 
+import com.google.gson.Gson;
 import com.google.gson.JsonObject;
-import org.cube.converter.util.GsonUtil;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
@@ -18,6 +18,10 @@ import java.util.zip.ZipOutputStream;
 
 // Taken from ViaBedrock!
 public class Content {
+    // CubeConverter's GsonUtil hands out ViaVersion's relocated Gson, which cannot
+    // produce a com.google.gson tree, so the pack reader keeps its own instance.
+    private static final Gson GSON = new Gson();
+
     private final Map<String, byte[]> content;
     private final Map<String, Map<String, String>> langCache;
 
@@ -105,11 +109,11 @@ public class Content {
             return null;
         }
 
-        return List.of(string.split("\\n"));
+        return List.of(string.split("\n"));
     }
 
     public boolean putLines(final String path, final List<String> lines) {
-        return this.putString(path, String.join("\\n", lines));
+        return this.putString(path, String.join("\n", lines));
     }
 
     public Map<String, String> getLang(final String path) {
@@ -131,11 +135,11 @@ public class Content {
             return null;
         }
 
-        return GsonUtil.getGson().fromJson(string.trim(), JsonObject.class);
+        return GSON.fromJson(string.trim(), JsonObject.class);
     }
 
     public boolean putJson(final String path, final JsonObject json) {
-        return this.putString(path, GsonUtil.getGson().toJson(json));
+        return this.putString(path, GSON.toJson(json));
     }
 
     public LazyImage getShortnameImage(final String path) {
