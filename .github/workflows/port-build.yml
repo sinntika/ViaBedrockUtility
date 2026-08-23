@@ -35,6 +35,17 @@ jobs:
       - name: setup gradle
         uses: gradle/actions/setup-gradle@v4
 
+      - name: configure git
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+      - name: apply mapping rename
+        run: |
+          python3 tools/port/rename.py
+          git add -A src/main/java
+          git commit -m "port: apply yarn to mojang mapping rename [skip ci]" || echo "nothing renamed"
+
       - name: make gradle wrapper executable
         run: chmod +x ./gradlew
 
@@ -56,29 +67,22 @@ jobs:
             echo "commit:  ${GITHUB_SHA}"
             echo "run_id:  ${GITHUB_RUN_ID}"
             echo "outcome: ${BUILD_OUTCOME}"
-            echo "errors:  $(grep -c 'error:' /tmp/build.log || true)"
             echo
-            echo "===== ERROR SUMMARY ====="
-            grep -E "error:|symbol:|location:|required:|found:|reason:" /tmp/build.log | sed "s|${GITHUB_WORKSPACE}/||g" | head -n 600 || true
+            echo "===== COMPILE ERRORS ====="
+            python3 ci/summarize.py /tmp/build.log "${GITHUB_WORKSPACE}" || true
             echo
             echo "===== WHAT WENT WRONG ====="
-            sed -n '/What went wrong/,/^\* Try:/p' /tmp/build.log | sed "s|${GITHUB_WORKSPACE}/||g" | head -n 120 || true
+            sed -n '/What went wrong/,/^\* Try:/p' /tmp/build.log | sed "s|${GITHUB_WORKSPACE}/||g" | head -n 40 || true
             echo
             echo "===== TAIL ====="
-            tail -n 120 /tmp/build.log | sed "s|${GITHUB_WORKSPACE}/||g"
+            tail -n 25 /tmp/build.log | sed "s|${GITHUB_WORKSPACE}/||g"
           } > ci/build-report.txt
 
       - name: commit build report
         if: always()
         run: |
-          git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add -f ci/build-report.txt
-          if git diff --cached --quiet; then
-            echo "report unchanged"
-            exit 0
-          fi
-          git commit -m "ci: build report [skip ci]"
+          git commit -m "ci: build report [skip ci]" || echo "report unchanged"
           git pull --rebase --autostash origin "${GITHUB_REF_NAME}" || true
           git push origin "HEAD:${GITHUB_REF_NAME}"
 

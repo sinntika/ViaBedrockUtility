@@ -1,0 +1,152 @@
+# yarn 1.21.5 -> official Mojang names (1.21.11)
+# kind	from	to
+
+# --- client core -----------------------------------------------------------
+I	net.minecraft.client.MinecraftClient	net.minecraft.client.Minecraft
+I	net.minecraft.client.gui.screen.Screen	net.minecraft.client.gui.screens.Screen
+I	net.minecraft.client.world.ClientWorld	net.minecraft.client.multiplayer.ClientLevel
+I	net.minecraft.client.network.AbstractClientPlayerEntity	net.minecraft.client.player.AbstractClientPlayer
+I	net.minecraft.client.network.ClientPlayerEntity	net.minecraft.client.player.LocalPlayer
+I	net.minecraft.client.network.ClientPlayNetworkHandler	net.minecraft.client.multiplayer.ClientPacketListener
+I	net.minecraft.client.network.ClientLoginNetworkHandler	net.minecraft.client.multiplayer.ClientHandshakePacketListenerImpl
+I	net.minecraft.client.network.PlayerListEntry	net.minecraft.client.multiplayer.PlayerInfo
+
+# --- client models ---------------------------------------------------------
+I	net.minecraft.client.model.ModelPartBuilder	net.minecraft.client.model.geom.builders.CubeListBuilder
+I	net.minecraft.client.model.TexturedModelData	net.minecraft.client.model.geom.builders.LayerDefinition
+I	net.minecraft.client.model.ModelPartData	net.minecraft.client.model.geom.builders.PartDefinition
+I	net.minecraft.client.model.ModelTransform	net.minecraft.client.model.geom.PartPose
+I	net.minecraft.client.model.ModelData	net.minecraft.client.model.geom.builders.MeshDefinition
+I	net.minecraft.client.model.ModelPart	net.minecraft.client.model.geom.ModelPart
+I	net.minecraft.client.model.Dilation	net.minecraft.client.model.geom.builders.CubeDeformation
+I	net.minecraft.client.render.entity.model.PlayerEntityModel	net.minecraft.client.model.PlayerModel
+I	net.minecraft.client.render.entity.model.EntityModel	net.minecraft.client.model.EntityModel
+
+# --- client rendering ------------------------------------------------------
+I	net.minecraft.client.render.entity.EntityRendererFactory	net.minecraft.client.renderer.entity.EntityRendererProvider
+I	net.minecraft.client.render.entity.EntityRenderDispatcher	net.minecraft.client.renderer.entity.EntityRenderDispatcher
+I	net.minecraft.client.render.entity.LivingEntityRenderer	net.minecraft.client.renderer.entity.LivingEntityRenderer
+I	net.minecraft.client.render.entity.PlayerEntityRenderer	net.minecraft.client.renderer.entity.player.PlayerRenderer
+I	net.minecraft.client.render.entity.EntityRenderer	net.minecraft.client.renderer.entity.EntityRenderer
+I	net.minecraft.client.render.entity.feature.CapeFeatureRenderer	net.minecraft.client.renderer.entity.layers.CapeLayer
+I	net.minecraft.client.render.entity.state.PlayerEntityRenderState	net.minecraft.client.renderer.entity.state.PlayerRenderState
+I	net.minecraft.client.render.entity.state.LivingEntityRenderState	net.minecraft.client.renderer.entity.state.LivingEntityRenderState
+I	net.minecraft.client.render.entity.state.EntityRenderState	net.minecraft.client.renderer.entity.state.EntityRenderState
+I	net.minecraft.client.render.entity.equipment.EquipmentModelLoader	net.minecraft.client.resources.model.EquipmentAssetManager
+I	net.minecraft.client.render.entity.equipment.EquipmentRenderer	net.minecraft.client.renderer.entity.layers.EquipmentLayerRenderer
+I	net.minecraft.client.render.entity.equipment.EquipmentModel	net.minecraft.client.resources.model.EquipmentClientInfo
+I	net.minecraft.client.render.entity.animation.AnimationHelper	net.minecraft.client.animation.KeyframeAnimations
+I	net.minecraft.client.render.entity.animation.Transformation	net.minecraft.client.animation.AnimationChannel
+I	net.minecraft.client.render.entity.animation.Animation	net.minecraft.client.animation.AnimationDefinition
+I	net.minecraft.client.render.entity.animation.Keyframe	net.minecraft.client.animation.Keyframe
+I	net.minecraft.client.render.VertexConsumerProvider	net.minecraft.client.renderer.MultiBufferSource
+I	net.minecraft.client.render.VertexConsumer	com.mojang.blaze3d.vertex.VertexConsumer
+I	net.minecraft.client.render.LightmapTextureManager	net.minecraft.client.renderer.LightTexture
+I	net.minecraft.client.render.OverlayTexture	net.minecraft.client.renderer.texture.OverlayTexture
+I	net.minecraft.client.render.RenderTickCounter	net.minecraft.client.DeltaTracker
+I	net.minecraft.client.render.RenderLayer	net.minecraft.client.renderer.RenderType
+I	net.minecraft.client.render.RenderPhase	net.minecraft.client.renderer.RenderStateShard
+I	net.minecraft.client.render.Frustum	net.minecraft.client.renderer.culling.Frustum
+I	net.minecraft.client.gl.RenderPipelines	net.minecraft.client.renderer.RenderPipelines
+I	net.minecraft.client.util.math.MatrixStack	com.mojang.blaze3d.vertex.PoseStack
+I	net.minecraft.client.util.SkinTextures	net.minecraft.client.resources.PlayerSkin
+I	net.minecraft.client.util.DefaultSkinHelper	net.minecraft.client.resources.DefaultPlayerSkin
+
+# --- client textures and resources ----------------------------------------
+I	net.minecraft.client.texture.NativeImageBackedTexture	net.minecraft.client.renderer.texture.DynamicTexture
+I	net.minecraft.client.texture.NativeImage	com.mojang.blaze3d.platform.NativeImage
+I	net.minecraft.client.texture.TextureManager	net.minecraft.client.renderer.texture.TextureManager
+I	net.minecraft.client.texture.AbstractTexture	net.minecraft.client.renderer.texture.AbstractTexture
+I	net.minecraft.client.resource.server.ServerResourcePackLoader	net.minecraft.client.resources.server.DownloadedPackSource
+I	net.minecraft.resource.ResourcePackProfile	net.minecraft.server.packs.repository.Pack
+I	net.minecraft.resource.ResourceManager	net.minecraft.server.packs.resources.ResourceManager
+I	net.minecraft.resource.ResourceType	net.minecraft.server.packs.PackType
+I	net.minecraft.resource.ResourcePack	net.minecraft.server.packs.PackResources
+
+# --- world and entities ----------------------------------------------------
+I	net.minecraft.world.entity.EntityLookup	net.minecraft.world.level.entity.LevelEntityGetter
+I	net.minecraft.entity.player.PlayerEntity	net.minecraft.world.entity.player.Player
+I	net.minecraft.entity.LivingEntity	net.minecraft.world.entity.LivingEntity
+I	net.minecraft.entity.EntityType	net.minecraft.world.entity.EntityType
+I	net.minecraft.entity.Entity	net.minecraft.world.entity.Entity
+
+# --- networking ------------------------------------------------------------
+I	net.minecraft.network.packet.CustomPayload	net.minecraft.network.protocol.common.custom.CustomPacketPayload
+I	net.minecraft.network.codec.PacketDecoder	net.minecraft.network.codec.StreamDecoder
+I	net.minecraft.network.codec.PacketEncoder	net.minecraft.network.codec.StreamEncoder
+I	net.minecraft.network.codec.PacketCodec	net.minecraft.network.codec.StreamCodec
+I	net.minecraft.network.PacketByteBuf	net.minecraft.network.FriendlyByteBuf
+
+# --- misc ------------------------------------------------------------------
+I	net.minecraft.server.command.CommandManager	net.minecraft.commands.Commands
+I	net.minecraft.util.Identifier	net.minecraft.resources.ResourceLocation
+I	net.minecraft.util.math.RotationAxis	com.mojang.math.Axis
+I	net.minecraft.util.math.MathHelper	net.minecraft.util.Mth
+I	net.minecraft.util.math.Direction	net.minecraft.core.Direction
+I	net.minecraft.util.math.BlockPos	net.minecraft.core.BlockPos
+I	net.minecraft.util.math.Vec3d	net.minecraft.world.phys.Vec3
+I	net.minecraft.util.math.Vec3i	net.minecraft.core.Vec3i
+
+# --- simple names ----------------------------------------------------------
+N	ClientLoginNetworkHandler	ClientHandshakePacketListenerImpl
+N	AbstractClientPlayerEntity	AbstractClientPlayer
+N	NativeImageBackedTexture	DynamicTexture
+N	PlayerEntityRenderState	PlayerRenderState
+N	ServerResourcePackLoader	DownloadedPackSource
+N	ClientPlayNetworkHandler	ClientPacketListener
+N	VertexConsumerProvider	MultiBufferSource
+N	EntityRendererFactory	EntityRendererProvider
+N	LightmapTextureManager	LightTexture
+N	ResourcePackProfile	Pack
+N	EquipmentModelLoader	EquipmentAssetManager
+N	EquipmentRenderer	EquipmentLayerRenderer
+N	PlayerEntityRenderer	PlayerRenderer
+N	CapeFeatureRenderer	CapeLayer
+N	RenderTickCounter	DeltaTracker
+N	ClientPlayerEntity	LocalPlayer
+N	PlayerEntityModel	PlayerModel
+N	DefaultSkinHelper	DefaultPlayerSkin
+N	AnimationHelper	KeyframeAnimations
+N	EquipmentModel	EquipmentClientInfo
+N	MinecraftClient	Minecraft
+N	PlayerListEntry	PlayerInfo
+N	CustomPayload	CustomPacketPayload
+N	PacketByteBuf	FriendlyByteBuf
+N	PacketDecoder	StreamDecoder
+N	PacketEncoder	StreamEncoder
+N	CommandManager	Commands
+N	ResourceType	PackType
+N	ResourcePack	PackResources
+N	PacketCodec	StreamCodec
+N	EntityLookup	LevelEntityGetter
+N	RotationAxis	Axis
+N	SkinTextures	PlayerSkin
+N	RenderPhase	RenderStateShard
+N	PlayerEntity	Player
+N	MatrixStack	PoseStack
+N	RenderLayer	RenderType
+N	Identifier	ResourceLocation
+N	MathHelper	Mth
+N	Dilation	CubeDeformation
+N	ModelPartBuilder	CubeListBuilder
+N	TexturedModelData	LayerDefinition
+N	ModelPartData	PartDefinition
+N	ModelTransform	PartPose
+N	ModelData	MeshDefinition
+N	ClientWorld	ClientLevel
+N	Vec3d	Vec3
+
+# --- method and descriptor fixes -------------------------------------------
+L	.getUuid()	.getUUID()
+L	ResourceLocation.of(	ResourceLocation.fromNamespaceAndPath(
+L	RenderType.getEntitySolid(	RenderType.entitySolid(
+L	RenderType.getEntityTranslucent(	RenderType.entityTranslucent(
+L	RenderType.getEntityCutoutNoCull(	RenderType.entityCutoutNoCull(
+L	RenderType.getEntityCutout(	RenderType.entityCutout(
+L	RenderType.getEntitySmoothCutout(	RenderType.entitySmoothCutout(
+L	;getEntitySolid(	;entitySolid(
+L	;getEntityTranslucent(	;entityTranslucent(
+L	;getEntityCutoutNoCull(	;entityCutoutNoCull(
+L	;getEntityCutout(	;entityCutout(
+L	getEntityLookup()	getEntities()
+L	PoseStack.Entry	PoseStack.Pose
