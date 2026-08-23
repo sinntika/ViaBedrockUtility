@@ -30,9 +30,9 @@ public abstract class AbstractClientPlayerMixin extends Entity {
             return;
         }
 
-        Identifier cape = ViaBedrockUtility.getInstance().getPayloadHandler().getCachedPlayerCapes().get(getUuid());
+        Identifier cape = ViaBedrockUtility.getInstance().getPayloadHandler().getCachedPlayerCapes().get(getUUID());
         if (cape != null) {
-            PlayerSkin skin = playerListEntry == null ? DefaultPlayerSkin.getSkinTextures(this.getUUID()) : playerListEntry.getSkinTextures();
+            PlayerSkin skin = playerListEntry == null ? DefaultPlayerSkin.get(this.getUUID()) : playerListEntry.getSkin();
             if (!cape.equals(skin.capeTexture())) {
                 cir.setReturnValue(new PlayerSkin(
                         skin.texture(),

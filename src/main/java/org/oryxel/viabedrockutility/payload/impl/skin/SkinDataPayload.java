@@ -12,7 +12,7 @@ import java.util.UUID;
 @Getter
 public final class SkinDataPayload extends BasePayload {
     public static final StreamDecoder<FriendlyByteBuf, SkinDataPayload> STREAM_DECODER = buf -> {
-        UUID playerUuid = buf.readUuid();
+        UUID playerUuid = buf.readUUID();
         int chunkPosition = buf.readInt();
         int available = buf.readableBytes();
         byte[] skinData = new byte[available];

@@ -16,7 +16,7 @@ public class KeyframeAnimations {
     public static void animate(Scope scope, Model model, VBUAnimation animation, long runningTime, float scale, Vector3f tempVec) {
         float g = KeyframeAnimations.getRunningSeconds(animation, runningTime);
         for (Map.Entry<String, List<AnimateTransformation>> entry : animation.boneAnimations().entrySet()) {
-            Optional<ModelPart> optional = getPartByName(model.getParts(), entry.getKey());
+            Optional<ModelPart> optional = getPartByName(model.allParts(), entry.getKey());
             if (optional.isEmpty()) {
                 continue;
             }

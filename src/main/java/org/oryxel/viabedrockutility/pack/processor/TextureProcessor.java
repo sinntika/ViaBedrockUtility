@@ -23,9 +23,9 @@ public class TextureProcessor {
                 }
 
                 try {
-                    final Identifier identifier = Identifier.ofVanilla(path.toLowerCase(Locale.ROOT).replace(".png", "").replace(".jpg", ""));
+                    final Identifier identifier = Identifier.withDefaultNamespace(path.toLowerCase(Locale.ROOT).replace(".png", "").replace(".jpg", ""));
                     final NativeImage image1 = NativeImage.read(image.getPngBytes());
-                    client.getTextureManager().registerTexture(identifier, new DynamicTexture(() -> identifier.toString() + image1.hashCode(), image1));
+                    client.getTextureManager().register(identifier, new DynamicTexture(() -> identifier.toString() + image1.hashCode(), image1));
                 } catch (final IOException e) {
                     ViaBedrockUtilityFabric.LOGGER.warn("Unable to register texture {}", path);
                 }

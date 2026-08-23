@@ -22,7 +22,7 @@ public class EntityDefinitions {
             for (final String entityPath : content.getFilesDeep("entity/", ".json")) {
                 try {
                     final BedrockEntityData entityData = BedrockEntityParser.parse(content.getString(entityPath));
-                    final Identifier identifier = Identifier.fromNamespaceAndPath(entityData.getIdentifier());
+                    final Identifier identifier = Identifier.parse(entityData.getIdentifier());
                     this.entities.put(identifier.toString(), new EntityDefinition(identifier, entityData));
                 } catch (Throwable e) {
                     ViaBedrockUtilityFabric.LOGGER.warn("Failed to parse entity definition {}", entityPath);

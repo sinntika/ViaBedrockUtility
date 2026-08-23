@@ -58,7 +58,7 @@ public abstract class ModelPartMixin implements IModelPart {
         matrices.translate(this.offset.x / 16.0F, this.offset.y / 16.0F, this.offset.z / 16.0F);
 
         matrices.translate(this.pivot.x / 16.0F, this.pivot.y / 16.0F, this.pivot.z / 16.0F);
-        matrices.multiply((new Quaternionf()).rotationXYZ(this.rotation.x * MathUtil.DEGREES_TO_RADIANS, this.rotation.y * MathUtil.DEGREES_TO_RADIANS, this.rotation.z * MathUtil.DEGREES_TO_RADIANS));
+        matrices.mulPose((new Quaternionf()).rotationXYZ(this.rotation.x * MathUtil.DEGREES_TO_RADIANS, this.rotation.y * MathUtil.DEGREES_TO_RADIANS, this.rotation.z * MathUtil.DEGREES_TO_RADIANS));
         matrices.translate(-this.pivot.x / 16.0F, -this.pivot.y / 16.0F, -this.pivot.z / 16.0F);
 
         matrices.translate(-this.offset.x / 16.0F, -this.offset.y / 16.0F, -this.offset.z / 16.0F);

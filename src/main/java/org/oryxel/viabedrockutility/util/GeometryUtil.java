@@ -49,8 +49,8 @@ public final class GeometryUtil {
 
             boolean isLeg = player && LEG_RELATED.contains(bone.getName().toLowerCase(Locale.ROOT));
             if (isLeg) {
-                part.setOrigin(0, bone.getPivot().getY(), 0);
-                part.setDefaultTransform(part.getTransform());
+                part.setPos(0, bone.getPivot().getY(), 0);
+                part.setInitialPose(part.storePose());
             } else {
                 ((IModelPart)((Object)part)).viaBedrockUtility$setPivot(new Vector3f(bone.getPivot().getX(), -bone.getPivot().getY() + 24.016F, bone.getPivot().getZ()));
             }
@@ -165,7 +165,7 @@ public final class GeometryUtil {
         ModelPart.Vertex vertex7 = new ModelPart.Vertex(f, g, h, 8.0F, 8.0F);
         ModelPart.Vertex vertex8 = new ModelPart.Vertex(x, g, h, 8.0F, 0.0F);
 
-        final ModelPart.Polygon[] sides = cuboid.sides;
+        final ModelPart.Polygon[] sides = cuboid.polygons;
         int s = 0;
 
         if (set.contains(Direction.DOWN)) {

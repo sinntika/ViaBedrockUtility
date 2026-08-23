@@ -78,7 +78,7 @@ public class Animator {
             }
 
             if (this.started && this.data.animation().isResetBeforePlay()) {
-                ((IModelPart)((Object)model.getRootPart())).viaBedrockUtility$resetEverything();
+                ((IModelPart)((Object)model.root())).viaBedrockUtility$resetEverything();
                 this.TEMP_VEC.set(0);
             }
 
@@ -134,7 +134,7 @@ public class Animator {
 
     public void stop(Model model, boolean forcefully) {
         if (this.data.animation().getLoop().getValue().equals(false) || forcefully) {
-            ((IModelPart)((Object)model.getRootPart())).viaBedrockUtility$resetEverything();
+            ((IModelPart)((Object)model.root())).viaBedrockUtility$resetEverything();
         }
 
         this.animationStartMS = System.currentTimeMillis();

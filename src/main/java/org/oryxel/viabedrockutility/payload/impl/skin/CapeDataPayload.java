@@ -14,7 +14,7 @@ import java.util.UUID;
 @Getter
 public final class CapeDataPayload extends BasePayload {
     public static final StreamDecoder<FriendlyByteBuf, CapeDataPayload> STREAM_DECODER = buf -> {
-        UUID playerUuid = buf.readUuid();
+        UUID playerUuid = buf.readUUID();
         int width = buf.readInt();
         int height = buf.readInt();
 

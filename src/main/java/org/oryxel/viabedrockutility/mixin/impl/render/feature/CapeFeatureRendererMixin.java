@@ -1,6 +1,7 @@
 package org.oryxel.viabedrockutility.mixin.impl.render.feature;
 
 import net.minecraft.client.renderer.rendertype.RenderType;
+import net.minecraft.client.renderer.rendertype.RenderTypes;
 import net.minecraft.client.renderer.entity.layers.CapeLayer;
 import net.minecraft.resources.Identifier;
 import org.oryxel.viabedrockutility.fabric.ViaBedrockUtilityFabric;
@@ -19,8 +20,8 @@ public class CapeFeatureRendererMixin {
     public RenderType solidToTranslucent(final Identifier texture) {
         if (texture.getNamespace().equals(ViaBedrockUtilityFabric.MOD_ID)) {
             // Capes can be translucent in Bedrock
-            return RenderType.entityTranslucent(texture, true);
+            return RenderTypes.entityTranslucent(texture, true);
         }
-        return RenderType.entitySolid(texture);
+        return RenderTypes.entitySolid(texture);
     }
 }

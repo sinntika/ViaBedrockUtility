@@ -72,9 +72,9 @@ public class PayloadHandler {
         }
 
         final Minecraft client = Minecraft.getInstance();
-        client.getTextureManager().registerTexture(payload.getIdentifier(), new DynamicTexture(() -> payload.getIdentifier().toString() + capeImage.hashCode() , capeImage));
+        client.getTextureManager().register(payload.getIdentifier(), new DynamicTexture(() -> payload.getIdentifier().toString() + capeImage.hashCode() , capeImage));
 
-        if (client.getNetworkHandler() == null) {
+        if (client.getConnection() == null) {
             return;
         }
 
@@ -82,12 +82,12 @@ public class PayloadHandler {
 
         // It's ok to use this here, the reason we don't use this for player geometry because there can be fake entity.
         // But most fake entity don't have cape so we should be fine!
-        final PlayerInfo entry = client.getNetworkHandler().getPlayerListEntry(payload.getPlayerUuid());
+        final PlayerInfo entry = client.getConnection().getPlayerInfo(payload.getPlayerUuid());
         if (entry == null) {
             return;
         }
 
-        final PlayerSkinBuilder builder = new PlayerSkinBuilder(entry.getSkinTextures());
+        final PlayerSkinBuilder builder = new PlayerSkinBuilder(entry.getSkin());
         builder.capeTexture = payload.getIdentifier();
 
         ((PlayerSkinFieldAccessor)entry).setPlayerSkin(builder::build);
@@ -121,14 +121,14 @@ public class PayloadHandler {
         final Minecraft client = Minecraft.getInstance();
 
         final Identifier identifier = Identifier.fromNamespaceAndPath(ViaBedrockUtilityFabric.MOD_ID, payload.getPlayerUuid().toString());
-        client.getTextureManager().registerTexture(identifier, new DynamicTexture(() -> identifier.toString() + skinImage.hashCode(), skinImage));
+        client.getTextureManager().register(identifier, new DynamicTexture(() -> identifier.toString() + skinImage.hashCode(), skinImage));
 
-        if (client.getNetworkHandler() != null) {
-            final PlayerInfo entry = client.getNetworkHandler().getPlayerListEntry(payload.getPlayerUuid());
+        if (client.getConnection() != null) {
+            final PlayerInfo entry = client.getConnection().getPlayerInfo(payload.getPlayerUuid());
 
             // If we can still get player list entry then use this to set skin still a good idea!
             if (entry != null) {
-                final PlayerSkinBuilder builder = new PlayerSkinBuilder(entry.getSkinTextures());
+                final PlayerSkinBuilder builder = new PlayerSkinBuilder(entry.getSkin());
                 builder.texture = identifier;
 
                 ((PlayerSkinFieldAccessor)entry).setPlayerSkin(builder::build);
@@ -193,23 +193,23 @@ public class PayloadHandler {
 
         if (model == null) {
             // This is likely a classic skin with hardcoded identifier! TODO: 128x128
-            model = new PlayerModel(PlayerModel.getTexturedModelData(CubeDeformation.NONE, slim).getRoot().createPart(64, 64), slim);
+            model = new PlayerModel(PlayerModel.createMesh(CubeDeformation.NONE, slim).getRoot().createPart(64, 64), slim);
         }
 
         final EntityRendererProvider.Context entityContext = new EntityRendererProvider.Context(client.getEntityRenderDispatcher(),
-                client.getItemModelManager(), client.getMapRenderer(), client.getBlockRenderManager(),
-                client.getResourceManager(), client.getLoadedEntityModels(), new EquipmentAssetManager(), client.textRenderer);
+                client.getItemModelResolver(), client.getMapRenderer(), client.getBlockRenderer(),
+                client.getResourceManager(), client.getEntityModels(), new EquipmentAssetManager(), client.font);
         this.cachedPlayerRenderers.put(payload.getPlayerUuid(), new CustomPlayerRenderer(entityContext, model, slim, identifier));
 
-        if (client.getNetworkHandler() == null) {
+        if (client.getConnection() == null) {
             return;
         }
 
-        final PlayerInfo entry = client.getNetworkHandler().getPlayerListEntry(payload.getPlayerUuid());
+        final PlayerInfo entry = client.getConnection().getPlayerInfo(payload.getPlayerUuid());
 
         // Do this once again for emmmm the slim or wide model.
         if (entry != null) {
-            final PlayerSkinBuilder builder = new PlayerSkinBuilder(entry.getSkinTextures());
+            final PlayerSkinBuilder builder = new PlayerSkinBuilder(entry.getSkin());
             builder.texture = identifier;
             builder.model = slim ? PlayerModelType.SLIM : PlayerModelType.WIDE;
 

@@ -2,6 +2,7 @@ package org.oryxel.viabedrockutility.renderer;
 
 import lombok.Getter;
 import net.minecraft.client.renderer.rendertype.RenderType;
+import net.minecraft.client.renderer.rendertype.RenderTypes;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.culling.Frustum;
 import net.minecraft.client.renderer.RenderPipelines;
@@ -42,7 +43,7 @@ public class CustomEntityRenderer<T extends Entity> extends EntityRenderer<T, Cu
     @Override
     public void render(CustomEntityRenderState state, PoseStack matrices, MultiBufferSource vertexConsumers, int light) {
         for (Model model : this.models) {
-            matrices.push();
+            matrices.pushPose();
 
             this.setupTransforms(state, matrices);
             matrices.scale(-1.0F, -1.0F, 1.0F);
@@ -58,30 +59,30 @@ public class CustomEntityRenderer<T extends Entity> extends EntityRenderer<T, Cu
             RenderType renderLayer = model.material.info().getVariants().get("skinning_color").build().apply(model.texture);
             if (renderLayer != null) {
                 VertexConsumer vertexConsumer = vertexConsumers.getBuffer(renderLayer);
-                model.model.render(matrices, vertexConsumer, light, OverlayTexture.packUv(0, 10));
+                model.model.render(matrices, vertexConsumer, light, OverlayTexture.pack(0, 10));
             }
 
-            matrices.pop();
+            matrices.popPose();
         }
     }
 
     @Override
     public boolean shouldRender(T entity, Frustum frustum, double x, double y, double z) {
-        double d = 64.0F * Entity.getRenderDistanceMultiplier();
-        return entity.squaredDistanceTo(x, y, z) <= d * d;
+        double d = 64.0F * Entity.getViewScale();
+        return entity.distanceToSqr(x, y, z) <= d * d;
     }
 
     @Override
-    public void updateRenderState(T entity, CustomEntityRenderState state, float tickDelta) {
-        super.updateRenderState(entity, state, tickDelta);
-        state.yaw = entity.getYaw(tickDelta);
-        state.bodyYaw = entity.getBodyYaw();
-        state.bodyPitch = entity.getPitch();
-        state.distanceTraveled = entity.distanceTraveled;
+    public void extractRenderState(T entity, CustomEntityRenderState state, float tickDelta) {
+        super.extractRenderState(entity, state, tickDelta);
+        state.yaw = entity.getViewYRot(tickDelta);
+        state.bodyYaw = entity.getVisualRotationYInDegrees();
+        state.bodyPitch = entity.getXRot();
+        state.distanceTraveled = entity.moveDist;
     }
 
     private void setupTransforms(CustomEntityRenderState state, PoseStack matrices) {
-        matrices.multiply(Axis.POSITIVE_Y.rotationDegrees(180 - state.yaw));
+        matrices.mulPose(Axis.YP.rotationDegrees(180 - state.yaw));
     }
 
     @Override

@@ -36,7 +36,7 @@ public class ClientPlayNetworkHandlerMixin {
         }
 
         Minecraft client = Minecraft.getInstance();
-        if (client.crosshairTarget == null || client.crosshairTarget.getType() != HitResult.Type.ENTITY) {
+        if (client.hitResult == null || client.hitResult.getType() != HitResult.Type.ENTITY) {
             System.out.println("No target!");
             return;
         }
@@ -45,7 +45,7 @@ public class ClientPlayNetworkHandlerMixin {
             return;
         }
 
-        final UUID uuid = ((EntityHitResult)client.crosshairTarget).getEntity().getUUID();
+        final UUID uuid = ((EntityHitResult)client.hitResult).getEntity().getUUID();
         if (!ViaBedrockUtility.getInstance().getPayloadHandler().getCachedCustomEntities().containsKey(uuid)) {
             System.out.println("couldn't find");
             return;

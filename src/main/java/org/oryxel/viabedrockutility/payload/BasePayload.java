@@ -53,7 +53,7 @@ public class BasePayload implements CustomPacketPayload {
                     mark_variant = buf.readInt();
                 }
 
-                return new ModelRequestPayload(identifier, EnumUtil.getEnumSetFromBitmask(ActorFlags.class, combinedFlags, ActorFlags::getValue), variant, mark_variant, buf.readUuid());
+                return new ModelRequestPayload(identifier, EnumUtil.getEnumSetFromBitmask(ActorFlags.class, combinedFlags, ActorFlags::getValue), variant, mark_variant, buf.readUUID());
             }
 
             case ANIMATE -> {

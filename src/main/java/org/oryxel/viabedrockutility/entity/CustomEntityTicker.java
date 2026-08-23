@@ -60,8 +60,8 @@ public class CustomEntityTicker {
     public CustomEntityTicker(final EntityDefinitions.EntityDefinition entityDefinition) {
         final Minecraft client = Minecraft.getInstance();
         final EntityRendererProvider.Context context = new EntityRendererProvider.Context(client.getEntityRenderDispatcher(),
-                client.getItemModelManager(), client.getMapRenderer(), client.getBlockRenderManager(),
-                client.getResourceManager(), client.getLoadedEntityModels(), new EquipmentAssetManager(), client.textRenderer);
+                client.getItemModelResolver(), client.getMapRenderer(), client.getBlockRenderer(),
+                client.getResourceManager(), client.getEntityModels(), new EquipmentAssetManager(), client.font);
         this.renderer = new CustomEntityRenderer<>(this, new CopyOnWriteArrayList<>(), context);
 
         this.entityDefinition = entityDefinition;
@@ -158,7 +158,7 @@ public class CustomEntityTicker {
         final Set<String> old = new HashSet<>(this.availableModels);
         this.availableModels.clear();
         for (EvaluatedModel model : this.models) {
-            final Identifier texture = Identifier.fromNamespaceAndPath(model.textureValue().toLowerCase(Locale.ROOT));
+            final Identifier texture = Identifier.parse(model.textureValue().toLowerCase(Locale.ROOT));
 
             BedrockGeometryModel geometry = this.packManager.getModelDefinitions().getEntityModels().get(model.geometryValue());
             if (geometry == null) {

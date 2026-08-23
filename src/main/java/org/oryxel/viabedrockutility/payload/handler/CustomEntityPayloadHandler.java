@@ -32,10 +32,10 @@ public class CustomEntityPayloadHandler extends PayloadHandler {
 
         final EntityDefinitions.EntityDefinition definition = this.packManager.getEntityDefinitions().getEntities().get(payload.getIdentifier());
 
-        CustomEntityTicker ticker = this.cachedCustomEntities.get(payload.getUUID());
+        CustomEntityTicker ticker = this.cachedCustomEntities.get(payload.getUuid());
         if (ticker == null) {
             ticker = new CustomEntityTicker(definition);
-            this.cachedCustomEntities.put(payload.getUUID(), ticker);
+            this.cachedCustomEntities.put(payload.getUuid(), ticker);
         }
 
         ticker.setEntityFlags(payload.getEntityData().flags());
