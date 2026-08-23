@@ -3,6 +3,7 @@ package org.oryxel.viabedrockutility.entity;
 import lombok.Getter;
 import lombok.Setter;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.block.BlockModelResolver;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.resources.model.EquipmentAssetManager;
 import net.minecraft.resources.Identifier;
@@ -59,8 +60,10 @@ public class CustomEntityTicker {
 
     public CustomEntityTicker(final EntityDefinitions.EntityDefinition entityDefinition) {
         final Minecraft client = Minecraft.getInstance();
+        // 26.2 replaced the BlockRenderDispatcher argument with a BlockModelResolver,
+        // which the client does not hold onto, so build one from the model manager.
         final EntityRendererProvider.Context context = new EntityRendererProvider.Context(client.getEntityRenderDispatcher(),
-                client.getItemModelResolver(), client.getMapRenderer(), client.getBlockRenderer(),
+                new BlockModelResolver(client.getModelManager()), client.getItemModelResolver(), client.getMapRenderer(),
                 client.getResourceManager(), client.getEntityModels(), new EquipmentAssetManager(), client.getAtlasManager(), client.font, client.playerSkinRenderCache());
         this.renderer = new CustomEntityRenderer<>(this, new CopyOnWriteArrayList<>(), context);
 

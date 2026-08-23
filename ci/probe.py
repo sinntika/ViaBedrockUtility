@@ -34,20 +34,21 @@ VALIDATED_PREFIXES = (
 WIDTH = 600
 GRADLE_LOG = os.path.join(ROOT, "ci", "gradle.log")
 
-SIMPLE_NAMES = [
-    "BlockRenderDispatcher",
-    "BlockModelResolver",
-]
+SIMPLE_NAMES = []
 
-PACKAGE_LISTINGS = [
-    "net.minecraft.client.renderer.block",
-]
+PACKAGE_LISTINGS = []
 
 JAVAP = [
-    ("net.minecraft.client.renderer.block.BlockModelResolver", [], 25),
-    ("net.minecraft.client.Minecraft", ["Resolver", "Model"], 40),
-    ("net.minecraft.client.renderer.entity.EntityRendererProvider$Context", ["Context("], 6),
-    ("com.mojang.blaze3d.GpuFormat", [], 45),
+    (
+        "net.minecraft.client.Minecraft",
+        ["Atlas", "Skin", "MapRenderer", "ResourceManager", "Dispatcher", "Font"],
+        40,
+    ),
+    (
+        "net.minecraft.client.resources.model.EquipmentAssetManager",
+        ["EquipmentAssetManager("],
+        8,
+    ),
 ]
 
 # Classes outside the Minecraft jar, looked up across every cached dependency.
@@ -209,28 +210,29 @@ if SIMPLE_NAMES:
         found = hits + [n for n in nested if n not in hits]
         print("%s -> %s" % (simple.ljust(22), ", ".join(found[:6]) if found else "GONE"))
 
-print("")
-print("== PACKAGE LISTING ==")
-for pkg in PACKAGE_LISTINGS:
-    prefix = pkg.replace(".", "/") + "/"
-    names = sorted(
-        set(
-            e[len(prefix):]
-            for e in entries
-            if e.startswith(prefix)
-            and "/" not in e[len(prefix):]
-            and "$" not in e[len(prefix):]
+if PACKAGE_LISTINGS:
+    print("")
+    print("== PACKAGE LISTING ==")
+    for pkg in PACKAGE_LISTINGS:
+        prefix = pkg.replace(".", "/") + "/"
+        names = sorted(
+            set(
+                e[len(prefix):]
+                for e in entries
+                if e.startswith(prefix)
+                and "/" not in e[len(prefix):]
+                and "$" not in e[len(prefix):]
+            )
         )
-    )
-    print("-- %s (%d) --" % (pkg, len(names)))
-    line = "  "
-    for name in names:
-        if len(line) + len(name) > WIDTH:
+        print("-- %s (%d) --" % (pkg, len(names)))
+        line = "  "
+        for name in names:
+            if len(line) + len(name) > WIDTH:
+                print(line)
+                line = "  "
+            line += name + " "
+        if line.strip():
             print(line)
-            line = "  "
-        line += name + " "
-    if line.strip():
-        print(line)
 
 # Look up classes and packages that live in other dependencies, e.g. Fabric API.
 located = {}
