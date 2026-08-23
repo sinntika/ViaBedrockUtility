@@ -1,196 +1,139 @@
-commit:  0f285f96f878b67a3156e412d3a13e1f68402795
-run_id:  32626989364
+commit:  d37b1c663a9e7011924e4fad2baa57e0b10cc13e
+run_id:  32627328725
 outcome: failure
 
 ===== RENAME =====
-rewrote 0 files
-renamed file AnimationHelper.java -> KeyframeAnimations.java
-renamed 1 files
+loaded mappings.tsv
+loaded mappings2.tsv
+rewrote 19 files
+renamed 0 files
 
 ===== COMPILE ERRORS =====
-unique errors: 65
-payload/PayloadHandler.java:12: cannot find symbol
-payload/PayloadHandler.java:15: cannot find symbol
-payload/PayloadHandler.java:16: cannot find symbol
-pack/definitions/EntityDefinitions.java:5: cannot find symbol
-material/data/Material.java:18: cannot find symbol
+unique errors: 22
 material/data/Material.java:26: cannot find symbol
 material/data/Material.java:84: cannot find symbol
 material/data/Material.java:165: cannot find symbol
 material/data/Material.java:75: cannot find symbol
-pack/definitions/EntityDefinitions.java:34: cannot find symbol
-payload/BasePayload.java:8: cannot find symbol
 payload/BasePayload.java:23: cannot find symbol
 payload/BasePayload.java:87: cannot find symbol
-entity/CustomEntityTicker.java:8: cannot find symbol
-payload/PayloadHandler.java:41: cannot find symbol
-payload/impl/skin/CapeDataPayload.java:7: cannot find symbol
-payload/impl/skin/CapeDataPayload.java:32: cannot find symbol
-payload/impl/skin/CapeDataPayload.java:13: cannot find symbol
-renderer/CustomEntityRenderer.java:10: cannot find symbol
-renderer/CustomEntityRenderer.java:86: cannot find symbol
 renderer/CustomEntityRenderer.java:37: cannot find symbol
 renderer/CustomEntityRenderer.java:63: cannot find symbol
 material/data/Material.java:17: package net.minecraft.client.render does not exist
 renderer/CustomEntityRenderer.java:4: package net.minecraft.client.render does not exist
-pack/processor/TextureProcessor.java:6: cannot find symbol
-mixin/impl/accessor/PlayerSkinFieldAccessor.java:4: cannot find symbol
-mixin/impl/accessor/PlayerSkinFieldAccessor.java:15: cannot find symbol
-mixin/impl/entity/player/AbstractClientPlayerMixin.java:6: cannot find symbol
-mixin/impl/entity/player/AbstractClientPlayerMixin.java:9: cannot find symbol
 mixin/impl/entity/player/AbstractClientPlayerMixin.java:10: cannot find symbol
 mixin/impl/entity/player/AbstractClientPlayerMixin.java:22: cannot find symbol
-mixin/impl/entity/player/AbstractClientPlayerMixin.java:27: cannot find symbol
-mixin/impl/entity/EntityMixin.java:4: package net.minecraft.entity.decoration does not exist
-mixin/impl/pack/ServerResourcePackLoaderMixin.java:3: package net.minecraft.client.resource.server does not exist
-mixin/impl/pack/ServerResourcePackLoaderMixin.java:23: package ReloadScheduler does not exist
-mixin/impl/network/ClientLoginNetworkHandlerMixin.java:5: cannot find symbol
-mixin/impl/network/ClientLoginNetworkHandlerMixin.java:6: package net.minecraft.network.packet.c2s.common does not exist
-mixin/impl/network/ClientLoginNetworkHandlerMixin.java:7: package net.minecraft.network.packet.s2c.login does not exist
-mixin/impl/network/ClientLoginNetworkHandlerMixin.java:8: cannot find symbol
-mixin/impl/network/ClientLoginNetworkHandlerMixin.java:25: cannot find symbol
+mixin/impl/network/ClientLoginNetworkHandlerMixin.java:7: cannot find symbol
 mixin/impl/network/ClientLoginNetworkHandlerMixin.java:28: cannot find symbol
-mixin/impl/network/ClientPlayNetworkHandlerMixin.java:6: package net.minecraft.util.hit does not exist
 mixin/impl/network/ClientPlayNetworkHandlerMixin.java:7: package net.minecraft.util.hit does not exist
-mixin/impl/render/feature/CapeFeatureRendererMixin.java:3: cannot find symbol
-mixin/impl/render/feature/CapeFeatureRendererMixin.java:5: cannot find symbol
-mixin/impl/render/feature/CapeFeatureRendererMixin.java:19: cannot find symbol
-util/GeometryUtil.java:5: cannot find symbol
 util/GeometryUtil.java:135: package ModelPart does not exist
 util/GeometryUtil.java:132: cannot find symbol
-util/PlayerSkinBuilder.java:3: cannot find symbol
-util/PlayerSkinBuilder.java:4: cannot find symbol
-util/PlayerSkinBuilder.java:7: cannot find symbol
-util/PlayerSkinBuilder.java:9: cannot find symbol
-util/PlayerSkinBuilder.java:10: cannot find symbol
-util/PlayerSkinBuilder.java:11: package PlayerSkin does not exist
-util/PlayerSkinBuilder.java:14: cannot find symbol
-util/PlayerSkinBuilder.java:23: cannot find symbol
+util/PlayerSkinBuilder.java:11: cannot find symbol
 renderer/CustomPlayerRenderer.java:4: cannot find symbol
-renderer/CustomPlayerRenderer.java:5: cannot find symbol
 renderer/CustomPlayerRenderer.java:6: cannot find symbol
-renderer/CustomPlayerRenderer.java:7: cannot find symbol
 renderer/CustomPlayerRenderer.java:9: cannot find symbol
-renderer/CustomPlayerRenderer.java:10: cannot find symbol
-renderer/CustomPlayerRenderer.java:12: cannot find symbol
 renderer/CustomPlayerRenderer.java:23: cannot find symbol
 
 ===== CLASSPATH PROBE =====
-== JARS ==
-   6357 classes    32MB /home/runner/work/ViaBedrockUtility/ViaBedrockUtility/.gradle/loom-cache/minecraftMaven/net/minecraft/minecraft-merged-560387b4cf/1.21.11-loom.mappings.1_21_11.layered+hash.2198-v2/minecraft-merged-560387b4cf-1.21.11-loom.mappings.1_21_11.layered+hash.2198-v2.jar
-   6357 classes    32MB /home/runner/.gradle/caches/fabric-loom/minecraftMaven/net/minecraft/minecraft-merged/1.21.11-loom.mappings.1_21_11.layered+hash.2198-v2/minecraft-merged-1.21.11-loom.mappings.1_21_11.layered+hash.2198-v2.jar
-   6592 classes    30MB /home/runner/.gradle/caches/fabric-loom/minecraftMaven/net/minecraft/minecraft-merged-intermediary/1.21.11-loom.mappings.1_21_11.layered+hash.2198-v2/minecraft-merged-intermediary-1.21.11-loom.mappings.1_21_11.layered+hash.2198-v2.jar
+== JAR ==
+10291 classes  minecraft-merged-560387b4cf-1.21.11-loom.mappings.1_21_11.layered+hash.2198-v2.jar
+
+== BAD IMPORTS (10) ==
+com.mojang.brigadier.Command
+    -> NO CLASS NAMED Command
+    in org/oryxel/viabedrockutility/ViaBedrockUtility.java
+com.mojang.brigadier.arguments.StringArgumentType
+    -> NO CLASS NAMED StringArgumentType
+    in org/oryxel/viabedrockutility/mixin/impl/network/ClientPlayNetworkHandlerMixin.java
+net.minecraft.client.model
+    -> NO CLASS NAMED model
+    in org/oryxel/viabedrockutility/util/GeometryUtil.java
+net.minecraft.client.render
+    -> NO CLASS NAMED render
+    in org/oryxel/viabedrockutility/material/data/Material.java, org/oryxel/viabedrockutility/renderer/CustomEntityRenderer.java
+net.minecraft.client.renderer.RenderStateShard
+    -> NO CLASS NAMED RenderStateShard
+    in org/oryxel/viabedrockutility/material/data/Material.java
+net.minecraft.client.renderer.entity.player.PlayerRenderer
+    -> NO CLASS NAMED PlayerRenderer
+    in org/oryxel/viabedrockutility/renderer/CustomPlayerRenderer.java
+net.minecraft.client.renderer.entity.state.PlayerRenderState
+    -> NO CLASS NAMED PlayerRenderState
+    in org/oryxel/viabedrockutility/renderer/CustomPlayerRenderer.java
+net.minecraft.network.protocol.login.ClientboundGameProfilePacket
+    -> NO CLASS NAMED ClientboundGameProfilePacket
+    in org/oryxel/viabedrockutility/mixin/impl/network/ClientLoginNetworkHandlerMixin.java
+net.minecraft.util.hit.HitResult
+    -> net.minecraft.world.phys.HitResult
+    in org/oryxel/viabedrockutility/mixin/impl/network/ClientPlayNetworkHandlerMixin.java
+net.minecraft.world.World
+    -> NO CLASS NAMED World
+    in org/oryxel/viabedrockutility/mixin/impl/entity/player/AbstractClientPlayerMixin.java
 
 == NAME LOOKUP ==
-ResourceLocation                   MISSING
-Minecraft                          net/minecraft/client/Minecraft
-PlayerModel                        net/minecraft/client/model/player/PlayerModel
-PlayerSkin                         net/minecraft/world/entity/player/PlayerSkin
-RenderStateShard                   MISSING
-RenderType                         net/minecraft/client/renderer/rendertype/RenderType
-RenderPipelines                    net/minecraft/client/renderer/RenderPipelines
-PoseStack                          MISSING
-MultiBufferSource                  net/minecraft/client/renderer/MultiBufferSource
-VertexConsumer                     MISSING
-ModelPart                          net/minecraft/client/model/geom/ModelPart
-CubeDeformation                    net/minecraft/client/model/geom/builders/CubeDeformation
-MeshDefinition                     net/minecraft/client/model/geom/builders/MeshDefinition
-CubeListBuilder                    net/minecraft/client/model/geom/builders/CubeListBuilder
-PartDefinition                     net/minecraft/client/model/geom/builders/PartDefinition
-PartPose                           net/minecraft/client/model/geom/PartPose
-LayerDefinition                    net/minecraft/client/model/geom/builders/LayerDefinition
-EntityModel                        net/minecraft/client/model/EntityModel
-EntityRenderer                     net/minecraft/client/renderer/entity/EntityRenderer
-EntityRendererProvider             net/minecraft/client/renderer/entity/EntityRendererProvider
-EntityRenderDispatcher             net/minecraft/client/renderer/entity/EntityRenderDispatcher
-LivingEntityRenderer               net/minecraft/client/renderer/entity/LivingEntityRenderer
-PlayerRenderer                     MISSING
-CapeLayer                          net/minecraft/client/renderer/entity/layers/CapeLayer
-EntityRenderState                  net/minecraft/client/renderer/entity/state/EntityRenderState
-LivingEntityRenderState            net/minecraft/client/renderer/entity/state/LivingEntityRenderState
-PlayerRenderState                  MISSING
-ClientLevel                        net/minecraft/client/multiplayer/ClientLevel
-LocalPlayer                        net/minecraft/client/player/LocalPlayer
-AbstractClientPlayer               net/minecraft/client/player/AbstractClientPlayer
-ClientPacketListener               net/minecraft/client/multiplayer/ClientPacketListener
-ClientHandshakePacketListenerImpl  net/minecraft/client/multiplayer/ClientHandshakePacketListenerImpl
-PlayerInfo                         net/minecraft/client/multiplayer/PlayerInfo
-FriendlyByteBuf                    net/minecraft/network/FriendlyByteBuf
-StreamCodec                        net/minecraft/network/codec/StreamCodec
-StreamDecoder                      net/minecraft/network/codec/StreamDecoder
-StreamEncoder                      net/minecraft/network/codec/StreamEncoder
-CustomPacketPayload                net/minecraft/network/protocol/common/custom/CustomPacketPayload
-Commands                           net/minecraft/commands/Commands
-Vec3                               net/minecraft/world/phys/Vec3
-Mth                                net/minecraft/util/Mth
-BlockPos                           net/minecraft/core/BlockPos
-Direction                          net/minecraft/core/Direction
-Vec3i                              net/minecraft/core/Vec3i
-Axis                               MISSING
-LightTexture                       net/minecraft/client/renderer/LightTexture
-DeltaTracker                       net/minecraft/client/DeltaTracker
-OverlayTexture                     net/minecraft/client/renderer/texture/OverlayTexture
-Frustum                            net/minecraft/client/renderer/culling/Frustum
-NativeImage                        MISSING
-DynamicTexture                     net/minecraft/client/renderer/texture/DynamicTexture
-TextureManager                     net/minecraft/client/renderer/texture/TextureManager
-AbstractTexture                    net/minecraft/client/renderer/texture/AbstractTexture
-DefaultPlayerSkin                  net/minecraft/client/resources/DefaultPlayerSkin
-LevelEntityGetter                  net/minecraft/world/level/entity/LevelEntityGetter
-Entity                             net/minecraft/world/entity/Entity
-EntityType                         net/minecraft/world/entity/EntityType
-LivingEntity                       net/minecraft/world/entity/LivingEntity
-Player                             net/minecraft/world/entity/player/Player
-Screen                             net/minecraft/client/gui/screens/Screen
-EquipmentAssetManager              net/minecraft/client/resources/model/EquipmentAssetManager
-EquipmentClientInfo                net/minecraft/client/resources/model/EquipmentClientInfo
-EquipmentLayerRenderer             net/minecraft/client/renderer/entity/layers/EquipmentLayerRenderer
-KeyframeAnimations                 net/minecraft/client/animation/KeyframeAnimations
-AnimationDefinition                net/minecraft/client/animation/AnimationDefinition
-Keyframe                           net/minecraft/client/animation/Keyframe  net/minecraft/util/Keyframe
-AnimationChannel                   net/minecraft/client/animation/AnimationChannel
-DownloadedPackSource               net/minecraft/client/resources/server/DownloadedPackSource
-ResourceManager                    net/minecraft/server/packs/resources/ResourceManager
-PackResources                      net/minecraft/server/packs/PackResources
-PackType                           net/minecraft/server/packs/PackType
-Pack                               net/minecraft/server/packs/repository/Pack
-Util                               net/minecraft/util/Util
-BlockHitResult                     net/minecraft/world/phys/BlockHitResult
-EntityHitResult                    net/minecraft/world/phys/EntityHitResult
-Display                            net/minecraft/world/entity/Display
-Identifier                         net/minecraft/resources/Identifier
-MinecraftClient                    MISSING
+PlayerRenderer                   MISSING
+PlayerRenderState                MISSING
+AvatarRenderer                   net.minecraft.client.renderer.entity.player.AvatarRenderer
+AvatarRenderState                net.minecraft.client.renderer.entity.state.AvatarRenderState
+PlayerModel                      net.minecraft.client.model.player.PlayerModel
+PlayerSkin                       net.minecraft.world.entity.player.PlayerSkin
+PoseStack                        com.mojang.blaze3d.vertex.PoseStack
+VertexConsumer                   com.mojang.blaze3d.vertex.VertexConsumer
+NativeImage                      com.mojang.blaze3d.platform.NativeImage
+Axis                             com.mojang.math.Axis
+RenderStateShard                 MISSING
+RenderPipeline                   com.mojang.blaze3d.pipeline.RenderPipeline
+RenderPipelines                  net.minecraft.client.renderer.RenderPipelines
+RenderType                       net.minecraft.client.renderer.rendertype.RenderType
+Identifier                       net.minecraft.resources.Identifier
+Connection                       net.minecraft.network.Connection  net.minecraft.server.jsonrpc.Connection
+ServerboundCustomPayloadPacket   net.minecraft.network.protocol.common.ServerboundCustomPayloadPacket
+ClientboundGameProfilePacket     MISSING
+PackReloadConfig                 net.minecraft.client.resources.server.PackReloadConfig
+Display                          net.minecraft.world.entity.Display
+ItemDisplay                      MISSING
+SkinManager                      net.minecraft.client.resources.SkinManager
+PlayerSkinRenderCache            net.minecraft.client.renderer.PlayerSkinRenderCache
+EquipmentAssetManager            net.minecraft.client.resources.model.EquipmentAssetManager
+DynamicTexture                   net.minecraft.client.renderer.texture.DynamicTexture
+CustomPacketPayload              net.minecraft.network.protocol.common.custom.CustomPacketPayload
+StreamCodec                      net.minecraft.network.codec.StreamCodec
+EntityRenderDispatcher           net.minecraft.client.renderer.entity.EntityRenderDispatcher
+CapeLayer                        net.minecraft.client.renderer.entity.layers.CapeLayer
+LevelEntityGetter                net.minecraft.world.level.entity.LevelEntityGetter
 
 == PACKAGE DUMPS ==
--- net/minecraft/resources (11) --
-  DelegatingOps DependantName FileToIdConverter HolderSetCodec Identifier RegistryDataLoader RegistryFileCodec RegistryFixedCodec RegistryOps ResourceKey package-info
+-- net/minecraft/client/renderer/entity (134) --
+  AbstractBoatRenderer AbstractHoglinRenderer AbstractHorseRenderer AbstractMinecartRenderer AbstractSkeletonRenderer AbstractZombieRenderer AgeableMobRenderer AllayRenderer ArmadilloRenderer ArmorModelSet ArmorStandRenderer ArrowRenderer AxolotlRenderer BatRenderer BeeRenderer BlazeRenderer BoatRenderer BoggedRenderer BreezeRenderer CamelHuskRenderer CamelRenderer CatRenderer CaveSpiderRenderer ChickenRenderer CodRenderer CopperGolemRenderer CowRenderer CreakingRenderer CreeperRenderer DisplayRenderer DolphinRenderer DonkeyRenderer DragonFireballRenderer DrownedRenderer ElderGuardianRenderer EndCrystalRenderer EnderDragonRenderer EndermanRenderer EndermiteRenderer EntityRenderDispatcher EntityRenderer EntityRendererProvider EntityRenderers EvokerFangsRenderer EvokerRenderer ExperienceOrbRenderer FallingBlockRenderer FireworkEntityRenderer FishingHookRenderer FoxRenderer FrogRenderer GhastRenderer GiantMobRenderer GlowSquidRenderer GoatRenderer GuardianRenderer HappyGhastRenderer HoglinRenderer HorseRenderer HumanoidMobRenderer HuskRenderer IllagerRenderer IllusionerRenderer IronGolemRenderer ItemEntityRenderer ItemFrameRenderer ItemRenderer LeashKnotRenderer LightningBoltRenderer LivingEntityRenderer LlamaRenderer LlamaSpitRenderer MagmaCubeRenderer MinecartRenderer MobRenderer MushroomCowRenderer NautilusRenderer NoopRenderer OcelotRenderer OminousItemSpawnerRenderer PaintingRenderer PandaRenderer ParchedRenderer ParrotRenderer PhantomRenderer PigRenderer PiglinRenderer PillagerRenderer PolarBearRenderer PufferfishRenderer
 
--- net/minecraft/client (36) --
-  AttackIndicatorStatus Camera CameraType ClientBootstrap ClientBrandRetriever ClientRecipeBook CloudStatus CommandHistory ComponentCollector DebugQueryHandler DeltaTracker GameNarrator GraphicsPreset GuiMessage GuiMessageTag HotbarManager InactivityFpsLimit InputType KeyMapping KeyboardHandler Minecraft MouseHandler MusicToastDisplayState NarratorStatus OptionInstance Options PeriodicNotificationManager PrioritizeChunkUpdates ResourceLoadStateTracker Screenshot ScrollWheelHandler StringSplitter TextureFilteringMethod ToggleKeyMapping User package-info
+-- net/minecraft/client/renderer/entity/state (101) --
+  AllayRenderState ArmadilloRenderState ArmedEntityRenderState ArmorStandRenderState ArrowRenderState AvatarRenderState AxolotlRenderState BatRenderState BeeRenderState BlockDisplayEntityRenderState BoatRenderState BoggedRenderState BreezeRenderState CamelRenderState CatRenderState ChickenRenderState CopperGolemRenderState CowRenderState CreakingRenderState CreeperRenderState DisplayEntityRenderState DolphinRenderState DonkeyRenderState EndCrystalRenderState EnderDragonRenderState EndermanRenderState EntityRenderState EquineRenderState EvokerFangsRenderState EvokerRenderState ExperienceOrbRenderState FallingBlockRenderState FelineRenderState FireworkRocketRenderState FishingHookRenderState FoxRenderState FrogRenderState GhastRenderState GoatRenderState GuardianRenderState HappyGhastRenderState HitboxRenderState HoglinRenderState HoldingEntityRenderState HorseRenderState HumanoidRenderState IllagerRenderState IllusionerRenderState IronGolemRenderState ItemClusterRenderState ItemDisplayEntityRenderState ItemEntityRenderState ItemFrameRenderState LightningBoltRenderState LivingEntityRenderState LlamaRenderState LlamaSpitRenderState MinecartRenderState MinecartTntRenderState MushroomCowRenderState NautilusRenderState PaintingRenderState PandaRenderState ParrotRenderState PhantomRenderState PigRenderState PiglinRenderState PolarBearRenderState PufferfishRenderState RabbitRenderState RavagerRenderState SalmonRenderState SheepRenderState ShulkerBulletRenderState ShulkerRenderState SkeletonRenderState SlimeRenderState SnifferRenderState SnowGolemRenderState SquidRenderState StriderRenderState TextDisplayEntityRenderState ThrownItemRenderState ThrownTridentRenderState TippableArrowRenderState TntRenderState TropicalFishRenderState TurtleRenderState UndeadRenderState VexRenderState
 
--- net/minecraft/client/model (11) --
-  AdultAndBabyModelPair AnimationUtils ArmedModel BabyModelTransform EntityModel HeadedModel HumanoidModel Model QuadrupedModel VillagerLikeModel package-info
+-- net/minecraft/client/renderer/entity/player (2) --
+  AvatarRenderer package-info
 
--- net/minecraft/client/renderer (56) --
-  BiomeColors CachedOrthoProjectionMatrixBuffer CachedPerspectiveProjectionMatrixBuffer CloudRenderer CubeMap DynamicUniformStorage DynamicUniforms EndFlashState FaceInfo GameRenderer GlobalSettingsUniform GpuWarnlistManager ItemBlockRenderTypes ItemInHandRenderer LevelEventHandler LevelRenderer LevelTargetBundle LightTexture MapRenderer MappableRingBuffer MaterialMapper MultiBufferSource Octree OrderedSubmitNodeCollector OutlineBufferSource PanoramaRenderer PanoramicScreenshotParameters PerspectiveProjectionMatrixBuffer PlayerSkinRenderCache PostChain PostChainConfig PostPass Rect2i RenderBuffers RenderPipelines RunningTrimmedMean ScreenEffectRenderer SectionBufferBuilderPack SectionBufferBuilderPool SectionOcclusionGraph ShaderDefines ShaderManager ShapeRenderer Sheets SkyRenderer SpecialBlockModelRenderer SpriteCoordinateExpander SubmitNodeCollection SubmitNodeCollector SubmitNodeStorage UniformValue ViewArea VirtualScreen WeatherEffectRenderer WorldBorderRenderer package-info
+-- net/minecraft/client/renderer/rendertype (7) --
+  LayeringTransform OutputTarget RenderSetup RenderType RenderTypes TextureTransform package-info
 
--- net/minecraft/client/resources (13) --
-  ClientPackSource DefaultPlayerSkin DryFoliageColorReloadListener FoliageColorReloadListener GrassColorReloadListener IndexedAssetSource LegacyStuffWrapper MapTextureManager SkinManager SplashManager WaypointStyle WaypointStyleManager package-info
+-- net/minecraft/client/resources/server (6) --
+  DownloadedPackSource PackDownloader PackLoadFeedback PackReloadConfig ServerPackManager package-info
+
+-- com/mojang/blaze3d/vertex (14) --
+  BufferBuilder ByteBufferBuilder CompactVectorArray DefaultVertexFormat MeshData PoseStack SheetedDecalTextureGenerator Tesselator VertexConsumer VertexFormat VertexFormatElement VertexMultiConsumer VertexSorting package-info
 
 
 ===== TAIL =====
-    public ResourceLocation getTexture(PlayerRenderState playerEntityRenderState) {
-                                       ^
+/home/runner/work/ViaBedrockUtility/ViaBedrockUtility/src/main/java/org/oryxel/viabedrockutility/renderer/CustomPlayerRenderer.java:9: error: cannot find symbol
+public class CustomPlayerRenderer extends PlayerRenderer {
+                                          ^
+  symbol: class PlayerRenderer
+/home/runner/work/ViaBedrockUtility/ViaBedrockUtility/src/main/java/org/oryxel/viabedrockutility/renderer/CustomPlayerRenderer.java:23: error: cannot find symbol
+    public Identifier getTexture(PlayerRenderState playerEntityRenderState) {
+                                 ^
   symbol:   class PlayerRenderState
   location: class CustomPlayerRenderer
-/home/runner/work/ViaBedrockUtility/ViaBedrockUtility/src/main/java/org/oryxel/viabedrockutility/renderer/CustomPlayerRenderer.java:23: error: cannot find symbol
-    public ResourceLocation getTexture(PlayerRenderState playerEntityRenderState) {
-           ^
-  symbol:   class ResourceLocation
-  location: class CustomPlayerRenderer
-74 errors
+24 errors
 	... 30 more
 
 
-BUILD FAILED in 1m 10s
+BUILD FAILED in 1m 11s
 5 actionable tasks: 5 executed
