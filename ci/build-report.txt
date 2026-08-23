@@ -1,5 +1,5 @@
-commit:  e102f2f128d1a714b959f6d7ecf0987139736325
-run_id:  32632171600
+commit:  72918c824b6bbacf47e7ef08153ac3086f89d872
+run_id:  32632373291
 outcome: success
 
 ===== RENAME =====
@@ -25,16 +25,14 @@ unique errors: 0
 
 == STALE MIXIN TARGETS ==
   Cannot remap modifiers because it does not exist in any of the targets [] or their parents.
-  Cannot remap toProfiles because it does not exist in any of the targets [net/minecraft/client/resources/server/DownloadedPackSource]
-  Cannot remap sendChatMessage because it does not exist in any of the targets [net/minecraft/client/multiplayer/ClientPacketListener]
 
 == SOURCE GREP ==
 -- modifiers (0) --
 -- toProfiles (2) --
-   src/main/java/org/oryxel/viabedrockutility/mixin/impl/pack/ServerResourcePackLoaderMixin.java:22  @Inject(method = "toProfiles", at = @At("HEAD"))
-   src/main/java/org/oryxel/viabedrockutility/mixin/impl/pack/ServerResourcePackLoaderMixin.java:23  private void toProfiles(List<PackReloadConfig.IdAndPath> packs, CallbackInfoReturnable<List<Pack>> cir) {
+   src/main/java/org/oryxel/viabedrockutility/mixin/impl/pack/ServerResourcePackLoaderMixin.java:22  // 1.21.11: toProfiles is now loadRequestedPacks.
+   src/main/java/org/oryxel/viabedrockutility/mixin/impl/pack/ServerResourcePackLoaderMixin.java:24  private void toProfiles(List<PackReloadConfig.IdAndPath> packs, CallbackInfoReturnable<List<Pack>> cir) {
 -- sendChatMessage (1) --
-   src/main/java/org/oryxel/viabedrockutility/mixin/impl/network/ClientPlayNetworkHandlerMixin.java:21  @Inject(method = "sendChatMessage", at = @At("HEAD"), cancellable = true)
+   src/main/java/org/oryxel/viabedrockutility/mixin/impl/network/ClientPlayNetworkHandlerMixin.java:21  // 1.21.11: sendChatMessage is now sendChat.
 
 == FQN CHECK ==
 net.minecraft.client.resources.server.DownloadedPackSource    OK
@@ -105,12 +103,12 @@ net.minecraft.client.resources.server.PackReloadConfig        OK
    ... (truncated)
 
 ===== TAIL =====
+> Task :compileTestJava
+> Task :processTestResources NO-SOURCE
 > Task :testClasses
 > Task :test
 > Task :validateAccessWidener
 > Task :check
-Cannot remap toProfiles because it does not exist in any of the targets [net/minecraft/client/resources/server/DownloadedPackSource]
-Cannot remap sendChatMessage because it does not exist in any of the targets [net/minecraft/client/multiplayer/ClientPacketListener]
 > Task :remapJar
 > Task :remapSourcesJar SKIPPED
 > Task :assemble
@@ -118,5 +116,5 @@ Cannot remap sendChatMessage because it does not exist in any of the targets [ne
 
 [Incubating] Problems report is available at: file:///home/runner/work/ViaBedrockUtility/ViaBedrockUtility/build/reports/problems/problems-report.html
 
-BUILD SUCCESSFUL in 1m 29s
+BUILD SUCCESSFUL in 1m 17s
 12 actionable tasks: 12 executed
