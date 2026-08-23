@@ -3,12 +3,12 @@ package org.oryxel.viabedrockutility.renderer;
 import lombok.Getter;
 import net.minecraft.client.renderer.rendertype.RenderType;
 import net.minecraft.client.renderer.rendertype.RenderTypes;
-import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.culling.Frustum;
 import net.minecraft.client.renderer.RenderPipelines;
 import net.minecraft.client.renderer.LightTexture;
+import net.minecraft.client.renderer.SubmitNodeCollector;
+import net.minecraft.client.renderer.state.CameraRenderState;
 import net.minecraft.client.renderer.texture.OverlayTexture;
-import com.mojang.blaze3d.vertex.VertexConsumer;
 import net.minecraft.client.renderer.entity.EntityRenderer;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.state.EntityRenderState;
@@ -40,8 +40,10 @@ public class CustomEntityRenderer<T extends Entity> extends EntityRenderer<T, Cu
         this.ticker = ticker;
     }
 
+    // 1.21.11 replaced direct rendering with a submit pass: geometry is handed to
+    // a collector instead of writing into a VertexConsumer here.
     @Override
-    public void render(CustomEntityRenderState state, PoseStack matrices, MultiBufferSource vertexConsumers, int light) {
+    public void submit(CustomEntityRenderState state, PoseStack matrices, SubmitNodeCollector collector, CameraRenderState cameraState) {
         for (Model model : this.models) {
             matrices.pushPose();
 
@@ -58,8 +60,7 @@ public class CustomEntityRenderer<T extends Entity> extends EntityRenderer<T, Cu
 
             RenderType renderLayer = model.material.info().getVariants().get("skinning_color").build().apply(model.texture);
             if (renderLayer != null) {
-                VertexConsumer vertexConsumer = vertexConsumers.getBuffer(renderLayer);
-                model.model.renderToBuffer(matrices, vertexConsumer, light, OverlayTexture.pack(0, 10));
+                collector.submitModel(model.model(), state, matrices, renderLayer, state.lightCoords, OverlayTexture.pack(0, 10), -1, null);
             }
 
             matrices.popPose();

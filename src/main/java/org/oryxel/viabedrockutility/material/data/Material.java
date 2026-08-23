@@ -15,6 +15,7 @@ import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
+import net.minecraft.client.renderer.rendertype.RenderSetup;
 import net.minecraft.client.renderer.rendertype.RenderType;
 import net.minecraft.client.renderer.rendertype.RenderTypes;
 import net.minecraft.client.renderer.MultiBufferSource;
@@ -24,7 +25,6 @@ import net.minecraft.client.renderer.LightTexture;
 import net.minecraft.client.renderer.texture.OverlayTexture;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import net.minecraft.resources.Identifier;
-import net.minecraft.util.TriState;
 import net.minecraft.util.Util;
 
 import java.util.*;
@@ -287,14 +287,17 @@ public record Material(String identifier, String baseIdentifier, MaterialInfo in
                     builder.withShaderDefine("EMISSIVE");
                 }
 
-                final RenderType.MultiPhaseParameters.Builder renderLayerBuilder = RenderType.MultiPhaseParameters.builder();
+                // 1.21.11: RenderType.MultiPhaseParameters is gone, a render type is
+                // now a pipeline plus a RenderSetup that binds the samplers.
+                final RenderSetup.RenderSetupBuilder renderSetupBuilder = RenderSetup.builder(builder.build());
                 if (!this.defines.contains("NO_TEXTURE")) {
-                    renderLayerBuilder.texture(new Texture(texture, TriState.FALSE, false));
+                    renderSetupBuilder.withTexture("Sampler0", texture);
                 }
 
-                renderLayerBuilder.lightmap(ENABLE_LIGHTMAP);
-                renderLayerBuilder.overlay(ENABLE_OVERLAY_COLOR);
-                return RenderType.of("custom", 1536, true, true, builder.build(), renderLayerBuilder.build(false));
+                renderSetupBuilder.useLightmap();
+                renderSetupBuilder.useOverlay();
+                renderSetupBuilder.bufferSize(1536);
+                return RenderType.create("custom", renderSetupBuilder.createRenderSetup());
             }));
 
         }
