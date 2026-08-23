@@ -1,828 +1,134 @@
-commit:  a0fddaf00fdef1a695b872f4dfaa324516aedf65
-run_id:  32626091422
+commit:  6ef4ec82181bece022ed9f71bcf7ed779da60591
+run_id:  32626560024
 outcome: failure
-errors:  300
 
-===== ERROR SUMMARY =====
-src/main/java/org/oryxel/viabedrockutility/ViaBedrockUtility.java:9: error: package net.minecraft.server.command does not exist
-src/main/java/org/oryxel/viabedrockutility/payload/PayloadHandler.java:6: error: cannot find symbol
-  symbol:   class MinecraftClient
-  location: package net.minecraft.client
-src/main/java/org/oryxel/viabedrockutility/payload/PayloadHandler.java:7: error: cannot find symbol
-  symbol:   class Dilation
-  location: package net.minecraft.client.model
-src/main/java/org/oryxel/viabedrockutility/payload/PayloadHandler.java:8: error: package net.minecraft.client.network does not exist
-src/main/java/org/oryxel/viabedrockutility/payload/PayloadHandler.java:9: error: package net.minecraft.client.render.entity does not exist
-src/main/java/org/oryxel/viabedrockutility/payload/PayloadHandler.java:10: error: package net.minecraft.client.render.entity does not exist
-src/main/java/org/oryxel/viabedrockutility/payload/PayloadHandler.java:11: error: package net.minecraft.client.render.entity.equipment does not exist
-src/main/java/org/oryxel/viabedrockutility/payload/PayloadHandler.java:12: error: package net.minecraft.client.render.entity.model does not exist
-src/main/java/org/oryxel/viabedrockutility/payload/PayloadHandler.java:13: error: package net.minecraft.client.texture does not exist
-src/main/java/org/oryxel/viabedrockutility/payload/PayloadHandler.java:14: error: package net.minecraft.client.texture does not exist
-src/main/java/org/oryxel/viabedrockutility/payload/PayloadHandler.java:15: error: package net.minecraft.client.util does not exist
-src/main/java/org/oryxel/viabedrockutility/payload/PayloadHandler.java:16: error: cannot find symbol
-  symbol:   class Identifier
-  location: package net.minecraft.util
-src/main/java/org/oryxel/viabedrockutility/pack/definitions/EntityDefinitions.java:5: error: cannot find symbol
-  symbol:   class Identifier
-  location: package net.minecraft.util
-src/main/java/org/oryxel/viabedrockutility/animation/vanilla/AnimateTransformation.java:3: error: cannot find symbol
-  symbol:   class ModelPart
-  location: package net.minecraft.client.model
-src/main/java/org/oryxel/viabedrockutility/animation/vanilla/AnimateTransformation.java:4: error: package net.minecraft.client.render.entity.animation does not exist
-src/main/java/org/oryxel/viabedrockutility/animation/vanilla/AnimateTransformation.java:5: error: package net.minecraft.util.math does not exist
-src/main/java/org/oryxel/viabedrockutility/animation/vanilla/AnimateTransformation.java:53: error: cannot find symbol
-  symbol:   class ModelPart
-  location: interface Target
-src/main/java/org/oryxel/viabedrockutility/material/data/Material.java:18: error: cannot find symbol
-  symbol:   class Identifier
-  location: package net.minecraft.util
-src/main/java/org/oryxel/viabedrockutility/material/data/Material.java:25: error: package net.minecraft.client.gl does not exist
-src/main/java/org/oryxel/viabedrockutility/material/data/Material.java:25: error: static import only from classes and interfaces
-src/main/java/org/oryxel/viabedrockutility/material/data/Material.java:26: error: package net.minecraft.client.render does not exist
-src/main/java/org/oryxel/viabedrockutility/material/data/Material.java:84: error: cannot find symbol
-  symbol:   class Identifier
-  location: class MaterialInfo
-src/main/java/org/oryxel/viabedrockutility/material/data/Material.java:84: error: cannot find symbol
-  symbol:   class RenderLayer
-  location: class MaterialInfo
-src/main/java/org/oryxel/viabedrockutility/material/data/Material.java:165: error: cannot find symbol
-  symbol:   class Identifier
-  location: class MaterialInfo
-src/main/java/org/oryxel/viabedrockutility/material/data/Material.java:165: error: cannot find symbol
-  symbol:   class RenderLayer
-  location: class MaterialInfo
-src/main/java/org/oryxel/viabedrockutility/material/data/Material.java:84: error: cannot find symbol
-  symbol:   class Identifier
-  location: class MaterialInfo
-src/main/java/org/oryxel/viabedrockutility/material/data/Material.java:75: error: cannot find symbol
-  symbol:   class Identifier
-  location: class MaterialInfo
-src/main/java/org/oryxel/viabedrockutility/pack/definitions/EntityDefinitions.java:34: error: cannot find symbol
-  symbol:   class Identifier
-  location: class EntityDefinition
-src/main/java/org/oryxel/viabedrockutility/payload/BasePayload.java:5: error: cannot find symbol
-  symbol:   class PacketByteBuf
-  location: package net.minecraft.network
-src/main/java/org/oryxel/viabedrockutility/payload/BasePayload.java:6: error: cannot find symbol
-  symbol:   class PacketCodec
-  location: package net.minecraft.network.codec
-src/main/java/org/oryxel/viabedrockutility/payload/BasePayload.java:7: error: package net.minecraft.network.packet does not exist
-src/main/java/org/oryxel/viabedrockutility/payload/BasePayload.java:8: error: cannot find symbol
-  symbol:   class Identifier
-  location: package net.minecraft.util
-src/main/java/org/oryxel/viabedrockutility/payload/BasePayload.java:22: error: cannot find symbol
-  symbol: class CustomPayload
-src/main/java/org/oryxel/viabedrockutility/payload/BasePayload.java:23: error: cannot find symbol
-  symbol:   class Id
-  location: class BasePayload
-src/main/java/org/oryxel/viabedrockutility/payload/BasePayload.java:25: error: cannot find symbol
-  symbol:   class PacketCodec
-  location: class BasePayload
-src/main/java/org/oryxel/viabedrockutility/payload/BasePayload.java:25: error: cannot find symbol
-  symbol:   class PacketByteBuf
-  location: class BasePayload
-src/main/java/org/oryxel/viabedrockutility/payload/BasePayload.java:87: error: cannot find symbol
-  symbol:   class Id
-  location: class BasePayload
-src/main/java/org/oryxel/viabedrockutility/payload/BasePayload.java:87: error: cannot find symbol
-  symbol:   class CustomPayload
-  location: class BasePayload
-src/main/java/org/oryxel/viabedrockutility/payload/BasePayload.java:91: error: cannot find symbol
-  symbol:   class PacketByteBuf
-  location: class BasePayload
-src/main/java/org/oryxel/viabedrockutility/entity/CustomEntityTicker.java:5: error: cannot find symbol
-  symbol:   class MinecraftClient
-  location: package net.minecraft.client
-src/main/java/org/oryxel/viabedrockutility/entity/CustomEntityTicker.java:6: error: package net.minecraft.client.render.entity does not exist
-src/main/java/org/oryxel/viabedrockutility/entity/CustomEntityTicker.java:7: error: package net.minecraft.client.render.entity.equipment does not exist
-src/main/java/org/oryxel/viabedrockutility/entity/CustomEntityTicker.java:8: error: cannot find symbol
-  symbol:   class Identifier
-  location: package net.minecraft.util
-src/main/java/org/oryxel/viabedrockutility/payload/PayloadHandler.java:40: error: cannot find symbol
-  symbol:   class EntityRenderer
-  location: class PayloadHandler
-src/main/java/org/oryxel/viabedrockutility/payload/PayloadHandler.java:41: error: cannot find symbol
-  symbol:   class Identifier
-  location: class PayloadHandler
-src/main/java/org/oryxel/viabedrockutility/payload/impl/skin/CapeDataPayload.java:5: error: cannot find symbol
-  symbol:   class PacketByteBuf
-  location: package net.minecraft.network
-src/main/java/org/oryxel/viabedrockutility/payload/impl/skin/CapeDataPayload.java:6: error: cannot find symbol
-  symbol:   class PacketDecoder
-  location: package net.minecraft.network.codec
-src/main/java/org/oryxel/viabedrockutility/payload/impl/skin/CapeDataPayload.java:7: error: cannot find symbol
-  symbol:   class Identifier
-  location: package net.minecraft.util
-src/main/java/org/oryxel/viabedrockutility/payload/impl/skin/SkinDataPayload.java:5: error: cannot find symbol
-  symbol:   class PacketByteBuf
-  location: package net.minecraft.network
-src/main/java/org/oryxel/viabedrockutility/payload/impl/skin/SkinDataPayload.java:6: error: cannot find symbol
-  symbol:   class PacketDecoder
-  location: package net.minecraft.network.codec
-src/main/java/org/oryxel/viabedrockutility/payload/PayloadHandler.java:40: error: cannot find symbol
-  symbol:   class EntityRenderer
-  location: class PayloadHandler
-src/main/java/org/oryxel/viabedrockutility/payload/PayloadHandler.java:41: error: cannot find symbol
-  symbol:   class Identifier
-  location: class PayloadHandler
-src/main/java/org/oryxel/viabedrockutility/payload/impl/skin/SkinDataPayload.java:14: error: cannot find symbol
-  symbol:   class PacketDecoder
-  location: class SkinDataPayload
-src/main/java/org/oryxel/viabedrockutility/payload/impl/skin/SkinDataPayload.java:14: error: cannot find symbol
-  symbol:   class PacketByteBuf
-  location: class SkinDataPayload
-src/main/java/org/oryxel/viabedrockutility/payload/impl/skin/CapeDataPayload.java:16: error: cannot find symbol
-  symbol:   class PacketDecoder
-  location: class CapeDataPayload
-src/main/java/org/oryxel/viabedrockutility/payload/impl/skin/CapeDataPayload.java:16: error: cannot find symbol
-  symbol:   class PacketByteBuf
-  location: class CapeDataPayload
-src/main/java/org/oryxel/viabedrockutility/payload/impl/skin/CapeDataPayload.java:32: error: cannot find symbol
-  symbol:   class Identifier
-  location: class CapeDataPayload
-src/main/java/org/oryxel/viabedrockutility/payload/impl/skin/CapeDataPayload.java:13: error: cannot find symbol
-  symbol:   class Identifier
-  location: class CapeDataPayload
-src/main/java/org/oryxel/viabedrockutility/payload/impl/skin/CapeDataPayload.java:32: error: cannot find symbol
-  symbol:   class Identifier
-  location: class CapeDataPayload
-src/main/java/org/oryxel/viabedrockutility/renderer/CustomEntityRenderer.java:5: error: package net.minecraft.client.render.entity does not exist
-src/main/java/org/oryxel/viabedrockutility/renderer/CustomEntityRenderer.java:6: error: package net.minecraft.client.render.entity does not exist
-src/main/java/org/oryxel/viabedrockutility/renderer/CustomEntityRenderer.java:7: error: package net.minecraft.client.render.entity.state does not exist
-src/main/java/org/oryxel/viabedrockutility/renderer/CustomEntityRenderer.java:8: error: package net.minecraft.client.util.math does not exist
-src/main/java/org/oryxel/viabedrockutility/renderer/CustomEntityRenderer.java:9: error: package net.minecraft.entity does not exist
-src/main/java/org/oryxel/viabedrockutility/renderer/CustomEntityRenderer.java:10: error: cannot find symbol
-  symbol:   class Identifier
-  location: package net.minecraft.util
-src/main/java/org/oryxel/viabedrockutility/renderer/CustomEntityRenderer.java:11: error: package net.minecraft.util.math does not exist
-src/main/java/org/oryxel/viabedrockutility/renderer/CustomEntityRenderer.java:24: error: cannot find symbol
-  symbol: class EntityRenderer
-src/main/java/org/oryxel/viabedrockutility/renderer/CustomEntityRenderer.java:90: error: cannot find symbol
-  symbol:   class EntityRenderState
-  location: class CustomEntityRenderer<T>
-src/main/java/org/oryxel/viabedrockutility/renderer/CustomEntityRenderer.java:24: error: cannot find symbol
-  symbol: class Entity
-src/main/java/org/oryxel/viabedrockutility/renderer/model/CustomEntityModel.java:4: error: cannot find symbol
-  symbol:   class ModelPart
-  location: package net.minecraft.client.model
-src/main/java/org/oryxel/viabedrockutility/renderer/model/CustomEntityModel.java:5: error: package net.minecraft.client.render.entity.model does not exist
-src/main/java/org/oryxel/viabedrockutility/renderer/model/CustomEntityModel.java:9: error: cannot find symbol
-  symbol: class EntityModel
-src/main/java/org/oryxel/viabedrockutility/renderer/CustomEntityRenderer.java:86: error: cannot find symbol
-  symbol:   class Identifier
-  location: class Model
-src/main/java/org/oryxel/viabedrockutility/renderer/CustomEntityRenderer.java:30: error: package EntityRendererFactory does not exist
-src/main/java/org/oryxel/viabedrockutility/renderer/CustomEntityRenderer.java:37: error: cannot find symbol
-  symbol:   class MatrixStack
-  location: class CustomEntityRenderer<T>
-src/main/java/org/oryxel/viabedrockutility/renderer/CustomEntityRenderer.java:37: error: cannot find symbol
-  symbol:   class VertexConsumerProvider
-  location: class CustomEntityRenderer<T>
-src/main/java/org/oryxel/viabedrockutility/renderer/CustomEntityRenderer.java:63: error: cannot find symbol
-  symbol:   class Frustum
-  location: class CustomEntityRenderer<T>
-src/main/java/org/oryxel/viabedrockutility/renderer/CustomEntityRenderer.java:77: error: cannot find symbol
-  symbol:   class MatrixStack
-  location: class CustomEntityRenderer<T>
-src/main/java/org/oryxel/viabedrockutility/renderer/model/CustomEntityModel.java:10: error: cannot find symbol
-  symbol:   class ModelPart
-  location: class CustomEntityModel<T>
-src/main/java/org/oryxel/viabedrockutility/material/data/Material.java:17: error: package net.minecraft.client.render does not exist
-src/main/java/org/oryxel/viabedrockutility/renderer/CustomEntityRenderer.java:4: error: package net.minecraft.client.render does not exist
-src/main/java/org/oryxel/viabedrockutility/pack/processor/TextureProcessor.java:3: error: cannot find symbol
-  symbol:   class MinecraftClient
-  location: package net.minecraft.client
-src/main/java/org/oryxel/viabedrockutility/pack/processor/TextureProcessor.java:4: error: package net.minecraft.client.texture does not exist
-src/main/java/org/oryxel/viabedrockutility/pack/processor/TextureProcessor.java:5: error: package net.minecraft.client.texture does not exist
-src/main/java/org/oryxel/viabedrockutility/pack/processor/TextureProcessor.java:6: error: cannot find symbol
-  symbol:   class Identifier
-  location: package net.minecraft.util
-src/main/java/org/oryxel/viabedrockutility/mixin/impl/MinecraftClientMixin.java:3: error: cannot find symbol
-  symbol:   class MinecraftClient
-  location: package net.minecraft.client
-src/main/java/org/oryxel/viabedrockutility/mixin/impl/MinecraftClientMixin.java:4: error: package net.minecraft.client.gui.screen does not exist
-src/main/java/org/oryxel/viabedrockutility/mixin/impl/MinecraftClientMixin.java:14: error: cannot find symbol
-  symbol:   class Screen
-  location: class MinecraftClientMixin
-src/main/java/org/oryxel/viabedrockutility/mixin/impl/accessor/PlayerSkinFieldAccessor.java:3: error: package net.minecraft.client.network does not exist
-src/main/java/org/oryxel/viabedrockutility/mixin/impl/accessor/PlayerSkinFieldAccessor.java:4: error: package net.minecraft.client.util does not exist
-src/main/java/org/oryxel/viabedrockutility/mixin/impl/accessor/PlayerSkinFieldAccessor.java:15: error: cannot find symbol
-  symbol:   class SkinTextures
-  location: interface PlayerSkinFieldAccessor
-src/main/java/org/oryxel/viabedrockutility/mixin/impl/world/ClientWorldMixin.java:3: error: package net.minecraft.client.world does not exist
-src/main/java/org/oryxel/viabedrockutility/mixin/impl/world/ClientWorldMixin.java:4: error: package net.minecraft.entity does not exist
-src/main/java/org/oryxel/viabedrockutility/mixin/impl/world/ClientWorldMixin.java:5: error: cannot find symbol
-  symbol:   class EntityLookup
-  location: package net.minecraft.world.entity
-src/main/java/org/oryxel/viabedrockutility/mixin/impl/world/ClientWorldMixin.java:16: error: cannot find symbol
-  symbol:   class EntityLookup
-  location: class ClientWorldMixin
-src/main/java/org/oryxel/viabedrockutility/mixin/impl/world/ClientWorldMixin.java:16: error: cannot find symbol
-  symbol:   class Entity
-  location: class ClientWorldMixin
-src/main/java/org/oryxel/viabedrockutility/mixin/impl/world/ClientWorldMixin.java:19: error: package Entity does not exist
-src/main/java/org/oryxel/viabedrockutility/mixin/impl/entity/player/AbstractClientPlayerMixin.java:3: error: package net.minecraft.client.network does not exist
-src/main/java/org/oryxel/viabedrockutility/mixin/impl/entity/player/AbstractClientPlayerMixin.java:4: error: package net.minecraft.client.network does not exist
-src/main/java/org/oryxel/viabedrockutility/mixin/impl/entity/player/AbstractClientPlayerMixin.java:5: error: package net.minecraft.client.util does not exist
-  src/main/java/org/oryxel/viabedrockutility/material/data/Material.java:25: error: static import only from classes and interfaces
-  src/main/java/org/oryxel/viabedrockutility/payload/PayloadHandler.java:6: error: cannot find symbol
-    symbol:   class MinecraftClient
-    location: package net.minecraft.client
-  src/main/java/org/oryxel/viabedrockutility/payload/PayloadHandler.java:7: error: cannot find symbol
-    symbol:   class Dilation
-    location: package net.minecraft.client.model
-  src/main/java/org/oryxel/viabedrockutility/payload/PayloadHandler.java:16: error: cannot find symbol
-    symbol:   class Identifier
-    location: package net.minecraft.util
-  src/main/java/org/oryxel/viabedrockutility/pack/definitions/EntityDefinitions.java:5: error: cannot find symbol
-    symbol:   class Identifier
-    location: package net.minecraft.util
-  src/main/java/org/oryxel/viabedrockutility/animation/vanilla/AnimateTransformation.java:3: error: cannot find symbol
-    symbol:   class ModelPart
-    location: package net.minecraft.client.model
-  src/main/java/org/oryxel/viabedrockutility/animation/vanilla/AnimateTransformation.java:53: error: cannot find symbol
-    symbol:   class ModelPart
-    location: interface Target
-  src/main/java/org/oryxel/viabedrockutility/material/data/Material.java:18: error: cannot find symbol
-    symbol:   class Identifier
-    location: package net.minecraft.util
-  src/main/java/org/oryxel/viabedrockutility/material/data/Material.java:84: error: cannot find symbol
-    symbol:   class Identifier
-    location: class MaterialInfo
-  src/main/java/org/oryxel/viabedrockutility/material/data/Material.java:84: error: cannot find symbol
-    symbol:   class RenderLayer
-    location: class MaterialInfo
-  src/main/java/org/oryxel/viabedrockutility/material/data/Material.java:165: error: cannot find symbol
-    symbol:   class Identifier
-    location: class MaterialInfo
-  src/main/java/org/oryxel/viabedrockutility/material/data/Material.java:165: error: cannot find symbol
-    symbol:   class RenderLayer
-    location: class MaterialInfo
-  src/main/java/org/oryxel/viabedrockutility/material/data/Material.java:84: error: cannot find symbol
-    symbol:   class Identifier
-    location: class MaterialInfo
-  src/main/java/org/oryxel/viabedrockutility/material/data/Material.java:75: error: cannot find symbol
-    symbol:   class Identifier
-    location: class MaterialInfo
-  src/main/java/org/oryxel/viabedrockutility/pack/definitions/EntityDefinitions.java:34: error: cannot find symbol
-    symbol:   class Identifier
-    location: class EntityDefinition
-  src/main/java/org/oryxel/viabedrockutility/payload/BasePayload.java:5: error: cannot find symbol
-    symbol:   class PacketByteBuf
-    location: package net.minecraft.network
-  src/main/java/org/oryxel/viabedrockutility/payload/BasePayload.java:6: error: cannot find symbol
-    symbol:   class PacketCodec
-    location: package net.minecraft.network.codec
-  src/main/java/org/oryxel/viabedrockutility/payload/BasePayload.java:8: error: cannot find symbol
-    symbol:   class Identifier
-    location: package net.minecraft.util
-  src/main/java/org/oryxel/viabedrockutility/payload/BasePayload.java:23: error: cannot find symbol
-    symbol:   class Id
-    location: class BasePayload
-  src/main/java/org/oryxel/viabedrockutility/payload/BasePayload.java:25: error: cannot find symbol
-    symbol:   class PacketCodec
-    location: class BasePayload
-  src/main/java/org/oryxel/viabedrockutility/payload/BasePayload.java:25: error: cannot find symbol
-    symbol:   class PacketByteBuf
-    location: class BasePayload
-  src/main/java/org/oryxel/viabedrockutility/payload/BasePayload.java:87: error: cannot find symbol
-    symbol:   class Id
-    location: class BasePayload
-  src/main/java/org/oryxel/viabedrockutility/payload/BasePayload.java:87: error: cannot find symbol
-    symbol:   class CustomPayload
-    location: class BasePayload
-  src/main/java/org/oryxel/viabedrockutility/payload/BasePayload.java:91: error: cannot find symbol
-    symbol:   class PacketByteBuf
-    location: class BasePayload
-  src/main/java/org/oryxel/viabedrockutility/entity/CustomEntityTicker.java:5: error: cannot find symbol
-    symbol:   class MinecraftClient
-    location: package net.minecraft.client
-  src/main/java/org/oryxel/viabedrockutility/entity/CustomEntityTicker.java:8: error: cannot find symbol
-    symbol:   class Identifier
-    location: package net.minecraft.util
-  src/main/java/org/oryxel/viabedrockutility/payload/PayloadHandler.java:40: error: cannot find symbol
-    symbol:   class EntityRenderer
-    location: class PayloadHandler
-  src/main/java/org/oryxel/viabedrockutility/payload/PayloadHandler.java:41: error: cannot find symbol
-    symbol:   class Identifier
-    location: class PayloadHandler
-  src/main/java/org/oryxel/viabedrockutility/payload/impl/skin/CapeDataPayload.java:5: error: cannot find symbol
-    symbol:   class PacketByteBuf
-    location: package net.minecraft.network
-  src/main/java/org/oryxel/viabedrockutility/payload/impl/skin/CapeDataPayload.java:6: error: cannot find symbol
-    symbol:   class PacketDecoder
-    location: package net.minecraft.network.codec
-  src/main/java/org/oryxel/viabedrockutility/payload/impl/skin/CapeDataPayload.java:7: error: cannot find symbol
-    symbol:   class Identifier
-    location: package net.minecraft.util
-  src/main/java/org/oryxel/viabedrockutility/payload/impl/skin/SkinDataPayload.java:5: error: cannot find symbol
-    symbol:   class PacketByteBuf
-    location: package net.minecraft.network
-  src/main/java/org/oryxel/viabedrockutility/payload/impl/skin/SkinDataPayload.java:6: error: cannot find symbol
-    symbol:   class PacketDecoder
-    location: package net.minecraft.network.codec
-  src/main/java/org/oryxel/viabedrockutility/payload/PayloadHandler.java:40: error: cannot find symbol
-    symbol:   class EntityRenderer
-    location: class PayloadHandler
-  src/main/java/org/oryxel/viabedrockutility/payload/PayloadHandler.java:41: error: cannot find symbol
-    symbol:   class Identifier
-    location: class PayloadHandler
-  src/main/java/org/oryxel/viabedrockutility/payload/impl/skin/SkinDataPayload.java:14: error: cannot find symbol
-    symbol:   class PacketDecoder
-    location: class SkinDataPayload
-  src/main/java/org/oryxel/viabedrockutility/payload/impl/skin/SkinDataPayload.java:14: error: cannot find symbol
-    symbol:   class PacketByteBuf
-    location: class SkinDataPayload
-  src/main/java/org/oryxel/viabedrockutility/payload/impl/skin/CapeDataPayload.java:16: error: cannot find symbol
-    symbol:   class PacketDecoder
-    location: class CapeDataPayload
-  src/main/java/org/oryxel/viabedrockutility/payload/impl/skin/CapeDataPayload.java:16: error: cannot find symbol
-    symbol:   class PacketByteBuf
-    location: class CapeDataPayload
-  src/main/java/org/oryxel/viabedrockutility/payload/impl/skin/CapeDataPayload.java:32: error: cannot find symbol
-    symbol:   class Identifier
-    location: class CapeDataPayload
-  src/main/java/org/oryxel/viabedrockutility/payload/impl/skin/CapeDataPayload.java:13: error: cannot find symbol
-    symbol:   class Identifier
-    location: class CapeDataPayload
-  src/main/java/org/oryxel/viabedrockutility/payload/impl/skin/CapeDataPayload.java:32: error: cannot find symbol
-    symbol:   class Identifier
-    location: class CapeDataPayload
-  src/main/java/org/oryxel/viabedrockutility/renderer/CustomEntityRenderer.java:10: error: cannot find symbol
-    symbol:   class Identifier
-    location: package net.minecraft.util
-  src/main/java/org/oryxel/viabedrockutility/renderer/CustomEntityRenderer.java:90: error: cannot find symbol
-    symbol:   class EntityRenderState
-    location: class CustomEntityRenderer<T>
-  src/main/java/org/oryxel/viabedrockutility/renderer/model/CustomEntityModel.java:4: error: cannot find symbol
-    symbol:   class ModelPart
-    location: package net.minecraft.client.model
-  src/main/java/org/oryxel/viabedrockutility/renderer/CustomEntityRenderer.java:86: error: cannot find symbol
-    symbol:   class Identifier
-    location: class Model
-  src/main/java/org/oryxel/viabedrockutility/renderer/CustomEntityRenderer.java:37: error: cannot find symbol
-    symbol:   class MatrixStack
-    location: class CustomEntityRenderer<T>
-  src/main/java/org/oryxel/viabedrockutility/renderer/CustomEntityRenderer.java:37: error: cannot find symbol
-    symbol:   class VertexConsumerProvider
-    location: class CustomEntityRenderer<T>
-  src/main/java/org/oryxel/viabedrockutility/renderer/CustomEntityRenderer.java:63: error: cannot find symbol
-    symbol:   class Frustum
-    location: class CustomEntityRenderer<T>
-  src/main/java/org/oryxel/viabedrockutility/renderer/CustomEntityRenderer.java:77: error: cannot find symbol
-    symbol:   class MatrixStack
-    location: class CustomEntityRenderer<T>
-  src/main/java/org/oryxel/viabedrockutility/renderer/model/CustomEntityModel.java:10: error: cannot find symbol
-    symbol:   class ModelPart
-    location: class CustomEntityModel<T>
-  src/main/java/org/oryxel/viabedrockutility/pack/processor/TextureProcessor.java:3: error: cannot find symbol
-    symbol:   class MinecraftClient
-    location: package net.minecraft.client
-  src/main/java/org/oryxel/viabedrockutility/pack/processor/TextureProcessor.java:6: error: cannot find symbol
-    symbol:   class Identifier
-    location: package net.minecraft.util
-  src/main/java/org/oryxel/viabedrockutility/mixin/impl/MinecraftClientMixin.java:3: error: cannot find symbol
-    symbol:   class MinecraftClient
-    location: package net.minecraft.client
-  src/main/java/org/oryxel/viabedrockutility/mixin/impl/MinecraftClientMixin.java:14: error: cannot find symbol
-    symbol:   class Screen
-    location: class MinecraftClientMixin
-  src/main/java/org/oryxel/viabedrockutility/mixin/impl/accessor/PlayerSkinFieldAccessor.java:15: error: cannot find symbol
-    symbol:   class SkinTextures
-    location: interface PlayerSkinFieldAccessor
-  src/main/java/org/oryxel/viabedrockutility/mixin/impl/world/ClientWorldMixin.java:5: error: cannot find symbol
-    symbol:   class EntityLookup
-    location: package net.minecraft.world.entity
-  src/main/java/org/oryxel/viabedrockutility/mixin/impl/world/ClientWorldMixin.java:16: error: cannot find symbol
-    symbol:   class EntityLookup
-    location: class ClientWorldMixin
-  src/main/java/org/oryxel/viabedrockutility/mixin/impl/world/ClientWorldMixin.java:16: error: cannot find symbol
-    symbol:   class Entity
-    location: class ClientWorldMixin
-  src/main/java/org/oryxel/viabedrockutility/payload/BasePayload.java:22: error: cannot find symbol
-    symbol: class CustomPayload
-  src/main/java/org/oryxel/viabedrockutility/renderer/CustomEntityRenderer.java:24: error: cannot find symbol
-    symbol: class EntityRenderer
-  src/main/java/org/oryxel/viabedrockutility/renderer/CustomEntityRenderer.java:24: error: cannot find symbol
-    symbol: class Entity
-  src/main/java/org/oryxel/viabedrockutility/renderer/model/CustomEntityModel.java:9: error: cannot find symbol
-    symbol: class EntityModel
-  src/main/java/org/oryxel/viabedrockutility/ViaBedrockUtility.java:9: error: package net.minecraft.server.command does not exist
-  src/main/java/org/oryxel/viabedrockutility/payload/PayloadHandler.java:8: error: package net.minecraft.client.network does not exist
-  src/main/java/org/oryxel/viabedrockutility/payload/PayloadHandler.java:9: error: package net.minecraft.client.render.entity does not exist
-  src/main/java/org/oryxel/viabedrockutility/payload/PayloadHandler.java:10: error: package net.minecraft.client.render.entity does not exist
-  src/main/java/org/oryxel/viabedrockutility/payload/PayloadHandler.java:11: error: package net.minecraft.client.render.entity.equipment does not exist
-  src/main/java/org/oryxel/viabedrockutility/payload/PayloadHandler.java:12: error: package net.minecraft.client.render.entity.model does not exist
-  src/main/java/org/oryxel/viabedrockutility/payload/PayloadHandler.java:13: error: package net.minecraft.client.texture does not exist
-  src/main/java/org/oryxel/viabedrockutility/payload/PayloadHandler.java:14: error: package net.minecraft.client.texture does not exist
-  src/main/java/org/oryxel/viabedrockutility/payload/PayloadHandler.java:15: error: package net.minecraft.client.util does not exist
-  src/main/java/org/oryxel/viabedrockutility/animation/vanilla/AnimateTransformation.java:4: error: package net.minecraft.client.render.entity.animation does not exist
-  src/main/java/org/oryxel/viabedrockutility/animation/vanilla/AnimateTransformation.java:5: error: package net.minecraft.util.math does not exist
-  src/main/java/org/oryxel/viabedrockutility/material/data/Material.java:25: error: package net.minecraft.client.gl does not exist
-  src/main/java/org/oryxel/viabedrockutility/material/data/Material.java:26: error: package net.minecraft.client.render does not exist
-  src/main/java/org/oryxel/viabedrockutility/payload/BasePayload.java:7: error: package net.minecraft.network.packet does not exist
-  src/main/java/org/oryxel/viabedrockutility/entity/CustomEntityTicker.java:6: error: package net.minecraft.client.render.entity does not exist
-  src/main/java/org/oryxel/viabedrockutility/entity/CustomEntityTicker.java:7: error: package net.minecraft.client.render.entity.equipment does not exist
-  src/main/java/org/oryxel/viabedrockutility/renderer/CustomEntityRenderer.java:5: error: package net.minecraft.client.render.entity does not exist
-  src/main/java/org/oryxel/viabedrockutility/renderer/CustomEntityRenderer.java:6: error: package net.minecraft.client.render.entity does not exist
-  src/main/java/org/oryxel/viabedrockutility/renderer/CustomEntityRenderer.java:7: error: package net.minecraft.client.render.entity.state does not exist
-  src/main/java/org/oryxel/viabedrockutility/renderer/CustomEntityRenderer.java:8: error: package net.minecraft.client.util.math does not exist
-  src/main/java/org/oryxel/viabedrockutility/renderer/CustomEntityRenderer.java:9: error: package net.minecraft.entity does not exist
-  src/main/java/org/oryxel/viabedrockutility/renderer/CustomEntityRenderer.java:11: error: package net.minecraft.util.math does not exist
-  src/main/java/org/oryxel/viabedrockutility/renderer/model/CustomEntityModel.java:5: error: package net.minecraft.client.render.entity.model does not exist
-  src/main/java/org/oryxel/viabedrockutility/renderer/CustomEntityRenderer.java:30: error: package EntityRendererFactory does not exist
-  src/main/java/org/oryxel/viabedrockutility/material/data/Material.java:17: error: package net.minecraft.client.render does not exist
-  src/main/java/org/oryxel/viabedrockutility/renderer/CustomEntityRenderer.java:4: error: package net.minecraft.client.render does not exist
-  src/main/java/org/oryxel/viabedrockutility/pack/processor/TextureProcessor.java:4: error: package net.minecraft.client.texture does not exist
-  src/main/java/org/oryxel/viabedrockutility/pack/processor/TextureProcessor.java:5: error: package net.minecraft.client.texture does not exist
-  src/main/java/org/oryxel/viabedrockutility/mixin/impl/MinecraftClientMixin.java:4: error: package net.minecraft.client.gui.screen does not exist
-  src/main/java/org/oryxel/viabedrockutility/mixin/impl/accessor/PlayerSkinFieldAccessor.java:3: error: package net.minecraft.client.network does not exist
-  src/main/java/org/oryxel/viabedrockutility/mixin/impl/accessor/PlayerSkinFieldAccessor.java:4: error: package net.minecraft.client.util does not exist
-  src/main/java/org/oryxel/viabedrockutility/mixin/impl/world/ClientWorldMixin.java:3: error: package net.minecraft.client.world does not exist
-  src/main/java/org/oryxel/viabedrockutility/mixin/impl/world/ClientWorldMixin.java:4: error: package net.minecraft.entity does not exist
-  src/main/java/org/oryxel/viabedrockutility/mixin/impl/world/ClientWorldMixin.java:19: error: package Entity does not exist
-  src/main/java/org/oryxel/viabedrockutility/mixin/impl/entity/player/AbstractClientPlayerMixin.java:3: error: package net.minecraft.client.network does not exist
-  src/main/java/org/oryxel/viabedrockutility/mixin/impl/entity/player/AbstractClientPlayerMixin.java:4: error: package net.minecraft.client.network does not exist
-  src/main/java/org/oryxel/viabedrockutility/mixin/impl/entity/player/AbstractClientPlayerMixin.java:5: error: package net.minecraft.client.util does not exist
-src/main/java/org/oryxel/viabedrockutility/ViaBedrockUtility.java:9: error: package net.minecraft.server.command does not exist
-src/main/java/org/oryxel/viabedrockutility/payload/PayloadHandler.java:6: error: cannot find symbol
-  symbol:   class MinecraftClient
-  location: package net.minecraft.client
-src/main/java/org/oryxel/viabedrockutility/payload/PayloadHandler.java:7: error: cannot find symbol
-  symbol:   class Dilation
-  location: package net.minecraft.client.model
-src/main/java/org/oryxel/viabedrockutility/payload/PayloadHandler.java:8: error: package net.minecraft.client.network does not exist
-src/main/java/org/oryxel/viabedrockutility/payload/PayloadHandler.java:9: error: package net.minecraft.client.render.entity does not exist
-src/main/java/org/oryxel/viabedrockutility/payload/PayloadHandler.java:10: error: package net.minecraft.client.render.entity does not exist
-src/main/java/org/oryxel/viabedrockutility/payload/PayloadHandler.java:11: error: package net.minecraft.client.render.entity.equipment does not exist
-src/main/java/org/oryxel/viabedrockutility/payload/PayloadHandler.java:12: error: package net.minecraft.client.render.entity.model does not exist
-src/main/java/org/oryxel/viabedrockutility/payload/PayloadHandler.java:13: error: package net.minecraft.client.texture does not exist
-src/main/java/org/oryxel/viabedrockutility/payload/PayloadHandler.java:14: error: package net.minecraft.client.texture does not exist
-src/main/java/org/oryxel/viabedrockutility/payload/PayloadHandler.java:15: error: package net.minecraft.client.util does not exist
-src/main/java/org/oryxel/viabedrockutility/payload/PayloadHandler.java:16: error: cannot find symbol
-  symbol:   class Identifier
-  location: package net.minecraft.util
-src/main/java/org/oryxel/viabedrockutility/pack/definitions/EntityDefinitions.java:5: error: cannot find symbol
-  symbol:   class Identifier
-  location: package net.minecraft.util
-src/main/java/org/oryxel/viabedrockutility/animation/vanilla/AnimateTransformation.java:3: error: cannot find symbol
-  symbol:   class ModelPart
-  location: package net.minecraft.client.model
-src/main/java/org/oryxel/viabedrockutility/animation/vanilla/AnimateTransformation.java:4: error: package net.minecraft.client.render.entity.animation does not exist
-src/main/java/org/oryxel/viabedrockutility/animation/vanilla/AnimateTransformation.java:5: error: package net.minecraft.util.math does not exist
-src/main/java/org/oryxel/viabedrockutility/animation/vanilla/AnimateTransformation.java:53: error: cannot find symbol
-  symbol:   class ModelPart
-  location: interface Target
-src/main/java/org/oryxel/viabedrockutility/material/data/Material.java:18: error: cannot find symbol
-  symbol:   class Identifier
-  location: package net.minecraft.util
-src/main/java/org/oryxel/viabedrockutility/material/data/Material.java:25: error: package net.minecraft.client.gl does not exist
-src/main/java/org/oryxel/viabedrockutility/material/data/Material.java:25: error: static import only from classes and interfaces
-src/main/java/org/oryxel/viabedrockutility/material/data/Material.java:26: error: package net.minecraft.client.render does not exist
-src/main/java/org/oryxel/viabedrockutility/material/data/Material.java:84: error: cannot find symbol
-  symbol:   class Identifier
-  location: class MaterialInfo
-src/main/java/org/oryxel/viabedrockutility/material/data/Material.java:84: error: cannot find symbol
-  symbol:   class RenderLayer
-  location: class MaterialInfo
-src/main/java/org/oryxel/viabedrockutility/material/data/Material.java:165: error: cannot find symbol
-  symbol:   class Identifier
-  location: class MaterialInfo
-src/main/java/org/oryxel/viabedrockutility/material/data/Material.java:165: error: cannot find symbol
-  symbol:   class RenderLayer
-  location: class MaterialInfo
-src/main/java/org/oryxel/viabedrockutility/material/data/Material.java:84: error: cannot find symbol
-  symbol:   class Identifier
-  location: class MaterialInfo
-src/main/java/org/oryxel/viabedrockutility/material/data/Material.java:75: error: cannot find symbol
-  symbol:   class Identifier
-  location: class MaterialInfo
-src/main/java/org/oryxel/viabedrockutility/pack/definitions/EntityDefinitions.java:34: error: cannot find symbol
-  symbol:   class Identifier
-  location: class EntityDefinition
-src/main/java/org/oryxel/viabedrockutility/payload/BasePayload.java:5: error: cannot find symbol
-  symbol:   class PacketByteBuf
-  location: package net.minecraft.network
-src/main/java/org/oryxel/viabedrockutility/payload/BasePayload.java:6: error: cannot find symbol
-  symbol:   class PacketCodec
-  location: package net.minecraft.network.codec
-src/main/java/org/oryxel/viabedrockutility/payload/BasePayload.java:7: error: package net.minecraft.network.packet does not exist
-src/main/java/org/oryxel/viabedrockutility/payload/BasePayload.java:8: error: cannot find symbol
-  symbol:   class Identifier
-  location: package net.minecraft.util
-src/main/java/org/oryxel/viabedrockutility/payload/BasePayload.java:22: error: cannot find symbol
-  symbol: class CustomPayload
-src/main/java/org/oryxel/viabedrockutility/payload/BasePayload.java:23: error: cannot find symbol
-  symbol:   class Id
-  location: class BasePayload
-src/main/java/org/oryxel/viabedrockutility/payload/BasePayload.java:25: error: cannot find symbol
-  symbol:   class PacketCodec
-  location: class BasePayload
-src/main/java/org/oryxel/viabedrockutility/payload/BasePayload.java:25: error: cannot find symbol
-  symbol:   class PacketByteBuf
-  location: class BasePayload
-src/main/java/org/oryxel/viabedrockutility/payload/BasePayload.java:87: error: cannot find symbol
-  symbol:   class Id
-  location: class BasePayload
-src/main/java/org/oryxel/viabedrockutility/payload/BasePayload.java:87: error: cannot find symbol
-  symbol:   class CustomPayload
-  location: class BasePayload
-src/main/java/org/oryxel/viabedrockutility/payload/BasePayload.java:91: error: cannot find symbol
-  symbol:   class PacketByteBuf
-  location: class BasePayload
-src/main/java/org/oryxel/viabedrockutility/entity/CustomEntityTicker.java:5: error: cannot find symbol
-  symbol:   class MinecraftClient
-  location: package net.minecraft.client
-src/main/java/org/oryxel/viabedrockutility/entity/CustomEntityTicker.java:6: error: package net.minecraft.client.render.entity does not exist
-src/main/java/org/oryxel/viabedrockutility/entity/CustomEntityTicker.java:7: error: package net.minecraft.client.render.entity.equipment does not exist
-src/main/java/org/oryxel/viabedrockutility/entity/CustomEntityTicker.java:8: error: cannot find symbol
-  symbol:   class Identifier
-  location: package net.minecraft.util
-src/main/java/org/oryxel/viabedrockutility/payload/PayloadHandler.java:40: error: cannot find symbol
-  symbol:   class EntityRenderer
-  location: class PayloadHandler
-src/main/java/org/oryxel/viabedrockutility/payload/PayloadHandler.java:41: error: cannot find symbol
-  symbol:   class Identifier
-  location: class PayloadHandler
-src/main/java/org/oryxel/viabedrockutility/payload/impl/skin/CapeDataPayload.java:5: error: cannot find symbol
-  symbol:   class PacketByteBuf
-  location: package net.minecraft.network
-src/main/java/org/oryxel/viabedrockutility/payload/impl/skin/CapeDataPayload.java:6: error: cannot find symbol
-  symbol:   class PacketDecoder
-  location: package net.minecraft.network.codec
-src/main/java/org/oryxel/viabedrockutility/payload/impl/skin/CapeDataPayload.java:7: error: cannot find symbol
-  symbol:   class Identifier
-  location: package net.minecraft.util
-src/main/java/org/oryxel/viabedrockutility/payload/impl/skin/SkinDataPayload.java:5: error: cannot find symbol
-  symbol:   class PacketByteBuf
-  location: package net.minecraft.network
-src/main/java/org/oryxel/viabedrockutility/payload/impl/skin/SkinDataPayload.java:6: error: cannot find symbol
-  symbol:   class PacketDecoder
-  location: package net.minecraft.network.codec
-src/main/java/org/oryxel/viabedrockutility/payload/PayloadHandler.java:40: error: cannot find symbol
-  symbol:   class EntityRenderer
-  location: class PayloadHandler
-src/main/java/org/oryxel/viabedrockutility/payload/PayloadHandler.java:41: error: cannot find symbol
-  symbol:   class Identifier
-  location: class PayloadHandler
-src/main/java/org/oryxel/viabedrockutility/payload/impl/skin/SkinDataPayload.java:14: error: cannot find symbol
-  symbol:   class PacketDecoder
-  location: class SkinDataPayload
-src/main/java/org/oryxel/viabedrockutility/payload/impl/skin/SkinDataPayload.java:14: error: cannot find symbol
-  symbol:   class PacketByteBuf
-  location: class SkinDataPayload
-src/main/java/org/oryxel/viabedrockutility/payload/impl/skin/CapeDataPayload.java:16: error: cannot find symbol
-  symbol:   class PacketDecoder
-  location: class CapeDataPayload
-src/main/java/org/oryxel/viabedrockutility/payload/impl/skin/CapeDataPayload.java:16: error: cannot find symbol
-  symbol:   class PacketByteBuf
-  location: class CapeDataPayload
-src/main/java/org/oryxel/viabedrockutility/payload/impl/skin/CapeDataPayload.java:32: error: cannot find symbol
-  symbol:   class Identifier
-  location: class CapeDataPayload
-src/main/java/org/oryxel/viabedrockutility/payload/impl/skin/CapeDataPayload.java:13: error: cannot find symbol
-  symbol:   class Identifier
-  location: class CapeDataPayload
-src/main/java/org/oryxel/viabedrockutility/payload/impl/skin/CapeDataPayload.java:32: error: cannot find symbol
-  symbol:   class Identifier
-  location: class CapeDataPayload
-src/main/java/org/oryxel/viabedrockutility/renderer/CustomEntityRenderer.java:5: error: package net.minecraft.client.render.entity does not exist
-src/main/java/org/oryxel/viabedrockutility/renderer/CustomEntityRenderer.java:6: error: package net.minecraft.client.render.entity does not exist
-src/main/java/org/oryxel/viabedrockutility/renderer/CustomEntityRenderer.java:7: error: package net.minecraft.client.render.entity.state does not exist
-src/main/java/org/oryxel/viabedrockutility/renderer/CustomEntityRenderer.java:8: error: package net.minecraft.client.util.math does not exist
-src/main/java/org/oryxel/viabedrockutility/renderer/CustomEntityRenderer.java:9: error: package net.minecraft.entity does not exist
-src/main/java/org/oryxel/viabedrockutility/renderer/CustomEntityRenderer.java:10: error: cannot find symbol
-  symbol:   class Identifier
-  location: package net.minecraft.util
-src/main/java/org/oryxel/viabedrockutility/renderer/CustomEntityRenderer.java:11: error: package net.minecraft.util.math does not exist
-src/main/java/org/oryxel/viabedrockutility/renderer/CustomEntityRenderer.java:24: error: cannot find symbol
-  symbol: class EntityRenderer
-src/main/java/org/oryxel/viabedrockutility/renderer/CustomEntityRenderer.java:90: error: cannot find symbol
-  symbol:   class EntityRenderState
-  location: class CustomEntityRenderer<T>
-src/main/java/org/oryxel/viabedrockutility/renderer/CustomEntityRenderer.java:24: error: cannot find symbol
-  symbol: class Entity
-src/main/java/org/oryxel/viabedrockutility/renderer/model/CustomEntityModel.java:4: error: cannot find symbol
-  symbol:   class ModelPart
+===== COMPILE ERRORS =====
+unique errors: 81
+src/main/java/org/oryxel/viabedrockutility/animation/vanilla/AnimationHelper.java:15: class KeyframeAnimations is public, should be declared in a file named KeyframeAnimations.java
+src/main/java/org/oryxel/viabedrockutility/payload/PayloadHandler.java:12: cannot find symbol
+src/main/java/org/oryxel/viabedrockutility/payload/PayloadHandler.java:15: cannot find symbol
+src/main/java/org/oryxel/viabedrockutility/payload/PayloadHandler.java:16: cannot find symbol
+src/main/java/org/oryxel/viabedrockutility/pack/definitions/EntityDefinitions.java:5: cannot find symbol
+src/main/java/org/oryxel/viabedrockutility/material/data/Material.java:18: cannot find symbol
+src/main/java/org/oryxel/viabedrockutility/material/data/Material.java:26: cannot find symbol
+src/main/java/org/oryxel/viabedrockutility/material/data/Material.java:84: cannot find symbol
+src/main/java/org/oryxel/viabedrockutility/material/data/Material.java:165: cannot find symbol
+src/main/java/org/oryxel/viabedrockutility/pack/definitions/EntityDefinitions.java:34: cannot find symbol
+src/main/java/org/oryxel/viabedrockutility/payload/BasePayload.java:8: cannot find symbol
+src/main/java/org/oryxel/viabedrockutility/payload/BasePayload.java:23: cannot find symbol
+src/main/java/org/oryxel/viabedrockutility/payload/BasePayload.java:87: cannot find symbol
+src/main/java/org/oryxel/viabedrockutility/entity/CustomEntityTicker.java:8: cannot find symbol
+src/main/java/org/oryxel/viabedrockutility/payload/PayloadHandler.java:41: cannot find symbol
+src/main/java/org/oryxel/viabedrockutility/payload/impl/skin/CapeDataPayload.java:7: cannot find symbol
+src/main/java/org/oryxel/viabedrockutility/payload/impl/skin/CapeDataPayload.java:32: cannot find symbol
+src/main/java/org/oryxel/viabedrockutility/renderer/CustomEntityRenderer.java:10: cannot find symbol
+src/main/java/org/oryxel/viabedrockutility/renderer/CustomEntityRenderer.java:86: cannot find symbol
+src/main/java/org/oryxel/viabedrockutility/renderer/CustomEntityRenderer.java:37: cannot find symbol
+src/main/java/org/oryxel/viabedrockutility/renderer/CustomEntityRenderer.java:63: cannot find symbol
+src/main/java/org/oryxel/viabedrockutility/material/data/Material.java:17: package net.minecraft.client.render does not exist
+src/main/java/org/oryxel/viabedrockutility/renderer/CustomEntityRenderer.java:4: package net.minecraft.client.render does not exist
+src/main/java/org/oryxel/viabedrockutility/pack/processor/TextureProcessor.java:6: cannot find symbol
+src/main/java/org/oryxel/viabedrockutility/mixin/impl/accessor/PlayerSkinFieldAccessor.java:4: cannot find symbol
+src/main/java/org/oryxel/viabedrockutility/mixin/impl/accessor/PlayerSkinFieldAccessor.java:15: cannot find symbol
+src/main/java/org/oryxel/viabedrockutility/mixin/impl/entity/player/AbstractClientPlayerMixin.java:6: cannot find symbol
+src/main/java/org/oryxel/viabedrockutility/mixin/impl/entity/player/AbstractClientPlayerMixin.java:9: cannot find symbol
+src/main/java/org/oryxel/viabedrockutility/mixin/impl/entity/player/AbstractClientPlayerMixin.java:10: cannot find symbol
+src/main/java/org/oryxel/viabedrockutility/mixin/impl/entity/player/AbstractClientPlayerMixin.java:22: cannot find symbol
+src/main/java/org/oryxel/viabedrockutility/mixin/impl/entity/player/AbstractClientPlayerMixin.java:27: cannot find symbol
+src/main/java/org/oryxel/viabedrockutility/mixin/impl/entity/EntityMixin.java:4: package net.minecraft.entity.decoration does not exist
+src/main/java/org/oryxel/viabedrockutility/mixin/impl/pack/ServerResourcePackLoaderMixin.java:3: package net.minecraft.client.resource.server does not exist
+src/main/java/org/oryxel/viabedrockutility/mixin/impl/pack/ServerResourcePackLoaderMixin.java:23: package ReloadScheduler does not exist
+src/main/java/org/oryxel/viabedrockutility/mixin/impl/network/ClientLoginNetworkHandlerMixin.java:5: cannot find symbol
+src/main/java/org/oryxel/viabedrockutility/mixin/impl/network/ClientLoginNetworkHandlerMixin.java:6: package net.minecraft.network.packet.c2s.common does not exist
+src/main/java/org/oryxel/viabedrockutility/mixin/impl/network/ClientLoginNetworkHandlerMixin.java:7: package net.minecraft.network.packet.s2c.login does not exist
+src/main/java/org/oryxel/viabedrockutility/mixin/impl/network/ClientLoginNetworkHandlerMixin.java:8: cannot find symbol
+src/main/java/org/oryxel/viabedrockutility/mixin/impl/network/ClientLoginNetworkHandlerMixin.java:25: cannot find symbol
+src/main/java/org/oryxel/viabedrockutility/mixin/impl/network/ClientLoginNetworkHandlerMixin.java:28: cannot find symbol
+src/main/java/org/oryxel/viabedrockutility/mixin/impl/network/ClientPlayNetworkHandlerMixin.java:6: package net.minecraft.util.hit does not exist
+src/main/java/org/oryxel/viabedrockutility/mixin/impl/network/ClientPlayNetworkHandlerMixin.java:7: package net.minecraft.util.hit does not exist
+src/main/java/org/oryxel/viabedrockutility/mixin/impl/render/feature/CapeFeatureRendererMixin.java:3: cannot find symbol
+src/main/java/org/oryxel/viabedrockutility/mixin/impl/render/feature/CapeFeatureRendererMixin.java:5: cannot find symbol
+src/main/java/org/oryxel/viabedrockutility/mixin/impl/render/feature/CapeFeatureRendererMixin.java:19: cannot find symbol
+src/main/java/org/oryxel/viabedrockutility/util/GeometryUtil.java:5: cannot find symbol
+src/main/java/org/oryxel/viabedrockutility/util/GeometryUtil.java:135: package ModelPart does not exist
+src/main/java/org/oryxel/viabedrockutility/util/GeometryUtil.java:132: cannot find symbol
+src/main/java/org/oryxel/viabedrockutility/util/PlayerSkinBuilder.java:3: cannot find symbol
+src/main/java/org/oryxel/viabedrockutility/util/PlayerSkinBuilder.java:4: cannot find symbol
+src/main/java/org/oryxel/viabedrockutility/util/PlayerSkinBuilder.java:7: cannot find symbol
+src/main/java/org/oryxel/viabedrockutility/util/PlayerSkinBuilder.java:9: cannot find symbol
+src/main/java/org/oryxel/viabedrockutility/util/PlayerSkinBuilder.java:10: cannot find symbol
+src/main/java/org/oryxel/viabedrockutility/util/PlayerSkinBuilder.java:11: package PlayerSkin does not exist
+src/main/java/org/oryxel/viabedrockutility/util/PlayerSkinBuilder.java:14: cannot find symbol
+src/main/java/org/oryxel/viabedrockutility/util/PlayerSkinBuilder.java:23: cannot find symbol
+src/main/java/org/oryxel/viabedrockutility/renderer/CustomPlayerRenderer.java:4: cannot find symbol
+src/main/java/org/oryxel/viabedrockutility/renderer/CustomPlayerRenderer.java:5: cannot find symbol
+src/main/java/org/oryxel/viabedrockutility/renderer/CustomPlayerRenderer.java:6: cannot find symbol
+src/main/java/org/oryxel/viabedrockutility/renderer/CustomPlayerRenderer.java:7: cannot find symbol
+src/main/java/org/oryxel/viabedrockutility/renderer/CustomPlayerRenderer.java:9: cannot find symbol
+src/main/java/org/oryxel/viabedrockutility/renderer/CustomPlayerRenderer.java:10: cannot find symbol
+src/main/java/org/oryxel/viabedrockutility/renderer/CustomPlayerRenderer.java:12: cannot find symbol
+src/main/java/org/oryxel/viabedrockutility/renderer/CustomPlayerRenderer.java:23: cannot find symbol
+src/main/java/org/oryxel/viabedrockutility/fabric/ViaBedrockUtilityFabric.java:16: cannot find symbol
+src/main/java/org/oryxel/viabedrockutility/payload/PayloadHandler.java:46: cannot find symbol
+src/main/java/org/oryxel/viabedrockutility/payload/PayloadHandler.java:47: cannot find symbol
+src/main/java/org/oryxel/viabedrockutility/payload/PayloadHandler.java:57: cannot find symbol
+src/main/java/org/oryxel/viabedrockutility/payload/PayloadHandler.java:68: cannot find symbol
+src/main/java/org/oryxel/viabedrockutility/payload/PayloadHandler.java:74: cannot find symbol
+src/main/java/org/oryxel/viabedrockutility/payload/PayloadHandler.java:76: cannot find symbol
+src/main/java/org/oryxel/viabedrockutility/payload/PayloadHandler.java:80: cannot find symbol
+src/main/java/org/oryxel/viabedrockutility/payload/PayloadHandler.java:84: cannot find symbol
+src/main/java/org/oryxel/viabedrockutility/payload/PayloadHandler.java:89: cannot find symbol
+src/main/java/org/oryxel/viabedrockutility/payload/PayloadHandler.java:90: cannot find symbol
+src/main/java/org/oryxel/viabedrockutility/payload/PayloadHandler.java:99: cannot find symbol
+src/main/java/org/oryxel/viabedrockutility/payload/PayloadHandler.java:105: cannot find symbol
+src/main/java/org/oryxel/viabedrockutility/payload/PayloadHandler.java:106: cannot find symbol
+src/main/java/org/oryxel/viabedrockutility/payload/PayloadHandler.java:110: cannot find symbol
+src/main/java/org/oryxel/viabedrockutility/payload/PayloadHandler.java:115: cannot find symbol
+src/main/java/org/oryxel/viabedrockutility/payload/PayloadHandler.java:122: cannot find symbol
 
 ===== WHAT WENT WRONG =====
 * What went wrong:
 Execution failed for task ':compileJava' (registered by plugin class 'org.gradle.api.plugins.JavaBasePlugin').
 > Compilation failed; see the compiler output below.
-  src/main/java/org/oryxel/viabedrockutility/material/data/Material.java:25: error: static import only from classes and interfaces
-  import static net.minecraft.client.gl.RenderPipelines.ENTITY_SNIPPET;
-  ^
-  src/main/java/org/oryxel/viabedrockutility/payload/PayloadHandler.java:6: error: cannot find symbol
-  import net.minecraft.client.MinecraftClient;
-                             ^
-    symbol:   class MinecraftClient
-    location: package net.minecraft.client
-  src/main/java/org/oryxel/viabedrockutility/payload/PayloadHandler.java:7: error: cannot find symbol
-  import net.minecraft.client.model.Dilation;
+  src/main/java/org/oryxel/viabedrockutility/payload/PayloadHandler.java:12: error: cannot find symbol
+  import net.minecraft.client.model.PlayerModel;
                                    ^
-    symbol:   class Dilation
+    symbol:   class PlayerModel
     location: package net.minecraft.client.model
-  src/main/java/org/oryxel/viabedrockutility/payload/PayloadHandler.java:16: error: cannot find symbol
-  import net.minecraft.util.Identifier;
-                           ^
-    symbol:   class Identifier
-    location: package net.minecraft.util
-  src/main/java/org/oryxel/viabedrockutility/pack/definitions/EntityDefinitions.java:5: error: cannot find symbol
-  import net.minecraft.util.Identifier;
-                           ^
-    symbol:   class Identifier
-    location: package net.minecraft.util
-  src/main/java/org/oryxel/viabedrockutility/animation/vanilla/AnimateTransformation.java:3: error: cannot find symbol
-  import net.minecraft.client.model.ModelPart;
-                                   ^
-    symbol:   class ModelPart
-    location: package net.minecraft.client.model
-  src/main/java/org/oryxel/viabedrockutility/animation/vanilla/AnimateTransformation.java:53: error: cannot find symbol
-          void apply(ModelPart var1, Vector3f var2);
-                     ^
-    symbol:   class ModelPart
-    location: interface Target
-  src/main/java/org/oryxel/viabedrockutility/material/data/Material.java:18: error: cannot find symbol
-  import net.minecraft.util.Identifier;
-                           ^
-    symbol:   class Identifier
-    location: package net.minecraft.util
-  src/main/java/org/oryxel/viabedrockutility/material/data/Material.java:84: error: cannot find symbol
-          private Function<Identifier, RenderLayer> function;
-                           ^
-    symbol:   class Identifier
-    location: class MaterialInfo
-  src/main/java/org/oryxel/viabedrockutility/material/data/Material.java:84: error: cannot find symbol
-          private Function<Identifier, RenderLayer> function;
+  src/main/java/org/oryxel/viabedrockutility/payload/PayloadHandler.java:15: error: cannot find symbol
+  import net.minecraft.client.resources.PlayerSkin;
                                        ^
-    symbol:   class RenderLayer
-    location: class MaterialInfo
-  src/main/java/org/oryxel/viabedrockutility/material/data/Material.java:165: error: cannot find symbol
-          public Function<Identifier, RenderLayer> build() {
-                          ^
-    symbol:   class Identifier
-    location: class MaterialInfo
-  src/main/java/org/oryxel/viabedrockutility/material/data/Material.java:165: error: cannot find symbol
-          public Function<Identifier, RenderLayer> build() {
-                                      ^
-    symbol:   class RenderLayer
+    symbol:   class PlayerSkin
+    location: package net.minecraft.client.resources
+  src/main/java/org/oryxel/viabedrockutility/payload/PayloadHandler.java:16: error: cannot find symbol
+  import net.minecraft.resources.ResourceLocation;
+                                ^
+    symbol:   class ResourceLocation
+    location: package net.minecraft.resources
+  src/main/java/org/oryxel/viabedrockutility/pack/definitions/EntityDefinitions.java:5: error: cannot find symbol
+  import net.minecraft.resources.ResourceLocation;
+                                ^
+    symbol:   class ResourceLocation
+    location: package net.minecraft.resources
+  src/main/java/org/oryxel/viabedrockutility/material/data/Material.java:18: error: cannot find symbol
+  import net.minecraft.resources.ResourceLocation;
+                                ^
+    symbol:   class ResourceLocation
+    location: package net.minecraft.resources
+  src/main/java/org/oryxel/viabedrockutility/material/data/Material.java:26: error: cannot find symbol
+  import static net.minecraft.client.renderer.RenderStateShard.*;
+                                             ^
+    symbol:   class RenderStateShard
+    location: package net.minecraft.client.renderer
+  src/main/java/org/oryxel/viabedrockutility/material/data/Material.java:84: error: cannot find symbol
+          private Function<ResourceLocation, RenderType> function;
+                           ^
+    symbol:   class ResourceLocation
     location: class MaterialInfo
   src/main/java/org/oryxel/viabedrockutility/material/data/Material.java:84: error: cannot find symbol
-          private Function<Identifier, RenderLayer> function;
-                                                    ^
-    symbol:   class Identifier
-    location: class MaterialInfo
-  src/main/java/org/oryxel/viabedrockutility/material/data/Material.java:75: error: cannot find symbol
-      @Setter
-      ^
-    symbol:   class Identifier
-    location: class MaterialInfo
-  src/main/java/org/oryxel/viabedrockutility/pack/definitions/EntityDefinitions.java:34: error: cannot find symbol
-      public record EntityDefinition(Identifier identifier, BedrockEntityData entityData) {
-                                     ^
-    symbol:   class Identifier
-    location: class EntityDefinition
-  src/main/java/org/oryxel/viabedrockutility/payload/BasePayload.java:5: error: cannot find symbol
-  import net.minecraft.network.PacketByteBuf;
-                              ^
-    symbol:   class PacketByteBuf
-    location: package net.minecraft.network
-  src/main/java/org/oryxel/viabedrockutility/payload/BasePayload.java:6: error: cannot find symbol
-  import net.minecraft.network.codec.PacketCodec;
-                                    ^
-    symbol:   class PacketCodec
-    location: package net.minecraft.network.codec
-  src/main/java/org/oryxel/viabedrockutility/payload/BasePayload.java:8: error: cannot find symbol
-  import net.minecraft.util.Identifier;
-                           ^
-    symbol:   class Identifier
-    location: package net.minecraft.util
-  src/main/java/org/oryxel/viabedrockutility/payload/BasePayload.java:23: error: cannot find symbol
-      public static Id<BasePayload> ID = new Id<>(Identifier.of(ViaBedrockUtilityFabric.MOD_ID, "data"));
-                    ^
-    symbol:   class Id
-    location: class BasePayload
-  src/main/java/org/oryxel/viabedrockutility/payload/BasePayload.java:25: error: cannot find symbol
-      public static final PacketCodec<PacketByteBuf, BasePayload> STREAM_CODEC = PacketCodec.of(null, buf -> {
-                          ^
-    symbol:   class PacketCodec
-    location: class BasePayload
-  src/main/java/org/oryxel/viabedrockutility/payload/BasePayload.java:25: error: cannot find symbol
-      public static final PacketCodec<PacketByteBuf, BasePayload> STREAM_CODEC = PacketCodec.of(null, buf -> {
-                                      ^
-    symbol:   class PacketByteBuf
-    location: class BasePayload
-  src/main/java/org/oryxel/viabedrockutility/payload/BasePayload.java:87: error: cannot find symbol
-      public Id<? extends CustomPayload> getId() {
-             ^
-    symbol:   class Id
-    location: class BasePayload
-  src/main/java/org/oryxel/viabedrockutility/payload/BasePayload.java:87: error: cannot find symbol
-      public Id<? extends CustomPayload> getId() {
-                          ^
-    symbol:   class CustomPayload
-    location: class BasePayload
-  src/main/java/org/oryxel/viabedrockutility/payload/BasePayload.java:91: error: cannot find symbol
-      public static String readString(PacketByteBuf buf) {
-                                      ^
-    symbol:   class PacketByteBuf
+          private Function<ResourceLocation, RenderType> function;
 
 ===== TAIL =====
-	at org.gradle.api.internal.tasks.compile.incremental.IncrementalResultStoringCompiler.execute(IncrementalResultStoringCompiler.java:52)
-	at org.gradle.api.internal.tasks.compile.CompileJavaBuildOperationReportingCompiler$1.call(CompileJavaBuildOperationReportingCompiler.java:64)
-	at org.gradle.api.internal.tasks.compile.CompileJavaBuildOperationReportingCompiler$1.call(CompileJavaBuildOperationReportingCompiler.java:48)
-	at org.gradle.internal.operations.DefaultBuildOperationRunner$CallableBuildOperationWorker.execute(DefaultBuildOperationRunner.java:210)
-	at org.gradle.internal.operations.DefaultBuildOperationRunner$CallableBuildOperationWorker.execute(DefaultBuildOperationRunner.java:205)
-	at org.gradle.internal.operations.DefaultBuildOperationRunner$2.execute(DefaultBuildOperationRunner.java:67)
-	at org.gradle.internal.operations.DefaultBuildOperationRunner$2.execute(DefaultBuildOperationRunner.java:60)
-	at org.gradle.internal.operations.DefaultBuildOperationRunner.execute(DefaultBuildOperationRunner.java:167)
-	at org.gradle.internal.operations.DefaultBuildOperationRunner.execute(DefaultBuildOperationRunner.java:60)
-	at org.gradle.internal.operations.DefaultBuildOperationRunner.call(DefaultBuildOperationRunner.java:54)
-	at org.gradle.api.internal.tasks.compile.CompileJavaBuildOperationReportingCompiler.execute(CompileJavaBuildOperationReportingCompiler.java:48)
-	at org.gradle.api.tasks.compile.JavaCompile.performCompilation(JavaCompile.java:224)
-	at org.gradle.api.tasks.compile.JavaCompile.performIncrementalCompilation(JavaCompile.java:165)
-	at org.gradle.api.tasks.compile.JavaCompile.compile(JavaCompile.java:150)
-	at org.gradle.internal.reflect.JavaMethod.invoke(JavaMethod.java:125)
-	at org.gradle.api.internal.project.taskfactory.IncrementalTaskAction.doExecute(IncrementalTaskAction.java:45)
-	at org.gradle.api.internal.project.taskfactory.StandardTaskAction.execute(StandardTaskAction.java:51)
-	at org.gradle.api.internal.project.taskfactory.IncrementalTaskAction.execute(IncrementalTaskAction.java:26)
-	at org.gradle.api.internal.project.taskfactory.StandardTaskAction.execute(StandardTaskAction.java:29)
-	at org.gradle.api.internal.tasks.execution.TaskExecution$3.run(TaskExecution.java:259)
-	at org.gradle.internal.operations.DefaultBuildOperationRunner$1.execute(DefaultBuildOperationRunner.java:30)
-	at org.gradle.internal.operations.DefaultBuildOperationRunner$1.execute(DefaultBuildOperationRunner.java:27)
-	at org.gradle.internal.operations.DefaultBuildOperationRunner$2.execute(DefaultBuildOperationRunner.java:67)
-	at org.gradle.internal.operations.DefaultBuildOperationRunner$2.execute(DefaultBuildOperationRunner.java:60)
-	at org.gradle.internal.operations.DefaultBuildOperationRunner.execute(DefaultBuildOperationRunner.java:167)
-	at org.gradle.internal.operations.DefaultBuildOperationRunner.execute(DefaultBuildOperationRunner.java:60)
-	at org.gradle.internal.operations.DefaultBuildOperationRunner.run(DefaultBuildOperationRunner.java:48)
-	at org.gradle.api.internal.tasks.execution.TaskExecution.executeAction(TaskExecution.java:244)
-	at org.gradle.api.internal.tasks.execution.TaskExecution.executeActions(TaskExecution.java:227)
-	at org.gradle.api.internal.tasks.execution.TaskExecution.executeWithPreviousOutputFiles(TaskExecution.java:210)
-	at org.gradle.api.internal.tasks.execution.TaskExecution.execute(TaskExecution.java:176)
-	at org.gradle.internal.execution.steps.ExecuteStep.executeInternal(ExecuteStep.java:167)
-	at org.gradle.internal.execution.steps.ExecuteStep.access$000(ExecuteStep.java:47)
-	at org.gradle.internal.execution.steps.ExecuteStep$1.call(ExecuteStep.java:137)
-	at org.gradle.internal.execution.steps.ExecuteStep$1.call(ExecuteStep.java:134)
-	at org.gradle.internal.operations.DefaultBuildOperationRunner$CallableBuildOperationWorker.execute(DefaultBuildOperationRunner.java:210)
-	at org.gradle.internal.operations.DefaultBuildOperationRunner$CallableBuildOperationWorker.execute(DefaultBuildOperationRunner.java:205)
-	at org.gradle.internal.operations.DefaultBuildOperationRunner$2.execute(DefaultBuildOperationRunner.java:67)
-	at org.gradle.internal.operations.DefaultBuildOperationRunner$2.execute(DefaultBuildOperationRunner.java:60)
-	at org.gradle.internal.operations.DefaultBuildOperationRunner.execute(DefaultBuildOperationRunner.java:167)
-	at org.gradle.internal.operations.DefaultBuildOperationRunner.execute(DefaultBuildOperationRunner.java:60)
-	at org.gradle.internal.operations.DefaultBuildOperationRunner.call(DefaultBuildOperationRunner.java:54)
-	at org.gradle.internal.execution.steps.ExecuteStep.execute(ExecuteStep.java:134)
-	at org.gradle.internal.execution.steps.ExecuteStep$Mutable.execute(ExecuteStep.java:80)
-	at org.gradle.internal.execution.steps.CancelExecutionStep.execute(CancelExecutionStep.java:42)
-	at org.gradle.internal.execution.steps.TimeoutStep.executeWithoutTimeout(TimeoutStep.java:75)
-	at org.gradle.internal.execution.steps.TimeoutStep.execute(TimeoutStep.java:55)
-	at org.gradle.internal.execution.steps.PreCreateOutputParentsStep.execute(PreCreateOutputParentsStep.java:51)
-	at org.gradle.internal.execution.steps.PreCreateOutputParentsStep.execute(PreCreateOutputParentsStep.java:29)
-	at org.gradle.internal.execution.steps.RemovePreviousOutputsStep.executeMutable(RemovePreviousOutputsStep.java:67)
-	at org.gradle.internal.execution.steps.RemovePreviousOutputsStep.executeMutable(RemovePreviousOutputsStep.java:39)
-	at org.gradle.internal.execution.steps.MutableStep.execute(MutableStep.java:26)
-	at org.gradle.internal.execution.steps.BroadcastChangingOutputsStep.execute(BroadcastChangingOutputsStep.java:42)
-	at org.gradle.internal.execution.steps.BroadcastChangingOutputsStep.execute(BroadcastChangingOutputsStep.java:24)
-	at org.gradle.internal.execution.steps.CaptureOutputsAfterExecutionStep.execute(CaptureOutputsAfterExecutionStep.java:69)
-	at org.gradle.internal.execution.steps.CaptureOutputsAfterExecutionStep.execute(CaptureOutputsAfterExecutionStep.java:46)
-	at org.gradle.internal.execution.steps.ResolveInputChangesStep.executeMutable(ResolveInputChangesStep.java:39)
-	at org.gradle.internal.execution.steps.ResolveInputChangesStep.executeMutable(ResolveInputChangesStep.java:28)
-	at org.gradle.internal.execution.steps.MutableStep.execute(MutableStep.java:26)
-	at org.gradle.internal.execution.steps.BuildCacheStep.executeWithoutCache(BuildCacheStep.java:189)
-	at org.gradle.internal.execution.steps.BuildCacheStep.lambda$execute$1(BuildCacheStep.java:76)
-	at org.gradle.internal.Either$Right.fold(Either.java:176)
-	at org.gradle.internal.execution.caching.CachingState.fold(CachingState.java:62)
-	at org.gradle.internal.execution.steps.BuildCacheStep.execute(BuildCacheStep.java:74)
-	at org.gradle.internal.execution.steps.BuildCacheStep.execute(BuildCacheStep.java:49)
-	at org.gradle.internal.execution.steps.StoreExecutionStateStep.executeMutable(StoreExecutionStateStep.java:46)
-	at org.gradle.internal.execution.steps.StoreExecutionStateStep.executeMutable(StoreExecutionStateStep.java:35)
-	at org.gradle.internal.execution.steps.MutableStep.execute(MutableStep.java:26)
-	at org.gradle.internal.execution.steps.SkipUpToDateStep.executeBecause(SkipUpToDateStep.java:75)
-	at org.gradle.internal.execution.steps.SkipUpToDateStep.lambda$execute$2(SkipUpToDateStep.java:53)
-	at org.gradle.internal.execution.steps.SkipUpToDateStep.execute(SkipUpToDateStep.java:53)
-	at org.gradle.internal.execution.steps.SkipUpToDateStep.execute(SkipUpToDateStep.java:35)
-	at org.gradle.internal.execution.steps.legacy.MarkSnapshottingInputsFinishedStep.execute(MarkSnapshottingInputsFinishedStep.java:37)
-	at org.gradle.internal.execution.steps.legacy.MarkSnapshottingInputsFinishedStep.execute(MarkSnapshottingInputsFinishedStep.java:27)
-	at org.gradle.internal.execution.steps.ResolveMutableCachingStateStep.executeDelegate(ResolveMutableCachingStateStep.java:70)
-	at org.gradle.internal.execution.steps.ResolveMutableCachingStateStep.executeDelegate(ResolveMutableCachingStateStep.java:32)
-	at org.gradle.internal.execution.steps.AbstractResolveCachingStateStep.execute(AbstractResolveCachingStateStep.java:69)
-	at org.gradle.internal.execution.steps.AbstractResolveCachingStateStep.execute(AbstractResolveCachingStateStep.java:37)
-	at org.gradle.internal.execution.steps.ResolveChangesStep.executeMutable(ResolveChangesStep.java:63)
-	at org.gradle.internal.execution.steps.ResolveChangesStep.executeMutable(ResolveChangesStep.java:34)
-	at org.gradle.internal.execution.steps.MutableStep.execute(MutableStep.java:26)
-	at org.gradle.internal.execution.steps.ValidateStep$Mutable.executeDelegate(ValidateStep.java:79)
-	at org.gradle.internal.execution.steps.ValidateStep$Mutable.executeDelegate(ValidateStep.java:65)
-	at org.gradle.internal.execution.steps.ValidateStep.execute(ValidateStep.java:99)
-	at org.gradle.internal.execution.steps.ValidateStep$Mutable.execute(ValidateStep.java:65)
-	at org.gradle.internal.execution.steps.CaptureMutableStateBeforeExecutionStep.executeMutable(CaptureMutableStateBeforeExecutionStep.java:86)
-	at org.gradle.internal.execution.steps.CaptureMutableStateBeforeExecutionStep.execute(CaptureMutableStateBeforeExecutionStep.java:65)
-	at org.gradle.internal.execution.steps.CaptureMutableStateBeforeExecutionStep.execute(CaptureMutableStateBeforeExecutionStep.java:45)
-	at org.gradle.internal.execution.steps.SkipEmptyMutableWorkStep.executeWithNonEmptySources(SkipEmptyMutableWorkStep.java:210)
-	at org.gradle.internal.execution.steps.SkipEmptyMutableWorkStep.executeMutable(SkipEmptyMutableWorkStep.java:90)
-	at org.gradle.internal.execution.steps.SkipEmptyMutableWorkStep.executeMutable(SkipEmptyMutableWorkStep.java:53)
-	at org.gradle.internal.execution.steps.MutableStep.execute(MutableStep.java:26)
-	at org.gradle.internal.execution.steps.legacy.MarkSnapshottingInputsStartedStep.execute(MarkSnapshottingInputsStartedStep.java:38)
-	at org.gradle.internal.execution.steps.LoadPreviousExecutionStateStep.executeMutable(LoadPreviousExecutionStateStep.java:36)
-	at org.gradle.internal.execution.steps.LoadPreviousExecutionStateStep.executeMutable(LoadPreviousExecutionStateStep.java:23)
 	at org.gradle.internal.execution.steps.MutableStep.execute(MutableStep.java:26)
 	at org.gradle.internal.execution.steps.HandleStaleOutputsStep.executeMutable(HandleStaleOutputsStep.java:77)
 	at org.gradle.internal.execution.steps.HandleStaleOutputsStep.executeMutable(HandleStaleOutputsStep.java:43)
@@ -846,5 +152,5 @@ Execution failed for task ':compileJava' (registered by plugin class 'org.gradle
 	... 61 more
 
 
-BUILD FAILED in 1m 7s
+BUILD FAILED in 1m 16s
 5 actionable tasks: 5 executed
