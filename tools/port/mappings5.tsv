@@ -1,0 +1,56 @@
+# Method level renames. The type level work is done, these are the call sites.
+# --- Minecraft client accessors ---
+L	.getNetworkHandler()	.getConnection()
+L	.getPlayerListEntry(	.getPlayerInfo(
+L	client.crosshairTarget	client.hitResult
+L	client.textRenderer	client.font
+L	.getLoadedEntityModels()	.getEntityModels()
+L	.getBlockRenderManager()	.getBlockRenderer()
+L	.getItemModelManager()	.getItemModelResolver()
+L	.registerTexture(	.register(
+L	.getSkinTextures()	.getSkin()
+L	DefaultPlayerSkin.getSkinTextures(	DefaultPlayerSkin.get(
+# --- buffers ---
+L	.readUuid()	.readUUID()
+L	.writeUuid(	.writeUUID(
+# --- the mod's own Lombok getters that the .getUuid() rule caught ---
+L	payload.getUUID()	payload.getUuid()
+L	.get(getUuid())	.get(getUUID())
+# --- math and matrices ---
+L	Mth.catmullRom(	Mth.catmullrom(
+L	Axis.POSITIVE_X	Axis.XP
+L	Axis.POSITIVE_Y	Axis.YP
+L	Axis.POSITIVE_Z	Axis.ZP
+L	Axis.NEGATIVE_X	Axis.XN
+L	Axis.NEGATIVE_Y	Axis.YN
+L	Axis.NEGATIVE_Z	Axis.ZN
+L	matrices.push()	matrices.pushPose()
+L	matrices.pop()	matrices.popPose()
+L	matrices.multiply(	matrices.mulPose(
+L	OverlayTexture.packUv(	OverlayTexture.pack(
+# --- identifiers ---
+L	Identifier.ofVanilla(	Identifier.withDefaultNamespace(
+L	Identifier.fromNamespaceAndPath(entityData.getIdentifier())	Identifier.parse(entityData.getIdentifier())
+L	Identifier.fromNamespaceAndPath(model.textureValue().toLowerCase(Locale.ROOT))	Identifier.parse(model.textureValue().toLowerCase(Locale.ROOT))
+# --- entities ---
+L	Entity.getRenderDistanceMultiplier()	Entity.getViewScale()
+L	.squaredDistanceTo(	.distanceToSqr(
+L	entity.getYaw(tickDelta)	entity.getViewYRot(tickDelta)
+L	entity.getBodyYaw()	entity.getVisualRotationYInDegrees()
+L	entity.getPitch()	entity.getXRot()
+L	entity.distanceTraveled	entity.moveDist
+L	updateRenderState(	extractRenderState(
+# --- models ---
+L	PlayerModel.getTexturedModelData(	PlayerModel.createMesh(
+L	model.getRootPart()	model.root()
+L	model.getParts()	model.allParts()
+L	part.setOrigin(	part.setPos(
+L	part.getTransform()	part.storePose()
+L	.setDefaultTransform(	.setInitialPose(
+L	cuboid.sides	cuboid.polygons
+# --- the render type factories moved from RenderType to RenderTypes ---
+L	import net.minecraft.client.renderer.rendertype.RenderType;	import net.minecraft.client.renderer.rendertype.RenderType;\nimport net.minecraft.client.renderer.rendertype.RenderTypes;
+L	RenderType.entitySolid(	RenderTypes.entitySolid(
+L	RenderType.entityTranslucent(	RenderTypes.entityTranslucent(
+L	RenderType.entityCutout(	RenderTypes.entityCutout(
+L	RenderType.entityCutoutNoCull(	RenderTypes.entityCutoutNoCull(
