@@ -151,7 +151,7 @@ public class PayloadHandler {
             final List<BedrockGeometryModel> geometries;
             try {
                 final JsonObject object = JsonParser.parseString(info.getGeometryRaw()).getAsJsonObject();
-                geometries = BedrockGeometryModel.fromJson(object);
+                geometries = BedrockGeometryModel.fromJson(object.toString());
 
                 if (!geometries.isEmpty()) {
                     BedrockGeometryModel geometry = geometries.getFirst();
