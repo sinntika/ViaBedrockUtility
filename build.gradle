@@ -65,6 +65,12 @@ tasks.withType(JavaCompile).configureEach {
 	it.options.release = 21
 }
 
+// The mod ships an empty test source set. Gradle 9 fails the build in that case
+// unless this is explicitly allowed.
+tasks.withType(Test).configureEach {
+	it.failOnNoDiscoveredTests = false
+}
+
 def enumSourceDir = layout.buildDirectory.dir("generated/enums/main/java")
 def enumGeneratorTask = tasks.register("enumGeneratorTask", EnumGeneratorTask) {
 	outputDirectory = enumSourceDir
