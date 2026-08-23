@@ -59,7 +59,7 @@ public class CustomEntityRenderer<T extends Entity> extends EntityRenderer<T, Cu
             RenderType renderLayer = model.material.info().getVariants().get("skinning_color").build().apply(model.texture);
             if (renderLayer != null) {
                 VertexConsumer vertexConsumer = vertexConsumers.getBuffer(renderLayer);
-                model.model.render(matrices, vertexConsumer, light, OverlayTexture.pack(0, 10));
+                model.model.renderToBuffer(matrices, vertexConsumer, light, OverlayTexture.pack(0, 10));
             }
 
             matrices.popPose();

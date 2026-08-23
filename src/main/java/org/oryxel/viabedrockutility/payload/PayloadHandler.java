@@ -193,7 +193,7 @@ public class PayloadHandler {
 
         if (model == null) {
             // This is likely a classic skin with hardcoded identifier! TODO: 128x128
-            model = new PlayerModel(PlayerModel.createMesh(CubeDeformation.NONE, slim).getRoot().createPart(64, 64), slim);
+            model = new PlayerModel(PlayerModel.createMesh(CubeDeformation.NONE, slim).getRoot().bake(64, 64), slim);
         }
 
         final EntityRendererProvider.Context entityContext = new EntityRendererProvider.Context(client.getEntityRenderDispatcher(),

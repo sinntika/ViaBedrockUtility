@@ -9,6 +9,7 @@ import com.mojang.blaze3d.platform.DepthTestFunction;
 import com.mojang.blaze3d.platform.DestFactor;
 import com.mojang.blaze3d.platform.SourceFactor;
 import com.mojang.blaze3d.vertex.VertexFormat;
+import com.mojang.blaze3d.vertex.DefaultVertexFormat;
 import com.mojang.blaze3d.vertex.VertexFormatElement;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
@@ -208,7 +209,7 @@ public record Material(String identifier, String baseIdentifier, MaterialInfo in
                     }
                     vertexFormat = vertexBuilder.build();
                 } else {
-                    vertexFormat = VertexFormats.POSITION_COLOR_TEXTURE_OVERLAY_LIGHT_NORMAL;
+                    vertexFormat = DefaultVertexFormat.NEW_ENTITY;
                 }
 
                 final BlendFunction blend;
@@ -258,7 +259,7 @@ public record Material(String identifier, String baseIdentifier, MaterialInfo in
                 builder.withLocation(Identifier.fromNamespaceAndPath("viabedrockutility", "pipeline/" + UUID.randomUUID() + this.hashCode()));
                 builder.withBlend(blend);
 
-                builder.withVertexFormat(vertexFormat, this.defines.contains("LINE_STRIP") ? VertexFormat.DrawMode.LINE_STRIP : VertexFormat.DrawMode.QUADS);
+                builder.withVertexFormat(vertexFormat, this.defines.contains("LINE_STRIP") ? VertexFormat.Mode.LINE_STRIP : VertexFormat.Mode.QUADS);
 
                 // Totally possible, but not now.
 //                if (!this.fragmentShader.isBlank()) {
