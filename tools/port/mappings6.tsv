@@ -1,0 +1,8 @@
+# MeshDefinition/PartDefinition baking
+L	.createPart(	.bake(
+# vertex formats
+L	import com.mojang.blaze3d.vertex.VertexFormat;	import com.mojang.blaze3d.vertex.VertexFormat;\nimport com.mojang.blaze3d.vertex.DefaultVertexFormat;
+L	VertexFormats.POSITION_COLOR_TEXTURE_OVERLAY_LIGHT_NORMAL	DefaultVertexFormat.NEW_ENTITY
+L	VertexFormat.DrawMode	VertexFormat.Mode
+# Model.render was renamed
+L	.model.render(matrices,	.model.renderToBuffer(matrices,

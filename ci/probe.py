@@ -1,10 +1,11 @@
 #!/usr/bin/env python3
 """Ground truth probe.
 
-Reads the actual Minecraft jar that sits on the compile classpath and reports
-which imports resolve, which fully qualified names exist, and the real member
-signatures of the classes this port depends on. Guessing mapping names from
-memory does not work for 1.21.11, so every rename gets checked against the jar.
+Reads the actual Minecraft jar on the compile classpath and reports which
+imports resolve, which fully qualified names exist, what nested types a class
+owns, and the real member signatures of everything this port touches. 1.21.11
+uses deobfuscated official names that do not match the old Mojang mapping
+names, so nothing here is allowed to be a guess.
 """
 import os
 import re
@@ -24,74 +25,40 @@ VALIDATED_PREFIXES = (
 )
 
 FQN_CHECKS = [
-    "net.minecraft.client.model.Model",
-    "net.minecraft.client.model.geom.ModelPart.Cube",
-    "net.minecraft.client.model.geom.ModelPart.Polygon",
-    "net.minecraft.world.entity.player.PlayerModelType",
-    "net.minecraft.core.ClientAsset.Texture",
-    "net.minecraft.client.renderer.rendertype.RenderTypes",
-    "net.minecraft.client.renderer.culling.Frustum",
-    "com.mojang.blaze3d.vertex.DefaultVertexFormat",
-    "com.mojang.blaze3d.vertex.VertexFormat.Mode",
-    "net.minecraft.client.renderer.entity.EntityRendererProvider.Context",
-    "net.minecraft.client.renderer.entity.state.AvatarRenderState",
     "net.minecraft.client.renderer.SubmitNodeCollector",
+    "net.minecraft.client.renderer.state.CameraRenderState",
+    "net.minecraft.client.renderer.PlayerSkinRenderCache",
+    "net.minecraft.client.renderer.texture.AtlasManager",
+    "com.mojang.blaze3d.vertex.DefaultVertexFormat",
+    "net.minecraft.client.model.geom.builders.PartDefinition",
 ]
 
-PACKAGE_DUMPS = [
-    "net/minecraft/client/renderer/rendertype",
-    "net/minecraft/core",
+NESTED_DUMPS = [
+    "net.minecraft.core.ClientAsset",
+    "net.minecraft.world.entity.player.PlayerSkin",
+    "net.minecraft.client.renderer.rendertype.RenderType",
 ]
 
 JAVAP = [
-    ("net.minecraft.client.multiplayer.PlayerInfo", ["Skin", "skin", "Profile"]),
-    ("net.minecraft.client.renderer.texture.TextureManager", ["register", "release"]),
+    ("net.minecraft.client.renderer.SubmitNodeCollector", ["public"], 26),
+    (
+        "net.minecraft.client.renderer.entity.LivingEntityRenderer",
+        ["model", "submit", "getTextureLocation", "protected"],
+        14,
+    ),
+    ("net.minecraft.client.renderer.entity.player.AvatarRenderer", ["public", "protected"], 14),
+    ("net.minecraft.client.renderer.rendertype.RenderType", ["public"], 20),
+    ("net.minecraft.core.ClientAsset$DirectTexture", ["public"], 8),
+    ("net.minecraft.world.entity.player.PlayerSkin$Patch", ["public"], 10),
     (
         "net.minecraft.client.Minecraft",
-        [
-            "EntityModels",
-            "ItemModel",
-            "MapRenderer",
-            "BlockRenderer",
-            "font",
-            "getConnection",
-            "hitResult",
-            "EquipmentAsset",
-        ],
+        ["Atlas", "SkinRenderCache", "getEntityRenderDispatcher", "getResourceManager", "EquipmentAssets"],
+        12,
     ),
-    ("net.minecraft.client.model.Model", ["public", "root", "allParts"]),
-    (
-        "net.minecraft.client.model.geom.ModelPart",
-        ["setPos", "Pose", "public net", "public void", "public final"],
-    ),
-    ("net.minecraft.client.model.geom.ModelPart$Cube", ["public", "polygons", "Polygon"]),
-    ("net.minecraft.client.model.player.PlayerModel", ["public", "static"]),
-    ("net.minecraft.client.renderer.rendertype.RenderTypes", ["entity"]),
-    ("net.minecraft.core.ClientAsset", ["public", "Texture"]),
-    ("net.minecraft.core.ClientAsset$Texture", ["public"]),
-    (
-        "net.minecraft.client.renderer.entity.EntityRenderer",
-        ["extractRenderState", "shouldRender", "submit", "getTextureLocation", "public"],
-    ),
-    ("net.minecraft.client.renderer.entity.EntityRendererProvider$Context", ["public"]),
-    ("net.minecraft.client.resources.DefaultPlayerSkin", ["public", "static"]),
-    (
-        "net.minecraft.resources.Identifier",
-        ["parse", "withDefaultNamespace", "fromNamespaceAndPath"],
-    ),
-    ("com.mojang.blaze3d.vertex.VertexFormat", ["Mode", "public"]),
-    ("net.minecraft.client.renderer.entity.state.AvatarRenderState", ["public"]),
-    (
-        "net.minecraft.world.entity.Entity",
-        [
-            "getViewYRot",
-            "getVisualRotationYInDegrees",
-            "getXRot",
-            "getYRot",
-            "getViewScale",
-            "distanceToSqr",
-        ],
-    ),
+    ("net.minecraft.client.renderer.PlayerSkinRenderCache", ["public"], 10),
+    ("net.minecraft.client.model.geom.builders.PartDefinition", ["public"], 10),
+    ("com.mojang.blaze3d.vertex.DefaultVertexFormat", ["NEW_ENTITY", "POSITION_TEX"], 6),
+    ("net.minecraft.client.renderer.state.CameraRenderState", ["public"], 8),
 ]
 
 
@@ -117,6 +84,35 @@ def find_jar():
                 if count > best_count:
                     best, best_count = path, count
     return best, best_count
+
+
+def javap(cls, keywords, limit):
+    print("-- %s --" % cls)
+    try:
+        proc = subprocess.run(
+            ["javap", "-cp", jarpath, cls], capture_output=True, text=True, timeout=90
+        )
+    except Exception as exc:
+        print("   javap crashed: %s" % exc)
+        return
+    if proc.returncode != 0:
+        err = (proc.stderr or "").strip().split("\n")
+        print("   javap error: %s" % (err[0][:140] if err else "unknown"))
+        return
+    shown = 0
+    for line in proc.stdout.split("\n"):
+        text = line.strip()
+        if not text:
+            continue
+        if keywords and not any(k in text for k in keywords):
+            continue
+        print("   %s" % text[:160])
+        shown += 1
+        if shown >= limit:
+            print("   ... (truncated)")
+            break
+    if shown == 0:
+        print("   (no member matched: %s)" % ", ".join(keywords))
 
 
 jarpath, jarcount = find_jar()
@@ -192,45 +188,16 @@ for fqn in FQN_CHECKS:
     print("%s%s" % (fqn.ljust(width), "OK" if fqn in classes else "MISSING"))
 
 print("")
-print("== PACKAGE DUMPS ==")
-for pkg in PACKAGE_DUMPS:
-    members = sorted(
-        e.rsplit("/", 1)[1]
-        for e in entries
-        if e.rsplit("/", 1)[0] == pkg and "$" not in e
+print("== NESTED TYPES ==")
+for outer in NESTED_DUMPS:
+    prefix = outer.replace(".", "/") + "$"
+    nested = sorted(
+        e[len(prefix):] for e in entries if e.startswith(prefix) and "$" not in e[len(prefix):]
     )
-    print("-- %s (%d) --" % (pkg, len(members)))
-    print("  " + " ".join(members[:60]))
+    print("-- %s (%d) --" % (outer, len(nested)))
+    print("  " + (" ".join(nested[:40]) if nested else "(none)"))
 
 print("")
 print("== REAL SIGNATURES ==")
-for cls, keywords in JAVAP:
-    print("-- %s --" % cls)
-    try:
-        proc = subprocess.run(
-            ["javap", "-cp", jarpath, cls],
-            capture_output=True,
-            text=True,
-            timeout=90,
-        )
-    except Exception as exc:
-        print("   javap crashed: %s" % exc)
-        continue
-    if proc.returncode != 0:
-        err = (proc.stderr or "").strip().split("\n")
-        print("   javap error: %s" % (err[0][:140] if err else "unknown"))
-        continue
-    shown = 0
-    for line in proc.stdout.split("\n"):
-        text = line.strip()
-        if not text:
-            continue
-        if keywords and not any(k in text for k in keywords):
-            continue
-        print("   %s" % text[:150])
-        shown += 1
-        if shown >= 16:
-            print("   ... (truncated)")
-            break
-    if shown == 0:
-        print("   (no member matched: %s)" % ", ".join(keywords))
+for cls, keywords, limit in JAVAP:
+    javap(cls, keywords, limit)
