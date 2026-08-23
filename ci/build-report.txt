@@ -1,5 +1,5 @@
-commit:  7e460b9e2ec80d1a6640ec0e963a941027bf6f56
-run_id:  32631934554
+commit:  e102f2f128d1a714b959f6d7ecf0987139736325
+run_id:  32632171600
 outcome: success
 
 ===== RENAME =====
@@ -11,7 +11,7 @@ loaded mappings5.tsv
 loaded mappings6.tsv
 loaded mappings7.tsv
 loaded mappings8.tsv
-rewrote 1 files
+rewrote 0 files
 renamed 0 files
 
 ===== COMPILE ERRORS =====
@@ -28,98 +28,89 @@ unique errors: 0
   Cannot remap toProfiles because it does not exist in any of the targets [net/minecraft/client/resources/server/DownloadedPackSource]
   Cannot remap sendChatMessage because it does not exist in any of the targets [net/minecraft/client/multiplayer/ClientPacketListener]
 
+== SOURCE GREP ==
+-- modifiers (0) --
+-- toProfiles (2) --
+   src/main/java/org/oryxel/viabedrockutility/mixin/impl/pack/ServerResourcePackLoaderMixin.java:22  @Inject(method = "toProfiles", at = @At("HEAD"))
+   src/main/java/org/oryxel/viabedrockutility/mixin/impl/pack/ServerResourcePackLoaderMixin.java:23  private void toProfiles(List<PackReloadConfig.IdAndPath> packs, CallbackInfoReturnable<List<Pack>> cir) {
+-- sendChatMessage (1) --
+   src/main/java/org/oryxel/viabedrockutility/mixin/impl/network/ClientPlayNetworkHandlerMixin.java:21  @Inject(method = "sendChatMessage", at = @At("HEAD"), cancellable = true)
+
 == FQN CHECK ==
-net.minecraft.client.renderer.entity.layers.CapeLayer    OK
+net.minecraft.client.resources.server.DownloadedPackSource    OK
+net.minecraft.client.resources.server.PackReloadConfig        OK
 
 == NESTED TYPES ==
--- net.minecraft.client.model.geom.ModelPart (4) --
-  Cube Polygon Vertex Visitor
+-- net.minecraft.client.resources.server.PackReloadConfig (2) --
+  Callbacks IdAndPath
 
 == REAL SIGNATURES ==
--- net.minecraft.client.model.geom.ModelPart --
-   Compiled from "ModelPart.java"
-   public final class net.minecraft.client.model.geom.ModelPart {
-   public static final float DEFAULT_SCALE;
-   public float x;
-   public float y;
-   public float z;
-   public float xRot;
-   public float yRot;
-   public float zRot;
-   public float xScale;
-   public float yScale;
-   public float zScale;
-   public boolean visible;
-   public boolean skipDraw;
-   private final java.util.List<net.minecraft.client.model.geom.ModelPart$Cube> cubes;
-   private final java.util.Map<java.lang.String, net.minecraft.client.model.geom.ModelPart> children;
-   private net.minecraft.client.model.geom.PartPose initialPose;
-   public net.minecraft.client.model.geom.ModelPart(java.util.List<net.minecraft.client.model.geom.ModelPart$Cube>, java.util.Map<java.lang.String, net.minecraft.client.model.geom.ModelPart>);
-   public net.minecraft.client.model.geom.PartPose storePose();
-   public net.minecraft.client.model.geom.PartPose getInitialPose();
-   public void setInitialPose(net.minecraft.client.model.geom.PartPose);
-   public void resetPose();
-   public void loadPose(net.minecraft.client.model.geom.PartPose);
-   public boolean hasChild(java.lang.String);
-   public net.minecraft.client.model.geom.ModelPart getChild(java.lang.String);
-   public void setPos(float, float, float);
-   public void setRotation(float, float, float);
-   public void render(com.mojang.blaze3d.vertex.PoseStack, com.mojang.blaze3d.vertex.VertexConsumer, int, int);
-   public void render(com.mojang.blaze3d.vertex.PoseStack, com.mojang.blaze3d.vertex.VertexConsumer, int, int, int);
-   public void rotateBy(org.joml.Quaternionf);
-   public void getExtentsForGui(com.mojang.blaze3d.vertex.PoseStack, java.util.function.Consumer<org.joml.Vector3fc>);
-   public void visit(com.mojang.blaze3d.vertex.PoseStack, net.minecraft.client.model.geom.ModelPart$Visitor);
-   private void visit(com.mojang.blaze3d.vertex.PoseStack, net.minecraft.client.model.geom.ModelPart$Visitor, java.lang.String);
-   public void translateAndRotate(com.mojang.blaze3d.vertex.PoseStack);
-   private void compile(com.mojang.blaze3d.vertex.PoseStack$Pose, com.mojang.blaze3d.vertex.VertexConsumer, int, int, int);
-   public net.minecraft.client.model.geom.ModelPart$Cube getRandomCube(net.minecraft.util.RandomSource);
-   public boolean isEmpty();
-   public void offsetPos(org.joml.Vector3f);
-   public void offsetRotation(org.joml.Vector3f);
-   public void offsetScale(org.joml.Vector3f);
-   public java.util.List<net.minecraft.client.model.geom.ModelPart> getAllParts();
-   public java.util.function.Function<java.lang.String, net.minecraft.client.model.geom.ModelPart> createPartLookup();
-   private void addAllChildren(java.util.function.BiConsumer<java.lang.String, net.minecraft.client.model.geom.ModelPart>);
-   private static void method_72013(java.util.List, java.lang.String, net.minecraft.client.model.geom.ModelPart);
-   private static void method_35747(com.mojang.blaze3d.vertex.PoseStack, net.minecraft.client.model.geom.ModelPart$Visitor, java.lang.String, java.lang.String, net.minecraft.client.model.geom.ModelPart);
+-- net.minecraft.client.resources.server.DownloadedPackSource --
+   Compiled from "DownloadedPackSource.java"
+   public class net.minecraft.client.resources.server.DownloadedPackSource implements java.lang.AutoCloseable {
+   private static final net.minecraft.network.chat.Component SERVER_NAME;
+   private static final java.util.regex.Pattern SHA1;
+   static final org.slf4j.Logger LOGGER;
+   private static final net.minecraft.server.packs.repository.RepositorySource EMPTY_SOURCE;
+   private static final net.minecraft.server.packs.PackSelectionConfig DOWNLOADED_PACK_SELECTION;
+   private static final net.minecraft.client.resources.server.PackLoadFeedback LOG_ONLY_FEEDBACK;
+   final net.minecraft.client.Minecraft minecraft;
+   private net.minecraft.server.packs.repository.RepositorySource packSource;
+   private net.minecraft.client.resources.server.PackReloadConfig$Callbacks pendingReload;
+   final net.minecraft.client.resources.server.ServerPackManager manager;
+   private final net.minecraft.server.packs.DownloadQueue downloadQueue;
+   private net.minecraft.server.packs.repository.PackSource packType;
+   net.minecraft.client.resources.server.PackLoadFeedback packFeedback;
+   private int packIdSerialNumber;
+   public net.minecraft.client.resources.server.DownloadedPackSource(net.minecraft.client.Minecraft, java.nio.file.Path, net.minecraft.client.main.GameConfig$UserData);
+   net.minecraft.util.HttpUtil$DownloadProgressListener createDownloadNotifier(int);
+   private net.minecraft.client.resources.server.PackDownloader createDownloader(net.minecraft.server.packs.DownloadQueue, java.util.concurrent.Executor, net.minecraft.client.User, java.net.Proxy);
+   private java.lang.Runnable createUpdateScheduler(java.util.concurrent.Executor);
+   private net.minecraft.client.resources.server.PackReloadConfig createReloadConfig();
+   private java.util.List<net.minecraft.server.packs.repository.Pack> loadRequestedPacks(java.util.List<net.minecraft.client.resources.server.PackReloadConfig$IdAndPath>);
+   public net.minecraft.server.packs.repository.RepositorySource createRepositorySource();
+   private static net.minecraft.server.packs.repository.RepositorySource configureSource(java.util.List<net.minecraft.server.packs.repository.Pack>);
+   private void startReload(net.minecraft.client.resources.server.PackReloadConfig$Callbacks);
+   public void onRecovery();
+   public void onRecoveryFailure();
+   public void onReloadSuccess();
+   private static com.google.common.hash.HashCode tryParseSha1Hash(java.lang.String);
+   public void pushPack(java.util.UUID, java.net.URL, java.lang.String);
+   public void pushLocalPack(java.util.UUID, java.nio.file.Path);
+   public void popPack(java.util.UUID);
+   public void popAll();
+   private static net.minecraft.client.resources.server.PackLoadFeedback createPackResponseSender(net.minecraft.network.Connection);
+   public void configureForServerControl(net.minecraft.network.Connection, net.minecraft.client.resources.server.ServerPackManager$PackPromptStatus);
+   public void configureForLocalWorld();
+   public void allowServerPacks();
+   public void rejectServerPacks();
+   public java.util.concurrent.CompletableFuture<java.lang.Void> waitForPackFeedback(java.util.UUID);
+   public void cleanupAfterDisconnect();
    ... (truncated)
--- net.minecraft.client.renderer.entity.layers.CapeLayer --
-   Compiled from "CapeLayer.java"
-   public class net.minecraft.client.renderer.entity.layers.CapeLayer extends net.minecraft.client.renderer.entity.layers.RenderLayer<net.minecraft.client.renderer.entity.state.AvatarRenderState, net.minecraft.client.model.player.PlayerModel> {
-   private final net.minecraft.client.model.HumanoidModel<net.minecraft.client.renderer.entity.state.AvatarRenderState> model;
-   private final net.minecraft.client.resources.model.EquipmentAssetManager equipmentAssets;
-   public net.minecraft.client.renderer.entity.layers.CapeLayer(net.minecraft.client.renderer.entity.RenderLayerParent<net.minecraft.client.renderer.entity.state.AvatarRenderState, net.minecraft.client.model.player.PlayerModel>, net.minecraft.client.model.geom.EntityModelSet, net.minecraft.client.resou
-   private boolean hasLayer(net.minecraft.world.item.ItemStack, net.minecraft.client.resources.model.EquipmentClientInfo$LayerType);
-   public void submit(com.mojang.blaze3d.vertex.PoseStack, net.minecraft.client.renderer.SubmitNodeCollector, int, net.minecraft.client.renderer.entity.state.AvatarRenderState, float, float);
-   public void submit(com.mojang.blaze3d.vertex.PoseStack, net.minecraft.client.renderer.SubmitNodeCollector, int, net.minecraft.client.renderer.entity.state.EntityRenderState, float, float);
-   }
--- net.minecraft.client.multiplayer.ClientHandshakePacketListenerImpl --
-   public void handleHello(net.minecraft.network.protocol.login.ClientboundHelloPacket);
-   public void handleLoginFinished(net.minecraft.network.protocol.login.ClientboundLoginFinishedPacket);
-   public void handleDisconnect(net.minecraft.network.protocol.login.ClientboundLoginDisconnectPacket);
-   public void handleCompression(net.minecraft.network.protocol.login.ClientboundLoginCompressionPacket);
-   public void handleCustomQuery(net.minecraft.network.protocol.login.ClientboundCustomQueryPacket);
-   public void handleRequestCookie(net.minecraft.network.protocol.cookie.ClientboundCookieRequestPacket);
--- net.minecraft.client.renderer.rendertype.RenderTypes --
-   public static net.minecraft.client.renderer.rendertype.RenderType entitySolid(net.minecraft.resources.Identifier);
-   public static net.minecraft.client.renderer.rendertype.RenderType entitySolidZOffsetForward(net.minecraft.resources.Identifier);
-   public static net.minecraft.client.renderer.rendertype.RenderType entityTranslucent(net.minecraft.resources.Identifier, boolean);
-   public static net.minecraft.client.renderer.rendertype.RenderType entityTranslucent(net.minecraft.resources.Identifier);
-   public static net.minecraft.client.renderer.rendertype.RenderType entityTranslucentEmissive(net.minecraft.resources.Identifier, boolean);
-   public static net.minecraft.client.renderer.rendertype.RenderType entityTranslucentEmissive(net.minecraft.resources.Identifier);
--- net.minecraft.world.entity.Entity --
-   public void setPose(net.minecraft.world.entity.Pose);
-   public final void setPos(net.minecraft.world.phys.Vec3);
-   public void setPos(double, double, double);
-   public final void setPosRaw(double, double, double);
+-- net.minecraft.client.multiplayer.ClientPacketListener --
+   private static final net.minecraft.network.chat.Component UNSECURE_SERVER_TOAST_TITLE;
+   private static final net.minecraft.network.chat.Component UNSERURE_SERVER_TOAST;
+   private static final net.minecraft.network.chat.Component INVALID_PACKET;
+   private static final net.minecraft.network.chat.Component RECONFIGURE_SCREEN_MESSAGE;
+   private static final net.minecraft.network.chat.Component BAD_CHAT_INDEX;
+   private static final net.minecraft.network.chat.Component COMMAND_SEND_CONFIRM_TITLE;
+   private static final net.minecraft.network.chat.Component BUTTON_RUN_COMMAND;
+   private static final net.minecraft.network.chat.Component BUTTON_SUGGEST_COMMAND;
+   private net.minecraft.network.chat.LocalChatSession chatSession;
+   private net.minecraft.network.chat.SignedMessageChain$Encoder signedMessageEncoder;
+   private int nextChatIndex;
+   private net.minecraft.network.chat.LastSeenMessagesTracker lastSeenMessages;
+   private net.minecraft.network.chat.MessageSignatureCache messageSignatureCache;
+   private boolean serverEnforcesSecureChat;
+   ... (truncated)
 
 ===== TAIL =====
 > Task :testClasses
 > Task :test
-Cannot remap toProfiles because it does not exist in any of the targets [net/minecraft/client/resources/server/DownloadedPackSource]
-Cannot remap sendChatMessage because it does not exist in any of the targets [net/minecraft/client/multiplayer/ClientPacketListener]
 > Task :validateAccessWidener
 > Task :check
+Cannot remap toProfiles because it does not exist in any of the targets [net/minecraft/client/resources/server/DownloadedPackSource]
+Cannot remap sendChatMessage because it does not exist in any of the targets [net/minecraft/client/multiplayer/ClientPacketListener]
 > Task :remapJar
 > Task :remapSourcesJar SKIPPED
 > Task :assemble
