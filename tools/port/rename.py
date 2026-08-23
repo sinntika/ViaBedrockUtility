@@ -4,6 +4,8 @@
 # Tables are applied as separate sequential passes so a later table can correct
 # an earlier table's target without the two rules fighting each other.
 # In L (literal) rules a two character \n sequence means a real line break.
+# Duplicate import lines are collapsed at the end, which keeps rules that插
+# insert an import idempotent.
 import glob
 import os
 import re
@@ -39,6 +41,18 @@ def load(path):
     return imports, names, literals
 
 
+def dedupe_imports(text):
+    seen = set()
+    out = []
+    for line in text.split("\n"):
+        if line.startswith("import "):
+            if line in seen:
+                continue
+            seen.add(line)
+        out.append(line)
+    return "\n".join(out)
+
+
 tables = []
 for mp in sorted(glob.glob(os.path.join(HERE, "mappings*.tsv"))):
     tables.append((os.path.basename(mp), load(mp)))
@@ -64,6 +78,7 @@ for path in files:
             text = re.sub(r"\b%s\b" % re.escape(s), d, text)
         for s, d in literals:
             text = text.replace(s, d)
+    text = dedupe_imports(text)
     if text != orig:
         with open(path, "w", encoding="utf-8") as fh:
             fh.write(text)
