@@ -19,7 +19,8 @@ import java.util.List;
 
 @Mixin(DownloadedPackSource.class)
 public class ServerResourcePackLoaderMixin {
-    @Inject(method = "toProfiles", at = @At("HEAD"))
+    // 1.21.11: toProfiles is now loadRequestedPacks.
+    @Inject(method = "loadRequestedPacks", at = @At("HEAD"))
     private void toProfiles(List<PackReloadConfig.IdAndPath> packs, CallbackInfoReturnable<List<Pack>> cir) {
         if (!ViaBedrockUtility.getInstance().isViaBedrockPresent()) {
             return;

@@ -18,7 +18,8 @@ import java.util.UUID;
 @Mixin(ClientPacketListener.class)
 public class ClientPlayNetworkHandlerMixin {
     // Have to do this since you can't run custom command when playing in a server.
-    @Inject(method = "sendChatMessage", at = @At("HEAD"), cancellable = true)
+    // 1.21.11: sendChatMessage is now sendChat.
+    @Inject(method = "sendChat", at = @At("HEAD"), cancellable = true)
     private void injectSendMessage(String content, CallbackInfo ci) {
         if (!ViaBedrockUtility.DEBUGGING || !content.startsWith("$animate")) {
             return;
