@@ -1,5 +1,5 @@
-commit:  8aea6c6bfc7d4ab3231217299f27788b299de8e0
-run_id:  32633109303
+commit:  4739bc2eb706c3bc6066b197c8a21138e4b71e9a
+run_id:  32633364730
 outcome: failure
 
 ===== RENAME =====
@@ -15,7 +15,7 @@ rewrote 0 files
 renamed 0 files
 
 ===== COMPILE ERRORS =====
-unique errors: 8
+unique errors: 5
 material/data/Material.java:8: cannot find symbol   [symbol: class DepthTestFunction | location: package com.mojang.blaze3d.platform]
       src: import com.mojang.blaze3d.platform.DepthTestFunction;
 material/data/Material.java:9: cannot find symbol   [symbol: class DestFactor | location: package com.mojang.blaze3d.platform]
@@ -26,23 +26,15 @@ material/data/Material.java:21: cannot find symbol   [symbol: class MultiBufferS
       src: import net.minecraft.client.renderer.MultiBufferSource;
 material/data/Material.java:24: cannot find symbol   [symbol: class LightTexture | location: package net.minecraft.client.renderer]
       src: import net.minecraft.client.renderer.LightTexture;
-renderer/CustomEntityRenderer.java:8: cannot find symbol   [symbol: class LightTexture | location: package net.minecraft.client.renderer]
-      src: import net.minecraft.client.renderer.LightTexture;
-renderer/CustomEntityRenderer.java:10: cannot find symbol   [symbol: class CameraRenderState | location: package net.minecraft.client.renderer.state]
-      src: import net.minecraft.client.renderer.state.CameraRenderState;
-renderer/CustomEntityRenderer.java:46: cannot find symbol   [symbol: class CameraRenderState | location: class CustomEntityRenderer<T>]
-      src: public void submit(CustomEntityRenderState state, PoseStack matrices, SubmitNodeCollector collector, CameraRenderState cameraState) {
 
 ===== CLASSPATH PROBE =====
 == LOMBOK ==
 resolved in cache: 1.18.46
-maven latest:      1.18.46
-maven recent:      1.18.36, 1.18.38, 1.18.40, 1.18.42, 1.18.44, 1.18.46
 
 == JAR ==
 10952 classes  minecraft-merged-a76db1c7b4-26.2.jar
 
-== BAD IMPORTS (7) ==
+== BAD IMPORTS (5) ==
 com.mojang.blaze3d.platform.DepthTestFunction
     -> NO CLASS NAMED DepthTestFunction
     in org/oryxel/viabedrockutility/material/data/Material.java
@@ -58,51 +50,116 @@ net.minecraft.client.renderer.MultiBufferSource
 net.minecraft.client.renderer.LightTexture
     -> NO CLASS NAMED LightTexture
     in org/oryxel/viabedrockutility/material/data/Material.java
-net.minecraft.client.renderer.LightTexture
-    -> NO CLASS NAMED LightTexture
-    in org/oryxel/viabedrockutility/renderer/CustomEntityRenderer.java
-net.minecraft.client.renderer.state.CameraRenderState
-    -> net.minecraft.client.renderer.state.level.CameraRenderState
-    in org/oryxel/viabedrockutility/renderer/CustomEntityRenderer.java
 
 == WHERE DID IT GO ==
+BlendFunction          -> com.mojang.blaze3d.pipeline.BlendFunction
 DepthTestFunction      -> GONE
-DestFactor             -> GONE
+DepthTest              -> GONE
+CompareFunction        -> GONE
+BlendFactor            -> com.mojang.blaze3d.platform.BlendFactor
 SourceFactor           -> GONE
-MultiBufferSource      -> GONE
-LightTexture           -> GONE
-CameraRenderState      -> net.minecraft.client.renderer.state.level.CameraRenderState
-SubmitNodeCollector    -> net.minecraft.client.renderer.SubmitNodeCollector
-RenderSetup            -> net.minecraft.client.renderer.rendertype.RenderSetup
-RenderPipeline         -> com.mojang.blaze3d.pipeline.RenderPipeline
-OverlayTexture         -> net.minecraft.client.renderer.texture.OverlayTexture
+DestFactor             -> GONE
+
+== PACKAGE LISTING ==
+-- com.mojang.blaze3d.platform (26) --
+  BlendFactor BlendOp ClientShutdownWatchdog ClipboardManager CompareOp DebugMemoryUntracker DisplayData FramerateLimitTracker GLX IconSet InputConstants Lighting MacosUtil MessageBox Monitor MonitorManager NativeImage NativeLibrariesBootstrap PolygonMode TextInputManager TextureUtil Transparency 
+  VideoMode Window WindowEventHandler package-info 
+-- com.mojang.blaze3d.pipeline (11) --
+  BindGroupLayout BlendEquation BlendFunction ColorTargetState CompiledRenderPipeline DepthStencilState MainTarget RenderPipeline RenderTarget TextureTarget package-info 
 
 == STALE MIXIN TARGETS ==
   none
 
 == REAL SIGNATURES ==
--- net.minecraft.client.renderer.entity.EntityRenderer --
-   public abstract class net.minecraft.client.renderer.entity.EntityRenderer<T extends net.minecraft.world.entity.Entity, S extends net.minecraft.client.renderer.entity.state.EntityRenderState> {
-   protected final net.minecraft.client.renderer.entity.EntityRenderDispatcher entityRenderDispatcher;
-   protected net.minecraft.client.renderer.entity.EntityRenderer(net.minecraft.client.renderer.entity.EntityRendererProvider$Context);
-   public boolean shouldRender(T, net.minecraft.client.renderer.culling.Frustum, double, double, double);
-   public void submit(S, com.mojang.blaze3d.vertex.PoseStack, net.minecraft.client.renderer.SubmitNodeCollector, net.minecraft.client.renderer.state.level.CameraRenderState);
-   protected void submitNameDisplay(S, com.mojang.blaze3d.vertex.PoseStack, net.minecraft.client.renderer.SubmitNodeCollector, net.minecraft.client.renderer.state.level.CameraRenderState);
-   protected final <S extends net.minecraft.client.renderer.entity.state.EntityRenderState> void submitNameDisplay(S, com.mojang.blaze3d.vertex.PoseStack, net.minecraft.client.renderer.SubmitNodeCollector, net.minecraft.client.renderer.state.level.CameraRenderState, int);
+-- com.mojang.blaze3d.pipeline.BlendFunction --
+   Compiled from "BlendFunction.java"
+   public final class com.mojang.blaze3d.pipeline.BlendFunction extends java.lang.Record {
+   private final com.mojang.blaze3d.pipeline.BlendEquation color;
+   private final com.mojang.blaze3d.pipeline.BlendEquation alpha;
+   public static final com.mojang.blaze3d.pipeline.BlendFunction LIGHTNING;
+   public static final com.mojang.blaze3d.pipeline.BlendFunction GLINT;
+   public static final com.mojang.blaze3d.pipeline.BlendFunction OVERLAY;
+   public static final com.mojang.blaze3d.pipeline.BlendFunction TRANSLUCENT;
+   public static final com.mojang.blaze3d.pipeline.BlendFunction TRANSLUCENT_PREMULTIPLIED_ALPHA;
+   public static final com.mojang.blaze3d.pipeline.BlendFunction ADDITIVE;
+   public static final com.mojang.blaze3d.pipeline.BlendFunction ENTITY_OUTLINE_BLIT;
+   public static final com.mojang.blaze3d.pipeline.BlendFunction INVERT;
+   public com.mojang.blaze3d.pipeline.BlendFunction(com.mojang.blaze3d.platform.BlendFactor, com.mojang.blaze3d.platform.BlendFactor, com.mojang.blaze3d.platform.BlendOp, com.mojang.blaze3d.platform.BlendFactor, com.mojang.blaze3d.platform.BlendFactor, com.mojang.blaze3d.platform.BlendOp);
+   public com.mojang.blaze3d.pipeline.BlendFunction(com.mojang.blaze3d.platform.BlendFactor, com.mojang.blaze3d.platform.BlendFactor, com.mojang.blaze3d.platform.BlendFactor, com.mojang.blaze3d.platform.BlendFactor);
+   public com.mojang.blaze3d.pipeline.BlendFunction(com.mojang.blaze3d.pipeline.BlendEquation);
+   public com.mojang.blaze3d.pipeline.BlendFunction(com.mojang.blaze3d.platform.BlendFactor, com.mojang.blaze3d.platform.BlendFactor, com.mojang.blaze3d.platform.BlendOp);
+   public com.mojang.blaze3d.pipeline.BlendFunction(com.mojang.blaze3d.platform.BlendFactor, com.mojang.blaze3d.platform.BlendFactor);
+   public com.mojang.blaze3d.pipeline.BlendFunction(com.mojang.blaze3d.pipeline.BlendEquation, com.mojang.blaze3d.pipeline.BlendEquation);
+   public final java.lang.String toString();
+   public final int hashCode();
+   public final boolean equals(java.lang.Object);
+   public com.mojang.blaze3d.pipeline.BlendEquation color();
+   public com.mojang.blaze3d.pipeline.BlendEquation alpha();
+   static {};
+   }
+-- com.mojang.blaze3d.pipeline.RenderPipeline$Builder --
+   public com.mojang.blaze3d.pipeline.RenderPipeline$Builder withLocation(java.lang.String);
+   public com.mojang.blaze3d.pipeline.RenderPipeline$Builder withLocation(net.minecraft.resources.Identifier);
+   public com.mojang.blaze3d.pipeline.RenderPipeline$Builder withFragmentShader(java.lang.String);
+   public com.mojang.blaze3d.pipeline.RenderPipeline$Builder withFragmentShader(net.minecraft.resources.Identifier);
+   public com.mojang.blaze3d.pipeline.RenderPipeline$Builder withVertexShader(java.lang.String);
+   public com.mojang.blaze3d.pipeline.RenderPipeline$Builder withVertexShader(net.minecraft.resources.Identifier);
+   public com.mojang.blaze3d.pipeline.RenderPipeline$Builder withShaderDefine(java.lang.String);
+   public com.mojang.blaze3d.pipeline.RenderPipeline$Builder withShaderDefine(java.lang.String, int);
+   public com.mojang.blaze3d.pipeline.RenderPipeline$Builder withShaderDefine(java.lang.String, float);
+   public com.mojang.blaze3d.pipeline.RenderPipeline$Builder withBindGroupLayout(com.mojang.blaze3d.pipeline.BindGroupLayout);
+   public com.mojang.blaze3d.pipeline.RenderPipeline$Builder withPolygonMode(com.mojang.blaze3d.platform.PolygonMode);
+   public com.mojang.blaze3d.pipeline.RenderPipeline$Builder withCull(boolean);
+   public com.mojang.blaze3d.pipeline.RenderPipeline$Builder withColorTargetState(int, com.mojang.blaze3d.pipeline.ColorTargetState);
+   public com.mojang.blaze3d.pipeline.RenderPipeline$Builder withUnusedColorTargetState(int);
+   public com.mojang.blaze3d.pipeline.RenderPipeline$Builder withColorTargetState(com.mojang.blaze3d.pipeline.ColorTargetState);
+   public com.mojang.blaze3d.pipeline.RenderPipeline$Builder withDepthStencilState(com.mojang.blaze3d.pipeline.DepthStencilState);
+   public com.mojang.blaze3d.pipeline.RenderPipeline$Builder withDepthStencilState(java.util.Optional<com.mojang.blaze3d.pipeline.DepthStencilState>);
+   public com.mojang.blaze3d.pipeline.RenderPipeline$Builder withVertexBinding(int, com.mojang.blaze3d.vertex.VertexFormat);
+   public com.mojang.blaze3d.pipeline.RenderPipeline$Builder withPrimitiveTopology(com.mojang.blaze3d.PrimitiveTopology);
+   private void withSnippet(com.mojang.blaze3d.pipeline.RenderPipeline$Snippet);
+   private void lambda$withSnippet$0(java.util.List);
+-- net.minecraft.client.renderer.rendertype.RenderSetup$RenderSetupBuilder --
+   Compiled from "RenderSetup.java"
+   public class net.minecraft.client.renderer.rendertype.RenderSetup$RenderSetupBuilder {
+   private final com.mojang.blaze3d.pipeline.RenderPipeline pipeline;
+   private boolean useLightmap;
+   private boolean useOverlay;
+   private net.minecraft.client.renderer.rendertype.LayeringTransform layeringTransform;
+   private net.minecraft.client.renderer.rendertype.OutputTarget outputTarget;
+   private net.minecraft.client.renderer.rendertype.TextureTransform textureTransform;
+   private boolean affectsCrumbling;
+   private boolean sortOnUpload;
+   private net.minecraft.client.renderer.rendertype.RenderSetup$OutlineProperty outlineProperty;
+   private final java.util.Map<java.lang.String, net.minecraft.client.renderer.rendertype.RenderSetup$TextureBinding> textures;
+   private net.minecraft.client.renderer.rendertype.RenderSetup$RenderSetupBuilder(com.mojang.blaze3d.pipeline.RenderPipeline);
+   public net.minecraft.client.renderer.rendertype.RenderSetup$RenderSetupBuilder withTexture(java.lang.String, net.minecraft.resources.Identifier);
+   public net.minecraft.client.renderer.rendertype.RenderSetup$RenderSetupBuilder withTexture(java.lang.String, net.minecraft.resources.Identifier, java.util.function.Supplier<com.mojang.blaze3d.textures.GpuSampler>);
+   public net.minecraft.client.renderer.rendertype.RenderSetup$RenderSetupBuilder useLightmap();
+   public net.minecraft.client.renderer.rendertype.RenderSetup$RenderSetupBuilder useOverlay();
+   public net.minecraft.client.renderer.rendertype.RenderSetup$RenderSetupBuilder affectsCrumbling();
+   public net.minecraft.client.renderer.rendertype.RenderSetup$RenderSetupBuilder sortOnUpload();
+   public net.minecraft.client.renderer.rendertype.RenderSetup$RenderSetupBuilder setLayeringTransform(net.minecraft.client.renderer.rendertype.LayeringTransform);
+   public net.minecraft.client.renderer.rendertype.RenderSetup$RenderSetupBuilder setOutputTarget(net.minecraft.client.renderer.rendertype.OutputTarget);
+   public net.minecraft.client.renderer.rendertype.RenderSetup$RenderSetupBuilder setTextureTransform(net.minecraft.client.renderer.rendertype.TextureTransform);
+   public net.minecraft.client.renderer.rendertype.RenderSetup$RenderSetupBuilder setOutline(net.minecraft.client.renderer.rendertype.RenderSetup$OutlineProperty);
+   public net.minecraft.client.renderer.rendertype.RenderSetup createRenderSetup();
+   private static com.mojang.blaze3d.textures.GpuSampler lambda$withTexture$1(java.util.function.Supplier);
+   ... (truncated)
 
 ===== TAIL =====
-  symbol:   class CameraRenderState
-  location: package net.minecraft.client.renderer.state
-/home/runner/work/ViaBedrockUtility/ViaBedrockUtility/src/main/java/org/oryxel/viabedrockutility/renderer/CustomEntityRenderer.java:46: error: cannot find symbol
-    public void submit(CustomEntityRenderState state, PoseStack matrices, SubmitNodeCollector collector, CameraRenderState cameraState) {
-                                                                                                         ^
-  symbol:   class CameraRenderState
-  location: class CustomEntityRenderer<T>
-  where T is a type-variable:
-    T extends Entity declared in class CustomEntityRenderer
-8 errors
-	... 30 more
+import net.minecraft.client.renderer.MultiBufferSource;
+                                    ^
+  symbol:   class MultiBufferSource
+  location: package net.minecraft.client.renderer
+/home/runner/work/ViaBedrockUtility/ViaBedrockUtility/src/main/java/org/oryxel/viabedrockutility/material/data/Material.java:24: error: cannot find symbol
+import net.minecraft.client.renderer.LightTexture;
+                                    ^
+  symbol:   class LightTexture
+  location: package net.minecraft.client.renderer
+5 errors
+	... 61 more
 
 
-BUILD FAILED in 52s
+BUILD FAILED in 51s
 5 actionable tasks: 5 executed
