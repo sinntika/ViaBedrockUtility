@@ -1,6 +1,6 @@
-commit:  d5507f20510589c00b916eab67c4a8dcf5f6ed0c
-run_id:  32634379467
-outcome: failure
+commit:  bb70dfa6d9c3d8e7ce7d0ff370af0fc92522726b
+run_id:  32634683392
+outcome: success
 
 ===== RENAME =====
 loaded mappings.tsv
@@ -15,11 +15,7 @@ rewrote 0 files
 renamed 0 files
 
 ===== COMPILE ERRORS =====
-unique errors: 2
-payload/PayloadHandler.java:200: cannot find symbol   [symbol: method getBlockRenderer() | location: variable client of type Minecraft]
-      src: client.getItemModelResolver(), client.getMapRenderer(), client.getBlockRenderer(),
-entity/CustomEntityTicker.java:63: cannot find symbol   [symbol: method getBlockRenderer() | location: variable client of type Minecraft]
-      src: client.getItemModelResolver(), client.getMapRenderer(), client.getBlockRenderer(),
+unique errors: 0
 
 ===== CLASSPATH PROBE =====
 == LOMBOK ==
@@ -30,96 +26,45 @@ resolved in cache: 1.18.46
 
 == BAD IMPORTS (0) ==
 
-== WHERE DID IT GO ==
-BlockRenderDispatcher  -> GONE
-BlockModelResolver     -> net.minecraft.client.renderer.block.BlockModelResolver
-
-== PACKAGE LISTING ==
--- net.minecraft.client.renderer.block (16) --
-  BlockAndTintGetter BlockModelLighter BlockModelRenderState BlockModelResolver BlockModelSet BlockQuadOutput BlockStateModelSet BuiltInBlockModels FluidModel FluidRenderer FluidStateModelSet LoadedBlockModels ModelBlockRenderer MovingBlockRenderState SelectBlockModel package-info 
-
 == STALE MIXIN TARGETS ==
   none
 
 == REAL SIGNATURES ==
--- net.minecraft.client.renderer.block.BlockModelResolver --
-   Compiled from "BlockModelResolver.java"
-   public class net.minecraft.client.renderer.block.BlockModelResolver {
-   private static final long MODEL_SEED;
-   private final net.minecraft.client.resources.model.ModelManager modelManager;
-   public net.minecraft.client.renderer.block.BlockModelResolver(net.minecraft.client.resources.model.ModelManager);
-   public void update(net.minecraft.client.renderer.block.BlockModelRenderState, net.minecraft.world.level.block.state.BlockState, net.minecraft.client.renderer.block.model.BlockDisplayContext);
-   public void updateForItemFrame(net.minecraft.client.renderer.block.BlockModelRenderState, boolean, boolean);
-   }
 -- net.minecraft.client.Minecraft --
-   private final net.minecraft.client.renderer.item.ItemModelResolver itemModelResolver;
-   private final net.minecraft.client.resources.model.ModelManager modelManager;
-   public net.minecraft.client.resources.model.ModelManager getModelManager();
-   public net.minecraft.client.model.geom.EntityModelSet getEntityModels();
-   public net.minecraft.client.renderer.item.ItemModelResolver getItemModelResolver();
--- net.minecraft.client.renderer.entity.EntityRendererProvider$Context --
-   public net.minecraft.client.renderer.entity.EntityRendererProvider$Context(net.minecraft.client.renderer.entity.EntityRenderDispatcher, net.minecraft.client.renderer.block.BlockModelResolver, net.minecraft.client.renderer.item.ItemModelResolver, net.minecraft.client.renderer.MapRenderer, net.minecraft.server.packs.resources.ResourceManager, net.minecraft.client.model.geom.EntityModelSet, net.minecraft.client.resources.model.EquipmentAssetManager, net.minecraft.client.resources.model.sprite.AtlasManager, net.minecraft.client.gui.Font, net.minecraft.client.renderer.PlayerSkinRenderCache);
--- com.mojang.blaze3d.GpuFormat --
-   Compiled from "GpuFormat.java"
-   public final class com.mojang.blaze3d.GpuFormat extends java.lang.Enum<com.mojang.blaze3d.GpuFormat> {
-   public static final com.mojang.blaze3d.GpuFormat R8_UNORM;
-   public static final com.mojang.blaze3d.GpuFormat R8_SNORM;
-   public static final com.mojang.blaze3d.GpuFormat RG8_UNORM;
-   public static final com.mojang.blaze3d.GpuFormat RG8_SNORM;
-   public static final com.mojang.blaze3d.GpuFormat RGB8_UNORM;
-   public static final com.mojang.blaze3d.GpuFormat RGB8_SNORM;
-   public static final com.mojang.blaze3d.GpuFormat RGBA8_UNORM;
-   public static final com.mojang.blaze3d.GpuFormat RGBA8_SNORM;
-   public static final com.mojang.blaze3d.GpuFormat R16_UNORM;
-   public static final com.mojang.blaze3d.GpuFormat R16_SNORM;
-   public static final com.mojang.blaze3d.GpuFormat RG16_UNORM;
-   public static final com.mojang.blaze3d.GpuFormat RG16_SNORM;
-   public static final com.mojang.blaze3d.GpuFormat RGB16_UNORM;
-   public static final com.mojang.blaze3d.GpuFormat RGB16_SNORM;
-   public static final com.mojang.blaze3d.GpuFormat RGBA16_UNORM;
-   public static final com.mojang.blaze3d.GpuFormat RGBA16_SNORM;
-   public static final com.mojang.blaze3d.GpuFormat R8_UINT;
-   public static final com.mojang.blaze3d.GpuFormat R8_SINT;
-   public static final com.mojang.blaze3d.GpuFormat RG8_UINT;
-   public static final com.mojang.blaze3d.GpuFormat RG8_SINT;
-   public static final com.mojang.blaze3d.GpuFormat RGB8_UINT;
-   public static final com.mojang.blaze3d.GpuFormat RGB8_SINT;
-   public static final com.mojang.blaze3d.GpuFormat RGBA8_UINT;
-   public static final com.mojang.blaze3d.GpuFormat RGBA8_SINT;
-   public static final com.mojang.blaze3d.GpuFormat R16_UINT;
-   public static final com.mojang.blaze3d.GpuFormat R16_SINT;
-   public static final com.mojang.blaze3d.GpuFormat RG16_UINT;
-   public static final com.mojang.blaze3d.GpuFormat RG16_SINT;
-   public static final com.mojang.blaze3d.GpuFormat RGB16_UINT;
-   public static final com.mojang.blaze3d.GpuFormat RGB16_SINT;
-   public static final com.mojang.blaze3d.GpuFormat RGBA16_UINT;
-   public static final com.mojang.blaze3d.GpuFormat RGBA16_SINT;
-   public static final com.mojang.blaze3d.GpuFormat R32_UINT;
-   public static final com.mojang.blaze3d.GpuFormat R32_SINT;
-   public static final com.mojang.blaze3d.GpuFormat RG32_UINT;
-   public static final com.mojang.blaze3d.GpuFormat RG32_SINT;
-   public static final com.mojang.blaze3d.GpuFormat RGB32_UINT;
-   public static final com.mojang.blaze3d.GpuFormat RGB32_SINT;
-   public static final com.mojang.blaze3d.GpuFormat RGBA32_UINT;
-   public static final com.mojang.blaze3d.GpuFormat RGBA32_SINT;
-   public static final com.mojang.blaze3d.GpuFormat R16_FLOAT;
-   public static final com.mojang.blaze3d.GpuFormat RG16_FLOAT;
-   public static final com.mojang.blaze3d.GpuFormat RGB16_FLOAT;
-   ... (truncated)
+   private final net.minecraft.client.renderer.entity.EntityRenderDispatcher entityRenderDispatcher;
+   private final net.minecraft.client.renderer.MapRenderer mapRenderer;
+   public final net.minecraft.client.gui.Font font;
+   public final net.minecraft.client.gui.Font fontFilterFishy;
+   private final net.minecraft.server.packs.resources.ReloadableResourceManager resourceManager;
+   private final net.minecraft.client.gui.font.FontManager fontManager;
+   private final net.minecraft.client.resources.SkinManager skinManager;
+   private final net.minecraft.client.resources.model.sprite.AtlasManager atlasManager;
+   private final net.minecraft.client.renderer.blockentity.BlockEntityRenderDispatcher blockEntityRenderDispatcher;
+   private final net.minecraft.client.renderer.PlayerSkinRenderCache playerSkinRenderCache;
+   void updateFontOptions();
+   public net.minecraft.server.packs.resources.ResourceManager getResourceManager();
+   public net.minecraft.client.resources.SkinManager getSkinManager();
+   public net.minecraft.client.renderer.entity.EntityRenderDispatcher getEntityRenderDispatcher();
+   public net.minecraft.client.renderer.blockentity.BlockEntityRenderDispatcher getBlockEntityRenderDispatcher();
+   public net.minecraft.client.renderer.MapRenderer getMapRenderer();
+   public net.minecraft.client.resources.model.sprite.AtlasManager getAtlasManager();
+   public net.minecraft.client.renderer.PlayerSkinRenderCache playerSkinRenderCache();
+-- net.minecraft.client.resources.model.EquipmentAssetManager --
+   public net.minecraft.client.resources.model.EquipmentAssetManager();
 
 ===== TAIL =====
-  symbol:   method getBlockRenderer()
-  location: variable client of type Minecraft
-/home/runner/work/ViaBedrockUtility/ViaBedrockUtility/src/main/java/org/oryxel/viabedrockutility/entity/CustomEntityTicker.java:63: error: cannot find symbol
-                client.getItemModelResolver(), client.getMapRenderer(), client.getBlockRenderer(),
-                                                                              ^
-  symbol:   method getBlockRenderer()
-  location: variable client of type Minecraft
-Note: Some input files use unchecked or unsafe operations.
-Note: Recompile with -Xlint:unchecked for details.
-2 errors
-	... 61 more
+> Task :processIncludeJars
+> Task :jar
+> Task :compileTestJava
+> Task :assemble
+> Task :processTestResources NO-SOURCE
+> Task :testClasses
+> Task :test
+> Task :validateAccessWidener
+> Task :check
+> Task :build
 
+[Incubating] Problems report is available at: file:///home/runner/work/ViaBedrockUtility/ViaBedrockUtility/build/reports/problems/problems-report.html
 
-BUILD FAILED in 53s
-5 actionable tasks: 5 executed
+BUILD SUCCESSFUL in 1m 8s
+11 actionable tasks: 11 executed
