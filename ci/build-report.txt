@@ -1,5 +1,5 @@
-commit:  39aeb86118cc55aafb7cf0d316b9d9f2ac0a37ef
-run_id:  32633660111
+commit:  8d5507eb36278f6705bf729e97919571ae9c3ba0
+run_id:  32633935192
 outcome: failure
 
 ===== RENAME =====
@@ -15,7 +15,7 @@ rewrote 0 files
 renamed 0 files
 
 ===== COMPILE ERRORS =====
-unique errors: 17
+unique errors: 15
 ViaBedrockUtility.java:36: cannot find symbol   [symbol: method configurationS2C() | location: interface PayloadTypeRegistry]
       src: PayloadTypeRegistry.configurationS2C().register(BasePayload.ID, BasePayload.STREAM_CODEC);
 ViaBedrockUtility.java:37: cannot find symbol   [symbol: method playS2C() | location: interface PayloadTypeRegistry]
@@ -44,10 +44,6 @@ material/data/Material.java:208: cannot find symbol   [symbol: variable NORMAL |
       src: vertexBuilder.add("Normal", VertexFormatElement.NORMAL).padding(1);
 material/data/Material.java:212: cannot find symbol   [symbol: variable NEW_ENTITY | location: class DefaultVertexFormat]
       src: vertexFormat = DefaultVertexFormat.NEW_ENTITY;
-material/data/Material.java:281: cannot find symbol   [symbol: variable GREATER | location: class CompareOp]
-      src: case "Bigger" -> CompareOp.GREATER;
-material/data/Material.java:282: cannot find symbol   [symbol: variable LEQUAL | location: class CompareOp]
-      src: default -> CompareOp.LEQUAL;
 entity/CustomEntityTicker.java:63: cannot find symbol   [symbol: method getBlockRenderer() | location: variable client of type Minecraft]
       src: client.getItemModelResolver(), client.getMapRenderer(), client.getBlockRenderer(),
 
@@ -61,148 +57,115 @@ resolved in cache: 1.18.46
 == BAD IMPORTS (0) ==
 
 == PACKAGE LISTING ==
--- com.mojang.blaze3d (12) --
-  Blaze3D GLFWErrorCapture GLFWErrorScope GpuDeviceLossException GpuFormat GpuOutOfMemoryException IndexType PrimitiveTopology ProjectionType TracyBootstrap TracyFrameCapture package-info 
+-- com.mojang.blaze3d.vertex (16) --
+  BufferBuilder ByteBufferBuilder CompactVectorArray DefaultVertexFormat MeshData PoseStack QuadInstance SheetedDecalTextureGenerator StagingBuffer TlsfAllocator UberGpuBuffer VertexConsumer VertexFormat VertexFormatElement VertexSorting package-info 
+
+== EXTRA PACKAGES ==
+-- net.fabricmc.fabric.api.networking.v1 (36) in fabric-networking-api-v1-6.3.3+72073ef09e.jar --
+  ClientboundConfigurationChannelEvents ClientboundConfigurationChannelEvents$Register ClientboundConfigurationChannelEvents$Unregister ClientboundPlayChannelEvents ClientboundPlayChannelEvents$Register ClientboundPlayChannelEvents$Unregister EntityTrackingEvents EntityTrackingEvents$StartTracking 
+  EntityTrackingEvents$StopTracking FabricServerConfigurationPacketListenerImpl FriendlyByteBufs LoginPacketSender PacketSender PayloadTypeRegistry PlayerLookup ServerConfigurationConnectionEvents ServerConfigurationConnectionEvents$Configure ServerConfigurationConnectionEvents$Disconnect 
+  ServerConfigurationNetworking ServerConfigurationNetworking$ConfigurationPacketHandler ServerConfigurationNetworking$Context ServerLoginConnectionEvents ServerLoginConnectionEvents$Disconnect ServerLoginConnectionEvents$Init ServerLoginConnectionEvents$QueryStart ServerLoginNetworking 
+  ServerLoginNetworking$LoginQueryResponseHandler ServerLoginNetworking$LoginSynchronizer ServerPlayConnectionEvents ServerPlayConnectionEvents$Disconnect ServerPlayConnectionEvents$Init ServerPlayConnectionEvents$Join ServerPlayNetworking ServerPlayNetworking$Context 
+  ServerPlayNetworking$PlayPayloadHandler package-info 
 
 == STALE MIXIN TARGETS ==
   none
 
 == REAL SIGNATURES ==
--- com.mojang.blaze3d.platform.BlendFactor --
-   Compiled from "BlendFactor.java"
-   public final class com.mojang.blaze3d.platform.BlendFactor extends java.lang.Enum<com.mojang.blaze3d.platform.BlendFactor> {
-   public static final com.mojang.blaze3d.platform.BlendFactor CONSTANT_ALPHA;
-   public static final com.mojang.blaze3d.platform.BlendFactor CONSTANT_COLOR;
-   public static final com.mojang.blaze3d.platform.BlendFactor DST_ALPHA;
-   public static final com.mojang.blaze3d.platform.BlendFactor DST_COLOR;
-   public static final com.mojang.blaze3d.platform.BlendFactor ONE;
-   public static final com.mojang.blaze3d.platform.BlendFactor ONE_MINUS_CONSTANT_ALPHA;
-   public static final com.mojang.blaze3d.platform.BlendFactor ONE_MINUS_CONSTANT_COLOR;
-   public static final com.mojang.blaze3d.platform.BlendFactor ONE_MINUS_DST_ALPHA;
-   public static final com.mojang.blaze3d.platform.BlendFactor ONE_MINUS_DST_COLOR;
-   public static final com.mojang.blaze3d.platform.BlendFactor ONE_MINUS_SRC_ALPHA;
-   public static final com.mojang.blaze3d.platform.BlendFactor ONE_MINUS_SRC_COLOR;
-   public static final com.mojang.blaze3d.platform.BlendFactor SRC_ALPHA;
-   public static final com.mojang.blaze3d.platform.BlendFactor SRC_ALPHA_SATURATE;
-   public static final com.mojang.blaze3d.platform.BlendFactor SRC_COLOR;
-   public static final com.mojang.blaze3d.platform.BlendFactor ZERO;
-   private static final com.mojang.blaze3d.platform.BlendFactor[] $VALUES;
-   public static com.mojang.blaze3d.platform.BlendFactor[] values();
-   public static com.mojang.blaze3d.platform.BlendFactor valueOf(java.lang.String);
-   private com.mojang.blaze3d.platform.BlendFactor();
-   private static com.mojang.blaze3d.platform.BlendFactor[] $values();
-   static {};
+-- com.mojang.blaze3d.vertex.VertexFormat --
+   public class com.mojang.blaze3d.vertex.VertexFormat {
+   public static final int MAX_VERTEX_ELEMENTS;
+   public static com.mojang.blaze3d.vertex.VertexFormat$Builder builder(int);
+   public java.lang.String toString();
+   public int getVertexSize();
+   public int getStepRate();
+   public java.util.List<com.mojang.blaze3d.vertex.VertexFormatElement> getElements();
+   public com.mojang.blaze3d.vertex.VertexFormatElement getElement(java.lang.String);
+   public boolean contains(java.lang.String);
+   public boolean equals(java.lang.Object);
+   public int hashCode();
+-- com.mojang.blaze3d.vertex.VertexFormat$Builder --
+   Compiled from "VertexFormat.java"
+   public class com.mojang.blaze3d.vertex.VertexFormat$Builder {
+   private final java.util.List<com.mojang.blaze3d.vertex.VertexFormatElement> elements;
+   private int offset;
+   private final int stepRate;
+   private com.mojang.blaze3d.vertex.VertexFormat$Builder(int);
+   private void createAttribute(java.lang.String, int, com.mojang.blaze3d.GpuFormat);
+   private void validateUniqueName(java.lang.String);
+   public com.mojang.blaze3d.vertex.VertexFormat$Builder addAttribute(java.lang.String, com.mojang.blaze3d.GpuFormat);
+   public com.mojang.blaze3d.vertex.VertexFormat$Builder addAttribute(java.lang.String, int, com.mojang.blaze3d.GpuFormat);
+   public com.mojang.blaze3d.vertex.VertexFormat$Builder addAttribute(java.lang.String, com.mojang.blaze3d.GpuFormat, int);
+   public com.mojang.blaze3d.vertex.VertexFormat$Builder addAttribute(java.lang.String, int, int, com.mojang.blaze3d.GpuFormat, int);
+   public com.mojang.blaze3d.vertex.VertexFormat build();
    }
--- com.mojang.blaze3d.platform.CompareOp --
-   Compiled from "CompareOp.java"
-   public final class com.mojang.blaze3d.platform.CompareOp extends java.lang.Enum<com.mojang.blaze3d.platform.CompareOp> {
-   public static final com.mojang.blaze3d.platform.CompareOp ALWAYS_PASS;
-   public static final com.mojang.blaze3d.platform.CompareOp LESS_THAN;
-   public static final com.mojang.blaze3d.platform.CompareOp LESS_THAN_OR_EQUAL;
-   public static final com.mojang.blaze3d.platform.CompareOp EQUAL;
-   public static final com.mojang.blaze3d.platform.CompareOp NOT_EQUAL;
-   public static final com.mojang.blaze3d.platform.CompareOp GREATER_THAN_OR_EQUAL;
-   public static final com.mojang.blaze3d.platform.CompareOp GREATER_THAN;
-   public static final com.mojang.blaze3d.platform.CompareOp NEVER_PASS;
-   private static final com.mojang.blaze3d.platform.CompareOp[] $VALUES;
-   public static com.mojang.blaze3d.platform.CompareOp[] values();
-   public static com.mojang.blaze3d.platform.CompareOp valueOf(java.lang.String);
-   private com.mojang.blaze3d.platform.CompareOp();
-   private static com.mojang.blaze3d.platform.CompareOp[] $values();
-   static {};
-   }
--- com.mojang.blaze3d.PrimitiveTopology --
-   Compiled from "PrimitiveTopology.java"
-   public final class com.mojang.blaze3d.PrimitiveTopology extends java.lang.Enum<com.mojang.blaze3d.PrimitiveTopology> {
-   public static final com.mojang.blaze3d.PrimitiveTopology LINES;
-   public static final com.mojang.blaze3d.PrimitiveTopology DEBUG_LINES;
-   public static final com.mojang.blaze3d.PrimitiveTopology DEBUG_LINE_STRIP;
-   public static final com.mojang.blaze3d.PrimitiveTopology POINTS;
-   public static final com.mojang.blaze3d.PrimitiveTopology TRIANGLES;
-   public static final com.mojang.blaze3d.PrimitiveTopology TRIANGLE_STRIP;
-   public static final com.mojang.blaze3d.PrimitiveTopology TRIANGLE_FAN;
-   public static final com.mojang.blaze3d.PrimitiveTopology QUADS;
-   public final int primitiveLength;
-   public final int primitiveStride;
-   public final boolean connectedPrimitives;
-   private static final com.mojang.blaze3d.PrimitiveTopology[] $VALUES;
-   public static com.mojang.blaze3d.PrimitiveTopology[] values();
-   public static com.mojang.blaze3d.PrimitiveTopology valueOf(java.lang.String);
-   private com.mojang.blaze3d.PrimitiveTopology(int, int, boolean);
-   public int indexCount(int);
-   private static com.mojang.blaze3d.PrimitiveTopology[] $values();
-   static {};
-   ... (truncated)
--- com.mojang.blaze3d.pipeline.ColorTargetState --
-   Compiled from "ColorTargetState.java"
-   public final class com.mojang.blaze3d.pipeline.ColorTargetState extends java.lang.Record {
-   private final java.util.Optional<com.mojang.blaze3d.pipeline.BlendFunction> blendFunction;
+-- com.mojang.blaze3d.vertex.VertexFormatElement --
+   Compiled from "VertexFormatElement.java"
+   public final class com.mojang.blaze3d.vertex.VertexFormatElement extends java.lang.Record {
+   private final java.lang.String name;
+   private final int offset;
    private final com.mojang.blaze3d.GpuFormat format;
-   private final int writeMask;
-   public static final int WRITE_RED;
-   public static final int WRITE_GREEN;
-   public static final int WRITE_BLUE;
-   public static final int WRITE_ALPHA;
-   public static final int WRITE_COLOR;
-   public static final int WRITE_ALL;
-   public static final int WRITE_NONE;
-   public static final com.mojang.blaze3d.pipeline.ColorTargetState DEFAULT;
-   public static final int MAX_COLOR_TARGETS;
-   public com.mojang.blaze3d.pipeline.ColorTargetState(com.mojang.blaze3d.pipeline.BlendFunction);
-   public com.mojang.blaze3d.pipeline.ColorTargetState(java.util.Optional<com.mojang.blaze3d.pipeline.BlendFunction>, com.mojang.blaze3d.GpuFormat, int);
-   public boolean writeRed();
-   public boolean writeGreen();
-   public boolean writeBlue();
-   public boolean writeAlpha();
-   public final java.lang.String toString();
+   public com.mojang.blaze3d.vertex.VertexFormatElement(java.lang.String, int, com.mojang.blaze3d.GpuFormat);
+   public java.lang.String toString();
    public final int hashCode();
    public final boolean equals(java.lang.Object);
-   public java.util.Optional<com.mojang.blaze3d.pipeline.BlendFunction> blendFunction();
+   public java.lang.String name();
+   public int offset();
    public com.mojang.blaze3d.GpuFormat format();
-   ... (truncated)
--- com.mojang.blaze3d.pipeline.DepthStencilState --
-   Compiled from "DepthStencilState.java"
-   public final class com.mojang.blaze3d.pipeline.DepthStencilState extends java.lang.Record {
-   private final com.mojang.blaze3d.platform.CompareOp depthTest;
-   private final boolean writeDepth;
-   private final float depthBiasScaleFactor;
-   private final float depthBiasConstant;
-   public static final com.mojang.blaze3d.pipeline.DepthStencilState DEFAULT;
-   public com.mojang.blaze3d.pipeline.DepthStencilState(com.mojang.blaze3d.platform.CompareOp, boolean);
-   public com.mojang.blaze3d.pipeline.DepthStencilState(com.mojang.blaze3d.platform.CompareOp, boolean, float, float);
-   public final java.lang.String toString();
-   public final int hashCode();
-   public final boolean equals(java.lang.Object);
-   public com.mojang.blaze3d.platform.CompareOp depthTest();
-   public boolean writeDepth();
-   public float depthBiasScaleFactor();
-   public float depthBiasConstant();
-   static {};
    }
--- net.minecraft.client.renderer.rendertype.RenderSetup --
-   public static net.minecraft.client.renderer.rendertype.RenderSetup$RenderSetupBuilder builder(com.mojang.blaze3d.pipeline.RenderPipeline);
--- net.minecraft.client.renderer.rendertype.RenderType --
-   public static net.minecraft.client.renderer.rendertype.RenderType create(java.lang.String, net.minecraft.client.renderer.rendertype.RenderSetup);
--- com.mojang.blaze3d.pipeline.RenderPipeline --
-   public static com.mojang.blaze3d.pipeline.RenderPipeline$Builder builder(com.mojang.blaze3d.pipeline.RenderPipeline$Snippet...);
--- net.minecraft.client.renderer.RenderPipelines --
-   public static final com.mojang.blaze3d.pipeline.RenderPipeline$Snippet GLOBALS_SNIPPET;
-   public static final com.mojang.blaze3d.pipeline.RenderPipeline$Snippet MATRICES_FOG_SNIPPET;
-   public static final com.mojang.blaze3d.pipeline.RenderPipeline$Snippet MATRICES_FOG_LIGHT_DIR_SNIPPET;
-   public static final com.mojang.blaze3d.pipeline.RenderPipeline$Snippet GENERIC_BLOCKS_SNIPPET;
-   public static final com.mojang.blaze3d.pipeline.RenderPipeline$Snippet TERRAIN_SNIPPET;
-   public static final com.mojang.blaze3d.pipeline.RenderPipeline$Snippet BLOCK_SNIPPET;
-   public static final com.mojang.blaze3d.pipeline.RenderPipeline$Snippet ENTITY_SNIPPET;
-   public static final com.mojang.blaze3d.pipeline.RenderPipeline$Snippet ENTITY_EMISSIVE_SNIPPET;
-   public static final com.mojang.blaze3d.pipeline.RenderPipeline$Snippet BEACON_BEAM_SNIPPET;
-   public static final com.mojang.blaze3d.pipeline.RenderPipeline$Snippet ITEM_SNIPPET;
-   public static final com.mojang.blaze3d.pipeline.RenderPipeline$Snippet TEXT_SNIPPET;
-   public static final com.mojang.blaze3d.pipeline.RenderPipeline$Snippet WORLD_TEXT_SNIPPET;
+-- com.mojang.blaze3d.vertex.DefaultVertexFormat --
+   public static final com.mojang.blaze3d.vertex.VertexFormat BLOCK;
+   public static final com.mojang.blaze3d.vertex.VertexFormat ENTITY;
+-- net.minecraft.client.Minecraft --
+   public class net.minecraft.client.Minecraft extends net.minecraft.util.thread.ReentrantBlockableEventLoop<java.lang.Runnable> implements com.mojang.blaze3d.platform.WindowEventHandler {
+   private final net.minecraft.client.color.block.BlockColors blockColors;
+   private final net.minecraft.client.renderer.blockentity.BlockEntityRenderDispatcher blockEntityRenderDispatcher;
+   public boolean isBlocked(java.util.UUID);
+   private void pickBlockOrEntity();
+   public net.minecraft.client.renderer.blockentity.BlockEntityRenderDispatcher getBlockEntityRenderDispatcher();
+   public net.minecraft.client.color.block.BlockColors getBlockColors();
+-- net.minecraft.client.renderer.entity.EntityRendererProvider$Context --
+   Compiled from "EntityRendererProvider.java"
+   public class net.minecraft.client.renderer.entity.EntityRendererProvider$Context {
+   private final net.minecraft.client.renderer.entity.EntityRenderDispatcher entityRenderDispatcher;
+   private final net.minecraft.client.renderer.block.BlockModelResolver blockModelResolver;
+   private final net.minecraft.client.renderer.item.ItemModelResolver itemModelResolver;
+   private final net.minecraft.client.renderer.MapRenderer mapRenderer;
+   private final net.minecraft.server.packs.resources.ResourceManager resourceManager;
+   private final net.minecraft.client.model.geom.EntityModelSet modelSet;
+   private final net.minecraft.client.resources.model.EquipmentAssetManager equipmentAssets;
+   private final net.minecraft.client.gui.Font font;
+   private final net.minecraft.client.renderer.entity.layers.EquipmentLayerRenderer equipmentRenderer;
+   private final net.minecraft.client.resources.model.sprite.AtlasManager atlasManager;
+   private final net.minecraft.client.renderer.PlayerSkinRenderCache playerSkinRenderCache;
+   public net.minecraft.client.renderer.entity.EntityRendererProvider$Context(net.minecraft.client.renderer.entity.EntityRenderDispatcher, net.minecraft.client.renderer.block.BlockModelResolver, net.minecraft.client.renderer.item.ItemModelResolver, net.minecraft.client.renderer.MapRenderer, net.minecra
+   public net.minecraft.client.renderer.entity.EntityRenderDispatcher getEntityRenderDispatcher();
+   public net.minecraft.client.renderer.block.BlockModelResolver getBlockModelResolver();
+   public net.minecraft.client.renderer.item.ItemModelResolver getItemModelResolver();
+   public net.minecraft.client.renderer.MapRenderer getMapRenderer();
+   public net.minecraft.server.packs.resources.ResourceManager getResourceManager();
+   public net.minecraft.client.model.geom.EntityModelSet getModelSet();
+   public net.minecraft.client.resources.model.EquipmentAssetManager getEquipmentAssets();
+   public net.minecraft.client.renderer.entity.layers.EquipmentLayerRenderer getEquipmentRenderer();
+   public net.minecraft.client.resources.model.sprite.SpriteGetter getSprites();
+   public net.minecraft.client.renderer.texture.TextureAtlas getAtlas(net.minecraft.resources.Identifier);
+   public net.minecraft.client.model.geom.ModelPart bakeLayer(net.minecraft.client.model.geom.ModelLayerLocation);
    ... (truncated)
+-- net.fabricmc.fabric.api.networking.v1.PayloadTypeRegistry --
+   Compiled from "PayloadTypeRegistry.java"
+   public interface net.fabricmc.fabric.api.networking.v1.PayloadTypeRegistry<B extends net.minecraft.network.FriendlyByteBuf> {
+   public abstract <T extends net.minecraft.network.protocol.common.custom.CustomPacketPayload> net.minecraft.network.protocol.common.custom.CustomPacketPayload$TypeAndCodec<? super B, T> register(net.minecraft.network.protocol.common.custom.CustomPacketPayload$Type<T>, net.minecraft.network.codec.Stre
+   public abstract <T extends net.minecraft.network.protocol.common.custom.CustomPacketPayload> net.minecraft.network.protocol.common.custom.CustomPacketPayload$TypeAndCodec<? super B, T> registerLarge(net.minecraft.network.protocol.common.custom.CustomPacketPayload$Type<T>, net.minecraft.network.codec
+   public abstract <T extends net.minecraft.network.protocol.common.custom.CustomPacketPayload> net.minecraft.network.protocol.common.custom.CustomPacketPayload$TypeAndCodec<? super B, T> registerLarge(net.minecraft.network.protocol.common.custom.CustomPacketPayload$Type<T>, net.minecraft.network.codec
+   public static net.fabricmc.fabric.api.networking.v1.PayloadTypeRegistry<net.minecraft.network.FriendlyByteBuf> serverboundConfiguration();
+   public static net.fabricmc.fabric.api.networking.v1.PayloadTypeRegistry<net.minecraft.network.FriendlyByteBuf> clientboundConfiguration();
+   public static net.fabricmc.fabric.api.networking.v1.PayloadTypeRegistry<net.minecraft.network.RegistryFriendlyByteBuf> serverboundPlay();
+   public static net.fabricmc.fabric.api.networking.v1.PayloadTypeRegistry<net.minecraft.network.RegistryFriendlyByteBuf> clientboundPlay();
+   }
 
 ===== TAIL =====
-  symbol:   variable LEQUAL
-  location: class CompareOp
+  symbol:   variable NEW_ENTITY
+  location: class DefaultVertexFormat
 /home/runner/work/ViaBedrockUtility/ViaBedrockUtility/src/main/java/org/oryxel/viabedrockutility/entity/CustomEntityTicker.java:63: error: cannot find symbol
                 client.getItemModelResolver(), client.getMapRenderer(), client.getBlockRenderer(),
                                                                               ^
@@ -210,9 +173,9 @@ resolved in cache: 1.18.46
   location: variable client of type Minecraft
 Note: Some input files use unchecked or unsafe operations.
 Note: Recompile with -Xlint:unchecked for details.
-17 errors
-	... 30 more
+15 errors
+	... 61 more
 
 
-BUILD FAILED in 52s
+BUILD FAILED in 53s
 5 actionable tasks: 5 executed
