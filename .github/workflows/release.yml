@@ -22,11 +22,13 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Set up JDK 25
+      - name: Set up JDK 21 and JDK 25
         uses: actions/setup-java@v4
         with:
           distribution: temurin
-          java-version: "25"
+          java-version: |
+            21
+            25
 
       - name: Build every supported target
         id: build
@@ -39,8 +41,10 @@ jobs:
           build() {
             branch="$1"
             label="$2"
+            java_home="$3"
 
             echo "===== $label from $branch =====" >> ci/release-log.txt
+            echo "java home: $java_home" >> ci/release-log.txt
             if ! git checkout --force "origin/$branch" >> ci/release-log.txt 2>&1; then
               echo "could not check out origin/$branch" >> ci/release-log.txt
               return 1
@@ -48,17 +52,17 @@ jobs:
 
             chmod +x ./gradlew
             rm -rf build/libs
-            ./gradlew build --no-daemon --stacktrace > "ci/gradle-$label.log" 2>&1
-            status=$?
+            JAVA_HOME="$java_home" PATH="$java_home/bin:$PATH" ./gradlew build --no-daemon --stacktrace > "ci/gradle-$label.log" 2>&1
+            gradle_status=$?
 
-            echo "-- gradle exit: $status --" >> ci/release-log.txt
+            echo "-- gradle exit: $gradle_status --" >> ci/release-log.txt
             grep -E "error:|FAILURE|What went wrong|Caused by|BUILD " "ci/gradle-$label.log" | head -n 30 >> ci/release-log.txt
             echo "-- tail --" >> ci/release-log.txt
-            tail -n 25 "ci/gradle-$label.log" >> ci/release-log.txt
+            tail -n 20 "ci/gradle-$label.log" >> ci/release-log.txt
             echo "-- build/libs --" >> ci/release-log.txt
             ls -l build/libs >> ci/release-log.txt 2>&1
 
-            if [ "$status" -ne 0 ]; then
+            if [ "$gradle_status" -ne 0 ]; then
               return 1
             fi
 
@@ -82,22 +86,27 @@ jobs:
             echo "picked $jar" >> ci/release-log.txt
           }
 
-          status=0
-          build port/1.21.11 1.21.11 || status=1
-          build port/26.2 26.2 || status=1
+          overall=0
+          build port/1.21.11 1.21.11 "${JAVA_HOME_21_X64:-$JAVA_HOME}" || overall=1
+          build port/26.2 26.2 "${JAVA_HOME_25_X64:-$JAVA_HOME}" || overall=1
 
           echo "===== release-out =====" >> ci/release-log.txt
           ls -l release-out >> ci/release-log.txt 2>&1
 
           cat ci/release-log.txt
-          exit $status
+          exit $overall
 
       - name: Publish the release
-        if: steps.build.outcome == 'success'
+        if: always()
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           set -uo pipefail
+          if [ -z "$(ls -A release-out 2>/dev/null)" ]; then
+            echo "nothing to publish"
+            exit 0
+          fi
+
           tag="${GITHUB_REF_NAME#release/}"
 
           {
@@ -125,13 +134,13 @@ jobs:
           git checkout --force -B "$GITHUB_REF_NAME" "origin/$GITHUB_REF_NAME"
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          mkdir -p ci
           git add ci/release-log.txt || true
           if git diff --cached --quiet; then
             echo "no log changes"
             exit 0
           fi
           git commit -m "ci: record the release build log [skip ci]"
+          git pull --rebase --autostash origin "$GITHUB_REF_NAME" || true
           git push origin "HEAD:refs/heads/$GITHUB_REF_NAME"
 
       - name: Fail if a target did not build
