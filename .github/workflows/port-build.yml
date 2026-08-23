@@ -58,6 +58,10 @@ jobs:
         if: always()
         run: python3 ci/probe.py > ci/probe.txt 2>&1 || true
 
+      - name: probe signatures
+        if: always()
+        run: python3 ci/sig.py > ci/sig.txt 2>&1 || true
+
       - name: report
         if: always()
         run: |
@@ -84,7 +88,7 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add -f ci/build-report.txt
+          git add -f ci/build-report.txt ci/sig.txt
           git commit -m "ci: build report [skip ci]" || echo "nothing to commit"
           git pull --rebase --autostash origin "$GITHUB_REF_NAME" || true
           git push origin "HEAD:$GITHUB_REF_NAME" || true
