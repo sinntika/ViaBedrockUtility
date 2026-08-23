@@ -1,5 +1,5 @@
-commit:  74e6fcd6255cd496e1ac2b4b7c0deb0e2e8d37ad
-run_id:  32630852237
+commit:  c9d0a27551ec7c1c8ffcea0e2c39caab507f60da
+run_id:  32631142036
 outcome: failure
 
 ===== RENAME =====
@@ -11,23 +11,11 @@ loaded mappings5.tsv
 loaded mappings6.tsv
 loaded mappings7.tsv
 loaded mappings8.tsv
-rewrote 2 files
+rewrote 0 files
 renamed 0 files
 
 ===== COMPILE ERRORS =====
-unique errors: 6
-material/data/Material.java:290: cannot find symbol   [symbol: class MultiPhaseParameters | location: class RenderType]
-      src: final RenderType.MultiPhaseParameters.Builder renderLayerBuilder = RenderType.MultiPhaseParameters.builder();
-material/data/Material.java:290: cannot find symbol   [symbol: variable MultiPhaseParameters | location: class RenderType]
-      src: final RenderType.MultiPhaseParameters.Builder renderLayerBuilder = RenderType.MultiPhaseParameters.builder();
-material/data/Material.java:292: cannot find symbol   [symbol: class Texture | location: class MaterialInfo]
-      src: renderLayerBuilder.texture(new Texture(texture, TriState.FALSE, false));
-material/data/Material.java:295: cannot find symbol   [symbol: variable ENABLE_LIGHTMAP | location: class MaterialInfo]
-      src: renderLayerBuilder.lightmap(ENABLE_LIGHTMAP);
-material/data/Material.java:296: cannot find symbol   [symbol: variable ENABLE_OVERLAY_COLOR | location: class MaterialInfo]
-      src: renderLayerBuilder.overlay(ENABLE_OVERLAY_COLOR);
-renderer/CustomEntityRenderer.java:43: method does not override or implement a method from a supertype
-      src: @Override
+unique errors: 0
 
 ===== CLASSPATH PROBE =====
 == JAR ==
@@ -101,18 +89,18 @@ com.mojang.blaze3d.pipeline.RenderPipeline              OK
    public static net.minecraft.client.renderer.rendertype.RenderType create(java.lang.String, net.minecraft.client.renderer.rendertype.RenderSetup);
 
 ===== TAIL =====
-                renderLayerBuilder.overlay(ENABLE_OVERLAY_COLOR);
-                                           ^
-  symbol:   variable ENABLE_OVERLAY_COLOR
-  location: class MaterialInfo
-/home/runner/work/ViaBedrockUtility/ViaBedrockUtility/src/main/java/org/oryxel/viabedrockutility/renderer/CustomEntityRenderer.java:43: error: method does not override or implement a method from a supertype
-    @Override
-    ^
-Note: Some input files use unchecked or unsafe operations.
-Note: Recompile with -Xlint:unchecked for details.
-6 errors
+* What went wrong:
+Execution failed for task ':test'.
+> There are test sources present and no filters are applied, but the test task did not discover any tests to execute. This is likely due to a misconfiguration. Please check your test configuration. If this is not a misconfiguration, this error can be disabled by setting the 'failOnNoDiscoveredTests' property to false.
+
+* Try:
+> Run with --scan to get full insights from a Build Scan (powered by Develocity).
+
+* Exception is:
+org.gradle.api.tasks.TaskExecutionException: Execution failed for task ':test'.
+Caused by: org.gradle.api.internal.exceptions.MarkedVerificationException: There are test sources present and no filters are applied, but the test task did not discover any tests to execute. This is likely due to a misconfiguration. Please check your test configuration. If this is not a misconfiguration, this error can be disabled by setting the 'failOnNoDiscoveredTests' property to false.
 	... 30 more
 
 
-BUILD FAILED in 1m 18s
-5 actionable tasks: 5 executed
+BUILD FAILED in 1m 33s
+11 actionable tasks: 11 executed
