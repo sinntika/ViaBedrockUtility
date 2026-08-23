@@ -41,7 +41,7 @@ import java.util.regex.Pattern;
 
 @SuppressWarnings("ALL")
 public abstract class EnumGeneratorTask extends DefaultTask {
-    private static final String ENUMS_URL = "https://raw.githubusercontent.com/Mojang/bedrock-protocol-docs/refs/heads/main/html/enums.html";
+    private static final String ENUMS_URL = "https://raw.githubusercontent.com/Mojang/bedrock-protocol-docs/2a42b85946a308d830984f54ea20349aa2beaeed/html/enums.html";
     private static final String ENUMS_PACKAGE = "org.oryxel.viabedrockutility.enums.bedrock";
     private static final List<String> IGNORED_FIELDS = Arrays.asList("count", "_count", "total", "all", "numenchantments", "numtagtypes", "abilitycount", "nummodes", "input_num", "9800", "total_operations", "total_operands");
     private static final Map<String, String> VALUE_REPLACEMENTS = new HashMap<>();
