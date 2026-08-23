@@ -1,5 +1,5 @@
-commit:  ad602a40df6f836e1136cf041b7becfd7b9da8ae
-run_id:  32632673480
+commit:  27348f4d3d77b06b0ea1667395a1e4e11ab04f01
+run_id:  32632862381
 outcome: failure
 
 ===== RENAME =====
@@ -15,7 +15,23 @@ rewrote 0 files
 renamed 0 files
 
 ===== COMPILE ERRORS =====
-unique errors: 0
+unique errors: 8
+material/data/Material.java:8: cannot find symbol   [symbol: class DepthTestFunction | location: package com.mojang.blaze3d.platform]
+      src: import com.mojang.blaze3d.platform.DepthTestFunction;
+material/data/Material.java:9: cannot find symbol   [symbol: class DestFactor | location: package com.mojang.blaze3d.platform]
+      src: import com.mojang.blaze3d.platform.DestFactor;
+material/data/Material.java:10: cannot find symbol   [symbol: class SourceFactor | location: package com.mojang.blaze3d.platform]
+      src: import com.mojang.blaze3d.platform.SourceFactor;
+material/data/Material.java:21: cannot find symbol   [symbol: class MultiBufferSource | location: package net.minecraft.client.renderer]
+      src: import net.minecraft.client.renderer.MultiBufferSource;
+material/data/Material.java:24: cannot find symbol   [symbol: class LightTexture | location: package net.minecraft.client.renderer]
+      src: import net.minecraft.client.renderer.LightTexture;
+renderer/CustomEntityRenderer.java:8: cannot find symbol   [symbol: class LightTexture | location: package net.minecraft.client.renderer]
+      src: import net.minecraft.client.renderer.LightTexture;
+renderer/CustomEntityRenderer.java:10: cannot find symbol   [symbol: class CameraRenderState | location: package net.minecraft.client.renderer.state]
+      src: import net.minecraft.client.renderer.state.CameraRenderState;
+renderer/CustomEntityRenderer.java:46: cannot find symbol   [symbol: class CameraRenderState | location: class CustomEntityRenderer<T>]
+      src: public void submit(CustomEntityRenderState state, PoseStack matrices, SubmitNodeCollector collector, CameraRenderState cameraState) {
 
 ===== CLASSPATH PROBE =====
 == JAR ==
@@ -26,14 +42,14 @@ no minecraft jar found, nothing to probe
 > Get more help at https://help.gradle.org.
 
 * Exception is:
-org.gradle.api.ProjectConfigurationException: A problem occurred configuring root project 'ViaBedrockUtility'.
-Caused by: java.lang.RuntimeException: Failed to setup Minecraft, java.io.IOException: Failed to process jar when running jar processor: fabric-loom:access-widener - Expected official namespace for access widener entry, found: named
-	... 158 more
-Caused by: java.io.IOException: Failed to process jar when running jar processor: fabric-loom:access-widener - Expected official namespace for access widener entry, found: named
-	... 187 more
-Caused by: java.io.IOException: Expected official namespace for access widener entry, found: named
-	... 191 more
+org.gradle.api.tasks.TaskExecutionException: Execution failed for task ':compileJava' (registered by plugin class 'org.gradle.api.plugins.JavaBasePlugin').
+Caused by: java.lang.RuntimeException: java.lang.ExceptionInInitializerError
+	... 30 more
+Caused by: java.lang.ExceptionInInitializerError
+	... 164 more
+Caused by: java.lang.NoSuchFieldException: com.sun.tools.javac.code.TypeTag :: UNKNOWN
+	... 177 more
 
 
-BUILD FAILED in 50s
-3 actionable tasks: 3 executed
+BUILD FAILED in 53s
+5 actionable tasks: 5 executed
