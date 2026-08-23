@@ -1,5 +1,5 @@
-commit:  00451f69f03055c2cdf99f70194763d06c22f7e2
-run_id:  32629393661
+commit:  8f2f031ec497cd376ea0a370229fe317e2a13dea
+run_id:  32629725994
 outcome: failure
 
 ===== RENAME =====
@@ -7,121 +7,36 @@ loaded mappings.tsv
 loaded mappings2.tsv
 loaded mappings3.tsv
 loaded mappings4.tsv
-rewrote 9 files
+loaded mappings5.tsv
+rewrote 19 files
 renamed 0 files
 
 ===== COMPILE ERRORS =====
-unique errors: 75
-payload/PayloadHandler.java:75: cannot find symbol   [symbol: method registerTexture(Identifier,DynamicTexture) | location: class TextureManager]
-      src: client.getTextureManager().registerTexture(payload.getIdentifier(), new DynamicTexture(() -> payload.getIdentifier().toString() + capeImage.hashCode() , capeImage));
-payload/PayloadHandler.java:77: cannot find symbol   [symbol: method getNetworkHandler() | location: variable client of type Minecraft]
-      src: if (client.getNetworkHandler() == null) {
-payload/PayloadHandler.java:85: cannot find symbol   [symbol: method getNetworkHandler() | location: variable client of type Minecraft]
-      src: final PlayerInfo entry = client.getNetworkHandler().getPlayerListEntry(payload.getPlayerUuid());
-payload/PayloadHandler.java:90: cannot find symbol   [symbol: method getSkinTextures() | location: variable entry of type PlayerInfo]
-      src: final PlayerSkinBuilder builder = new PlayerSkinBuilder(entry.getSkinTextures());
-payload/PayloadHandler.java:124: cannot find symbol   [symbol: method registerTexture(Identifier,DynamicTexture) | location: class TextureManager]
-      src: client.getTextureManager().registerTexture(identifier, new DynamicTexture(() -> identifier.toString() + skinImage.hashCode(), skinImage));
-payload/PayloadHandler.java:126: cannot find symbol   [symbol: method getNetworkHandler() | location: variable client of type Minecraft]
-      src: if (client.getNetworkHandler() != null) {
-payload/PayloadHandler.java:127: cannot find symbol   [symbol: method getNetworkHandler() | location: variable client of type Minecraft]
-      src: final PlayerInfo entry = client.getNetworkHandler().getPlayerListEntry(payload.getPlayerUuid());
-payload/PayloadHandler.java:131: cannot find symbol   [symbol: method getSkinTextures() | location: variable entry of type PlayerInfo]
-      src: final PlayerSkinBuilder builder = new PlayerSkinBuilder(entry.getSkinTextures());
-payload/PayloadHandler.java:196: cannot find symbol   [symbol: method getTexturedModelData(CubeDeformation,boolean) | location: class PlayerModel]
-      src: model = new PlayerModel(PlayerModel.getTexturedModelData(CubeDeformation.NONE, slim).getRoot().createPart(64, 64), slim);
-payload/PayloadHandler.java:201: cannot find symbol   [symbol: variable textRenderer | location: variable client of type Minecraft]
-      src: client.getResourceManager(), client.getLoadedEntityModels(), new EquipmentAssetManager(), client.textRenderer);
-payload/PayloadHandler.java:201: cannot find symbol   [symbol: method getLoadedEntityModels() | location: variable client of type Minecraft]
-      src: client.getResourceManager(), client.getLoadedEntityModels(), new EquipmentAssetManager(), client.textRenderer);
-payload/PayloadHandler.java:200: cannot find symbol   [symbol: method getBlockRenderManager() | location: variable client of type Minecraft]
-      src: client.getItemModelManager(), client.getMapRenderer(), client.getBlockRenderManager(),
-payload/PayloadHandler.java:200: cannot find symbol   [symbol: method getItemModelManager() | location: variable client of type Minecraft]
-      src: client.getItemModelManager(), client.getMapRenderer(), client.getBlockRenderManager(),
-payload/PayloadHandler.java:204: cannot find symbol   [symbol: method getNetworkHandler() | location: variable client of type Minecraft]
-      src: if (client.getNetworkHandler() == null) {
-payload/PayloadHandler.java:208: cannot find symbol   [symbol: method getNetworkHandler() | location: variable client of type Minecraft]
-      src: final PlayerInfo entry = client.getNetworkHandler().getPlayerListEntry(payload.getPlayerUuid());
-payload/PayloadHandler.java:212: cannot find symbol   [symbol: method getSkinTextures() | location: variable entry of type PlayerInfo]
-      src: final PlayerSkinBuilder builder = new PlayerSkinBuilder(entry.getSkinTextures());
-payload/handler/CustomEntityPayloadHandler.java:35: cannot find symbol   [symbol: method getUUID() | location: variable payload of type ModelRequestPayload]
-      src: CustomEntityTicker ticker = this.cachedCustomEntities.get(payload.getUUID());
-payload/handler/CustomEntityPayloadHandler.java:38: cannot find symbol   [symbol: method getUUID() | location: variable payload of type ModelRequestPayload]
-      src: this.cachedCustomEntities.put(payload.getUUID(), ticker);
-pack/definitions/EntityDefinitions.java:25: method fromNamespaceAndPath in class Identifier cannot be applied to given types;   [required: String,String | found: String | reason: actual and formal argument lists differ in length]
-      src: final Identifier identifier = Identifier.fromNamespaceAndPath(entityData.getIdentifier());
-animation/vanilla/AnimateTransformation.java:26: cannot find symbol   [symbol: method catmullRom(float,float,float,float,float) | location: class Mth]
-      src: dest.set(Mth.catmullRom(delta, vector3f2.x(), vector3f3.x(), vector3f4.x(), vector3f5.x()) * scale, Mth.catmullRom(delta, vector3f2.y(), vector3f3.y(), vector3f4.y(), vec
-material/data/Material.java:210: cannot find symbol   [symbol: variable VertexFormats | location: class MaterialInfo]
+unique errors: 22
+payload/PayloadHandler.java:196: cannot find symbol   [symbol: method createPart(int,int) | location: class PartDefinition]
+      src: model = new PlayerModel(PlayerModel.createMesh(CubeDeformation.NONE, slim).getRoot().createPart(64, 64), slim);
+payload/PayloadHandler.java:199: constructor Context in class Context cannot be applied to given types;   [required: EntityRenderDispatcher,ItemModelResolver,MapRenderer,BlockRenderDispatcher,ResourceManager,EntityModelSet,EquipmentAssetManager,AtlasManager,Font,PlayerSkinRenderCache | found: EntityRenderDispatcher,ItemModelResolver,MapRenderer,BlockRenderDispatcher,ResourceManager,EntityModelSet,EquipmentAssetManager,Font | reason: actual and formal argument lists differ in length]
+      src: final EntityRendererProvider.Context entityContext = new EntityRendererProvider.Context(client.getEntityRenderDispatcher(),
+material/data/Material.java:211: cannot find symbol   [symbol: variable VertexFormats | location: class MaterialInfo]
       src: vertexFormat = VertexFormats.POSITION_COLOR_TEXTURE_OVERLAY_LIGHT_NORMAL;
-material/data/Material.java:260: cannot find symbol   [symbol: variable DrawMode | location: class VertexFormat]
+material/data/Material.java:261: cannot find symbol   [symbol: variable DrawMode | location: class VertexFormat]
       src: builder.withVertexFormat(vertexFormat, this.defines.contains("LINE_STRIP") ? VertexFormat.DrawMode.LINE_STRIP : VertexFormat.DrawMode.QUADS);
-material/data/Material.java:288: cannot find symbol   [symbol: class MultiPhaseParameters | location: class RenderType]
+material/data/Material.java:289: cannot find symbol   [symbol: class MultiPhaseParameters | location: class RenderType]
       src: final RenderType.MultiPhaseParameters.Builder renderLayerBuilder = RenderType.MultiPhaseParameters.builder();
-material/data/Material.java:288: cannot find symbol   [symbol: variable MultiPhaseParameters | location: class RenderType]
+material/data/Material.java:289: cannot find symbol   [symbol: variable MultiPhaseParameters | location: class RenderType]
       src: final RenderType.MultiPhaseParameters.Builder renderLayerBuilder = RenderType.MultiPhaseParameters.builder();
-material/data/Material.java:290: cannot find symbol   [symbol: class Texture | location: class MaterialInfo]
+material/data/Material.java:291: cannot find symbol   [symbol: class Texture | location: class MaterialInfo]
       src: renderLayerBuilder.texture(new Texture(texture, TriState.FALSE, false));
-material/data/Material.java:293: cannot find symbol   [symbol: variable ENABLE_LIGHTMAP | location: class MaterialInfo]
+material/data/Material.java:294: cannot find symbol   [symbol: variable ENABLE_LIGHTMAP | location: class MaterialInfo]
       src: renderLayerBuilder.lightmap(ENABLE_LIGHTMAP);
-material/data/Material.java:294: cannot find symbol   [symbol: variable ENABLE_OVERLAY_COLOR | location: class MaterialInfo]
+material/data/Material.java:295: cannot find symbol   [symbol: variable ENABLE_OVERLAY_COLOR | location: class MaterialInfo]
       src: renderLayerBuilder.overlay(ENABLE_OVERLAY_COLOR);
-payload/BasePayload.java:56: cannot find symbol   [symbol: method readUuid() | location: variable buf of type FriendlyByteBuf]
-      src: return new ModelRequestPayload(identifier, EnumUtil.getEnumSetFromBitmask(ActorFlags.class, combinedFlags, ActorFlags::getValue), variant, mark_variant, buf.readUuid());
-entity/CustomEntityTicker.java:64: cannot find symbol   [symbol: variable textRenderer | location: variable client of type Minecraft]
-      src: client.getResourceManager(), client.getLoadedEntityModels(), new EquipmentAssetManager(), client.textRenderer);
-entity/CustomEntityTicker.java:64: cannot find symbol   [symbol: method getLoadedEntityModels() | location: variable client of type Minecraft]
-      src: client.getResourceManager(), client.getLoadedEntityModels(), new EquipmentAssetManager(), client.textRenderer);
-entity/CustomEntityTicker.java:63: cannot find symbol   [symbol: method getBlockRenderManager() | location: variable client of type Minecraft]
-      src: client.getItemModelManager(), client.getMapRenderer(), client.getBlockRenderManager(),
-entity/CustomEntityTicker.java:63: cannot find symbol   [symbol: method getItemModelManager() | location: variable client of type Minecraft]
-      src: client.getItemModelManager(), client.getMapRenderer(), client.getBlockRenderManager(),
-entity/CustomEntityTicker.java:161: method fromNamespaceAndPath in class Identifier cannot be applied to given types;   [required: String,String | found: String | reason: actual and formal argument lists differ in length]
-      src: final Identifier texture = Identifier.fromNamespaceAndPath(model.textureValue().toLowerCase(Locale.ROOT));
-payload/impl/skin/CapeDataPayload.java:17: cannot find symbol   [symbol: method readUuid() | location: variable buf of type FriendlyByteBuf]
-      src: UUID playerUuid = buf.readUuid();
-payload/impl/skin/SkinDataPayload.java:15: cannot find symbol   [symbol: method readUuid() | location: variable buf of type FriendlyByteBuf]
-      src: UUID playerUuid = buf.readUuid();
-renderer/CustomEntityRenderer.java:42: method does not override or implement a method from a supertype
+entity/CustomEntityTicker.java:62: constructor Context in class Context cannot be applied to given types;   [required: EntityRenderDispatcher,ItemModelResolver,MapRenderer,BlockRenderDispatcher,ResourceManager,EntityModelSet,EquipmentAssetManager,AtlasManager,Font,PlayerSkinRenderCache | found: EntityRenderDispatcher,ItemModelResolver,MapRenderer,BlockRenderDispatcher,ResourceManager,EntityModelSet,EquipmentAssetManager,Font | reason: actual and formal argument lists differ in length]
+      src: final EntityRendererProvider.Context context = new EntityRendererProvider.Context(client.getEntityRenderDispatcher(),
+renderer/CustomEntityRenderer.java:43: method does not override or implement a method from a supertype
       src: @Override
-renderer/CustomEntityRenderer.java:45: cannot find symbol   [symbol: method push() | location: variable matrices of type PoseStack]
-      src: matrices.push();
-renderer/CustomEntityRenderer.java:61: cannot find symbol   [symbol: method packUv(int,int) | location: class OverlayTexture]
-      src: model.model.render(matrices, vertexConsumer, light, OverlayTexture.packUv(0, 10));
-renderer/CustomEntityRenderer.java:64: cannot find symbol   [symbol: method pop() | location: variable matrices of type PoseStack]
-      src: matrices.pop();
-renderer/CustomEntityRenderer.java:70: cannot find symbol   [symbol: method getRenderDistanceMultiplier() | location: class Entity]
-      src: double d = 64.0F * Entity.getRenderDistanceMultiplier();
-renderer/CustomEntityRenderer.java:71: cannot find symbol   [symbol: method squaredDistanceTo(double,double,double) | location: variable entity of type T]
-      src: return entity.squaredDistanceTo(x, y, z) <= d * d;
-renderer/CustomEntityRenderer.java:74: method does not override or implement a method from a supertype
-      src: @Override
-renderer/CustomEntityRenderer.java:76: cannot find symbol   [symbol: method updateRenderState(T,CustomEntityRenderState,float)]
-      src: super.updateRenderState(entity, state, tickDelta);
-renderer/CustomEntityRenderer.java:77: cannot find symbol   [symbol: method getYaw(float) | location: variable entity of type T]
-      src: state.yaw = entity.getYaw(tickDelta);
-renderer/CustomEntityRenderer.java:78: cannot find symbol   [symbol: method getBodyYaw() | location: variable entity of type T]
-      src: state.bodyYaw = entity.getBodyYaw();
-renderer/CustomEntityRenderer.java:79: cannot find symbol   [symbol: method getPitch() | location: variable entity of type T]
-      src: state.bodyPitch = entity.getPitch();
-renderer/CustomEntityRenderer.java:80: cannot find symbol   [symbol: variable distanceTraveled | location: variable entity of type T]
-      src: state.distanceTraveled = entity.distanceTraveled;
-renderer/CustomEntityRenderer.java:84: cannot find symbol   [symbol: variable POSITIVE_Y | location: interface Axis]
-      src: matrices.multiply(Axis.POSITIVE_Y.rotationDegrees(180 - state.yaw));
-animation/animator/Animator.java:81: cannot find symbol   [symbol: method getRootPart() | location: variable model of type Model]
-      src: ((IModelPart)((Object)model.getRootPart())).viaBedrockUtility$resetEverything();
-animation/animator/Animator.java:137: cannot find symbol   [symbol: method getRootPart() | location: variable model of type Model]
-      src: ((IModelPart)((Object)model.getRootPart())).viaBedrockUtility$resetEverything();
-pack/processor/TextureProcessor.java:26: cannot find symbol   [symbol: method ofVanilla(String) | location: class Identifier]
-      src: final Identifier identifier = Identifier.ofVanilla(path.toLowerCase(Locale.ROOT).replace(".png", "").replace(".jpg", ""));
-pack/processor/TextureProcessor.java:28: cannot find symbol   [symbol: method registerTexture(Identifier,DynamicTexture) | location: class TextureManager]
-      src: client.getTextureManager().registerTexture(identifier, new DynamicTexture(() -> identifier.toString() + image1.hashCode(), image1));
-mixin/impl/entity/player/AbstractClientPlayerMixin.java:33: cannot find symbol   [symbol: method getUuid() | location: class AbstractClientPlayerMixin]
-      src: Identifier cape = ViaBedrockUtility.getInstance().getPayloadHandler().getCachedPlayerCapes().get(getUuid());
-mixin/impl/entity/player/AbstractClientPlayerMixin.java:35: cannot find symbol   [symbol: method getSkinTextures(UUID) | location: class DefaultPlayerSkin]
-      src: PlayerSkin skin = playerListEntry == null ? DefaultPlayerSkin.getSkinTextures(this.getUUID()) : playerListEntry.getSkinTextures();
-mixin/impl/entity/player/AbstractClientPlayerMixin.java:35: cannot find symbol   [symbol: method getSkinTextures() | location: variable playerListEntry of type PlayerInfo]
-      src: PlayerSkin skin = playerListEntry == null ? DefaultPlayerSkin.getSkinTextures(this.getUUID()) : playerListEntry.getSkinTextures();
+renderer/CustomEntityRenderer.java:62: cannot find symbol   [symbol: method render(PoseStack,VertexConsumer,int,int) | location: record component model of type CustomEntityModel<CustomEntityRenderState>]
+      src: model.model.render(matrices, vertexConsumer, light, OverlayTexture.pack(0, 10));
 mixin/impl/entity/player/AbstractClientPlayerMixin.java:36: cannot find symbol   [symbol: method capeTexture() | location: variable skin of type PlayerSkin]
       src: if (!cape.equals(skin.capeTexture())) {
 mixin/impl/entity/player/AbstractClientPlayerMixin.java:41: cannot find symbol   [symbol: method elytraTexture() | location: variable skin of type PlayerSkin]
@@ -130,24 +45,6 @@ mixin/impl/entity/player/AbstractClientPlayerMixin.java:39: cannot find symbol  
       src: skin.textureUrl(),
 mixin/impl/entity/player/AbstractClientPlayerMixin.java:38: cannot find symbol   [symbol: method texture() | location: variable skin of type PlayerSkin]
       src: skin.texture(),
-mixin/impl/network/ClientPlayNetworkHandlerMixin.java:39: cannot find symbol   [symbol: variable crosshairTarget | location: variable client of type Minecraft]
-      src: if (client.crosshairTarget == null || client.crosshairTarget.getType() != HitResult.Type.ENTITY) {
-mixin/impl/network/ClientPlayNetworkHandlerMixin.java:48: cannot find symbol   [symbol: variable crosshairTarget | location: variable client of type Minecraft]
-      src: final UUID uuid = ((EntityHitResult)client.crosshairTarget).getEntity().getUUID();
-mixin/impl/render/ModelPartMixin.java:61: cannot find symbol   [symbol: method multiply(Quaternionf) | location: variable matrices of type PoseStack]
-      src: matrices.multiply((new Quaternionf()).rotationXYZ(this.rotation.x * MathUtil.DEGREES_TO_RADIANS, this.rotation.y * MathUtil.DEGREES_TO_RADIANS, this.rotation.z * MathUtil
-mixin/impl/render/feature/CapeFeatureRendererMixin.java:22: cannot find symbol   [symbol: method entityTranslucent(Identifier,boolean) | location: class RenderType]
-      src: return RenderType.entityTranslucent(texture, true);
-mixin/impl/render/feature/CapeFeatureRendererMixin.java:24: cannot find symbol   [symbol: method entitySolid(Identifier) | location: class RenderType]
-      src: return RenderType.entitySolid(texture);
-animation/vanilla/KeyframeAnimations.java:19: cannot find symbol   [symbol: method getParts() | location: variable model of type Model]
-      src: Optional<ModelPart> optional = getPartByName(model.getParts(), entry.getKey());
-util/GeometryUtil.java:52: cannot find symbol   [symbol: method setOrigin(int,float,int) | location: variable part of type ModelPart]
-      src: part.setOrigin(0, bone.getPivot().getY(), 0);
-util/GeometryUtil.java:53: cannot find symbol   [symbol: method getTransform() | location: variable part of type ModelPart]
-      src: part.setDefaultTransform(part.getTransform());
-util/GeometryUtil.java:168: cannot find symbol   [symbol: variable sides | location: variable cuboid of type Cube]
-      src: final ModelPart.Polygon[] sides = cuboid.sides;
 util/PlayerSkinBuilder.java:16: cannot find symbol   [symbol: method texture() | location: variable base of type PlayerSkin]
       src: this.texture = base.texture();
 util/PlayerSkinBuilder.java:17: cannot find symbol   [symbol: method textureUrl() | location: variable base of type PlayerSkin]
@@ -158,8 +55,6 @@ util/PlayerSkinBuilder.java:19: cannot find symbol   [symbol: method elytraTextu
       src: this.elytraTexture = base.elytraTexture();
 util/PlayerSkinBuilder.java:25: constructor PlayerSkin in record PlayerSkin cannot be applied to given types;   [required: Texture,Texture,Texture,PlayerModelType,boolean | found: Identifier,String,Identifier,Identifier,PlayerModelType,boolean | reason: actual and formal argument lists differ in length]
       src: return new PlayerSkin(texture, textureUrl, capeTexture, elytraTexture, model, secure);
-payload/impl/skin/BaseSkinPayload.java:15: cannot find symbol   [symbol: method readUuid() | location: variable buf of type FriendlyByteBuf]
-      src: final UUID playerUuid = buf.readUuid();
 renderer/CustomPlayerRenderer.java:22: method does not override or implement a method from a supertype
       src: @Override
 
@@ -170,109 +65,227 @@ renderer/CustomPlayerRenderer.java:22: method does not override or implement a m
 == BAD IMPORTS (0) ==
 
 == FQN CHECK ==
-net.minecraft.world.level.Level                                        OK
-net.minecraft.network.protocol.login.ClientboundLoginFinishedPacket    OK
+net.minecraft.client.model.Model                                       OK
 net.minecraft.client.model.geom.ModelPart.Cube                         OK
 net.minecraft.client.model.geom.ModelPart.Polygon                      OK
-net.minecraft.client.model.geom.ModelPart.Vertex                       OK
-net.minecraft.world.entity.Display.ItemDisplay                         OK
-net.minecraft.client.resources.server.PackReloadConfig.IdAndPath       OK
-net.minecraft.client.renderer.rendertype.RenderType.CompositeState     MISSING
-com.mojang.blaze3d.vertex.PoseStack.Pose                               OK
-net.minecraft.world.entity.player.PlayerSkin.Model                     MISSING
+net.minecraft.world.entity.player.PlayerModelType                      OK
+net.minecraft.core.ClientAsset.Texture                                 OK
+net.minecraft.client.renderer.rendertype.RenderTypes                   OK
+net.minecraft.client.renderer.culling.Frustum                          OK
+com.mojang.blaze3d.vertex.DefaultVertexFormat                          OK
+com.mojang.blaze3d.vertex.VertexFormat.Mode                            OK
+net.minecraft.client.renderer.entity.EntityRendererProvider.Context    OK
+net.minecraft.client.renderer.entity.state.AvatarRenderState           OK
+net.minecraft.client.renderer.SubmitNodeCollector                      OK
 
 == PACKAGE DUMPS ==
--- net/minecraft/network/protocol/login (14) --
-  ClientLoginPacketListener ClientboundCustomQueryPacket ClientboundHelloPacket ClientboundLoginCompressionPacket ClientboundLoginDisconnectPacket ClientboundLoginFinishedPacket LoginPacketTypes LoginProtocols ServerLoginPacketListener ServerboundCustomQueryAnswerPacket ServerboundHelloPacket ServerboundKeyPacket ServerboundLoginAcknowledgedPacket package-info
+-- net/minecraft/client/renderer/rendertype (7) --
+  LayeringTransform OutputTarget RenderSetup RenderType RenderTypes TextureTransform package-info
+-- net/minecraft/core (37) --
+  AxisCycle BlockBox BlockMath BlockPos ClientAsset Cloner Cursor3D DefaultedMappedRegistry DefaultedRegistry Direction Direction8 FrontAndTop GlobalPos Holder HolderGetter HolderLookup HolderOwner HolderSet IdMap IdMapper LayeredRegistryAccess MappedRegistry NonNullList Position QuartPos RegistrationInfo Registry RegistryAccess RegistryCodecs RegistrySetBuilder RegistrySynchronization Rotations SectionPos UUIDUtil Vec3i WritableRegistry package-info
 
 == REAL SIGNATURES ==
+-- net.minecraft.client.multiplayer.PlayerInfo --
+   public net.minecraft.client.multiplayer.PlayerInfo(com.mojang.authlib.GameProfile, boolean);
+   public com.mojang.authlib.GameProfile getProfile();
+   public net.minecraft.world.entity.player.PlayerSkin getSkin();
+-- net.minecraft.client.renderer.texture.TextureManager --
+   public void registerAndLoad(net.minecraft.resources.Identifier, net.minecraft.client.renderer.texture.ReloadableTexture);
+   public void registerForNextReload(net.minecraft.resources.Identifier);
+   public void register(net.minecraft.resources.Identifier, net.minecraft.client.renderer.texture.AbstractTexture);
+   public void release(net.minecraft.resources.Identifier);
+-- net.minecraft.client.Minecraft --
+   public final net.minecraft.client.gui.Font font;
+   public final net.minecraft.client.gui.Font fontFilterFishy;
+   public net.minecraft.world.phys.HitResult hitResult;
+   public net.minecraft.client.multiplayer.ClientPacketListener getConnection();
+   public net.minecraft.client.renderer.block.BlockRenderDispatcher getBlockRenderer();
+   public net.minecraft.client.renderer.MapRenderer getMapRenderer();
+   public net.minecraft.client.model.geom.EntityModelSet getEntityModels();
+   public net.minecraft.client.renderer.item.ItemModelResolver getItemModelResolver();
+-- net.minecraft.client.model.Model --
+   public abstract class net.minecraft.client.model.Model<S> implements net.fabricmc.fabric.api.client.rendering.v1.FabricModel<S> {
+   protected final net.minecraft.client.model.geom.ModelPart root;
+   public net.minecraft.client.model.Model(net.minecraft.client.model.geom.ModelPart, java.util.function.Function<net.minecraft.resources.Identifier, net
+   public final net.minecraft.client.renderer.rendertype.RenderType renderType(net.minecraft.resources.Identifier);
+   public final void renderToBuffer(com.mojang.blaze3d.vertex.PoseStack, com.mojang.blaze3d.vertex.VertexConsumer, int, int, int);
+   public final void renderToBuffer(com.mojang.blaze3d.vertex.PoseStack, com.mojang.blaze3d.vertex.VertexConsumer, int, int);
+   public final net.minecraft.client.model.geom.ModelPart root();
+   public final java.util.List<net.minecraft.client.model.geom.ModelPart> allParts();
+   public void setupAnim(S);
+   public final void resetPose();
+-- net.minecraft.client.model.geom.ModelPart --
+   public final class net.minecraft.client.model.geom.ModelPart {
+   public net.minecraft.client.model.geom.ModelPart(java.util.List<net.minecraft.client.model.geom.ModelPart$Cube>, java.util.Map<java.lang.String, net.m
+   public net.minecraft.client.model.geom.PartPose storePose();
+   public net.minecraft.client.model.geom.PartPose getInitialPose();
+   public void setInitialPose(net.minecraft.client.model.geom.PartPose);
+   public void resetPose();
+   public void loadPose(net.minecraft.client.model.geom.PartPose);
+   public net.minecraft.client.model.geom.ModelPart getChild(java.lang.String);
+   public void setPos(float, float, float);
+   public void setRotation(float, float, float);
+   public void render(com.mojang.blaze3d.vertex.PoseStack, com.mojang.blaze3d.vertex.VertexConsumer, int, int);
+   public void render(com.mojang.blaze3d.vertex.PoseStack, com.mojang.blaze3d.vertex.VertexConsumer, int, int, int);
+   public void rotateBy(org.joml.Quaternionf);
+   public void getExtentsForGui(com.mojang.blaze3d.vertex.PoseStack, java.util.function.Consumer<org.joml.Vector3fc>);
+   public void visit(com.mojang.blaze3d.vertex.PoseStack, net.minecraft.client.model.geom.ModelPart$Visitor);
+   public void translateAndRotate(com.mojang.blaze3d.vertex.PoseStack);
+   ... (truncated)
+-- net.minecraft.client.model.geom.ModelPart$Cube --
+   public class net.minecraft.client.model.geom.ModelPart$Cube {
+   public final net.minecraft.client.model.geom.ModelPart$Polygon[] polygons;
+   public final float minX;
+   public final float minY;
+   public final float minZ;
+   public final float maxX;
+   public final float maxY;
+   public final float maxZ;
+   public net.minecraft.client.model.geom.ModelPart$Cube(int, int, float, float, float, float, float, float, float, float, float, boolean, float, float, 
+   public void compile(com.mojang.blaze3d.vertex.PoseStack$Pose, com.mojang.blaze3d.vertex.VertexConsumer, int, int, int);
+-- net.minecraft.client.model.player.PlayerModel --
+   public class net.minecraft.client.model.player.PlayerModel extends net.minecraft.client.model.HumanoidModel<net.minecraft.client.renderer.entity.state
+   protected static final java.lang.String LEFT_SLEEVE;
+   protected static final java.lang.String RIGHT_SLEEVE;
+   protected static final java.lang.String LEFT_PANTS;
+   protected static final java.lang.String RIGHT_PANTS;
+   public final net.minecraft.client.model.geom.ModelPart leftSleeve;
+   public final net.minecraft.client.model.geom.ModelPart rightSleeve;
+   public final net.minecraft.client.model.geom.ModelPart leftPants;
+   public final net.minecraft.client.model.geom.ModelPart rightPants;
+   public final net.minecraft.client.model.geom.ModelPart jacket;
+   public net.minecraft.client.model.player.PlayerModel(net.minecraft.client.model.geom.ModelPart, boolean);
+   public static net.minecraft.client.model.geom.builders.MeshDefinition createMesh(net.minecraft.client.model.geom.builders.CubeDeformation, boolean);
+   public static net.minecraft.client.renderer.entity.ArmorModelSet<net.minecraft.client.model.geom.builders.MeshDefinition> createArmorMeshSet(net.minec
+   public void setupAnim(net.minecraft.client.renderer.entity.state.AvatarRenderState);
+   public void setAllVisible(boolean);
+   public void translateToHand(net.minecraft.client.renderer.entity.state.AvatarRenderState, net.minecraft.world.entity.HumanoidArm, com.mojang.blaze3d.v
+   ... (truncated)
+-- net.minecraft.client.renderer.rendertype.RenderTypes --
+   public static net.minecraft.client.renderer.rendertype.RenderType entitySolid(net.minecraft.resources.Identifier);
+   public static net.minecraft.client.renderer.rendertype.RenderType entitySolidZOffsetForward(net.minecraft.resources.Identifier);
+   public static net.minecraft.client.renderer.rendertype.RenderType entityCutout(net.minecraft.resources.Identifier);
+   public static net.minecraft.client.renderer.rendertype.RenderType entityCutoutNoCull(net.minecraft.resources.Identifier, boolean);
+   public static net.minecraft.client.renderer.rendertype.RenderType entityCutoutNoCull(net.minecraft.resources.Identifier);
+   public static net.minecraft.client.renderer.rendertype.RenderType entityCutoutNoCullZOffset(net.minecraft.resources.Identifier, boolean);
+   public static net.minecraft.client.renderer.rendertype.RenderType entityCutoutNoCullZOffset(net.minecraft.resources.Identifier);
+   public static net.minecraft.client.renderer.rendertype.RenderType entityTranslucent(net.minecraft.resources.Identifier, boolean);
+   public static net.minecraft.client.renderer.rendertype.RenderType entityTranslucent(net.minecraft.resources.Identifier);
+   public static net.minecraft.client.renderer.rendertype.RenderType entityTranslucentEmissive(net.minecraft.resources.Identifier, boolean);
+   public static net.minecraft.client.renderer.rendertype.RenderType entityTranslucentEmissive(net.minecraft.resources.Identifier);
+   public static net.minecraft.client.renderer.rendertype.RenderType entitySmoothCutout(net.minecraft.resources.Identifier);
+   public static net.minecraft.client.renderer.rendertype.RenderType entityDecal(net.minecraft.resources.Identifier);
+   public static net.minecraft.client.renderer.rendertype.RenderType entityNoOutline(net.minecraft.resources.Identifier);
+   public static net.minecraft.client.renderer.rendertype.RenderType entityShadow(net.minecraft.resources.Identifier);
+   public static net.minecraft.client.renderer.rendertype.RenderType entityGlint();
+   ... (truncated)
+-- net.minecraft.core.ClientAsset --
+   public interface net.minecraft.core.ClientAsset {
+   public abstract net.minecraft.resources.Identifier id();
+-- net.minecraft.core.ClientAsset$Texture --
+   public interface net.minecraft.core.ClientAsset$Texture extends net.minecraft.core.ClientAsset {
+   public abstract net.minecraft.resources.Identifier texturePath();
 -- net.minecraft.client.renderer.entity.EntityRenderer --
--- net.minecraft.client.renderer.entity.player.AvatarRenderer --
-   public class net.minecraft.client.renderer.entity.player.AvatarRenderer<AvatarlikeEntity extends net.minecraft.world.entity.Avatar & net.minecraft.cli
-   public net.minecraft.client.renderer.entity.player.AvatarRenderer(net.minecraft.client.renderer.entity.EntityRendererProvider$Context, boolean);
-   public net.minecraft.resources.Identifier getTextureLocation(net.minecraft.client.renderer.entity.state.AvatarRenderState);
-   public net.minecraft.resources.Identifier getTextureLocation(net.minecraft.client.renderer.entity.state.LivingEntityRenderState);
--- net.minecraft.client.renderer.entity.EntityRenderDispatcher --
-   public class net.minecraft.client.renderer.entity.EntityRenderDispatcher implements net.minecraft.server.packs.resources.ResourceManagerReloadListener
-   public final net.minecraft.client.renderer.texture.TextureManager textureManager;
-   public net.minecraft.client.renderer.entity.EntityRenderDispatcher(net.minecraft.client.Minecraft, net.minecraft.client.renderer.texture.TextureManage
-   public <T extends net.minecraft.world.entity.Entity> net.minecraft.client.renderer.entity.EntityRenderer<? super T, ?> getRenderer(T);
-   public net.minecraft.client.renderer.entity.player.AvatarRenderer<net.minecraft.client.player.AbstractClientPlayer> getPlayerRenderer(net.minecraft.cl
-   public <S extends net.minecraft.client.renderer.entity.state.EntityRenderState> net.minecraft.client.renderer.entity.EntityRenderer<?, ? super S> getR
-   public <E extends net.minecraft.world.entity.Entity> boolean shouldRender(E, net.minecraft.client.renderer.culling.Frustum, double, double, double);
-   public <E extends net.minecraft.world.entity.Entity> net.minecraft.client.renderer.entity.state.EntityRenderState extractEntity(E, float);
--- net.minecraft.client.renderer.rendertype.RenderType --
--- net.minecraft.world.entity.player.PlayerSkin --
-   Compiled from "PlayerSkin.java"
-   public final class net.minecraft.world.entity.player.PlayerSkin extends java.lang.Record {
-   public net.minecraft.world.entity.player.PlayerSkin(net.minecraft.core.ClientAsset$Texture, net.minecraft.core.ClientAsset$Texture, net.minecraft.core
-   public static net.minecraft.world.entity.player.PlayerSkin insecure(net.minecraft.core.ClientAsset$Texture, net.minecraft.core.ClientAsset$Texture, ne
-   public net.minecraft.world.entity.player.PlayerSkin with(net.minecraft.world.entity.player.PlayerSkin$Patch);
-   public final java.lang.String toString();
-   public final int hashCode();
-   public final boolean equals(java.lang.Object);
-   public net.minecraft.core.ClientAsset$Texture body();
-   public net.minecraft.core.ClientAsset$Texture cape();
-   public net.minecraft.core.ClientAsset$Texture elytra();
-   public net.minecraft.world.entity.player.PlayerModelType model();
-   public boolean secure();
-   }
--- net.minecraft.client.multiplayer.ClientLevel --
-   final net.minecraft.world.level.entity.EntityTickList tickingEntities;
-   final java.util.List<net.minecraft.world.entity.boss.enderdragon.EnderDragonPart> dragonParts;
-   public void onBlockEntityAdded(net.minecraft.world.level.block.entity.BlockEntity);
-   public java.util.Set<net.minecraft.world.level.block.entity.BlockEntity> getGloballyRenderedBlockEntities();
-   public java.lang.Iterable<net.minecraft.world.entity.Entity> entitiesForRendering();
-   public void tickEntities();
-   public boolean isTickingEntity(net.minecraft.world.entity.Entity);
-   public boolean shouldTickDeath(net.minecraft.world.entity.Entity);
+   public abstract class net.minecraft.client.renderer.entity.EntityRenderer<T extends net.minecraft.world.entity.Entity, S extends net.minecraft.client.
+   public static final float NAMETAG_SCALE;
+   public final int getPackedLightCoords(T, float);
+   public boolean shouldRender(T, net.minecraft.client.renderer.culling.Frustum, double, double, double);
+   public net.minecraft.world.phys.Vec3 getRenderOffset(S);
+   public void submit(S, com.mojang.blaze3d.vertex.PoseStack, net.minecraft.client.renderer.SubmitNodeCollector, net.minecraft.client.renderer.state.Came
+   public net.minecraft.client.gui.Font getFont();
+   protected void submitNameTag(S, com.mojang.blaze3d.vertex.PoseStack, net.minecraft.client.renderer.SubmitNodeCollector, net.minecraft.client.renderer.
+   public abstract S createRenderState();
+   public final S createRenderState(T, float);
+   public void extractRenderState(T, S, float);
+-- net.minecraft.client.renderer.entity.EntityRendererProvider$Context --
+   public class net.minecraft.client.renderer.entity.EntityRendererProvider$Context {
+   public net.minecraft.client.renderer.entity.EntityRendererProvider$Context(net.minecraft.client.renderer.entity.EntityRenderDispatcher, net.minecraft.
+   public net.minecraft.client.renderer.entity.EntityRenderDispatcher getEntityRenderDispatcher();
+   public net.minecraft.client.renderer.item.ItemModelResolver getItemModelResolver();
+   public net.minecraft.client.renderer.MapRenderer getMapRenderer();
+   public net.minecraft.client.renderer.block.BlockRenderDispatcher getBlockRenderDispatcher();
+   public net.minecraft.server.packs.resources.ResourceManager getResourceManager();
+   public net.minecraft.client.model.geom.EntityModelSet getModelSet();
+   public net.minecraft.client.resources.model.EquipmentAssetManager getEquipmentAssets();
+   public net.minecraft.client.renderer.entity.layers.EquipmentLayerRenderer getEquipmentRenderer();
+   public net.minecraft.client.resources.model.MaterialSet getMaterials();
+   public net.minecraft.client.renderer.texture.TextureAtlas getAtlas(net.minecraft.resources.Identifier);
+   public net.minecraft.client.model.geom.ModelPart bakeLayer(net.minecraft.client.model.geom.ModelLayerLocation);
+   public net.minecraft.client.gui.Font getFont();
+   public net.minecraft.client.renderer.PlayerSkinRenderCache getPlayerSkinRenderCache();
+-- net.minecraft.client.resources.DefaultPlayerSkin --
+   public class net.minecraft.client.resources.DefaultPlayerSkin {
+   public net.minecraft.client.resources.DefaultPlayerSkin();
+   public static net.minecraft.resources.Identifier getDefaultTexture();
+   public static net.minecraft.world.entity.player.PlayerSkin getDefaultSkin();
+   public static net.minecraft.world.entity.player.PlayerSkin get(java.util.UUID);
+   public static net.minecraft.world.entity.player.PlayerSkin get(com.mojang.authlib.GameProfile);
+   static {};
+-- net.minecraft.resources.Identifier --
+   public static net.minecraft.resources.Identifier fromNamespaceAndPath(java.lang.String, java.lang.String);
+   public static net.minecraft.resources.Identifier parse(java.lang.String);
+   public static net.minecraft.resources.Identifier withDefaultNamespace(java.lang.String);
+-- com.mojang.blaze3d.vertex.VertexFormat --
+   public class com.mojang.blaze3d.vertex.VertexFormat {
+   public static final int UNKNOWN_ELEMENT;
+   public static com.mojang.blaze3d.vertex.VertexFormat$Builder builder();
+   public java.lang.String toString();
+   public int getVertexSize();
+   public java.util.List<com.mojang.blaze3d.vertex.VertexFormatElement> getElements();
+   public java.util.List<java.lang.String> getElementAttributeNames();
+   public int[] getOffsetsByElement();
+   public int getOffset(com.mojang.blaze3d.vertex.VertexFormatElement);
+   public boolean contains(com.mojang.blaze3d.vertex.VertexFormatElement);
+   public int getElementsMask();
+   public java.lang.String getElementName(com.mojang.blaze3d.vertex.VertexFormatElement);
+   public boolean equals(java.lang.Object);
+   public int hashCode();
+   public com.mojang.blaze3d.buffers.GpuBuffer uploadImmediateVertexBuffer(java.nio.ByteBuffer);
+   public com.mojang.blaze3d.buffers.GpuBuffer uploadImmediateIndexBuffer(java.nio.ByteBuffer);
+   ... (truncated)
+-- net.minecraft.client.renderer.entity.state.AvatarRenderState --
+   public class net.minecraft.client.renderer.entity.state.AvatarRenderState extends net.minecraft.client.renderer.entity.state.HumanoidRenderState {
+   public net.minecraft.world.entity.player.PlayerSkin skin;
+   public float capeFlap;
+   public float capeLean;
+   public float capeLean2;
+   public int arrowCount;
+   public int stingerCount;
+   public boolean isSpectator;
+   public boolean showHat;
+   public boolean showJacket;
+   public boolean showLeftPants;
+   public boolean showRightPants;
+   public boolean showLeftSleeve;
+   public boolean showRightSleeve;
+   public boolean showCape;
+   public float fallFlyingTimeInTicks;
+   ... (truncated)
 -- net.minecraft.world.entity.Entity --
-   public float moveDist;
-   public void setPose(net.minecraft.world.entity.Pose);
-   public final void setPos(net.minecraft.world.phys.Vec3);
-   public void setPos(double, double, double);
-   public net.minecraft.world.phys.Vec3 position();
-   public final void setPosRaw(double, double, double);
--- net.minecraft.client.resources.server.DownloadedPackSource --
-   Compiled from "DownloadedPackSource.java"
-   public class net.minecraft.client.resources.server.DownloadedPackSource implements java.lang.AutoCloseable {
-   final net.minecraft.client.resources.server.ServerPackManager manager;
-   net.minecraft.client.resources.server.PackLoadFeedback packFeedback;
-   public net.minecraft.client.resources.server.DownloadedPackSource(net.minecraft.client.Minecraft, java.nio.file.Path, net.minecraft.client.main.GameCo
-   net.minecraft.util.HttpUtil$DownloadProgressListener createDownloadNotifier(int);
-   public net.minecraft.server.packs.repository.RepositorySource createRepositorySource();
-   public void pushPack(java.util.UUID, java.net.URL, java.lang.String);
-   public void pushLocalPack(java.util.UUID, java.nio.file.Path);
-   public void popPack(java.util.UUID);
--- net.minecraft.client.multiplayer.ClientHandshakePacketListenerImpl --
-   public class net.minecraft.client.multiplayer.ClientHandshakePacketListenerImpl implements net.minecraft.network.protocol.login.ClientLoginPacketListe
-   public void handleHello(net.minecraft.network.protocol.login.ClientboundHelloPacket);
-   public void handleLoginFinished(net.minecraft.network.protocol.login.ClientboundLoginFinishedPacket);
-   public void handleDisconnect(net.minecraft.network.protocol.login.ClientboundLoginDisconnectPacket);
-   public void handleCompression(net.minecraft.network.protocol.login.ClientboundLoginCompressionPacket);
-   public void handleCustomQuery(net.minecraft.network.protocol.login.ClientboundCustomQueryPacket);
-   public void handleRequestCookie(net.minecraft.network.protocol.cookie.ClientboundCookieRequestPacket);
--- net.minecraft.client.renderer.entity.layers.CapeLayer --
-   Compiled from "CapeLayer.java"
-   public class net.minecraft.client.renderer.entity.layers.CapeLayer extends net.minecraft.client.renderer.entity.layers.RenderLayer<net.minecraft.clien
-   public net.minecraft.client.renderer.entity.layers.CapeLayer(net.minecraft.client.renderer.entity.RenderLayerParent<net.minecraft.client.renderer.enti
-   public void submit(com.mojang.blaze3d.vertex.PoseStack, net.minecraft.client.renderer.SubmitNodeCollector, int, net.minecraft.client.renderer.entity.s
-   public void submit(com.mojang.blaze3d.vertex.PoseStack, net.minecraft.client.renderer.SubmitNodeCollector, int, net.minecraft.client.renderer.entity.s
-   }
+   public double distanceToSqr(double, double, double);
+   public double distanceToSqr(net.minecraft.world.entity.Entity);
+   public double distanceToSqr(net.minecraft.world.phys.Vec3);
+   public float getViewYRot(float);
+   public float getXRot(float);
+   public float getYRot(float);
+   public static double getViewScale();
+   public float getYRot();
+   public float getVisualRotationYInDegrees();
+   public float getXRot();
 
 ===== TAIL =====
-        final UUID playerUuid = buf.readUuid();
-                                   ^
-  symbol:   method readUuid()
-  location: variable buf of type FriendlyByteBuf
+               ^
+  required: Texture,Texture,Texture,PlayerModelType,boolean
+  found:    Identifier,String,Identifier,Identifier,PlayerModelType,boolean
+  reason: actual and formal argument lists differ in length
 /home/runner/work/ViaBedrockUtility/ViaBedrockUtility/src/main/java/org/oryxel/viabedrockutility/renderer/CustomPlayerRenderer.java:22: error: method does not override or implement a method from a supertype
     @Override
     ^
 Note: Some input files use unchecked or unsafe operations.
 Note: Recompile with -Xlint:unchecked for details.
-79 errors
+23 errors
 	... 30 more
 
 
-BUILD FAILED in 1m 16s
+BUILD FAILED in 1m 6s
 5 actionable tasks: 5 executed
