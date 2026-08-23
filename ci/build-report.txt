@@ -1,5 +1,5 @@
-commit:  27348f4d3d77b06b0ea1667395a1e4e11ab04f01
-run_id:  32632862381
+commit:  8aea6c6bfc7d4ab3231217299f27788b299de8e0
+run_id:  32633109303
 outcome: failure
 
 ===== RENAME =====
@@ -34,22 +34,75 @@ renderer/CustomEntityRenderer.java:46: cannot find symbol   [symbol: class Camer
       src: public void submit(CustomEntityRenderState state, PoseStack matrices, SubmitNodeCollector collector, CameraRenderState cameraState) {
 
 ===== CLASSPATH PROBE =====
+== LOMBOK ==
+resolved in cache: 1.18.46
+maven latest:      1.18.46
+maven recent:      1.18.36, 1.18.38, 1.18.40, 1.18.42, 1.18.44, 1.18.46
+
 == JAR ==
-no minecraft jar found, nothing to probe
+10952 classes  minecraft-merged-a76db1c7b4-26.2.jar
+
+== BAD IMPORTS (7) ==
+com.mojang.blaze3d.platform.DepthTestFunction
+    -> NO CLASS NAMED DepthTestFunction
+    in org/oryxel/viabedrockutility/material/data/Material.java
+com.mojang.blaze3d.platform.DestFactor
+    -> NO CLASS NAMED DestFactor
+    in org/oryxel/viabedrockutility/material/data/Material.java
+com.mojang.blaze3d.platform.SourceFactor
+    -> NO CLASS NAMED SourceFactor
+    in org/oryxel/viabedrockutility/material/data/Material.java
+net.minecraft.client.renderer.MultiBufferSource
+    -> NO CLASS NAMED MultiBufferSource
+    in org/oryxel/viabedrockutility/material/data/Material.java
+net.minecraft.client.renderer.LightTexture
+    -> NO CLASS NAMED LightTexture
+    in org/oryxel/viabedrockutility/material/data/Material.java
+net.minecraft.client.renderer.LightTexture
+    -> NO CLASS NAMED LightTexture
+    in org/oryxel/viabedrockutility/renderer/CustomEntityRenderer.java
+net.minecraft.client.renderer.state.CameraRenderState
+    -> net.minecraft.client.renderer.state.level.CameraRenderState
+    in org/oryxel/viabedrockutility/renderer/CustomEntityRenderer.java
+
+== WHERE DID IT GO ==
+DepthTestFunction      -> GONE
+DestFactor             -> GONE
+SourceFactor           -> GONE
+MultiBufferSource      -> GONE
+LightTexture           -> GONE
+CameraRenderState      -> net.minecraft.client.renderer.state.level.CameraRenderState
+SubmitNodeCollector    -> net.minecraft.client.renderer.SubmitNodeCollector
+RenderSetup            -> net.minecraft.client.renderer.rendertype.RenderSetup
+RenderPipeline         -> com.mojang.blaze3d.pipeline.RenderPipeline
+OverlayTexture         -> net.minecraft.client.renderer.texture.OverlayTexture
+
+== STALE MIXIN TARGETS ==
+  none
+
+== REAL SIGNATURES ==
+-- net.minecraft.client.renderer.entity.EntityRenderer --
+   public abstract class net.minecraft.client.renderer.entity.EntityRenderer<T extends net.minecraft.world.entity.Entity, S extends net.minecraft.client.renderer.entity.state.EntityRenderState> {
+   protected final net.minecraft.client.renderer.entity.EntityRenderDispatcher entityRenderDispatcher;
+   protected net.minecraft.client.renderer.entity.EntityRenderer(net.minecraft.client.renderer.entity.EntityRendererProvider$Context);
+   public boolean shouldRender(T, net.minecraft.client.renderer.culling.Frustum, double, double, double);
+   public void submit(S, com.mojang.blaze3d.vertex.PoseStack, net.minecraft.client.renderer.SubmitNodeCollector, net.minecraft.client.renderer.state.level.CameraRenderState);
+   protected void submitNameDisplay(S, com.mojang.blaze3d.vertex.PoseStack, net.minecraft.client.renderer.SubmitNodeCollector, net.minecraft.client.renderer.state.level.CameraRenderState);
+   protected final <S extends net.minecraft.client.renderer.entity.state.EntityRenderState> void submitNameDisplay(S, com.mojang.blaze3d.vertex.PoseStack, net.minecraft.client.renderer.SubmitNodeCollector, net.minecraft.client.renderer.state.level.CameraRenderState, int);
 
 ===== TAIL =====
-> Run with --scan to get full insights from a Build Scan (powered by Develocity).
-> Get more help at https://help.gradle.org.
-
-* Exception is:
-org.gradle.api.tasks.TaskExecutionException: Execution failed for task ':compileJava' (registered by plugin class 'org.gradle.api.plugins.JavaBasePlugin').
-Caused by: java.lang.RuntimeException: java.lang.ExceptionInInitializerError
+  symbol:   class CameraRenderState
+  location: package net.minecraft.client.renderer.state
+/home/runner/work/ViaBedrockUtility/ViaBedrockUtility/src/main/java/org/oryxel/viabedrockutility/renderer/CustomEntityRenderer.java:46: error: cannot find symbol
+    public void submit(CustomEntityRenderState state, PoseStack matrices, SubmitNodeCollector collector, CameraRenderState cameraState) {
+                                                                                                         ^
+  symbol:   class CameraRenderState
+  location: class CustomEntityRenderer<T>
+  where T is a type-variable:
+    T extends Entity declared in class CustomEntityRenderer
+8 errors
 	... 30 more
-Caused by: java.lang.ExceptionInInitializerError
-	... 164 more
-Caused by: java.lang.NoSuchFieldException: com.sun.tools.javac.code.TypeTag :: UNKNOWN
-	... 177 more
 
 
-BUILD FAILED in 53s
+BUILD FAILED in 52s
 5 actionable tasks: 5 executed
