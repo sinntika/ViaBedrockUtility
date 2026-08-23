@@ -198,7 +198,7 @@ public class PayloadHandler {
 
         final EntityRendererProvider.Context entityContext = new EntityRendererProvider.Context(client.getEntityRenderDispatcher(),
                 client.getItemModelResolver(), client.getMapRenderer(), client.getBlockRenderer(),
-                client.getResourceManager(), client.getEntityModels(), new EquipmentAssetManager(), client.font);
+                client.getResourceManager(), client.getEntityModels(), new EquipmentAssetManager(), client.getAtlasManager(), client.font, client.playerSkinRenderCache());
         this.cachedPlayerRenderers.put(payload.getPlayerUuid(), new CustomPlayerRenderer(entityContext, model, slim, identifier));
 
         if (client.getConnection() == null) {

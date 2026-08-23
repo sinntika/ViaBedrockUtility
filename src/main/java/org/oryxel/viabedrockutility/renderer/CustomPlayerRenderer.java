@@ -7,7 +7,7 @@ import net.minecraft.client.renderer.entity.player.AvatarRenderer;
 import net.minecraft.client.renderer.entity.state.AvatarRenderState;
 import net.minecraft.resources.Identifier;
 
-// 1.21.11 renamed PlayerRenderer to AvatarRenderer, made it generic over the
+// 1.21.11 renamed AvatarRenderer to AvatarRenderer, made it generic over the
 // avatar entity, and renamed getTexture to getTextureLocation.
 public class CustomPlayerRenderer extends AvatarRenderer<AbstractClientPlayer> {
     private final Identifier texture;

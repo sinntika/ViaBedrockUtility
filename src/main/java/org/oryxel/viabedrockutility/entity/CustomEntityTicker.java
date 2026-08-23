@@ -61,7 +61,7 @@ public class CustomEntityTicker {
         final Minecraft client = Minecraft.getInstance();
         final EntityRendererProvider.Context context = new EntityRendererProvider.Context(client.getEntityRenderDispatcher(),
                 client.getItemModelResolver(), client.getMapRenderer(), client.getBlockRenderer(),
-                client.getResourceManager(), client.getEntityModels(), new EquipmentAssetManager(), client.font);
+                client.getResourceManager(), client.getEntityModels(), new EquipmentAssetManager(), client.getAtlasManager(), client.font, client.playerSkinRenderCache());
         this.renderer = new CustomEntityRenderer<>(this, new CopyOnWriteArrayList<>(), context);
 
         this.entityDefinition = entityDefinition;
