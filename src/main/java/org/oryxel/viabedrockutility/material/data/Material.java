@@ -12,7 +12,6 @@ import com.mojang.blaze3d.platform.BlendFactor;
 import com.mojang.blaze3d.platform.CompareOp;
 import com.mojang.blaze3d.vertex.VertexFormat;
 import com.mojang.blaze3d.vertex.DefaultVertexFormat;
-import com.mojang.blaze3d.vertex.VertexFormatElement;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
@@ -172,45 +171,9 @@ public record Material(String identifier, String baseIdentifier, MaterialInfo in
 
         public Function<Identifier, RenderType> build() {
             return Objects.requireNonNullElseGet(this.function, () -> this.function = Util.memoize(texture -> {
-                final VertexFormat vertexFormat;
-                if (!this.vertexFields.isEmpty()) {
-                    VertexFormat.Builder vertexBuilder = VertexFormat.builder();
-                    //         POSITION_COLOR_TEXTURE_OVERLAY_LIGHT_NORMAL = VertexFormat.
-                    //         builder().add("Position", VertexFormatElement.POSITION).add("Color", VertexFormatElement.COLOR)
-                    //         .add("UV0", VertexFormatElement.UV_0).add("UV1", VertexFormatElement.UV_1)
-                    //         .add("UV2", VertexFormatElement.UV_2).add("Normal", VertexFormatElement.NORMAL).skip(1).build();
-
-                    if (this.vertexFields.contains("Position")) {
-                        vertexBuilder.add("Position", VertexFormatElement.POSITION);
-                    }
-                    if (this.vertexFields.contains("Color")) {
-                        vertexBuilder.add("Color", VertexFormatElement.COLOR);
-                    }
-                    if (this.vertexFields.contains("UV")) {
-                        vertexBuilder.add("UV", VertexFormatElement.UV);
-                    }
-                    if (this.vertexFields.contains("UV0")) {
-                        vertexBuilder.add("UV0", VertexFormatElement.UV0);
-                    }
-                    if (this.vertexFields.contains("BoneId0")) {
-                        // Not entirely sure, educated guess.
-                        vertexBuilder.add("UV1", VertexFormatElement.UV1);
-                        vertexBuilder.add("UV2", VertexFormatElement.UV2);
-                    } else {
-                        if (this.vertexFields.contains("UV1")) {
-                            vertexBuilder.add("UV1", VertexFormatElement.UV1);
-                        }
-                        if (this.vertexFields.contains("UV2")) {
-                            vertexBuilder.add("UV2", VertexFormatElement.UV2);
-                        }
-                    }
-                    if (this.vertexFields.contains("Normal")) {
-                        vertexBuilder.add("Normal", VertexFormatElement.NORMAL).padding(1);
-                    }
-                    vertexFormat = vertexBuilder.build();
-                } else {
-                    vertexFormat = DefaultVertexFormat.NEW_ENTITY;
-                }
+                final VertexFormat vertexFormat = this.vertexFields.isEmpty()
+                        ? DefaultVertexFormat.ENTITY
+                        : buildVertexFormat(this.vertexFields);
 
                 // 26.2 merged SourceFactor and DestFactor into a single BlendFactor enum.
                 final BlendFunction blend;
@@ -303,6 +266,45 @@ public record Material(String identifier, String baseIdentifier, MaterialInfo in
                 return RenderType.create("custom", renderSetupBuilder.createRenderSetup());
             }));
 
+        }
+
+        // 26.2 deleted the VertexFormatElement constants: an attribute is now a name
+        // plus a GpuFormat. The formats are copied from vanilla's entity format so
+        // this keeps working the next time Mojang reshuffles them.
+        private static VertexFormat buildVertexFormat(final Set<String> fields) {
+            final VertexFormat.Builder builder = VertexFormat.builder(0);
+
+            int added = 0;
+            added += addAttribute(builder, fields, "Position", "Position");
+            added += addAttribute(builder, fields, "Color", "Color");
+            added += addAttribute(builder, fields, "UV", "UV0");
+            added += addAttribute(builder, fields, "UV0", "UV0");
+
+            if (fields.contains("BoneId0")) {
+                // Not entirely sure, educated guess.
+                added += copyAttribute(builder, "UV1", "UV1");
+                added += copyAttribute(builder, "UV2", "UV2");
+            } else {
+                added += addAttribute(builder, fields, "UV1", "UV1");
+                added += addAttribute(builder, fields, "UV2", "UV2");
+            }
+
+            added += addAttribute(builder, fields, "Normal", "Normal");
+
+            return added == 0 ? DefaultVertexFormat.ENTITY : builder.build();
+        }
+
+        private static int addAttribute(final VertexFormat.Builder builder, final Set<String> fields, final String name, final String vanillaName) {
+            return fields.contains(name) ? copyAttribute(builder, name, vanillaName) : 0;
+        }
+
+        private static int copyAttribute(final VertexFormat.Builder builder, final String name, final String vanillaName) {
+            if (!DefaultVertexFormat.ENTITY.contains(vanillaName)) {
+                return 0;
+            }
+
+            builder.addAttribute(name, DefaultVertexFormat.ENTITY.getElement(vanillaName).format());
+            return 1;
         }
 
         public static MaterialInfo emptyMaterial() {

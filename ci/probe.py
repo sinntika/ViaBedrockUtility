@@ -31,31 +31,28 @@ VALIDATED_PREFIXES = (
     "com.mojang.blaze3d.",
     "com.mojang.math.",
 )
-WIDTH = 300
+WIDTH = 600
 GRADLE_LOG = os.path.join(ROOT, "ci", "gradle.log")
 
-SIMPLE_NAMES = []
+SIMPLE_NAMES = [
+    "BlockRenderDispatcher",
+    "BlockModelResolver",
+]
 
 PACKAGE_LISTINGS = [
-    "com.mojang.blaze3d.vertex",
+    "net.minecraft.client.renderer.block",
 ]
 
 JAVAP = [
-    ("com.mojang.blaze3d.vertex.VertexFormat", ["builder", "public"], 30),
-    ("com.mojang.blaze3d.vertex.VertexFormat$Builder", [], 30),
-    ("com.mojang.blaze3d.vertex.VertexFormatElement", [], 45),
-    ("com.mojang.blaze3d.vertex.DefaultVertexFormat", ["ENTITY", "BLOCK"], 20),
-    ("net.minecraft.client.Minecraft", ["Block", "block"], 25),
-    ("net.minecraft.client.renderer.entity.EntityRendererProvider$Context", [], 25),
+    ("net.minecraft.client.renderer.block.BlockModelResolver", [], 25),
+    ("net.minecraft.client.Minecraft", ["Resolver", "Model"], 40),
+    ("net.minecraft.client.renderer.entity.EntityRendererProvider$Context", ["Context("], 6),
+    ("com.mojang.blaze3d.GpuFormat", [], 45),
 ]
 
 # Classes outside the Minecraft jar, looked up across every cached dependency.
-EXTRA_JAVAP = [
-    ("net.fabricmc.fabric.api.networking.v1.PayloadTypeRegistry", [], 25),
-]
-EXTRA_PACKAGES = [
-    "net.fabricmc.fabric.api.networking.v1",
-]
+EXTRA_JAVAP = []
+EXTRA_PACKAGES = []
 
 
 def find_jar():
