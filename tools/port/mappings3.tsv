@@ -1,0 +1,15 @@
+# Names verified against the real 1.21.11 jar by ci/probe.py.
+I	net.minecraft.client.renderer.entity.player.PlayerRenderer	net.minecraft.client.renderer.entity.player.AvatarRenderer
+N	PlayerRenderer	AvatarRenderer
+I	net.minecraft.client.renderer.entity.state.PlayerRenderState	net.minecraft.client.renderer.entity.state.AvatarRenderState
+N	PlayerRenderState	AvatarRenderState
+I	net.minecraft.util.hit.HitResult	net.minecraft.world.phys.HitResult
+I	net.minecraft.world.World	net.minecraft.world.level.Level
+N	World	Level
+I	net.minecraft.network.protocol.login.ClientboundGameProfilePacket	net.minecraft.network.protocol.login.ClientboundLoginFinishedPacket
+N	ClientboundGameProfilePacket	ClientboundLoginFinishedPacket
+# wildcard imports cannot be mapped one to one, so expand them
+L	import net.minecraft.client.model.*;	import net.minecraft.client.model.geom.ModelPart;\nimport net.minecraft.client.model.geom.PartPose;\nimport net.minecraft.client.model.geom.builders.CubeDeformation;\nimport net.minecraft.client.model.geom.builders.CubeListBuilder;\nimport net.minecraft.client.model.geom.builders.MeshDefinition;\nimport net.minecraft.client.model.geom.builders.PartDefinition;\nimport net.minecraft.client.model.geom.builders.LayerDefinition;
+L	import net.minecraft.client.render.*;	import net.minecraft.client.renderer.rendertype.RenderType;\nimport net.minecraft.client.renderer.MultiBufferSource;\nimport net.minecraft.client.renderer.RenderPipelines;\nimport net.minecraft.client.renderer.LightTexture;\nimport net.minecraft.client.renderer.texture.OverlayTexture;\nimport com.mojang.blaze3d.vertex.VertexConsumer;
+L	ModelPart.Cuboid	ModelPart.Cube
+L	ModelPart.Quad	ModelPart.Polygon

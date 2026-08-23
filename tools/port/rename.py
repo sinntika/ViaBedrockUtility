@@ -3,6 +3,7 @@
 # sources, then repairs any file whose name no longer matches its public type.
 # Tables are applied as separate sequential passes so a later table can correct
 # an earlier table's target without the two rules fighting each other.
+# In L (literal) rules a two character \n sequence means a real line break.
 import glob
 import os
 import re
@@ -29,7 +30,7 @@ def load(path):
             elif kind == "N":
                 names.append((src, dst))
             elif kind == "L":
-                literals.append((src, dst))
+                literals.append((src.replace("\\n", "\n"), dst.replace("\\n", "\n")))
             else:
                 print("bad kind in %s: %r" % (os.path.basename(path), line))
     # longest source first so EntityRenderer never clobbers EntityRendererFactory
