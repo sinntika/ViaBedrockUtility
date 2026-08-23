@@ -1,139 +1,142 @@
-commit:  d37b1c663a9e7011924e4fad2baa57e0b10cc13e
-run_id:  32627328725
+commit:  99e186782f348d3bbaab83ba8f8acdaf3b434ab4
+run_id:  32627631917
 outcome: failure
 
 ===== RENAME =====
 loaded mappings.tsv
 loaded mappings2.tsv
-rewrote 19 files
+loaded mappings3.tsv
+rewrote 9 files
 renamed 0 files
 
 ===== COMPILE ERRORS =====
-unique errors: 22
-material/data/Material.java:26: cannot find symbol
-material/data/Material.java:84: cannot find symbol
-material/data/Material.java:165: cannot find symbol
-material/data/Material.java:75: cannot find symbol
-payload/BasePayload.java:23: cannot find symbol
-payload/BasePayload.java:87: cannot find symbol
-renderer/CustomEntityRenderer.java:37: cannot find symbol
-renderer/CustomEntityRenderer.java:63: cannot find symbol
-material/data/Material.java:17: package net.minecraft.client.render does not exist
-renderer/CustomEntityRenderer.java:4: package net.minecraft.client.render does not exist
-mixin/impl/entity/player/AbstractClientPlayerMixin.java:10: cannot find symbol
-mixin/impl/entity/player/AbstractClientPlayerMixin.java:22: cannot find symbol
-mixin/impl/network/ClientLoginNetworkHandlerMixin.java:7: cannot find symbol
-mixin/impl/network/ClientLoginNetworkHandlerMixin.java:28: cannot find symbol
-mixin/impl/network/ClientPlayNetworkHandlerMixin.java:7: package net.minecraft.util.hit does not exist
-util/GeometryUtil.java:135: package ModelPart does not exist
-util/GeometryUtil.java:132: cannot find symbol
-util/PlayerSkinBuilder.java:11: cannot find symbol
-renderer/CustomPlayerRenderer.java:4: cannot find symbol
-renderer/CustomPlayerRenderer.java:6: cannot find symbol
-renderer/CustomPlayerRenderer.java:9: cannot find symbol
-renderer/CustomPlayerRenderer.java:23: cannot find symbol
+unique errors: 6
+material/data/Material.java:31: cannot find symbol   [symbol: class RenderStateShard | location: package net.minecraft.client.renderer]
+      src: import static net.minecraft.client.renderer.RenderStateShard.*;
+payload/BasePayload.java:23: cannot find symbol   [symbol: class Id | location: class BasePayload]
+      src: public static Id<BasePayload> ID = new Id<>(Identifier.fromNamespaceAndPath(ViaBedrockUtilityFabric.MOD_ID, "data"));
+payload/BasePayload.java:87: cannot find symbol   [symbol: class Id | location: class BasePayload]
+      src: public Id<? extends CustomPacketPayload> getId() {
+renderer/CustomEntityRenderer.java:68: cannot find symbol   [symbol: class Frustum | location: class CustomEntityRenderer<T>]
+      src: public boolean shouldRender(T entity, Frustum frustum, double x, double y, double z) {
+util/GeometryUtil.java:27: cannot find symbol   [symbol: class Model | location: class GeometryUtil]
+      src: public static Model buildModel(final BedrockGeometryModel geometry, final boolean player, boolean slim) {
+util/PlayerSkinBuilder.java:11: cannot find symbol   [symbol: class Model | location: class PlayerSkin]
+      src: public PlayerSkin.Model model;
 
 ===== CLASSPATH PROBE =====
 == JAR ==
 10291 classes  minecraft-merged-560387b4cf-1.21.11-loom.mappings.1_21_11.layered+hash.2198-v2.jar
 
-== BAD IMPORTS (10) ==
-com.mojang.brigadier.Command
-    -> NO CLASS NAMED Command
-    in org/oryxel/viabedrockutility/ViaBedrockUtility.java
-com.mojang.brigadier.arguments.StringArgumentType
-    -> NO CLASS NAMED StringArgumentType
-    in org/oryxel/viabedrockutility/mixin/impl/network/ClientPlayNetworkHandlerMixin.java
-net.minecraft.client.model
-    -> NO CLASS NAMED model
-    in org/oryxel/viabedrockutility/util/GeometryUtil.java
-net.minecraft.client.render
-    -> NO CLASS NAMED render
-    in org/oryxel/viabedrockutility/material/data/Material.java, org/oryxel/viabedrockutility/renderer/CustomEntityRenderer.java
+== BAD IMPORTS (1) ==
 net.minecraft.client.renderer.RenderStateShard
     -> NO CLASS NAMED RenderStateShard
     in org/oryxel/viabedrockutility/material/data/Material.java
-net.minecraft.client.renderer.entity.player.PlayerRenderer
-    -> NO CLASS NAMED PlayerRenderer
-    in org/oryxel/viabedrockutility/renderer/CustomPlayerRenderer.java
-net.minecraft.client.renderer.entity.state.PlayerRenderState
-    -> NO CLASS NAMED PlayerRenderState
-    in org/oryxel/viabedrockutility/renderer/CustomPlayerRenderer.java
-net.minecraft.network.protocol.login.ClientboundGameProfilePacket
-    -> NO CLASS NAMED ClientboundGameProfilePacket
-    in org/oryxel/viabedrockutility/mixin/impl/network/ClientLoginNetworkHandlerMixin.java
-net.minecraft.util.hit.HitResult
-    -> net.minecraft.world.phys.HitResult
-    in org/oryxel/viabedrockutility/mixin/impl/network/ClientPlayNetworkHandlerMixin.java
-net.minecraft.world.World
-    -> NO CLASS NAMED World
-    in org/oryxel/viabedrockutility/mixin/impl/entity/player/AbstractClientPlayerMixin.java
 
-== NAME LOOKUP ==
-PlayerRenderer                   MISSING
-PlayerRenderState                MISSING
-AvatarRenderer                   net.minecraft.client.renderer.entity.player.AvatarRenderer
-AvatarRenderState                net.minecraft.client.renderer.entity.state.AvatarRenderState
-PlayerModel                      net.minecraft.client.model.player.PlayerModel
-PlayerSkin                       net.minecraft.world.entity.player.PlayerSkin
-PoseStack                        com.mojang.blaze3d.vertex.PoseStack
-VertexConsumer                   com.mojang.blaze3d.vertex.VertexConsumer
-NativeImage                      com.mojang.blaze3d.platform.NativeImage
-Axis                             com.mojang.math.Axis
-RenderStateShard                 MISSING
-RenderPipeline                   com.mojang.blaze3d.pipeline.RenderPipeline
-RenderPipelines                  net.minecraft.client.renderer.RenderPipelines
-RenderType                       net.minecraft.client.renderer.rendertype.RenderType
-Identifier                       net.minecraft.resources.Identifier
-Connection                       net.minecraft.network.Connection  net.minecraft.server.jsonrpc.Connection
-ServerboundCustomPayloadPacket   net.minecraft.network.protocol.common.ServerboundCustomPayloadPacket
-ClientboundGameProfilePacket     MISSING
-PackReloadConfig                 net.minecraft.client.resources.server.PackReloadConfig
-Display                          net.minecraft.world.entity.Display
-ItemDisplay                      MISSING
-SkinManager                      net.minecraft.client.resources.SkinManager
-PlayerSkinRenderCache            net.minecraft.client.renderer.PlayerSkinRenderCache
-EquipmentAssetManager            net.minecraft.client.resources.model.EquipmentAssetManager
-DynamicTexture                   net.minecraft.client.renderer.texture.DynamicTexture
-CustomPacketPayload              net.minecraft.network.protocol.common.custom.CustomPacketPayload
-StreamCodec                      net.minecraft.network.codec.StreamCodec
-EntityRenderDispatcher           net.minecraft.client.renderer.entity.EntityRenderDispatcher
-CapeLayer                        net.minecraft.client.renderer.entity.layers.CapeLayer
-LevelEntityGetter                net.minecraft.world.level.entity.LevelEntityGetter
+== FQN CHECK ==
+net.minecraft.world.level.Level                                        OK
+net.minecraft.network.protocol.login.ClientboundLoginFinishedPacket    OK
+net.minecraft.client.model.geom.ModelPart.Cube                         OK
+net.minecraft.client.model.geom.ModelPart.Polygon                      OK
+net.minecraft.client.model.geom.ModelPart.Vertex                       OK
+net.minecraft.world.entity.Display.ItemDisplay                         OK
+net.minecraft.client.resources.server.PackReloadConfig.IdAndPath       OK
+net.minecraft.client.renderer.rendertype.RenderType.CompositeState     MISSING
+com.mojang.blaze3d.vertex.PoseStack.Pose                               OK
+net.minecraft.world.entity.player.PlayerSkin.Model                     MISSING
 
 == PACKAGE DUMPS ==
--- net/minecraft/client/renderer/entity (134) --
-  AbstractBoatRenderer AbstractHoglinRenderer AbstractHorseRenderer AbstractMinecartRenderer AbstractSkeletonRenderer AbstractZombieRenderer AgeableMobRenderer AllayRenderer ArmadilloRenderer ArmorModelSet ArmorStandRenderer ArrowRenderer AxolotlRenderer BatRenderer BeeRenderer BlazeRenderer BoatRenderer BoggedRenderer BreezeRenderer CamelHuskRenderer CamelRenderer CatRenderer CaveSpiderRenderer ChickenRenderer CodRenderer CopperGolemRenderer CowRenderer CreakingRenderer CreeperRenderer DisplayRenderer DolphinRenderer DonkeyRenderer DragonFireballRenderer DrownedRenderer ElderGuardianRenderer EndCrystalRenderer EnderDragonRenderer EndermanRenderer EndermiteRenderer EntityRenderDispatcher EntityRenderer EntityRendererProvider EntityRenderers EvokerFangsRenderer EvokerRenderer ExperienceOrbRenderer FallingBlockRenderer FireworkEntityRenderer FishingHookRenderer FoxRenderer FrogRenderer GhastRenderer GiantMobRenderer GlowSquidRenderer GoatRenderer GuardianRenderer HappyGhastRenderer HoglinRenderer HorseRenderer HumanoidMobRenderer HuskRenderer IllagerRenderer IllusionerRenderer IronGolemRenderer ItemEntityRenderer ItemFrameRenderer ItemRenderer LeashKnotRenderer LightningBoltRenderer LivingEntityRenderer LlamaRenderer LlamaSpitRenderer MagmaCubeRenderer MinecartRenderer MobRenderer MushroomCowRenderer NautilusRenderer NoopRenderer OcelotRenderer OminousItemSpawnerRenderer PaintingRenderer PandaRenderer ParchedRenderer ParrotRenderer PhantomRenderer PigRenderer PiglinRenderer PillagerRenderer PolarBearRenderer PufferfishRenderer
+-- net/minecraft/network/protocol/login (14) --
+  ClientLoginPacketListener ClientboundCustomQueryPacket ClientboundHelloPacket ClientboundLoginCompressionPacket ClientboundLoginDisconnectPacket ClientboundLoginFinishedPacket LoginPacketTypes LoginProtocols ServerLoginPacketListener ServerboundCustomQueryAnswerPacket ServerboundHelloPacket ServerboundKeyPacket ServerboundLoginAcknowledgedPacket package-info
 
--- net/minecraft/client/renderer/entity/state (101) --
-  AllayRenderState ArmadilloRenderState ArmedEntityRenderState ArmorStandRenderState ArrowRenderState AvatarRenderState AxolotlRenderState BatRenderState BeeRenderState BlockDisplayEntityRenderState BoatRenderState BoggedRenderState BreezeRenderState CamelRenderState CatRenderState ChickenRenderState CopperGolemRenderState CowRenderState CreakingRenderState CreeperRenderState DisplayEntityRenderState DolphinRenderState DonkeyRenderState EndCrystalRenderState EnderDragonRenderState EndermanRenderState EntityRenderState EquineRenderState EvokerFangsRenderState EvokerRenderState ExperienceOrbRenderState FallingBlockRenderState FelineRenderState FireworkRocketRenderState FishingHookRenderState FoxRenderState FrogRenderState GhastRenderState GoatRenderState GuardianRenderState HappyGhastRenderState HitboxRenderState HoglinRenderState HoldingEntityRenderState HorseRenderState HumanoidRenderState IllagerRenderState IllusionerRenderState IronGolemRenderState ItemClusterRenderState ItemDisplayEntityRenderState ItemEntityRenderState ItemFrameRenderState LightningBoltRenderState LivingEntityRenderState LlamaRenderState LlamaSpitRenderState MinecartRenderState MinecartTntRenderState MushroomCowRenderState NautilusRenderState PaintingRenderState PandaRenderState ParrotRenderState PhantomRenderState PigRenderState PiglinRenderState PolarBearRenderState PufferfishRenderState RabbitRenderState RavagerRenderState SalmonRenderState SheepRenderState ShulkerBulletRenderState ShulkerRenderState SkeletonRenderState SlimeRenderState SnifferRenderState SnowGolemRenderState SquidRenderState StriderRenderState TextDisplayEntityRenderState ThrownItemRenderState ThrownTridentRenderState TippableArrowRenderState TntRenderState TropicalFishRenderState TurtleRenderState UndeadRenderState VexRenderState
-
--- net/minecraft/client/renderer/entity/player (2) --
-  AvatarRenderer package-info
-
--- net/minecraft/client/renderer/rendertype (7) --
-  LayeringTransform OutputTarget RenderSetup RenderType RenderTypes TextureTransform package-info
-
--- net/minecraft/client/resources/server (6) --
-  DownloadedPackSource PackDownloader PackLoadFeedback PackReloadConfig ServerPackManager package-info
-
--- com/mojang/blaze3d/vertex (14) --
-  BufferBuilder ByteBufferBuilder CompactVectorArray DefaultVertexFormat MeshData PoseStack SheetedDecalTextureGenerator Tesselator VertexConsumer VertexFormat VertexFormatElement VertexMultiConsumer VertexSorting package-info
-
+== REAL SIGNATURES ==
+-- net.minecraft.client.renderer.entity.EntityRenderer --
+-- net.minecraft.client.renderer.entity.player.AvatarRenderer --
+   public class net.minecraft.client.renderer.entity.player.AvatarRenderer<AvatarlikeEntity extends net.minecraft.world.entity.Avatar & net.minecraft.cli
+   public net.minecraft.client.renderer.entity.player.AvatarRenderer(net.minecraft.client.renderer.entity.EntityRendererProvider$Context, boolean);
+   public net.minecraft.resources.Identifier getTextureLocation(net.minecraft.client.renderer.entity.state.AvatarRenderState);
+   public net.minecraft.resources.Identifier getTextureLocation(net.minecraft.client.renderer.entity.state.LivingEntityRenderState);
+-- net.minecraft.client.renderer.entity.EntityRenderDispatcher --
+   public class net.minecraft.client.renderer.entity.EntityRenderDispatcher implements net.minecraft.server.packs.resources.ResourceManagerReloadListener
+   public final net.minecraft.client.renderer.texture.TextureManager textureManager;
+   public net.minecraft.client.renderer.entity.EntityRenderDispatcher(net.minecraft.client.Minecraft, net.minecraft.client.renderer.texture.TextureManage
+   public <T extends net.minecraft.world.entity.Entity> net.minecraft.client.renderer.entity.EntityRenderer<? super T, ?> getRenderer(T);
+   public net.minecraft.client.renderer.entity.player.AvatarRenderer<net.minecraft.client.player.AbstractClientPlayer> getPlayerRenderer(net.minecraft.cl
+   public <S extends net.minecraft.client.renderer.entity.state.EntityRenderState> net.minecraft.client.renderer.entity.EntityRenderer<?, ? super S> getR
+   public <E extends net.minecraft.world.entity.Entity> boolean shouldRender(E, net.minecraft.client.renderer.culling.Frustum, double, double, double);
+   public <E extends net.minecraft.world.entity.Entity> net.minecraft.client.renderer.entity.state.EntityRenderState extractEntity(E, float);
+-- net.minecraft.client.renderer.rendertype.RenderType --
+-- net.minecraft.world.entity.player.PlayerSkin --
+   Compiled from "PlayerSkin.java"
+   public final class net.minecraft.world.entity.player.PlayerSkin extends java.lang.Record {
+   public net.minecraft.world.entity.player.PlayerSkin(net.minecraft.core.ClientAsset$Texture, net.minecraft.core.ClientAsset$Texture, net.minecraft.core
+   public static net.minecraft.world.entity.player.PlayerSkin insecure(net.minecraft.core.ClientAsset$Texture, net.minecraft.core.ClientAsset$Texture, ne
+   public net.minecraft.world.entity.player.PlayerSkin with(net.minecraft.world.entity.player.PlayerSkin$Patch);
+   public final java.lang.String toString();
+   public final int hashCode();
+   public final boolean equals(java.lang.Object);
+   public net.minecraft.core.ClientAsset$Texture body();
+   public net.minecraft.core.ClientAsset$Texture cape();
+   public net.minecraft.core.ClientAsset$Texture elytra();
+   public net.minecraft.world.entity.player.PlayerModelType model();
+   public boolean secure();
+   }
+-- net.minecraft.client.multiplayer.ClientLevel --
+   final net.minecraft.world.level.entity.EntityTickList tickingEntities;
+   final java.util.List<net.minecraft.world.entity.boss.enderdragon.EnderDragonPart> dragonParts;
+   public void onBlockEntityAdded(net.minecraft.world.level.block.entity.BlockEntity);
+   public java.util.Set<net.minecraft.world.level.block.entity.BlockEntity> getGloballyRenderedBlockEntities();
+   public java.lang.Iterable<net.minecraft.world.entity.Entity> entitiesForRendering();
+   public void tickEntities();
+   public boolean isTickingEntity(net.minecraft.world.entity.Entity);
+   public boolean shouldTickDeath(net.minecraft.world.entity.Entity);
+-- net.minecraft.world.entity.Entity --
+   public float moveDist;
+   public void setPose(net.minecraft.world.entity.Pose);
+   public final void setPos(net.minecraft.world.phys.Vec3);
+   public void setPos(double, double, double);
+   public net.minecraft.world.phys.Vec3 position();
+   public final void setPosRaw(double, double, double);
+-- net.minecraft.client.resources.server.DownloadedPackSource --
+   Compiled from "DownloadedPackSource.java"
+   public class net.minecraft.client.resources.server.DownloadedPackSource implements java.lang.AutoCloseable {
+   final net.minecraft.client.resources.server.ServerPackManager manager;
+   net.minecraft.client.resources.server.PackLoadFeedback packFeedback;
+   public net.minecraft.client.resources.server.DownloadedPackSource(net.minecraft.client.Minecraft, java.nio.file.Path, net.minecraft.client.main.GameCo
+   net.minecraft.util.HttpUtil$DownloadProgressListener createDownloadNotifier(int);
+   public net.minecraft.server.packs.repository.RepositorySource createRepositorySource();
+   public void pushPack(java.util.UUID, java.net.URL, java.lang.String);
+   public void pushLocalPack(java.util.UUID, java.nio.file.Path);
+   public void popPack(java.util.UUID);
+-- net.minecraft.client.multiplayer.ClientHandshakePacketListenerImpl --
+   public class net.minecraft.client.multiplayer.ClientHandshakePacketListenerImpl implements net.minecraft.network.protocol.login.ClientLoginPacketListe
+   public void handleHello(net.minecraft.network.protocol.login.ClientboundHelloPacket);
+   public void handleLoginFinished(net.minecraft.network.protocol.login.ClientboundLoginFinishedPacket);
+   public void handleDisconnect(net.minecraft.network.protocol.login.ClientboundLoginDisconnectPacket);
+   public void handleCompression(net.minecraft.network.protocol.login.ClientboundLoginCompressionPacket);
+   public void handleCustomQuery(net.minecraft.network.protocol.login.ClientboundCustomQueryPacket);
+   public void handleRequestCookie(net.minecraft.network.protocol.cookie.ClientboundCookieRequestPacket);
+-- net.minecraft.client.renderer.entity.layers.CapeLayer --
+   Compiled from "CapeLayer.java"
+   public class net.minecraft.client.renderer.entity.layers.CapeLayer extends net.minecraft.client.renderer.entity.layers.RenderLayer<net.minecraft.clien
+   public net.minecraft.client.renderer.entity.layers.CapeLayer(net.minecraft.client.renderer.entity.RenderLayerParent<net.minecraft.client.renderer.enti
+   public void submit(com.mojang.blaze3d.vertex.PoseStack, net.minecraft.client.renderer.SubmitNodeCollector, int, net.minecraft.client.renderer.entity.s
+   public void submit(com.mojang.blaze3d.vertex.PoseStack, net.minecraft.client.renderer.SubmitNodeCollector, int, net.minecraft.client.renderer.entity.s
+   }
 
 ===== TAIL =====
-/home/runner/work/ViaBedrockUtility/ViaBedrockUtility/src/main/java/org/oryxel/viabedrockutility/renderer/CustomPlayerRenderer.java:9: error: cannot find symbol
-public class CustomPlayerRenderer extends PlayerRenderer {
-                                          ^
-  symbol: class PlayerRenderer
-/home/runner/work/ViaBedrockUtility/ViaBedrockUtility/src/main/java/org/oryxel/viabedrockutility/renderer/CustomPlayerRenderer.java:23: error: cannot find symbol
-    public Identifier getTexture(PlayerRenderState playerEntityRenderState) {
-                                 ^
-  symbol:   class PlayerRenderState
-  location: class CustomPlayerRenderer
-24 errors
+    public static Model buildModel(final BedrockGeometryModel geometry, final boolean player, boolean slim) {
+                  ^
+  symbol:   class Model
+  location: class GeometryUtil
+/home/runner/work/ViaBedrockUtility/ViaBedrockUtility/src/main/java/org/oryxel/viabedrockutility/util/PlayerSkinBuilder.java:11: error: cannot find symbol
+    public PlayerSkin.Model model;
+                     ^
+  symbol:   class Model
+  location: class PlayerSkin
+6 errors
 	... 30 more
 
 
-BUILD FAILED in 1m 11s
+BUILD FAILED in 1m 15s
 5 actionable tasks: 5 executed
