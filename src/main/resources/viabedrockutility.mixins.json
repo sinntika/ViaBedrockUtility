@@ -3,6 +3,9 @@
   "package": "org.oryxel.viabedrockutility.mixin.impl",
   "compatibilityLevel": "JAVA_25",
   "mixins": [
+    "registry.HolderReferenceMixin",
+    "registry.IdMapperMixin",
+    "registry.MappedRegistryMixin"
   ],
   "injectors": {
     "defaultRequire": 1

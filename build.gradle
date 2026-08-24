@@ -43,6 +43,8 @@ repositories {
 
 		content {
 			includeGroup "com.viaversion"
+			// ViaBedrock and ViaLegacy live under net.raphimc in the same repo.
+			includeGroup "net.raphimc"
 		}
 	}
 }
@@ -67,6 +69,14 @@ dependencies {
 	// resolve every overload of a method that gets called, even the ones this mod
 	// never picks. ViaFabricPlus ships the real copy at runtime.
 	compileOnly("com.viaversion:viaversion-common:5.12.0-SNAPSHOT") {
+		transitive = false
+	}
+
+	// Compile only, never shaded: ViaFabricPlus 4.6.2 jar-in-jars exactly this
+	// build, so the classes are already on the runtime classpath. Pinned to the
+	// same coordinate ViaFabricPlus declares, for the same reason CubeConverter is
+	// pinned above.
+	compileOnly("net.raphimc:ViaBedrock:0.0.29-20260720.172239-5") {
 		transitive = false
 	}
 
