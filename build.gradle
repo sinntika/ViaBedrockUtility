@@ -47,6 +47,18 @@ repositories {
 			includeGroup "net.raphimc"
 		}
 	}
+
+	// Second source for net.raphimc. RaphiMC publishes to this repo too, and the
+	// ViaVersion one prunes old snapshot timestamps, so relying on a single host
+	// makes the build rot.
+	maven {
+		name = "Lenni0451"
+		url = "https://maven.lenni0451.net/everything"
+
+		content {
+			includeGroup "net.raphimc"
+		}
+	}
 }
 
 dependencies {
@@ -72,11 +84,11 @@ dependencies {
 		transitive = false
 	}
 
-	// Compile only, never shaded: ViaFabricPlus 4.6.2 jar-in-jars exactly this
-	// build, so the classes are already on the runtime classpath. Pinned to the
-	// same coordinate ViaFabricPlus declares, for the same reason CubeConverter is
-	// pinned above.
-	compileOnly("net.raphimc:ViaBedrock:0.0.29-20260720.172239-5") {
+	// Compile only, never shaded: ViaFabricPlus jar-in-jars this library, so the
+	// classes are already on the runtime classpath. Requested as a plain snapshot
+	// rather than the timestamp ViaFabricPlus 4.6.2 pins, because the repository
+	// deletes old timestamped snapshots and the pinned coordinate 404s.
+	compileOnly("net.raphimc:ViaBedrock:0.0.29-SNAPSHOT") {
 		transitive = false
 	}
 
@@ -86,6 +98,17 @@ dependencies {
 
 	lib("team.unnamed:mocha:3.0.1") {
 		transitive = false
+	}
+}
+
+// Prints where ViaBedrock actually resolved from, so CI can record the exact
+// snapshot build the mixins were compiled against.
+tasks.register("printViaBedrock") {
+	doLast {
+		configurations.compileClasspath.resolvedConfiguration.lenientConfiguration
+				.getArtifacts { true }
+				.findAll { it.moduleVersion.id.group == "net.raphimc" }
+				.each { println "viabedrock: ${it.moduleVersion.id} -> ${it.file.name}" }
 	}
 }
 
