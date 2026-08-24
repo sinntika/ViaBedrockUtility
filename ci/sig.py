@@ -22,7 +22,8 @@ SEARCH_DIRS = [
 ]
 
 # Everything that has to be on javap's classpath for the classes below to
-# resolve their own field and parameter types.
+# resolve their own field and parameter types. The fabric modules are here
+# because a supported hook is worth far more than a mixin into vanilla.
 LIB_KEYWORDS = (
 	"viabedrock",
 	"viaversion",
@@ -30,44 +31,52 @@ LIB_KEYWORDS = (
 	"cubeconverter",
 	"mocha",
 	"fastutil",
+	"fabric-model-loading",
+	"fabric-renderer-api",
 )
 
 # The bundled server jar is ~50 MB but holds four loader classes, so it wins on
 # file size and loses on everything that matters.
 JAR_NAME_SKIP = ("server", "sources", "javadoc")
 
-# The resourcepack rewriters show how ViaBedrock itself names and copies the
-# sprites it converts, which is the pattern the block textures have to follow.
+# Whether fabric still offers a way to contribute block models for blocks that
+# only exist once a bedrock server has told us about them.
 INDEXES = (
 	(
-		"viabedrock",
+		"fabric-model-loading",
 		re.compile(
-			r"^net\.raphimc\.viabedrock\.protocol\.rewriter\.resourcepack\."
+			r"^net\.fabricmc\.fabric\.api\.client\.model\.loading\.v1\."
 			r"[A-Za-z0-9_.$]+$"
 		),
 	),
 )
 
-# Confirms where the block model dispatch classes live before a mixin names them.
-MC_INDEX = re.compile(r"^net\.minecraft\.client\.renderer\.block\.[A-Za-z0-9_$]+$")
+# The models a block state resolver has to hand back live in this package.
+MC_INDEX = re.compile(
+	r"^net\.minecraft\.client\.renderer\.block\.dispatch\.[A-Za-z0-9_$]+$"
+)
 
 # (class, member filter). The filter keeps the output readable for the huge
 # classes; None dumps every member.
 TARGETS = (
-	# -- reading the bedrock packs --
-	("net.raphimc.viabedrock.api.resourcepack.ResourcePack", None),
-	("net.raphimc.viabedrock.api.resourcepack.ResourcePack$Key", None),
-	("net.raphimc.viabedrock.api.resourcepack.content.Content$LazyImage", None),
-	("net.raphimc.viabedrock.api.resourcepack.content.InMemoryContent", None),
-	# -- writing into the converted java pack --
-	("net.raphimc.viabedrock.protocol.rewriter.ResourcePackRewriter$Rewriter", None),
+	# -- the supported alternative to mixing into the baker --
+	("net.fabricmc.fabric.api.client.model.loading.v1.ModelLoadingPlugin", None),
 	(
-		"net.raphimc.viabedrock.protocol.rewriter.resourcepack.CustomItemTextureResourceRewriter",
+		"net.fabricmc.fabric.api.client.model.loading.v1.ModelLoadingPlugin$Context",
 		None,
 	),
-	# -- where the baked models end up --
-	("net.minecraft.client.renderer.block.BlockStateModelSet", None),
-	("net.minecraft.client.renderer.block.dispatch.BlockStateModel", None),
+	("net.fabricmc.fabric.api.client.model.loading.v1.BlockStateResolver", None),
+	(
+		"net.fabricmc.fabric.api.client.model.loading.v1.BlockStateResolver$Context",
+		None,
+	),
+	# -- what such a resolver has to produce --
+	("net.minecraft.client.renderer.block.dispatch.BlockStateModel$UnbakedRoot", None),
+	("net.minecraft.client.renderer.block.dispatch.BlockStateModel$Unbaked", None),
+	("net.minecraft.client.renderer.block.dispatch.SingleVariant", None),
+	("net.minecraft.client.renderer.block.dispatch.SingleVariant$Unbaked", None),
+	# -- and the baker it would be hbaked with --
+	("net.minecraft.client.resources.model.ModelBaker", None),
 	# -- regression guard for the crash that started all of this --
 	(
 		"net.minecraft.client.renderer.entity.EntityRenderDispatcher",
@@ -161,7 +170,7 @@ def main():
 	for path in libs:
 		print(f"   {path.name:<60} {class_count(path)} classes")
 
-	print_index("MC BLOCK RENDER PACKAGE", class_names(minecraft, MC_INDEX))
+	print_index("MC BLOCK DISPATCH PACKAGE", class_names(minecraft, MC_INDEX))
 
 	for keyword, pattern in INDEXES:
 		matches = [path for path in libs if keyword in path.name.lower()]
