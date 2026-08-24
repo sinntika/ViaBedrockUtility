@@ -8,7 +8,6 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import net.minecraft.resources.Identifier;
-import net.raphimc.viabedrock.api.resourcepack.PackResources;
 import net.raphimc.viabedrock.api.resourcepack.content.Content;
 import net.raphimc.viabedrock.protocol.storage.ResourcePackStorage;
 import org.cube.converter.model.impl.bedrock.BedrockGeometryModel;
@@ -68,7 +67,10 @@ public final class PackBlockResources {
 		final Map<String, String> textures = new HashMap<>();
 		int geometries = 0;
 
-		for (final PackResources pack : storage.getPackStackBottomToTop()) {
+		// The pack type is inferred on purpose: its simple name collides with a
+		// vanilla class the port renamer maps, so spelling it out here would get
+		// the import rewritten into something that does not exist.
+		for (final var pack : storage.getPackStackBottomToTop()) {
 			final Content content = pack.content();
 			if (content == null) {
 				continue;
