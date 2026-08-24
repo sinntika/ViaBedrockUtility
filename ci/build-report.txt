@@ -1,5 +1,5 @@
-commit:  c23d057230b01d2739eee4abe240b90bfe840505
-run_id:  32689414195
+commit:  584a44c2fffba38865f492bf973eb4fc67804b61
+run_id:  32689886012
 outcome: success
 
 ===== RENAME =====
@@ -23,8 +23,8 @@ unique errors: 0
 resolved in cache: 1.18.46
 
 == DIFF VS MASTER ==
-  origin/master (8369667) ... HEAD (c23d057)
-  78 files changed, 4752 insertions(+), 427 deletions(-)
+  origin/master (8369667) ... HEAD (584a44c)
+  83 files changed, 4928 insertions(+), 428 deletions(-)
   -- deleted or renamed (1) --
      R083	src/main/java/org/oryxel/viabedrockutility/animation/vanilla/AnimationHelper.java	src/main/java/org/oryxel/viabedrockutility/animation/vanilla/KeyframeAnimations.java
 
@@ -592,5 +592,5 @@ resolved in cache: 1.18.46
 
 [Incubating] Problems report is available at: file:///home/runner/work/ViaBedrockUtility/ViaBedrockUtility/build/reports/problems/problems-report.html
 
-BUILD SUCCESSFUL in 1m 13s
+BUILD SUCCESSFUL in 1m 18s
 11 actionable tasks: 11 executed
