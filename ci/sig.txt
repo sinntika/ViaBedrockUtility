@@ -8,393 +8,125 @@ jar: minecraft-merged-a76db1c7b4-26.2.jar (10952 classes)
    nbt-5.3.0.jar                                                47 classes
    viaversion-common-5.12.0-SNAPSHOT.jar                        3312 classes
 
-== MODEL CLASS INDEX (9 matched) ==
-   net.minecraft.client.renderer.block.BlockStateModelSet
-   net.minecraft.client.renderer.block.LoadedBlockModels
-   net.minecraft.client.resources.model.ResolvedModel
-   net.minecraft.client.resources.model.sprite.AtlasManager
-   net.minecraft.client.resources.model.sprite.AtlasManager$AtlasConfig
-   net.minecraft.client.resources.model.sprite.AtlasManager$AtlasEntry
-   net.minecraft.client.resources.model.sprite.AtlasManager$PendingStitch
-   net.minecraft.client.resources.model.sprite.AtlasManager$PendingStitchResults
-   net.minecraft.client.resources.model.sprite.SpriteGetter
+== CUBOID + GEOMETRY PACKAGES (31 matched) ==
+   net.minecraft.client.resources.model.cuboid.CuboidFace
+   net.minecraft.client.resources.model.cuboid.CuboidFace$Deserializer
+   net.minecraft.client.resources.model.cuboid.CuboidFace$UVs
+   net.minecraft.client.resources.model.cuboid.CuboidModel
+   net.minecraft.client.resources.model.cuboid.CuboidModel$Deserializer
+   net.minecraft.client.resources.model.cuboid.CuboidModelElement
+   net.minecraft.client.resources.model.cuboid.CuboidModelElement$Deserializer
+   net.minecraft.client.resources.model.cuboid.CuboidRotation
+   net.minecraft.client.resources.model.cuboid.CuboidRotation$EulerXYZRotation
+   net.minecraft.client.resources.model.cuboid.CuboidRotation$RotationValue
+   net.minecraft.client.resources.model.cuboid.CuboidRotation$SingleAxisRotation
+   net.minecraft.client.resources.model.cuboid.FaceBakery
+   net.minecraft.client.resources.model.cuboid.FaceBakery$1
+   net.minecraft.client.resources.model.cuboid.ItemModelGenerator
+   net.minecraft.client.resources.model.cuboid.ItemModelGenerator$ItemLayerKey
+   net.minecraft.client.resources.model.cuboid.ItemModelGenerator$SideDirection
+   net.minecraft.client.resources.model.cuboid.ItemModelGenerator$SideFace
+   net.minecraft.client.resources.model.cuboid.ItemTransform
+   net.minecraft.client.resources.model.cuboid.ItemTransform$Deserializer
+   net.minecraft.client.resources.model.cuboid.ItemTransforms
+   net.minecraft.client.resources.model.cuboid.ItemTransforms$1
+   net.minecraft.client.resources.model.cuboid.ItemTransforms$Deserializer
+   net.minecraft.client.resources.model.cuboid.MissingCuboidModel
+   net.minecraft.client.resources.model.cuboid.UnbakedCuboidGeometry
+   net.minecraft.client.resources.model.cuboid.UnbakedCuboidGeometry$1
+   net.minecraft.client.resources.model.geometry.BakedQuad
+   net.minecraft.client.resources.model.geometry.BakedQuad$MaterialFlags
+   net.minecraft.client.resources.model.geometry.BakedQuad$MaterialInfo
+   net.minecraft.client.resources.model.geometry.QuadCollection
+   net.minecraft.client.resources.model.geometry.QuadCollection$Builder
+   net.minecraft.client.resources.model.geometry.UnbakedGeometry
 
 == SIGNATURES ==
--- net.minecraft.client.resources.model.cuboid.FaceBakery --
-   Compiled from "FaceBakery.java"
-   public class net.minecraft.client.resources.model.cuboid.FaceBakery {
-   private static final org.joml.Vector3fc BLOCK_MIDDLE;
-   public net.minecraft.client.resources.model.cuboid.FaceBakery();
-   static net.minecraft.client.resources.model.cuboid.CuboidFace$UVs defaultFaceUV(org.joml.Vector3fc, org.joml.Vector3fc, net.minecraft.core.Direction);
-   private static com.mojang.blaze3d.platform.Transparency computeMaterialTransparency(net.minecraft.client.resources.model.sprite.Material$Baked, net.minecraft.client.resources.model.cuboid.CuboidFace$UVs);
-   public static net.minecraft.client.resources.model.geometry.BakedQuad bakeQuad(net.minecraft.client.resources.model.ModelBaker, org.joml.Vector3fc, org.joml.Vector3fc, net.minecraft.client.resources.model.cuboid.CuboidFace, net.minecraft.client.resources.model.sprite.Material$Baked, net.minecraft.core.Direction, net.minecraft.client.renderer.block.dispatch.ModelState, net.minecraft.client.resources.model.cuboid.CuboidRotation, boolean, int);
-   public static net.minecraft.client.resources.model.geometry.BakedQuad bakeQuad(net.minecraft.client.resources.model.ModelBaker$Interner, org.joml.Vector3fc, org.joml.Vector3fc, net.minecraft.client.resources.model.cuboid.CuboidFace$UVs, com.mojang.math.Quadrant, net.minecraft.client.resources.model.geometry.BakedQuad$MaterialInfo, net.minecraft.core.Direction, net.minecraft.client.renderer.block.dispatch.ModelState, net.minecraft.client.resources.model.cuboid.CuboidRotation);
-   private static void bakeVertex(int, net.minecraft.client.renderer.FaceInfo, net.minecraft.client.resources.model.cuboid.CuboidFace$UVs, com.mojang.math.Quadrant, org.joml.Matrix4fc, org.joml.Vector3fc, org.joml.Vector3fc, net.minecraft.client.resources.model.geometry.BakedQuad$MaterialInfo, com.mojang.math.Transformation, net.minecraft.client.resources.model.cuboid.CuboidRotation, org.joml.Vector3fc[], long[], net.minecraft.client.resources.model.ModelBaker$Interner);
-   private static float cornerToCenter(float);
-   private static float centerToCorner(float);
-   private static void rotateVertexBy(org.joml.Vector3f, org.joml.Vector3fc, org.joml.Matrix4fc);
-   private static net.minecraft.core.Direction calculateFacing(org.joml.Vector3fc[]);
-   private static net.minecraft.core.Direction findClosestDirection(org.joml.Vector3f);
-   private static void recalculateWinding(org.joml.Vector3fc[], long[], net.minecraft.core.Direction);
-   private static int findVertex(org.joml.Vector3fc[], int, float, float, float);
-   private static void swap(org.joml.Vector3fc[], int, int);
-   private static void swap(long[], int, int);
+-- net.minecraft.client.resources.model.cuboid.CuboidRotation --
+   Compiled from "CuboidRotation.java"
+   public final class net.minecraft.client.resources.model.cuboid.CuboidRotation extends java.lang.Record {
+   private final org.joml.Vector3fc origin;
+   private final net.minecraft.client.resources.model.cuboid.CuboidRotation$RotationValue value;
+   private final boolean rescale;
+   private final org.joml.Matrix4fc transform;
+   public net.minecraft.client.resources.model.cuboid.CuboidRotation(org.joml.Vector3fc, net.minecraft.client.resources.model.cuboid.CuboidRotation$RotationValue, boolean);
+   public net.minecraft.client.resources.model.cuboid.CuboidRotation(org.joml.Vector3fc, net.minecraft.client.resources.model.cuboid.CuboidRotation$RotationValue, boolean, org.joml.Matrix4fc);
+   private static org.joml.Matrix4f computeTransform(net.minecraft.client.resources.model.cuboid.CuboidRotation$RotationValue, boolean);
+   private static org.joml.Vector3fc computeRescale(org.joml.Matrix4fc);
+   private static float scaleFactorForAxis(org.joml.Matrix4fc, net.minecraft.core.Direction$Axis, org.joml.Vector3f);
+   public final java.lang.String toString();
+   public final int hashCode();
+   public final boolean equals(java.lang.Object);
+   public org.joml.Vector3fc origin();
+   public net.minecraft.client.resources.model.cuboid.CuboidRotation$RotationValue value();
+   public boolean rescale();
+   public org.joml.Matrix4fc transform();
+   }
+-- net.minecraft.client.resources.model.cuboid.Cuboid --
+   javap error: Error: class not found: net.minecraft.client.resources.model.cuboid.Cuboid
+-- net.minecraft.client.resources.model.geometry.UnbakedGeometry --
+   Compiled from "UnbakedGeometry.java"
+   public interface net.minecraft.client.resources.model.geometry.UnbakedGeometry {
+   public static final net.minecraft.client.resources.model.geometry.UnbakedGeometry EMPTY;
+   public abstract net.minecraft.client.resources.model.geometry.QuadCollection bake(net.minecraft.client.resources.model.sprite.TextureSlots, net.minecraft.client.resources.model.ModelBaker, net.minecraft.client.renderer.block.dispatch.ModelState, net.minecraft.client.resources.model.ModelDebugName);
+   private static net.minecraft.client.resources.model.geometry.QuadCollection lambda$static$0(net.minecraft.client.resources.model.sprite.TextureSlots, net.minecraft.client.resources.model.ModelBaker, net.minecraft.client.renderer.block.dispatch.ModelState, net.minecraft.client.resources.model.ModelDebugName);
    static {};
    }
--- net.minecraft.client.resources.model.cuboid.CuboidFace --
-   Compiled from "CuboidFace.java"
-   public final class net.minecraft.client.resources.model.cuboid.CuboidFace extends java.lang.Record {
-   private final net.minecraft.core.Direction cullForDirection;
-   private final int tintIndex;
-   private final java.lang.String texture;
-   private final net.minecraft.client.resources.model.cuboid.CuboidFace$UVs uvs;
-   private final com.mojang.math.Quadrant rotation;
-   public static final int NO_TINT;
-   public net.minecraft.client.resources.model.cuboid.CuboidFace(net.minecraft.core.Direction, int, java.lang.String, net.minecraft.client.resources.model.cuboid.CuboidFace$UVs, com.mojang.math.Quadrant);
-   public static float getU(net.minecraft.client.resources.model.cuboid.CuboidFace$UVs, com.mojang.math.Quadrant, int);
-   public static float getV(net.minecraft.client.resources.model.cuboid.CuboidFace$UVs, com.mojang.math.Quadrant, int);
-   public final java.lang.String toString();
-   public final int hashCode();
-   public final boolean equals(java.lang.Object);
-   public net.minecraft.core.Direction cullForDirection();
-   public int tintIndex();
-   public java.lang.String texture();
-   public net.minecraft.client.resources.model.cuboid.CuboidFace$UVs uvs();
-   public com.mojang.math.Quadrant rotation();
-   }
--- net.minecraft.client.resources.model.cuboid.CuboidFace$UVs --
-   Compiled from "CuboidFace.java"
-   public final class net.minecraft.client.resources.model.cuboid.CuboidFace$UVs extends java.lang.Record {
-   private final float minU;
-   private final float minV;
-   private final float maxU;
-   private final float maxV;
-   public net.minecraft.client.resources.model.cuboid.CuboidFace$UVs(float, float, float, float);
-   public float getVertexU(int);
-   public float getVertexV(int);
-   public final java.lang.String toString();
-   public final int hashCode();
-   public final boolean equals(java.lang.Object);
-   public float minU();
-   public float minV();
-   public float maxU();
-   public float maxV();
-   }
--- net.minecraft.client.resources.model.geometry.BakedQuad --
-   Compiled from "BakedQuad.java"
-   public final class net.minecraft.client.resources.model.geometry.BakedQuad extends java.lang.Record {
-   private final org.joml.Vector3fc position0;
-   private final org.joml.Vector3fc position1;
-   private final org.joml.Vector3fc position2;
-   private final org.joml.Vector3fc position3;
-   private final long packedUV0;
-   private final long packedUV1;
-   private final long packedUV2;
-   private final long packedUV3;
-   private final net.minecraft.core.Direction direction;
-   private final net.minecraft.client.resources.model.geometry.BakedQuad$MaterialInfo materialInfo;
-   public static final int VERTEX_COUNT;
-   public static final int FLAG_TRANSLUCENT;
-   public static final int FLAG_ANIMATED;
-   public net.minecraft.client.resources.model.geometry.BakedQuad(org.joml.Vector3fc, org.joml.Vector3fc, org.joml.Vector3fc, org.joml.Vector3fc, long, long, long, long, net.minecraft.core.Direction, net.minecraft.client.resources.model.geometry.BakedQuad$MaterialInfo);
-   public org.joml.Vector3fc position(int);
-   public long packedUV(int);
-   public final java.lang.String toString();
-   public final int hashCode();
-   public final boolean equals(java.lang.Object);
-   public org.joml.Vector3fc position0();
-   public org.joml.Vector3fc position1();
-   public org.joml.Vector3fc position2();
-   public org.joml.Vector3fc position3();
-   public long packedUV0();
-   public long packedUV1();
-   public long packedUV2();
-   public long packedUV3();
-   public net.minecraft.core.Direction direction();
-   public net.minecraft.client.resources.model.geometry.BakedQuad$MaterialInfo materialInfo();
-   }
--- net.minecraft.client.resources.model.geometry.BakedQuad$MaterialInfo --
-   Compiled from "BakedQuad.java"
-   public final class net.minecraft.client.resources.model.geometry.BakedQuad$MaterialInfo extends java.lang.Record {
-   private final net.minecraft.client.renderer.texture.TextureAtlasSprite sprite;
-   private final net.minecraft.client.renderer.chunk.ChunkSectionLayer layer;
-   private final net.minecraft.client.renderer.rendertype.RenderType itemRenderType;
-   private final int tintIndex;
-   private final boolean shade;
-   private final int lightEmission;
-   public net.minecraft.client.resources.model.geometry.BakedQuad$MaterialInfo(net.minecraft.client.renderer.texture.TextureAtlasSprite, net.minecraft.client.renderer.chunk.ChunkSectionLayer, net.minecraft.client.renderer.rendertype.RenderType, int, boolean, int);
-   public static net.minecraft.client.resources.model.geometry.BakedQuad$MaterialInfo of(net.minecraft.client.resources.model.sprite.Material$Baked, com.mojang.blaze3d.platform.Transparency, int, boolean, int);
-   public boolean isTinted();
-   public int flags();
-   public final java.lang.String toString();
-   public final int hashCode();
-   public final boolean equals(java.lang.Object);
-   public net.minecraft.client.renderer.texture.TextureAtlasSprite sprite();
-   public net.minecraft.client.renderer.chunk.ChunkSectionLayer layer();
-   public net.minecraft.client.renderer.rendertype.RenderType itemRenderType();
-   public int tintIndex();
-   public boolean shade();
-   public int lightEmission();
-   }
--- net.minecraft.client.resources.model.geometry.BakedQuad$MaterialFlags --
-   Compiled from "BakedQuad.java"
-   public interface net.minecraft.client.resources.model.geometry.BakedQuad$MaterialFlags extends java.lang.annotation.Annotation {
-   }
--- net.minecraft.client.resources.model.geometry.QuadCollection --
-   Compiled from "QuadCollection.java"
-   public class net.minecraft.client.resources.model.geometry.QuadCollection {
-   public static final net.minecraft.client.resources.model.geometry.QuadCollection EMPTY;
-   private static final int FLAGS_NOT_COMPUTED;
-   private final java.util.List<net.minecraft.client.resources.model.geometry.BakedQuad> all;
-   private final java.util.List<net.minecraft.client.resources.model.geometry.BakedQuad> unculled;
-   private final java.util.List<net.minecraft.client.resources.model.geometry.BakedQuad> north;
-   private final java.util.List<net.minecraft.client.resources.model.geometry.BakedQuad> south;
-   private final java.util.List<net.minecraft.client.resources.model.geometry.BakedQuad> east;
-   private final java.util.List<net.minecraft.client.resources.model.geometry.BakedQuad> west;
-   private final java.util.List<net.minecraft.client.resources.model.geometry.BakedQuad> up;
-   private final java.util.List<net.minecraft.client.resources.model.geometry.BakedQuad> down;
-   private int materialFlags;
-   private net.minecraft.client.resources.model.geometry.QuadCollection(java.util.List<net.minecraft.client.resources.model.geometry.BakedQuad>, java.util.List<net.minecraft.client.resources.model.geometry.BakedQuad>, java.util.List<net.minecraft.client.resources.model.geometry.BakedQuad>, java.util.List<net.minecraft.client.resources.model.geometry.BakedQuad>, java.util.List<net.minecraft.client.resources.model.geometry.BakedQuad>, java.util.List<net.minecraft.client.resources.model.geometry.BakedQuad>, java.util.List<net.minecraft.client.resources.model.geometry.BakedQuad>, java.util.List<net.minecraft.client.resources.model.geometry.BakedQuad>);
-   private static int computeMaterialFlags(java.util.List<net.minecraft.client.resources.model.geometry.BakedQuad>);
-   public java.util.List<net.minecraft.client.resources.model.geometry.BakedQuad> getQuads(net.minecraft.core.Direction);
-   public java.util.List<net.minecraft.client.resources.model.geometry.BakedQuad> getAll();
-   public int materialFlags();
-   public boolean hasMaterialFlag(int);
-   static {};
-   }
--- net.minecraft.client.resources.model.geometry.QuadCollection$Builder --
-   Compiled from "QuadCollection.java"
-   public class net.minecraft.client.resources.model.geometry.QuadCollection$Builder {
-   private final com.google.common.collect.ImmutableList$Builder<net.minecraft.client.resources.model.geometry.BakedQuad> unculledFaces;
-   private final com.google.common.collect.Multimap<net.minecraft.core.Direction, net.minecraft.client.resources.model.geometry.BakedQuad> culledFaces;
-   public net.minecraft.client.resources.model.geometry.QuadCollection$Builder();
-   public net.minecraft.client.resources.model.geometry.QuadCollection$Builder addCulledFace(net.minecraft.core.Direction, net.minecraft.client.resources.model.geometry.BakedQuad);
-   public net.minecraft.client.resources.model.geometry.QuadCollection$Builder addUnculledFace(net.minecraft.client.resources.model.geometry.BakedQuad);
-   public net.minecraft.client.resources.model.geometry.QuadCollection$Builder addAll(net.minecraft.client.resources.model.geometry.QuadCollection);
-   private static net.minecraft.client.resources.model.geometry.QuadCollection createFromSublists(java.util.List<net.minecraft.client.resources.model.geometry.BakedQuad>, int, int, int, int, int, int, int);
-   public net.minecraft.client.resources.model.geometry.QuadCollection build();
-   }
--- net.minecraft.client.resources.model.sprite.MaterialBaker --
-   Compiled from "MaterialBaker.java"
-   public abstract class net.minecraft.client.resources.model.sprite.MaterialBaker implements net.fabricmc.fabric.api.client.renderer.v1.sprite.FabricMaterialBaker {
-   private static final org.slf4j.Logger LOGGER;
-   private final net.minecraft.client.resources.model.sprite.Material$Baked missingSprite;
-   private final net.minecraft.client.resources.model.sprite.Material$Baked missingSpriteForceTranslucent;
-   private final com.google.common.collect.Multimap<java.lang.String, net.minecraft.resources.Identifier> missingSprites;
-   private final com.google.common.collect.Multimap<java.lang.String, java.lang.String> missingReferences;
-   private final java.util.Map<net.minecraft.client.resources.model.sprite.Material, net.minecraft.client.resources.model.sprite.Material$Baked> bakedMaterials;
-   private final java.util.function.Function<net.minecraft.client.resources.model.sprite.Material, net.minecraft.client.resources.model.sprite.Material$Baked> bakerFunction;
-   public net.minecraft.client.resources.model.sprite.MaterialBaker(net.minecraft.client.renderer.texture.TextureAtlasSprite);
-   public net.minecraft.client.resources.model.sprite.Material$Baked replacementForMissingMaterial(net.minecraft.client.resources.model.sprite.Material);
-   public net.minecraft.client.resources.model.sprite.Material$Baked get(net.minecraft.client.resources.model.sprite.Material, net.minecraft.client.resources.model.ModelDebugName);
-   protected abstract net.minecraft.client.resources.model.sprite.Material$Baked bake(net.minecraft.client.resources.model.sprite.Material);
-   protected static net.minecraft.client.resources.model.sprite.Material$Baked bakeForAtlas(net.minecraft.client.resources.model.sprite.Material, net.minecraft.client.renderer.texture.SpriteLoader$Preparations);
-   public net.minecraft.client.resources.model.sprite.Material$Baked resolveSlot(net.minecraft.client.resources.model.sprite.TextureSlots, java.lang.String, net.minecraft.client.resources.model.ModelDebugName);
-   public net.minecraft.client.resources.model.sprite.Material$Baked reportMissingReference(java.lang.String, net.minecraft.client.resources.model.ModelDebugName);
-   public void logMissingTextures();
-   private static void lambda$logMissingTextures$2(java.lang.String, java.util.Collection);
-   private static java.lang.String lambda$logMissingTextures$3(java.lang.String);
-   private static void lambda$logMissingTextures$0(java.lang.String, java.util.Collection);
-   private static java.lang.String lambda$logMissingTextures$1(net.minecraft.resources.Identifier);
-   static {};
-   }
--- net.minecraft.client.resources.model.sprite.SpriteGetter --
-   Compiled from "SpriteGetter.java"
-   public interface net.minecraft.client.resources.model.sprite.SpriteGetter {
-   public abstract net.minecraft.client.renderer.texture.TextureAtlasSprite get(net.minecraft.client.resources.model.sprite.SpriteId);
-   }
--- net.minecraft.client.resources.model.sprite.TextureSlots --
-   public class net.minecraft.client.resources.model.sprite.TextureSlots {
-   public static final net.minecraft.client.resources.model.sprite.TextureSlots EMPTY;
-   private static final char REFERENCE_CHAR;
-   public net.minecraft.client.resources.model.sprite.Material getMaterial(java.lang.String);
-   private static boolean isTextureReference(java.lang.String);
-   public static net.minecraft.client.resources.model.sprite.TextureSlots$Data parseTextureMap(com.google.gson.JsonObject);
-   private static void parseEntry(java.lang.String, com.google.gson.JsonElement, net.minecraft.client.resources.model.sprite.TextureSlots$Data$Builder);
-   static {};
--- net.minecraft.client.resources.model.sprite.Material$Baked --
-   Compiled from "Material.java"
-   public final class net.minecraft.client.resources.model.sprite.Material$Baked extends java.lang.Record {
-   private final net.minecraft.client.renderer.texture.TextureAtlasSprite sprite;
-   private final boolean forceTranslucent;
-   public net.minecraft.client.resources.model.sprite.Material$Baked(net.minecraft.client.renderer.texture.TextureAtlasSprite, boolean);
-   public final java.lang.String toString();
-   public final int hashCode();
-   public final boolean equals(java.lang.Object);
-   public net.minecraft.client.renderer.texture.TextureAtlasSprite sprite();
-   public boolean forceTranslucent();
-   }
--- net.minecraft.client.resources.model.SimpleModelWrapper --
-   Compiled from "SimpleModelWrapper.java"
-   public final class net.minecraft.client.resources.model.SimpleModelWrapper extends java.lang.Record implements net.minecraft.client.renderer.block.dispatch.BlockStateModelPart {
-   private final net.minecraft.client.resources.model.geometry.QuadCollection quads;
-   private final boolean useAmbientOcclusion;
-   private final net.minecraft.client.resources.model.sprite.Material$Baked particleMaterial;
-   private static final org.slf4j.Logger LOGGER;
-   public net.minecraft.client.resources.model.SimpleModelWrapper(net.minecraft.client.resources.model.geometry.QuadCollection, boolean, net.minecraft.client.resources.model.sprite.Material$Baked);
-   public static net.minecraft.client.renderer.block.dispatch.BlockStateModelPart bake(net.minecraft.client.resources.model.ModelBaker, net.minecraft.resources.Identifier, net.minecraft.client.renderer.block.dispatch.ModelState);
-   public static com.google.common.collect.Multimap<net.minecraft.resources.Identifier, net.minecraft.resources.Identifier> findNonBlockSprites(net.minecraft.client.resources.model.geometry.QuadCollection);
-   public java.util.List<net.minecraft.client.resources.model.geometry.BakedQuad> getQuads(net.minecraft.core.Direction);
-   public int materialFlags();
-   public final java.lang.String toString();
-   public final int hashCode();
-   public final boolean equals(java.lang.Object);
-   public net.minecraft.client.resources.model.geometry.QuadCollection quads();
-   public boolean useAmbientOcclusion();
-   public net.minecraft.client.resources.model.sprite.Material$Baked particleMaterial();
-   static {};
-   }
--- net.minecraft.client.resources.model.ModelBaker$Interner --
-   Compiled from "ModelBaker.java"
-   public interface net.minecraft.client.resources.model.ModelBaker$Interner {
-   public abstract org.joml.Vector3fc vector(org.joml.Vector3fc);
-   public abstract net.minecraft.client.resources.model.geometry.BakedQuad$MaterialInfo materialInfo(net.minecraft.client.resources.model.geometry.BakedQuad$MaterialInfo);
-   }
--- net.minecraft.client.resources.model.ModelBakery$InternerImpl --
-   Compiled from "ModelBakery.java"
-   class net.minecraft.client.resources.model.ModelBakery$InternerImpl implements net.minecraft.client.resources.model.ModelBaker$Interner {
-   private final com.google.common.collect.Interner<org.joml.Vector3fc> vectors;
-   private final com.google.common.collect.Interner<net.minecraft.client.resources.model.geometry.BakedQuad$MaterialInfo> materialInfos;
-   private net.minecraft.client.resources.model.ModelBakery$InternerImpl();
-   public org.joml.Vector3fc vector(org.joml.Vector3fc);
-   public net.minecraft.client.resources.model.geometry.BakedQuad$MaterialInfo materialInfo(net.minecraft.client.resources.model.geometry.BakedQuad$MaterialInfo);
-   }
--- net.minecraft.client.resources.model.ModelBakery$ModelBakerImpl --
-   Compiled from "ModelBakery.java"
-   class net.minecraft.client.resources.model.ModelBakery$ModelBakerImpl implements net.minecraft.client.resources.model.ModelBaker {
-   private final net.minecraft.client.resources.model.sprite.MaterialBaker materials;
-   private final net.minecraft.client.resources.model.ModelBaker$Interner interner;
-   private final net.minecraft.client.resources.model.ModelBakery$MissingModels missingModels;
-   private final java.util.Map<net.minecraft.client.resources.model.ModelBaker$SharedOperationKey<java.lang.Object>, java.lang.Object> operationCache;
-   private final java.util.function.Function<net.minecraft.client.resources.model.ModelBaker$SharedOperationKey<java.lang.Object>, java.lang.Object> cacheComputeFunction;
-   final net.minecraft.client.resources.model.ModelBakery this$0;
-   private net.minecraft.client.resources.model.ModelBakery$ModelBakerImpl(net.minecraft.client.resources.model.ModelBakery, net.minecraft.client.resources.model.sprite.MaterialBaker, net.minecraft.client.resources.model.ModelBaker$Interner, net.minecraft.client.resources.model.ModelBakery$MissingModels);
-   public net.minecraft.client.renderer.block.dispatch.BlockStateModelPart missingBlockModelPart();
-   public net.minecraft.client.resources.model.sprite.MaterialBaker materials();
-   public net.minecraft.client.resources.model.ModelBaker$Interner interner();
-   public net.minecraft.client.resources.model.ResolvedModel getModel(net.minecraft.resources.Identifier);
-   public <T> T compute(net.minecraft.client.resources.model.ModelBaker$SharedOperationKey<T>);
-   private java.lang.Object lambda$new$0(net.minecraft.client.resources.model.ModelBaker$SharedOperationKey);
-   }
--- net.minecraft.client.resources.model.ModelBakery$BakingResult --
-   Compiled from "ModelBakery.java"
-   public final class net.minecraft.client.resources.model.ModelBakery$BakingResult extends java.lang.Record {
-   private final net.minecraft.client.resources.model.ModelBakery$MissingModels missingModels;
-   private final java.util.Map<net.minecraft.world.level.block.state.BlockState, net.minecraft.client.renderer.block.dispatch.BlockStateModel> blockStateModels;
-   private final java.util.Map<net.minecraft.resources.Identifier, net.minecraft.client.renderer.item.ItemModel> itemStackModels;
-   private final java.util.Map<net.minecraft.resources.Identifier, net.minecraft.client.renderer.item.ClientItem$Properties> itemProperties;
-   public net.minecraft.client.resources.model.ModelBakery$BakingResult(net.minecraft.client.resources.model.ModelBakery$MissingModels, java.util.Map<net.minecraft.world.level.block.state.BlockState, net.minecraft.client.renderer.block.dispatch.BlockStateModel>, java.util.Map<net.minecraft.resources.Identifier, net.minecraft.client.renderer.item.ItemModel>, java.util.Map<net.minecraft.resources.Identifier, net.minecraft.client.renderer.item.ClientItem$Properties>);
-   public net.minecraft.client.renderer.block.dispatch.BlockStateModel getBlockStateModel(net.minecraft.world.level.block.state.BlockState);
-   public final java.lang.String toString();
-   public final int hashCode();
-   public final boolean equals(java.lang.Object);
-   public net.minecraft.client.resources.model.ModelBakery$MissingModels missingModels();
-   public java.util.Map<net.minecraft.world.level.block.state.BlockState, net.minecraft.client.renderer.block.dispatch.BlockStateModel> blockStateModels();
-   public java.util.Map<net.minecraft.resources.Identifier, net.minecraft.client.renderer.item.ItemModel> itemStackModels();
-   public java.util.Map<net.minecraft.resources.Identifier, net.minecraft.client.renderer.item.ClientItem$Properties> itemProperties();
-   }
--- net.minecraft.client.resources.model.ModelBakery$MissingModels --
-   Compiled from "ModelBakery.java"
-   public final class net.minecraft.client.resources.model.ModelBakery$MissingModels extends java.lang.Record {
-   private final net.minecraft.client.renderer.block.dispatch.BlockStateModelPart blockPart;
-   private final net.minecraft.client.renderer.block.dispatch.BlockStateModel block;
-   private final net.minecraft.client.renderer.item.MissingItemModel item;
-   private final net.minecraft.client.renderer.block.FluidModel fluid;
-   public net.minecraft.client.resources.model.ModelBakery$MissingModels(net.minecraft.client.renderer.block.dispatch.BlockStateModelPart, net.minecraft.client.renderer.block.dispatch.BlockStateModel, net.minecraft.client.renderer.item.MissingItemModel, net.minecraft.client.renderer.block.FluidModel);
-   public static net.minecraft.client.resources.model.ModelBakery$MissingModels bake(net.minecraft.client.resources.model.ResolvedModel, net.minecraft.client.resources.model.sprite.MaterialBaker, net.minecraft.client.resources.model.ModelBaker$Interner);
-   public final java.lang.String toString();
-   public final int hashCode();
-   public final boolean equals(java.lang.Object);
-   public net.minecraft.client.renderer.block.dispatch.BlockStateModelPart blockPart();
-   public net.minecraft.client.renderer.block.dispatch.BlockStateModel block();
-   public net.minecraft.client.renderer.item.MissingItemModel item();
-   public net.minecraft.client.renderer.block.FluidModel fluid();
-   }
--- net.minecraft.client.renderer.block.dispatch.BlockStateModelPart --
-   Compiled from "BlockStateModelPart.java"
-   public interface net.minecraft.client.renderer.block.dispatch.BlockStateModelPart extends net.fabricmc.fabric.api.client.renderer.v1.model.FabricBlockStateModelPart {
-   public abstract java.util.List<net.minecraft.client.resources.model.geometry.BakedQuad> getQuads(net.minecraft.core.Direction);
-   public abstract boolean useAmbientOcclusion();
-   public abstract net.minecraft.client.resources.model.sprite.Material$Baked particleMaterial();
-   public abstract int materialFlags();
-   }
--- net.minecraft.client.renderer.block.dispatch.ModelState --
-   Compiled from "ModelState.java"
-   public interface net.minecraft.client.renderer.block.dispatch.ModelState {
-   public static final org.joml.Matrix4fc NO_TRANSFORM;
-   public default com.mojang.math.Transformation transformation();
-   public default org.joml.Matrix4fc faceTransformation(net.minecraft.core.Direction);
-   public default org.joml.Matrix4fc inverseFaceTransformation(net.minecraft.core.Direction);
-   static {};
-   }
--- net.minecraft.client.renderer.block.dispatch.BlockModelRotation --
-   public class net.minecraft.client.renderer.block.dispatch.BlockModelRotation implements net.minecraft.client.renderer.block.dispatch.ModelState {
-   private static final java.util.Map<com.mojang.math.OctahedralGroup, net.minecraft.client.renderer.block.dispatch.BlockModelRotation> BY_GROUP_ORDINAL;
-   public static final net.minecraft.client.renderer.block.dispatch.BlockModelRotation IDENTITY;
-   public com.mojang.math.Transformation transformation();
-   public static net.minecraft.client.renderer.block.dispatch.BlockModelRotation get(com.mojang.math.OctahedralGroup);
-   public net.minecraft.client.renderer.block.dispatch.ModelState withUvLock();
-   public java.lang.String toString();
-   static {};
--- com.mojang.math.Quadrant --
-   public final class com.mojang.math.Quadrant extends java.lang.Enum<com.mojang.math.Quadrant> {
-   public static final com.mojang.math.Quadrant R0;
-   public static final com.mojang.math.Quadrant R90;
-   public static final com.mojang.math.Quadrant R180;
-   public static final com.mojang.math.Quadrant R270;
-   public static final com.mojang.serialization.Codec<com.mojang.math.Quadrant> CODEC;
-   public final int shift;
-   public final com.mojang.math.OctahedralGroup rotationX;
-   public final com.mojang.math.OctahedralGroup rotationY;
-   public final com.mojang.math.OctahedralGroup rotationZ;
-   public static com.mojang.math.Quadrant[] values();
-   public static com.mojang.math.Quadrant valueOf(java.lang.String);
-   public static com.mojang.math.Quadrant parseJson(int);
-   public static com.mojang.math.OctahedralGroup fromXYAngles(com.mojang.math.Quadrant, com.mojang.math.Quadrant);
-   public static com.mojang.math.OctahedralGroup fromXYZAngles(com.mojang.math.Quadrant, com.mojang.math.Quadrant, com.mojang.math.Quadrant);
-   public int rotateVertexIndex(int);
--- net.minecraft.client.renderer.FaceInfo --
-   public final class net.minecraft.client.renderer.FaceInfo extends java.lang.Enum<net.minecraft.client.renderer.FaceInfo> {
-   public static final net.minecraft.client.renderer.FaceInfo DOWN;
-   public static final net.minecraft.client.renderer.FaceInfo UP;
-   public static final net.minecraft.client.renderer.FaceInfo NORTH;
-   public static final net.minecraft.client.renderer.FaceInfo SOUTH;
-   public static final net.minecraft.client.renderer.FaceInfo WEST;
-   public static final net.minecraft.client.renderer.FaceInfo EAST;
-   public static net.minecraft.client.renderer.FaceInfo[] values();
-   public static net.minecraft.client.renderer.FaceInfo valueOf(java.lang.String);
-   public static net.minecraft.client.renderer.FaceInfo fromFacing(net.minecraft.core.Direction);
-   public net.minecraft.client.renderer.FaceInfo$VertexInfo getVertexInfo(int);
--- net.minecraft.client.renderer.block.BlockStateModelSet --
-   Compiled from "BlockStateModelSet.java"
-   public class net.minecraft.client.renderer.block.BlockStateModelSet implements net.fabricmc.fabric.api.client.renderer.v1.model.FabricBlockStateModelSet {
-   private final java.util.Map<net.minecraft.world.level.block.state.BlockState, net.minecraft.client.renderer.block.dispatch.BlockStateModel> modelByState;
-   private final net.minecraft.client.renderer.block.dispatch.BlockStateModel missingModel;
-   public net.minecraft.client.renderer.block.BlockStateModelSet(java.util.Map<net.minecraft.world.level.block.state.BlockState, net.minecraft.client.renderer.block.dispatch.BlockStateModel>, net.minecraft.client.renderer.block.dispatch.BlockStateModel);
-   public net.minecraft.client.renderer.block.dispatch.BlockStateModel get(net.minecraft.world.level.block.state.BlockState);
-   public net.minecraft.client.renderer.block.dispatch.BlockStateModel missingModel();
-   public net.minecraft.client.resources.model.sprite.Material$Baked getParticleMaterial(net.minecraft.world.level.block.state.BlockState);
-   }
--- net.minecraft.client.resources.model.ResolvedModel --
-   public interface net.minecraft.client.resources.model.ResolvedModel extends net.minecraft.client.resources.model.ModelDebugName {
-   public static final boolean DEFAULT_AMBIENT_OCCLUSION;
-   public static final net.minecraft.client.resources.model.UnbakedModel$GuiLight DEFAULT_GUI_LIGHT;
-   public abstract net.minecraft.client.resources.model.UnbakedModel wrapped();
-   public abstract net.minecraft.client.resources.model.ResolvedModel parent();
-   public static net.minecraft.client.resources.model.sprite.TextureSlots findTopTextureSlots(net.minecraft.client.resources.model.ResolvedModel);
-   public default net.minecraft.client.resources.model.sprite.TextureSlots getTopTextureSlots();
-   public static boolean findTopAmbientOcclusion(net.minecraft.client.resources.model.ResolvedModel);
-   public default boolean getTopAmbientOcclusion();
-   public static net.minecraft.client.resources.model.UnbakedModel$GuiLight findTopGuiLight(net.minecraft.client.resources.model.ResolvedModel);
-   public default net.minecraft.client.resources.model.UnbakedModel$GuiLight getTopGuiLight();
-   public static net.minecraft.client.resources.model.geometry.UnbakedGeometry findTopGeometry(net.minecraft.client.resources.model.ResolvedModel);
-   public default net.minecraft.client.resources.model.geometry.UnbakedGeometry getTopGeometry();
-   public default net.minecraft.client.resources.model.geometry.QuadCollection bakeTopGeometry(net.minecraft.client.resources.model.sprite.TextureSlots, net.minecraft.client.resources.model.ModelBaker, net.minecraft.client.renderer.block.dispatch.ModelState);
-   public static net.minecraft.client.resources.model.sprite.Material$Baked resolveParticleMaterial(net.minecraft.client.resources.model.sprite.TextureSlots, net.minecraft.client.resources.model.ModelBaker, net.minecraft.client.resources.model.ModelDebugName);
-   public default net.minecraft.client.resources.model.sprite.Material$Baked resolveParticleMaterial(net.minecraft.client.resources.model.sprite.TextureSlots, net.minecraft.client.resources.model.ModelBaker);
-   public static net.minecraft.client.resources.model.cuboid.ItemTransform findTopTransform(net.minecraft.client.resources.model.ResolvedModel, net.minecraft.world.item.ItemDisplayContext);
-   public static net.minecraft.client.resources.model.cuboid.ItemTransforms findTopTransforms(net.minecraft.client.resources.model.ResolvedModel);
-   public default net.minecraft.client.resources.model.cuboid.ItemTransforms getTopTransforms();
+-- net.minecraft.client.resources.model.geometry.SimpleUnbakedGeometry --
+   javap error: Error: class not found: net.minecraft.client.resources.model.geometry.SimpleUnbakedGeometry
+-- com.mojang.blaze3d.platform.Transparency --
+   public final class com.mojang.blaze3d.platform.Transparency extends java.lang.Record {
+   public static final com.mojang.blaze3d.platform.Transparency NONE;
+   public static final com.mojang.blaze3d.platform.Transparency TRANSPARENT;
+   public static final com.mojang.blaze3d.platform.Transparency TRANSLUCENT;
+   public static final com.mojang.blaze3d.platform.Transparency TRANSPARENT_AND_TRANSLUCENT;
+-- net.minecraft.core.Direction --
+   public final class net.minecraft.core.Direction extends java.lang.Enum<net.minecraft.core.Direction> implements net.minecraft.util.StringRepresentable {
+   public static final net.minecraft.core.Direction DOWN;
+   public static final net.minecraft.core.Direction UP;
+   public static final net.minecraft.core.Direction NORTH;
+   public static final net.minecraft.core.Direction SOUTH;
+   public static final net.minecraft.core.Direction WEST;
+   public static final net.minecraft.core.Direction EAST;
+   public static final net.minecraft.util.StringRepresentable$EnumCodec<net.minecraft.core.Direction> CODEC;
+   public static final com.mojang.serialization.Codec<net.minecraft.core.Direction> VERTICAL_CODEC;
+   public static final java.util.function.IntFunction<net.minecraft.core.Direction> BY_ID;
+   public static final net.minecraft.network.codec.StreamCodec<io.netty.buffer.ByteBuf, net.minecraft.core.Direction> STREAM_CODEC;
+   public static final com.mojang.serialization.Codec<net.minecraft.core.Direction> LEGACY_ID_CODEC;
+   public static final com.mojang.serialization.Codec<net.minecraft.core.Direction> LEGACY_ID_CODEC_2D;
+   public static net.minecraft.core.Direction[] values();
+   public static net.minecraft.core.Direction valueOf(java.lang.String);
+   public static net.minecraft.core.Direction[] orderedByNearest(net.minecraft.world.entity.Entity);
+   public static net.minecraft.core.Direction rotate(org.joml.Matrix4fc, net.minecraft.core.Direction);
+   public static java.util.Collection<net.minecraft.core.Direction> allShuffled(net.minecraft.util.RandomSource);
+   public static java.util.stream.Stream<net.minecraft.core.Direction> stream();
+   public static float getYRot(net.minecraft.core.Direction);
+   public net.minecraft.core.Direction$AxisDirection getAxisDirection();
+   public static net.minecraft.core.Direction getFacingAxis(net.minecraft.world.entity.Entity, net.minecraft.core.Direction$Axis);
+   public net.minecraft.core.Direction getOpposite();
+   public net.minecraft.core.Direction getClockWise(net.minecraft.core.Direction$Axis);
+   public net.minecraft.core.Direction getCounterClockWise(net.minecraft.core.Direction$Axis);
+   public net.minecraft.core.Direction getClockWise();
+   public net.minecraft.core.Direction getCounterClockWise();
+   public java.lang.String getName();
+   public net.minecraft.core.Direction$Axis getAxis();
+   public static net.minecraft.core.Direction byName(java.lang.String);
+   public static net.minecraft.core.Direction from3DDataValue(int);
+   public static net.minecraft.core.Direction from2DDataValue(int);
+   public static net.minecraft.core.Direction fromYRot(double);
+   public static net.minecraft.core.Direction fromAxisAndDirection(net.minecraft.core.Direction$Axis, net.minecraft.core.Direction$AxisDirection);
+   public static net.minecraft.core.Direction getRandom(net.minecraft.util.RandomSource);
+   public static net.minecraft.core.Direction getApproximateNearest(double, double, double);
+   public static net.minecraft.core.Direction getApproximateNearest(float, float, float);
+   public static net.minecraft.core.Direction getApproximateNearest(net.minecraft.world.phys.Vec3);
+   public static net.minecraft.core.Direction getNearest(int, int, int, net.minecraft.core.Direction);
+   public static net.minecraft.core.Direction getNearest(net.minecraft.core.Vec3i, net.minecraft.core.Direction);
+   public static net.minecraft.core.Direction get(net.minecraft.core.Direction$AxisDirection, net.minecraft.core.Direction$Axis);
+   public static com.google.common.collect.ImmutableList<net.minecraft.core.Direction$Axis> axisStepOrder(net.minecraft.world.phys.Vec3);
+   public net.minecraft.core.Vec3i getUnitVec3i();
+   public net.minecraft.world.phys.Vec3 getUnitVec3();
+-- net.raphimc.viabedrock.api.model.resourcepack.ResourcePackStorage --
+   javap error: Error: class not found: net.raphimc.viabedrock.api.model.resourcepack.ResourcePackStorage
 -- net.minecraft.client.renderer.entity.EntityRenderDispatcher --
    public <T extends net.minecraft.world.entity.Entity> net.minecraft.client.renderer.entity.EntityRenderer<? super T, ?> getRenderer(T);
    public <S extends net.minecraft.client.renderer.entity.state.EntityRenderState> net.minecraft.client.renderer.entity.EntityRenderer<?, ? super S> getRenderer(S);
