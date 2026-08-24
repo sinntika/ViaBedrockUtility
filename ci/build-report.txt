@@ -1,6 +1,6 @@
-commit:  c7dbe9cfb282ee16e8674353f875425613346c90
-run_id:  32681604521
-outcome: success
+commit:  ae617cb5d903e474590e84700b0ea9b0f53be814
+run_id:  32682198493
+outcome: failure
 
 ===== RENAME =====
 loaded mappings.tsv
@@ -16,15 +16,17 @@ rewrote 0 files
 renamed 0 files
 
 ===== COMPILE ERRORS =====
-unique errors: 0
+unique errors: 1
+block/model/FullBlockGeometry.java:5: cannot find symbol   [symbol: class BedrockGeometryParser | location: package org.cube.converter.parser.bedrock]
+      src: import org.cube.converter.parser.bedrock.BedrockGeometryParser;
 
 ===== CLASSPATH PROBE =====
 == LOMBOK ==
 resolved in cache: 1.18.46
 
 == DIFF VS MASTER ==
-  origin/master (8369667) ... HEAD (c7dbe9c)
-  70 files changed, 3576 insertions(+), 427 deletions(-)
+  origin/master (8369667) ... HEAD (ae617cb)
+  73 files changed, 4206 insertions(+), 427 deletions(-)
   -- deleted or renamed (1) --
      R083	src/main/java/org/oryxel/viabedrockutility/animation/vanilla/AnimationHelper.java	src/main/java/org/oryxel/viabedrockutility/animation/vanilla/KeyframeAnimations.java
 
@@ -32,7 +34,10 @@ resolved in cache: 1.18.46
   CubeConverter-abecffaaea.jar                             36 classes
   mocha-3.0.1.jar                                          93 classes
 
-== LIB IMPORTS (19) ==
+== LIB IMPORTS (23) ==
+  MISSING org.cube.converter.parser.bedrock.BedrockGeometryParser
+      -> org.cube.converter.parser.bedrock.geometry.BedrockGeometryParser
+      in org/oryxel/viabedrockutility/block/model/FullBlockGeometry.java
 
 == LIB DUMP (36 classes) ==
 -- org.cube.converter.converter.FormatConverter --
@@ -579,18 +584,18 @@ resolved in cache: 1.18.46
   none
 
 ===== TAIL =====
-> Task :processIncludeJars
-> Task :jar
-> Task :compileTestJava
-> Task :assemble
-> Task :processTestResources NO-SOURCE
-> Task :testClasses
-> Task :test
-> Task :validateAccessWidener
-> Task :check
-> Task :build
 
-[Incubating] Problems report is available at: file:///home/runner/work/ViaBedrockUtility/ViaBedrockUtility/build/reports/problems/problems-report.html
+* Exception is:
+org.gradle.api.tasks.TaskExecutionException: Execution failed for task ':compileJava' (registered by plugin class 'org.gradle.api.plugins.JavaBasePlugin').
+Caused by: org.gradle.api.internal.tasks.compile.CompilationFailedException: Compilation failed; see the compiler output below.
+/home/runner/work/ViaBedrockUtility/ViaBedrockUtility/src/main/java/org/oryxel/viabedrockutility/block/model/FullBlockGeometry.java:5: error: cannot find symbol
+import org.cube.converter.parser.bedrock.BedrockGeometryParser;
+                                        ^
+  symbol:   class BedrockGeometryParser
+  location: package org.cube.converter.parser.bedrock
+1 error
+	... 30 more
 
-BUILD SUCCESSFUL in 1m 12s
-11 actionable tasks: 11 executed
+
+BUILD FAILED in 1m
+5 actionable tasks: 5 executed
