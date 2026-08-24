@@ -1,29 +1,29 @@
 # ViaBedrockUtility 1.0.0
 
-Builds for Minecraft 26.2 (`port/26.2`) and 1.21.11 (`port/1.21.11`).
+## 26.2 build
 
-## Fixed in the 26.2 build
+### Fixes
 
-26.2 split `EntityRenderDispatcher#getRenderer` into an `Entity` overload and an
-`EntityRenderState` overload, and moved the player skin model lookup into the
-render state overload. The mod's two unqualified `@Inject` targets therefore both
-resolved against the render state overload, and Mixin rejected the entity typed
-handlers with:
+1. **Crash on startup (`Initializing game`)**
+   `render.dispatcher.EntityRenderDispatcherMixin` was still injecting into the
+   pre-render-state `getRenderer(Entity)` signature, which made Mixin fail with
+   `InvalidInjectionException: Invalid descriptor`. The mixin now targets both
+   26.2 overloads (`getRenderer(Entity)` and `getRenderer(EntityRenderState)`)
+   and the entity UUID is carried over to the render state through
+   `EntityRenderStateMixin` / `EntityRendererMixin`.
 
-```
-Invalid descriptor on ...EntityRenderDispatcherMixin->@Inject::getPlayerRenderer!
-Expected (Lnet/minecraft/client/renderer/entity/state/EntityRenderState;...)V
-but found (Lnet/minecraft/world/entity/Entity;...)V
-```
+2. **`Unknown custom packet payload: viabedrockutility:data`**
+   The payload type was registered for both the configuration and the play
+   phase, but a receiver only existed for the play phase. ViaBedrock already
+   sends `CONFIRM` / skin / cape payloads while the client is still in the
+   configuration phase, so those packets were dropped. A
+   `ClientConfigurationNetworking` receiver was added; both phases share the
+   same `PayloadHandler`.
 
-which crashed the client during `Initializing game`.
+### Notes
 
-The render state carries no entity identity, while every cache in this mod is
-keyed by UUID, so:
-
-- the entity UUID is now stamped onto the render state while the renderer
-  extracts/creates it,
-- both dispatcher injections are pinned to explicit method descriptors, one per
-  overload, so an overload change can no longer silently retarget them,
-- the injections moved to `HEAD`, so they no longer depend on the internal call
-  order (`PlayerSkin.model()`, `Map.get` ordinals) inside the vanilla method.
+- Remove the old `viabedrockutility-1.0.0+26.2.jar` from the mods folder before
+  installing this one.
+- `indium-1.0.35+mc1.21` is built for 1.21 and should be removed on 26.2.
+- `faster-random` does nothing on 26.2 (its mixins target `class_2919` /
+  `class_5819`, which no longer exist); it is safe to remove.
