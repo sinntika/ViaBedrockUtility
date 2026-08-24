@@ -37,20 +37,13 @@ LIB_KEYWORDS = (
 JAR_NAME_SKIP = ("server", "sources", "javadoc")
 
 # Class-name indexes, for packages that move between snapshots.
-INDEXES = (
-	("nbt", re.compile(r"tag\.")),
-)
+INDEXES = ()
 
-# Same idea, but against the Minecraft jar. The model pipeline was reorganised
-# heavily for 26.2, so the phase 3 port needs the real package of every baking
-# class rather than the ones in the upstream 1.21 pull request. Matched on the
-# simple name so a moved class still shows up.
+# Same idea, but against the Minecraft jar. Kept around because this is what
+# proved the upstream pull request targets 1.21 packages that no longer exist.
 MC_INDEX = re.compile(
 	r"\.(?:"
-	r"ModelBakery|ModelBaker|ModelBakerImpl|MaterialBaker|ModelDebugName|ModelState"
-	r"|QuadCollection|FaceBakery|CuboidFace|BakedQuad|TextureSlots|SimpleModelWrapper"
-	r"|BlockStateModel|BlockStateModelPart|SingleVariant|BlockModelRotation"
-	r"|OctahedralGroup|UVPair|Quadrant|FaceInfo|SpriteGetter|UnbakedModel"
+	r"ResolvedModel|SpriteGetter|AtlasManager|BlockStateModelSet|LoadedBlockModels"
 	r")(?:\$[A-Za-z0-9_]+)?$"
 )
 
@@ -58,35 +51,41 @@ MC_INDEX = re.compile(
 # classes; None dumps every member.
 TARGETS = (
 	# -- phase 3: turning pack geometry into baked quads --
-	("net.minecraft.client.resources.model.ModelBaker", None),
+	("net.minecraft.client.resources.model.cuboid.FaceBakery", None),
+	("net.minecraft.client.resources.model.cuboid.CuboidFace", None),
+	("net.minecraft.client.resources.model.cuboid.CuboidFace$UVs", None),
+	("net.minecraft.client.resources.model.geometry.BakedQuad", None),
+	("net.minecraft.client.resources.model.geometry.BakedQuad$MaterialInfo", None),
+	("net.minecraft.client.resources.model.geometry.BakedQuad$MaterialFlags", None),
+	("net.minecraft.client.resources.model.geometry.QuadCollection", None),
+	("net.minecraft.client.resources.model.geometry.QuadCollection$Builder", None),
+	("net.minecraft.client.resources.model.sprite.MaterialBaker", None),
+	("net.minecraft.client.resources.model.sprite.SpriteGetter", None),
 	(
-		"net.minecraft.client.resources.model.ModelBakery",
-		r"class net|bakeModels|public|Interner",
+		"net.minecraft.client.resources.model.sprite.TextureSlots",
+		r"class net|public|static",
 	),
-	("net.minecraft.client.resources.model.MaterialBaker", None),
-	("net.minecraft.client.resources.model.QuadCollection", None),
-	("net.minecraft.client.resources.model.QuadCollection$Builder", None),
-	("net.minecraft.client.resources.model.ModelDebugName", None),
-	("net.minecraft.client.resources.model.ModelState", None),
-	("net.minecraft.client.resources.model.sprite.Material", None),
-	("net.minecraft.client.renderer.block.model.cuboid.FaceBakery", None),
-	("net.minecraft.client.renderer.block.model.cuboid.CuboidFace", None),
-	("net.minecraft.client.renderer.block.model.geometry.BakedQuad", None),
-	("net.minecraft.client.renderer.block.model.TextureSlots", r"class net|public"),
-	("net.minecraft.client.renderer.block.model.SimpleModelWrapper", None),
-	("net.minecraft.client.renderer.block.dispatch.BlockStateModel", None),
-	("net.minecraft.client.renderer.block.dispatch.SingleVariant", None),
+	("net.minecraft.client.resources.model.sprite.Material$Baked", None),
+	("net.minecraft.client.resources.model.SimpleModelWrapper", None),
+	("net.minecraft.client.resources.model.ModelBaker$Interner", None),
+	("net.minecraft.client.resources.model.ModelBakery$InternerImpl", None),
+	("net.minecraft.client.resources.model.ModelBakery$ModelBakerImpl", None),
+	("net.minecraft.client.resources.model.ModelBakery$BakingResult", None),
+	("net.minecraft.client.resources.model.ModelBakery$MissingModels", None),
+	("net.minecraft.client.renderer.block.dispatch.BlockStateModelPart", None),
+	("net.minecraft.client.renderer.block.dispatch.ModelState", None),
 	(
-		"net.minecraft.client.renderer.block.model.BlockModelRotation",
-		r"class net|public|private static",
+		"net.minecraft.client.renderer.block.dispatch.BlockModelRotation",
+		r"class net|public|static",
 	),
-	("com.mojang.math.OctahedralGroup", r"class com|public static final"),
+	("com.mojang.math.Quadrant", r"class com|public"),
+	("net.minecraft.client.renderer.FaceInfo", r"class net|public static|public"),
 	# -- phase 4: where the baked models get handed to the client --
+	("net.minecraft.client.renderer.block.BlockStateModelSet", None),
 	(
-		"net.minecraft.client.resources.model.ModelManager",
-		r"class net|createBlockStateToModelDispatch|BakingResult|public",
+		"net.minecraft.client.resources.model.ResolvedModel",
+		r"interface|class net|public",
 	),
-	("net.minecraft.client.Minecraft", r"disconnect"),
 	# -- regression guard for the crash that started all of this --
 	(
 		"net.minecraft.client.renderer.entity.EntityRenderDispatcher",
