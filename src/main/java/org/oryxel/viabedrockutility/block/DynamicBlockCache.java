@@ -98,8 +98,11 @@ public final class DynamicBlockCache {
 		((IHolderReference) holder).viaBedrockUtility$resolveTags();
 
 		final BlockState state = block.defaultBlockState();
-		// Vanilla fills this mapper during bootstrap only, so new states have to be
-		// added by hand or they have no network id.
+		// Both of these normally happen in the vanilla bootstrap, in this order.
+		// Without initCache the state keeps a null cache and the first lighting or
+		// occlusion lookup on it throws, and without the mapper entry the state has
+		// no network id at all.
+		state.initCache();
 		Block.BLOCK_STATE_REGISTRY.add(state);
 
 		KEY_TO_STATE.put(key, state);

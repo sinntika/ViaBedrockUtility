@@ -203,9 +203,6 @@ public final class BlockComponentsTranslator {
 		}
 		for (final Map.Entry<String, Tag> entry : materials.entrySet()) {
 			final Tag value = entry.getValue();
-			if (value instanceof StringFaceAlias) {
-				continue;
-			}
 			if (value instanceof StringTag alias) {
 				// A face can point at another face's material instead of its own.
 				builder.faceAlias(entry.getKey(), alias.getValue());
@@ -275,10 +272,6 @@ public final class BlockComponentsTranslator {
 			// Around Z: x becomes 1 - y, y becomes x.
 			default -> new AABB(1.0D - box.maxY, box.minX, box.minZ, 1.0D - box.minY, box.maxX, box.maxZ);
 		};
-	}
-
-	/** Marker only, never instantiated; keeps the alias branch above readable. */
-	private interface StringFaceAlias {
 	}
 
 	/**
