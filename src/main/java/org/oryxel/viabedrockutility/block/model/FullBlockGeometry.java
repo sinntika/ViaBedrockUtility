@@ -2,7 +2,6 @@ package org.oryxel.viabedrockutility.block.model;
 
 import java.util.List;
 import org.cube.converter.model.impl.bedrock.BedrockGeometryModel;
-import org.cube.converter.parser.bedrock.BedrockGeometryParser;
 
 /**
  * The geometry every plain Bedrock block uses.
@@ -55,7 +54,7 @@ public final class FullBlockGeometry {
 	private FullBlockGeometry() {
 	}
 
-	/** Parsed on first use, then reused; parsing this on every block would be wasteful. */
+	/** Parsed on first use, then reused; parsing this per block would be wasteful. */
 	public static BedrockGeometryModel get() {
 		BedrockGeometryModel model = cached;
 		if (model != null) {
@@ -65,7 +64,7 @@ public final class FullBlockGeometry {
 		synchronized (FullBlockGeometry.class) {
 			model = cached;
 			if (model == null) {
-				final List<BedrockGeometryModel> parsed = BedrockGeometryParser.parse(JSON);
+				final List<BedrockGeometryModel> parsed = BedrockGeometryModel.fromJson(JSON);
 				if (parsed == null || parsed.isEmpty()) {
 					throw new IllegalStateException(
 							"The built-in full block geometry did not parse");
