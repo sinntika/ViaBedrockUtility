@@ -1,146 +1,162 @@
 jar: minecraft-merged-a76db1c7b4-26.2.jar (10952 classes)
 
-== CLASSPATH LIBS (6) ==
+== CLASSPATH LIBS (8) ==
    CubeConverter-abecffaaea.jar                                 36 classes
    ViaBedrock-0.0.29-SNAPSHOT.jar                               651 classes
+   fabric-model-loading-api-v1-8.0.16+c80601bb9e.jar            61 classes
+   fabric-renderer-api-v1-14.1.3+2b0d8a229e.jar                 93 classes
    fastutil-8.5.18.jar                                          12965 classes
    mocha-3.0.1.jar                                              93 classes
    nbt-5.3.0.jar                                                47 classes
    viaversion-common-5.12.0-SNAPSHOT.jar                        3312 classes
 
-== MC BLOCK RENDER PACKAGE (33 matched) ==
-   net.minecraft.client.renderer.block.BlockAndTintGetter
-   net.minecraft.client.renderer.block.BlockAndTintGetter$1
-   net.minecraft.client.renderer.block.BlockModelLighter
-   net.minecraft.client.renderer.block.BlockModelLighter$1
-   net.minecraft.client.renderer.block.BlockModelLighter$AdjacencyInfo
-   net.minecraft.client.renderer.block.BlockModelLighter$AmbientVertexRemap
-   net.minecraft.client.renderer.block.BlockModelLighter$Cache
-   net.minecraft.client.renderer.block.BlockModelLighter$Cache$1
-   net.minecraft.client.renderer.block.BlockModelLighter$Cache$2
-   net.minecraft.client.renderer.block.BlockModelLighter$SizeInfo
-   net.minecraft.client.renderer.block.BlockModelRenderState
-   net.minecraft.client.renderer.block.BlockModelResolver
-   net.minecraft.client.renderer.block.BlockModelSet
-   net.minecraft.client.renderer.block.BlockQuadOutput
-   net.minecraft.client.renderer.block.BlockStateModelSet
-   net.minecraft.client.renderer.block.BuiltInBlockModels
-   net.minecraft.client.renderer.block.BuiltInBlockModels$Builder
-   net.minecraft.client.renderer.block.BuiltInBlockModels$ModelFactory
-   net.minecraft.client.renderer.block.BuiltInBlockModels$SpecialModelFactory
-   net.minecraft.client.renderer.block.FluidModel
-   net.minecraft.client.renderer.block.FluidModel$Unbaked
-   net.minecraft.client.renderer.block.FluidRenderer
-   net.minecraft.client.renderer.block.FluidRenderer$1
-   net.minecraft.client.renderer.block.FluidRenderer$Output
-   net.minecraft.client.renderer.block.FluidStateModelSet
-   net.minecraft.client.renderer.block.LoadedBlockModels
-   net.minecraft.client.renderer.block.ModelBlockRenderer
-   net.minecraft.client.renderer.block.MovingBlockRenderState
-   net.minecraft.client.renderer.block.SelectBlockModel
-   net.minecraft.client.renderer.block.SelectBlockModel$ModelSelector
-   net.minecraft.client.renderer.block.SelectBlockModel$SwitchCase
-   net.minecraft.client.renderer.block.SelectBlockModel$Unbaked
-   net.minecraft.client.renderer.block.SelectBlockModel$UnbakedSwitch
+== MC BLOCK DISPATCH PACKAGE (22 matched) ==
+   net.minecraft.client.renderer.block.dispatch.BlockModelRotation
+   net.minecraft.client.renderer.block.dispatch.BlockModelRotation$WithUvLock
+   net.minecraft.client.renderer.block.dispatch.BlockStateModel
+   net.minecraft.client.renderer.block.dispatch.BlockStateModel$SimpleCachedUnbakedRoot
+   net.minecraft.client.renderer.block.dispatch.BlockStateModel$SimpleCachedUnbakedRoot$1
+   net.minecraft.client.renderer.block.dispatch.BlockStateModel$Unbaked
+   net.minecraft.client.renderer.block.dispatch.BlockStateModel$UnbakedRoot
+   net.minecraft.client.renderer.block.dispatch.BlockStateModelDispatcher
+   net.minecraft.client.renderer.block.dispatch.BlockStateModelDispatcher$MultiPartDefinition
+   net.minecraft.client.renderer.block.dispatch.BlockStateModelDispatcher$SimpleModelSelectors
+   net.minecraft.client.renderer.block.dispatch.BlockStateModelPart
+   net.minecraft.client.renderer.block.dispatch.BlockStateModelPart$Unbaked
+   net.minecraft.client.renderer.block.dispatch.ModelState
+   net.minecraft.client.renderer.block.dispatch.SingleVariant
+   net.minecraft.client.renderer.block.dispatch.SingleVariant$Unbaked
+   net.minecraft.client.renderer.block.dispatch.Variant
+   net.minecraft.client.renderer.block.dispatch.Variant$SimpleModelState
+   net.minecraft.client.renderer.block.dispatch.VariantMutator
+   net.minecraft.client.renderer.block.dispatch.VariantMutator$VariantProperty
+   net.minecraft.client.renderer.block.dispatch.VariantSelector
+   net.minecraft.client.renderer.block.dispatch.WeightedVariants
+   net.minecraft.client.renderer.block.dispatch.WeightedVariants$Unbaked
 
-== CLASS INDEX: ViaBedrock-0.0.29-SNAPSHOT.jar (6 matched) ==
-   net.raphimc.viabedrock.protocol.rewriter.resourcepack.CustomAttachableResourceRewriter
-   net.raphimc.viabedrock.protocol.rewriter.resourcepack.CustomEntityResourceRewriter
-   net.raphimc.viabedrock.protocol.rewriter.resourcepack.CustomItemTextureResourceRewriter
-   net.raphimc.viabedrock.protocol.rewriter.resourcepack.GlyphSheetResourceRewriter
-   net.raphimc.viabedrock.protocol.rewriter.resourcepack.ItemModelResourceRewriter
-   net.raphimc.viabedrock.protocol.rewriter.resourcepack.ItemModelResourceRewriter$ItemModelContent
+== CLASS INDEX: fabric-model-loading-api-v1-8.0.16+c80601bb9e.jar (33 matched) ==
+   net.fabricmc.fabric.api.client.model.loading.v1.BlockStateResolver
+   net.fabricmc.fabric.api.client.model.loading.v1.BlockStateResolver$Context
+   net.fabricmc.fabric.api.client.model.loading.v1.CompositeBlockStateModel
+   net.fabricmc.fabric.api.client.model.loading.v1.CompositeBlockStateModel$Unbaked
+   net.fabricmc.fabric.api.client.model.loading.v1.CustomUnbakedBlockStateModel
+   net.fabricmc.fabric.api.client.model.loading.v1.ExtraModelKey
+   net.fabricmc.fabric.api.client.model.loading.v1.FabricModelManager
+   net.fabricmc.fabric.api.client.model.loading.v1.ModelLoadingPlugin
+   net.fabricmc.fabric.api.client.model.loading.v1.ModelLoadingPlugin$Context
+   net.fabricmc.fabric.api.client.model.loading.v1.ModelModifier
+   net.fabricmc.fabric.api.client.model.loading.v1.ModelModifier$AfterBakeBlock
+   net.fabricmc.fabric.api.client.model.loading.v1.ModelModifier$AfterBakeBlock$Context
+   net.fabricmc.fabric.api.client.model.loading.v1.ModelModifier$AfterBakeItem
+   net.fabricmc.fabric.api.client.model.loading.v1.ModelModifier$AfterBakeItem$Context
+   net.fabricmc.fabric.api.client.model.loading.v1.ModelModifier$BeforeBakeBlock
+   net.fabricmc.fabric.api.client.model.loading.v1.ModelModifier$BeforeBakeBlock$Context
+   net.fabricmc.fabric.api.client.model.loading.v1.ModelModifier$BeforeBakeItem
+   net.fabricmc.fabric.api.client.model.loading.v1.ModelModifier$BeforeBakeItem$Context
+   net.fabricmc.fabric.api.client.model.loading.v1.ModelModifier$OnLoad
+   net.fabricmc.fabric.api.client.model.loading.v1.ModelModifier$OnLoad$Context
+   net.fabricmc.fabric.api.client.model.loading.v1.ModelModifier$OnLoadBlock
+   net.fabricmc.fabric.api.client.model.loading.v1.ModelModifier$OnLoadBlock$Context
+   net.fabricmc.fabric.api.client.model.loading.v1.PreparableModelLoadingPlugin
+   net.fabricmc.fabric.api.client.model.loading.v1.PreparableModelLoadingPlugin$DataLoader
+   net.fabricmc.fabric.api.client.model.loading.v1.PreparableModelLoadingPlugin$Holder
+   net.fabricmc.fabric.api.client.model.loading.v1.SimpleUnbakedExtraModel
+   net.fabricmc.fabric.api.client.model.loading.v1.UnbakedExtraModel
+   net.fabricmc.fabric.api.client.model.loading.v1.UnbakedModelDeserializer
+   net.fabricmc.fabric.api.client.model.loading.v1.wrapper.WrapperBakedItemModel
+   net.fabricmc.fabric.api.client.model.loading.v1.wrapper.WrapperBlockStateModel
+   net.fabricmc.fabric.api.client.model.loading.v1.wrapper.WrapperUnbakedItemModel
+   net.fabricmc.fabric.api.client.model.loading.v1.wrapper.WrapperUnbakedModel
+   net.fabricmc.fabric.api.client.model.loading.v1.wrapper.WrapperUnbakedRootBlockStateModel
 
 == SIGNATURES ==
--- net.raphimc.viabedrock.api.resourcepack.ResourcePack --
-   Compiled from "ResourcePack.java"
-   public class net.raphimc.viabedrock.api.resourcepack.ResourcePack {
-   private static final byte[] CONTENTS_JSON_ENCRYPTION_VERSION;
-   private static final byte[] CONTENTS_JSON_ENCRYPTION_MAGIC;
-   private static final java.util.Set<java.lang.String> UNENCRYPTED_FILES;
-   private final net.raphimc.viabedrock.api.resourcepack.ResourcePack$Key key;
-   private final java.lang.String name;
-   private final net.raphimc.viabedrock.api.resourcepack.content.Content content;
-   public net.raphimc.viabedrock.api.resourcepack.ResourcePack(net.raphimc.viabedrock.api.resourcepack.content.Content);
-   public void decryptContent(byte[], java.lang.String);
-   public boolean isContentEncrypted();
-   public net.raphimc.viabedrock.api.resourcepack.ResourcePack$Key key();
-   public java.util.UUID id();
-   public java.lang.String version();
-   public java.lang.String name();
-   public net.raphimc.viabedrock.api.resourcepack.content.Content content();
+-- net.fabricmc.fabric.api.client.model.loading.v1.ModelLoadingPlugin --
+   Compiled from "ModelLoadingPlugin.java"
+   public interface net.fabricmc.fabric.api.client.model.loading.v1.ModelLoadingPlugin {
+   public static void register(net.fabricmc.fabric.api.client.model.loading.v1.ModelLoadingPlugin);
+   public static java.util.List<net.fabricmc.fabric.api.client.model.loading.v1.ModelLoadingPlugin> getAll();
+   public abstract void initialize(net.fabricmc.fabric.api.client.model.loading.v1.ModelLoadingPlugin$Context);
+   }
+-- net.fabricmc.fabric.api.client.model.loading.v1.ModelLoadingPlugin$Context --
+   Compiled from "ModelLoadingPlugin.java"
+   public interface net.fabricmc.fabric.api.client.model.loading.v1.ModelLoadingPlugin$Context {
+   public abstract void registerBlockStateResolver(net.minecraft.world.level.block.Block, net.fabricmc.fabric.api.client.model.loading.v1.BlockStateResolver);
+   public abstract <T> void addModel(net.fabricmc.fabric.api.client.model.loading.v1.ExtraModelKey<T>, net.fabricmc.fabric.api.client.model.loading.v1.UnbakedExtraModel<T>);
+   public abstract net.fabricmc.fabric.api.event.Event<net.fabricmc.fabric.api.client.model.loading.v1.ModelModifier$OnLoad> modifyModelOnLoad();
+   public abstract net.fabricmc.fabric.api.event.Event<net.fabricmc.fabric.api.client.model.loading.v1.ModelModifier$OnLoadBlock> modifyBlockModelOnLoad();
+   public abstract net.fabricmc.fabric.api.event.Event<net.fabricmc.fabric.api.client.model.loading.v1.ModelModifier$BeforeBakeBlock> modifyBlockModelBeforeBake();
+   public abstract net.fabricmc.fabric.api.event.Event<net.fabricmc.fabric.api.client.model.loading.v1.ModelModifier$AfterBakeBlock> modifyBlockModelAfterBake();
+   public abstract net.fabricmc.fabric.api.event.Event<net.fabricmc.fabric.api.client.model.loading.v1.ModelModifier$BeforeBakeItem> modifyItemModelBeforeBake();
+   public abstract net.fabricmc.fabric.api.event.Event<net.fabricmc.fabric.api.client.model.loading.v1.ModelModifier$AfterBakeItem> modifyItemModelAfterBake();
+   }
+-- net.fabricmc.fabric.api.client.model.loading.v1.BlockStateResolver --
+   Compiled from "BlockStateResolver.java"
+   public interface net.fabricmc.fabric.api.client.model.loading.v1.BlockStateResolver {
+   public abstract void resolveBlockStates(net.fabricmc.fabric.api.client.model.loading.v1.BlockStateResolver$Context);
+   }
+-- net.fabricmc.fabric.api.client.model.loading.v1.BlockStateResolver$Context --
+   Compiled from "BlockStateResolver.java"
+   public interface net.fabricmc.fabric.api.client.model.loading.v1.BlockStateResolver$Context {
+   public abstract net.minecraft.world.level.block.Block block();
+   public abstract void setModel(net.minecraft.world.level.block.state.BlockState, net.minecraft.client.renderer.block.dispatch.BlockStateModel$UnbakedRoot);
+   }
+-- net.minecraft.client.renderer.block.dispatch.BlockStateModel$UnbakedRoot --
+   Compiled from "BlockStateModel.java"
+   public interface net.minecraft.client.renderer.block.dispatch.BlockStateModel$UnbakedRoot extends net.minecraft.client.resources.model.ResolvableModel {
+   public abstract net.minecraft.client.renderer.block.dispatch.BlockStateModel bake(net.minecraft.world.level.block.state.BlockState, net.minecraft.client.resources.model.ModelBaker);
+   public abstract java.lang.Object visualEqualityGroup(net.minecraft.world.level.block.state.BlockState);
+   }
+-- net.minecraft.client.renderer.block.dispatch.BlockStateModel$Unbaked --
+   Compiled from "BlockStateModel.java"
+   public interface net.minecraft.client.renderer.block.dispatch.BlockStateModel$Unbaked extends net.minecraft.client.resources.model.ResolvableModel {
+   public static final com.mojang.serialization.Codec<net.minecraft.util.random.Weighted<net.minecraft.client.renderer.block.dispatch.Variant>> ELEMENT_CODEC;
+   public static final com.mojang.serialization.Codec<net.minecraft.client.renderer.block.dispatch.WeightedVariants$Unbaked> HARDCODED_WEIGHTED_CODEC;
+   public static final com.mojang.serialization.Codec<net.minecraft.client.renderer.block.dispatch.BlockStateModel$Unbaked> CODEC;
+   public abstract net.minecraft.client.renderer.block.dispatch.BlockStateModel bake(net.minecraft.client.resources.model.ModelBaker);
+   public default net.minecraft.client.renderer.block.dispatch.BlockStateModel$UnbakedRoot asRoot();
+   private static com.mojang.serialization.DataResult lambda$static$8(net.minecraft.client.renderer.block.dispatch.BlockStateModel$Unbaked);
+   private static java.lang.String lambda$static$9();
+   private static net.minecraft.client.renderer.block.dispatch.BlockStateModel$Unbaked lambda$static$5(com.mojang.datafixers.util.Either);
+   private static java.lang.Record lambda$static$7(net.minecraft.client.renderer.block.dispatch.SingleVariant$Unbaked);
+   private static java.lang.Record lambda$static$6(net.minecraft.client.renderer.block.dispatch.WeightedVariants$Unbaked);
+   private static com.mojang.serialization.DataResult lambda$static$3(net.minecraft.client.renderer.block.dispatch.WeightedVariants$Unbaked);
+   private static java.lang.String lambda$static$4();
+   private static net.minecraft.client.renderer.block.dispatch.WeightedVariants$Unbaked lambda$static$1(java.util.List);
+   private static net.minecraft.util.random.Weighted lambda$static$2(net.minecraft.util.random.Weighted);
+   private static com.mojang.datafixers.kinds.App lambda$static$0(com.mojang.serialization.codecs.RecordCodecBuilder$Instance);
    static {};
    }
--- net.raphimc.viabedrock.api.resourcepack.ResourcePack$Key --
-   Compiled from "ResourcePack.java"
-   public final class net.raphimc.viabedrock.api.resourcepack.ResourcePack$Key extends java.lang.Record {
-   private final java.util.UUID id;
-   private final java.lang.String version;
-   public net.raphimc.viabedrock.api.resourcepack.ResourcePack$Key(java.util.UUID, java.lang.String);
-   public static net.raphimc.viabedrock.api.resourcepack.ResourcePack$Key fromString(java.lang.String);
-   public java.lang.String toString();
+-- net.minecraft.client.renderer.block.dispatch.SingleVariant --
+   Compiled from "SingleVariant.java"
+   public class net.minecraft.client.renderer.block.dispatch.SingleVariant implements net.minecraft.client.renderer.block.dispatch.BlockStateModel {
+   private final net.minecraft.client.renderer.block.dispatch.BlockStateModelPart model;
+   public net.minecraft.client.renderer.block.dispatch.SingleVariant(net.minecraft.client.renderer.block.dispatch.BlockStateModelPart);
+   public void collectParts(net.minecraft.util.RandomSource, java.util.List<net.minecraft.client.renderer.block.dispatch.BlockStateModelPart>);
+   public net.minecraft.client.resources.model.sprite.Material$Baked particleMaterial();
+   public int materialFlags();
+   }
+-- net.minecraft.client.renderer.block.dispatch.SingleVariant$Unbaked --
+   Compiled from "SingleVariant.java"
+   public final class net.minecraft.client.renderer.block.dispatch.SingleVariant$Unbaked extends java.lang.Record implements net.minecraft.client.renderer.block.dispatch.BlockStateModel$Unbaked {
+   private final net.minecraft.client.renderer.block.dispatch.Variant variant;
+   public static final com.mojang.serialization.Codec<net.minecraft.client.renderer.block.dispatch.SingleVariant$Unbaked> CODEC;
+   public net.minecraft.client.renderer.block.dispatch.SingleVariant$Unbaked(net.minecraft.client.renderer.block.dispatch.Variant);
+   public net.minecraft.client.renderer.block.dispatch.BlockStateModel bake(net.minecraft.client.resources.model.ModelBaker);
+   public void resolveDependencies(net.minecraft.client.resources.model.ResolvableModel$Resolver);
+   public final java.lang.String toString();
    public final int hashCode();
    public final boolean equals(java.lang.Object);
-   public java.util.UUID id();
-   public java.lang.String version();
+   public net.minecraft.client.renderer.block.dispatch.Variant variant();
+   static {};
    }
--- net.raphimc.viabedrock.api.resourcepack.content.Content$LazyImage --
-   Compiled from "Content.java"
-   public class net.raphimc.viabedrock.api.resourcepack.content.Content$LazyImage {
-   private final byte[] bytes;
-   private final java.lang.String format;
-   private java.awt.image.BufferedImage image;
-   public net.raphimc.viabedrock.api.resourcepack.content.Content$LazyImage(byte[], java.lang.String);
-   public java.awt.image.BufferedImage getImage();
-   public byte[] getPngBytes();
-   public byte[] getPngBytes(boolean);
-   }
--- net.raphimc.viabedrock.api.resourcepack.content.InMemoryContent --
-   Compiled from "InMemoryContent.java"
-   public class net.raphimc.viabedrock.api.resourcepack.content.InMemoryContent extends net.raphimc.viabedrock.api.resourcepack.content.Content {
-   protected final java.util.Map<java.lang.String, byte[]> content;
-   public net.raphimc.viabedrock.api.resourcepack.content.InMemoryContent();
-   public java.util.List<java.lang.String> getFilesShallow(java.lang.String, java.lang.String);
-   public java.util.List<java.lang.String> getFilesDeep(java.lang.String, java.lang.String);
-   public boolean contains(java.lang.String);
-   public byte[] get(java.lang.String);
-   public boolean put(java.lang.String, byte[]);
-   public int size();
-   private static boolean lambda$getFilesDeep$1(java.lang.String, java.lang.String, java.lang.String);
-   private static boolean lambda$getFilesShallow$0(java.lang.String, java.lang.String, java.lang.String);
-   }
--- net.raphimc.viabedrock.protocol.rewriter.ResourcePackRewriter$Rewriter --
-   Compiled from "ResourcePackRewriter.java"
-   public interface net.raphimc.viabedrock.protocol.rewriter.ResourcePackRewriter$Rewriter {
-   public abstract void submitTasks(net.raphimc.viabedrock.protocol.storage.ResourcePackStorage, java.util.function.Consumer<java.util.function.Supplier<net.raphimc.viabedrock.api.resourcepack.content.Content>>);
-   }
--- net.raphimc.viabedrock.protocol.rewriter.resourcepack.CustomItemTextureResourceRewriter --
-   Compiled from "CustomItemTextureResourceRewriter.java"
-   public class net.raphimc.viabedrock.protocol.rewriter.resourcepack.CustomItemTextureResourceRewriter extends net.raphimc.viabedrock.protocol.rewriter.resourcepack.ItemModelResourceRewriter {
-   private static final java.lang.String SUB_FOLDER;
-   public static com.viaversion.viaversion.api.minecraft.item.data.ItemModel getItemModel(java.lang.String);
-   public net.raphimc.viabedrock.protocol.rewriter.resourcepack.CustomItemTextureResourceRewriter();
-   public void submitTasks(net.raphimc.viabedrock.protocol.storage.ResourcePackStorage, java.util.function.Consumer<java.util.function.Supplier<net.raphimc.viabedrock.api.resourcepack.content.Content>>);
-   private net.raphimc.viabedrock.api.resourcepack.content.Content handleItemTextureDefinitions(net.raphimc.viabedrock.protocol.storage.ResourcePackStorage, java.lang.String, java.util.List<net.raphimc.viabedrock.api.resourcepack.definition.TextureDefinitions$ItemTextureDefinition>);
-   private net.raphimc.viabedrock.api.resourcepack.content.Content lambda$submitTasks$0(net.raphimc.viabedrock.protocol.storage.ResourcePackStorage, java.util.Map$Entry);
-   }
--- net.minecraft.client.renderer.block.BlockStateModelSet --
-   Compiled from "BlockStateModelSet.java"
-   public class net.minecraft.client.renderer.block.BlockStateModelSet implements net.fabricmc.fabric.api.client.renderer.v1.model.FabricBlockStateModelSet {
-   private final java.util.Map<net.minecraft.world.level.block.state.BlockState, net.minecraft.client.renderer.block.dispatch.BlockStateModel> modelByState;
-   private final net.minecraft.client.renderer.block.dispatch.BlockStateModel missingModel;
-   public net.minecraft.client.renderer.block.BlockStateModelSet(java.util.Map<net.minecraft.world.level.block.state.BlockState, net.minecraft.client.renderer.block.dispatch.BlockStateModel>, net.minecraft.client.renderer.block.dispatch.BlockStateModel);
-   public net.minecraft.client.renderer.block.dispatch.BlockStateModel get(net.minecraft.world.level.block.state.BlockState);
-   public net.minecraft.client.renderer.block.dispatch.BlockStateModel missingModel();
-   public net.minecraft.client.resources.model.sprite.Material$Baked getParticleMaterial(net.minecraft.world.level.block.state.BlockState);
-   }
--- net.minecraft.client.renderer.block.dispatch.BlockStateModel --
-   Compiled from "BlockStateModel.java"
-   public interface net.minecraft.client.renderer.block.dispatch.BlockStateModel extends net.fabricmc.fabric.api.client.renderer.v1.model.FabricBlockStateModel {
-   public abstract void collectParts(net.minecraft.util.RandomSource, java.util.List<net.minecraft.client.renderer.block.dispatch.BlockStateModelPart>);
-   public abstract net.minecraft.client.resources.model.sprite.Material$Baked particleMaterial();
-   public abstract int materialFlags();
-   public default boolean hasMaterialFlag(int);
+-- net.minecraft.client.resources.model.ModelBaker --
+   Compiled from "ModelBaker.java"
+   public interface net.minecraft.client.resources.model.ModelBaker {
+   public abstract net.minecraft.client.resources.model.ResolvedModel getModel(net.minecraft.resources.Identifier);
+   public abstract net.minecraft.client.renderer.block.dispatch.BlockStateModelPart missingBlockModelPart();
+   public abstract net.minecraft.client.resources.model.sprite.MaterialBaker materials();
+   public abstract net.minecraft.client.resources.model.ModelBaker$Interner interner();
+   public abstract <T> T compute(net.minecraft.client.resources.model.ModelBaker$SharedOperationKey<T>);
    }
 -- net.minecraft.client.renderer.entity.EntityRenderDispatcher --
    public <T extends net.minecraft.world.entity.Entity> net.minecraft.client.renderer.entity.EntityRenderer<? super T, ?> getRenderer(T);
