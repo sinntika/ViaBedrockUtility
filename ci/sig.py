@@ -36,44 +36,38 @@ LIB_KEYWORDS = (
 # file size and loses on everything that matters.
 JAR_NAME_SKIP = ("server", "sources", "javadoc")
 
-# Phase 4 reads the pack as ViaBedrock stores it, so the whole resourcepack
-# side is indexed rather than guessed one class at a time.
+# The resourcepack rewriters show how ViaBedrock itself names and copies the
+# sprites it converts, which is the pattern the block textures have to follow.
 INDEXES = (
 	(
 		"viabedrock",
 		re.compile(
-			r"^net\.raphimc\.viabedrock\.(?:api\.resourcepack|protocol\.storage"
-			r"|protocol\.rewriter)\.[A-Za-z0-9_.$]+$"
+			r"^net\.raphimc\.viabedrock\.protocol\.rewriter\.resourcepack\."
+			r"[A-Za-z0-9_.$]+$"
 		),
 	),
 )
 
-# Confirms where the baking classes live before a mixin names them.
-MC_INDEX = re.compile(r"^net\.minecraft\.client\.resources\.model\.[A-Za-z0-9_$]+$")
+# Confirms where the block model dispatch classes live before a mixin names them.
+MC_INDEX = re.compile(r"^net\.minecraft\.client\.renderer\.block\.[A-Za-z0-9_$]+$")
 
 # (class, member filter). The filter keeps the output readable for the huge
 # classes; None dumps every member.
 TARGETS = (
-	# -- where the converted pack lives --
-	("net.raphimc.viabedrock.protocol.storage.ResourcePackStorage", None),
-	("net.raphimc.viabedrock.api.resourcepack.definition.ModelDefinitions", None),
-	("net.raphimc.viabedrock.api.resourcepack.definition.TextureDefinitions", None),
-	("net.raphimc.viabedrock.api.resourcepack.definition.BlockDefinitions", None),
+	# -- reading the bedrock packs --
+	("net.raphimc.viabedrock.api.resourcepack.ResourcePack", None),
+	("net.raphimc.viabedrock.api.resourcepack.ResourcePack$Key", None),
+	("net.raphimc.viabedrock.api.resourcepack.content.Content$LazyImage", None),
+	("net.raphimc.viabedrock.api.resourcepack.content.InMemoryContent", None),
+	# -- writing into the converted java pack --
+	("net.raphimc.viabedrock.protocol.rewriter.ResourcePackRewriter$Rewriter", None),
 	(
-		"net.raphimc.viabedrock.api.resourcepack.definition.BlockDefinitions$BlockDefinition",
+		"net.raphimc.viabedrock.protocol.rewriter.resourcepack.CustomItemTextureResourceRewriter",
 		None,
 	),
-	("net.raphimc.viabedrock.api.resourcepack.content.Content", None),
-	# -- where the block states are translated --
-	("net.raphimc.viabedrock.protocol.rewriter.BlockStateRewriter", None),
-	("net.raphimc.viabedrock.protocol.rewriter.ResourcePackRewriter", None),
-	# -- the vanilla hooks phase 4 injects into --
-	("net.minecraft.client.resources.model.ModelBakery", r"bakeModels|class net"),
-	(
-		"net.minecraft.client.resources.model.ModelManager",
-		r"createBlockStateToModelDispatch|getBlockStateModelSet|BakingResult|class net",
-	),
-	("net.minecraft.client.Minecraft", r"disconnect|clearClientLevel|class net"),
+	# -- where the baked models end up --
+	("net.minecraft.client.renderer.block.BlockStateModelSet", None),
+	("net.minecraft.client.renderer.block.dispatch.BlockStateModel", None),
 	# -- regression guard for the crash that started all of this --
 	(
 		"net.minecraft.client.renderer.entity.EntityRenderDispatcher",
@@ -167,7 +161,7 @@ def main():
 	for path in libs:
 		print(f"   {path.name:<60} {class_count(path)} classes")
 
-	print_index("MC MODEL PACKAGE", class_names(minecraft, MC_INDEX))
+	print_index("MC BLOCK RENDER PACKAGE", class_names(minecraft, MC_INDEX))
 
 	for keyword, pattern in INDEXES:
 		matches = [path for path in libs if keyword in path.name.lower()]
