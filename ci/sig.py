@@ -39,55 +39,54 @@ JAR_NAME_SKIP = ("server", "sources", "javadoc")
 # Class-name indexes, for packages that move between snapshots.
 INDEXES = (
 	("nbt", re.compile(r"tag\.")),
-	("viaversion-common", re.compile(r"(?i)nbt\.tag\.[A-Z]")),
+)
+
+# Same idea, but against the Minecraft jar. The model pipeline was reorganised
+# heavily for 26.2, so the phase 3 port needs the real package of every baking
+# class rather than the ones in the upstream 1.21 pull request. Matched on the
+# simple name so a moved class still shows up.
+MC_INDEX = re.compile(
+	r"\.(?:"
+	r"ModelBakery|ModelBaker|ModelBakerImpl|MaterialBaker|ModelDebugName|ModelState"
+	r"|QuadCollection|FaceBakery|CuboidFace|BakedQuad|TextureSlots|SimpleModelWrapper"
+	r"|BlockStateModel|BlockStateModelPart|SingleVariant|BlockModelRotation"
+	r"|OctahedralGroup|UVPair|Quadrant|FaceInfo|SpriteGetter|UnbakedModel"
+	r")(?:\$[A-Za-z0-9_]+)?$"
 )
 
 # (class, member filter). The filter keeps the output readable for the huge
 # classes; None dumps every member.
 TARGETS = (
-	# -- ViaNBT, the tag types the component translator reads --
-	("com.viaversion.nbt.tag.Tag", None),
-	("com.viaversion.nbt.tag.CompoundTag", r"class com|public"),
-	("com.viaversion.nbt.tag.ListTag", r"class com|public"),
-	("com.viaversion.nbt.tag.NumberTag", None),
-	("com.viaversion.nbt.tag.StringTag", r"class com|public"),
-	# -- the vanilla side of block registration --
+	# -- phase 3: turning pack geometry into baked quads --
+	("net.minecraft.client.resources.model.ModelBaker", None),
 	(
-		"net.minecraft.world.level.block.state.BlockBehaviour$Properties",
-		r"class net|static.*of\(|noOcclusion|friction|destroyTime|setId|lightLevel"
-		r"|dynamicShape|strength|instabreak|forceSolidOn|forceSolidOff|pushReaction",
+		"net.minecraft.client.resources.model.ModelBakery",
+		r"class net|bakeModels|public|Interner",
 	),
+	("net.minecraft.client.resources.model.MaterialBaker", None),
+	("net.minecraft.client.resources.model.QuadCollection", None),
+	("net.minecraft.client.resources.model.QuadCollection$Builder", None),
+	("net.minecraft.client.resources.model.ModelDebugName", None),
+	("net.minecraft.client.resources.model.ModelState", None),
+	("net.minecraft.client.resources.model.sprite.Material", None),
+	("net.minecraft.client.renderer.block.model.cuboid.FaceBakery", None),
+	("net.minecraft.client.renderer.block.model.cuboid.CuboidFace", None),
+	("net.minecraft.client.renderer.block.model.geometry.BakedQuad", None),
+	("net.minecraft.client.renderer.block.model.TextureSlots", r"class net|public"),
+	("net.minecraft.client.renderer.block.model.SimpleModelWrapper", None),
+	("net.minecraft.client.renderer.block.dispatch.BlockStateModel", None),
+	("net.minecraft.client.renderer.block.dispatch.SingleVariant", None),
 	(
-		"net.minecraft.world.level.block.state.BlockBehaviour$BlockStateBase",
-		r"class net|initCache|Cache|isSolidRender|canOcclude",
+		"net.minecraft.client.renderer.block.model.BlockModelRotation",
+		r"class net|public|private static",
 	),
-	("net.minecraft.core.IdMapper", None),
+	("com.mojang.math.OctahedralGroup", r"class com|public static final"),
+	# -- phase 4: where the baked models get handed to the client --
 	(
-		"net.minecraft.core.Holder$Reference",
-		r"class net|public|tags",
+		"net.minecraft.client.resources.model.ModelManager",
+		r"class net|createBlockStateToModelDispatch|BakingResult|public",
 	),
-	(
-		"net.minecraft.resources.ResourceKey",
-		r"class net|public static|identifier|registry",
-	),
-	(
-		"net.minecraft.core.registries.Registries",
-		r"class net|Registry<net.minecraft.world.level.block.Block>",
-	),
-	(
-		"net.minecraft.world.phys.shapes.VoxelShape",
-		r"class net|toAabbs|bounds|isEmpty|optimize|move",
-	),
-	(
-		"net.minecraft.world.phys.shapes.Shapes",
-		r"class net|public static",
-	),
-	# -- phase 4: the ViaBedrock hooks the blocks will be driven from --
-	("net.raphimc.viabedrock.api.model.BedrockBlockState", None),
-	(
-		"net.raphimc.viabedrock.protocol.rewriter.BlockStateRewriter",
-		r"class net|public|private",
-	),
+	("net.minecraft.client.Minecraft", r"disconnect"),
 	# -- regression guard for the crash that started all of this --
 	(
 		"net.minecraft.client.renderer.entity.EntityRenderDispatcher",
@@ -95,7 +94,7 @@ TARGETS = (
 	),
 )
 
-MAX_LINES = 90
+MAX_LINES = 140
 
 
 def all_jars():
@@ -146,6 +145,15 @@ def pick_minecraft(jars):
 	return best, best_count
 
 
+def print_index(title, names):
+	print()
+	print(f"== {title} ({len(names)} matched) ==")
+	for clazz in names[:MAX_LINES]:
+		print(f"   {clazz}")
+	if len(names) > MAX_LINES:
+		print(f"   ... truncated ({len(names) - MAX_LINES} more)")
+
+
 def main():
 	jars = all_jars()
 	minecraft, minecraft_classes = pick_minecraft(jars)
@@ -172,6 +180,8 @@ def main():
 	for path in libs:
 		print(f"   {path.name:<60} {class_count(path)} classes")
 
+	print_index("MODEL CLASS INDEX", class_names(minecraft, MC_INDEX))
+
 	for keyword, pattern in INDEXES:
 		matches = [path for path in libs if keyword in path.name.lower()]
 		if not matches:
@@ -179,13 +189,7 @@ def main():
 			print(f"== CLASS INDEX: {keyword} == (jar not on the classpath)")
 			continue
 		for path in matches:
-			names = class_names(path, pattern)
-			print()
-			print(f"== CLASS INDEX: {path.name} ({len(names)} matched) ==")
-			for clazz in names[:MAX_LINES]:
-				print(f"   {clazz}")
-			if len(names) > MAX_LINES:
-				print(f"   ... truncated ({len(names) - MAX_LINES} more)")
+			print_index(f"CLASS INDEX: {path.name}", class_names(path, pattern))
 
 	classpath = ":".join(str(path) for path in [minecraft, *libs])
 
