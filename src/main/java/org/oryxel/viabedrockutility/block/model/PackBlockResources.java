@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import net.minecraft.resources.Identifier;
-import net.raphimc.viabedrock.api.resourcepack.ResourcePack;
+import net.raphimc.viabedrock.api.resourcepack.PackResources;
 import net.raphimc.viabedrock.api.resourcepack.content.Content;
 import net.raphimc.viabedrock.protocol.storage.ResourcePackStorage;
 import org.cube.converter.model.impl.bedrock.BedrockGeometryModel;
@@ -68,7 +68,7 @@ public final class PackBlockResources {
 		final Map<String, String> textures = new HashMap<>();
 		int geometries = 0;
 
-		for (final ResourcePack pack : storage.getPackStackBottomToTop()) {
+		for (final PackResources pack : storage.getPackStackBottomToTop()) {
 			final Content content = pack.content();
 			if (content == null) {
 				continue;
