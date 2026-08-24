@@ -1,170 +1,210 @@
 #!/usr/bin/env python3
-"""Dump the real member signatures of every class the custom-block port touches,
-straight out of the jars Loom put on the compile classpath.
+"""Dump ground-truth signatures from the real 26.2 jar and the compile classpath.
 
-The sandbox this is driven from has no Minecraft jar and no network, so any
-signature written from memory is a guess. This turns the CI runner into the
-source of truth instead: it prints what the jars actually contain, and the next
-commit is written against that output.
+The sandbox this port is driven from cannot download Minecraft or decompile it,
+so every signature the mixins depend on is read back out of the jar that CI
+actually compiled against. Guessed signatures are what produced the original
+InvalidInjectionException crash.
 """
-import os
+
+import re
 import subprocess
 import zipfile
+from pathlib import Path
 
-ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-JAR_ROOTS = [
-    os.path.join(ROOT, ".gradle", "loom-cache"),
-    os.path.expanduser("~/.gradle/caches/fabric-loom"),
-    os.path.expanduser("~/.gradle/caches/modules-2"),
+ROOT = Path(__file__).resolve().parent.parent
+HOME = Path.home()
+
+SEARCH_DIRS = [
+	ROOT / ".gradle" / "loom-cache",
+	HOME / ".gradle" / "caches" / "fabric-loom",
+	HOME / ".gradle" / "caches" / "modules-2",
 ]
 
-# Libraries that have to sit on javap's classpath for the targets below to
-# resolve. Matched against the lowercased jar file name.
-LIB_KEYWORDS = (
-    "viabedrock",
-    "viaversion",
-    "cubeconverter",
-    "mocha",
-    "fastutil",
+# Everything that has to be on javap's classpath for the Minecraft classes and
+# the library classes below to resolve their own field/parameter types.
+LIB_KEYWORDS = ("viabedrock", "viaversion", "cubeconverter", "mocha", "fastutil")
+
+# Class-name indexes. Package paths inside ViaBedrock move between snapshots, so
+# list the candidates instead of hard-coding a guess.
+INDEXES = (
+	(
+		"viabedrock",
+		re.compile(
+			r"(?i)(bedrockblockstate|blockstaterewriter|resourcepackstorage"
+			r"|modeldefinitions|molang|resourcepackrewriter|blockdefinitions)"
+		),
+	),
+	("mocha", re.compile(r".")),
 )
 
-# (class, keywords, max lines). An empty keyword list prints every member.
-TARGETS = [
-    # -- registry mutation, phase 1 --
-    ("net.minecraft.core.MappedRegistry", [], 90),
-    ("net.minecraft.core.IdMapper", [], 40),
-    ("net.minecraft.core.Holder$Reference", [], 40),
-    ("net.minecraft.resources.ResourceKey", [], 30),
-    # -- block construction, phase 2 --
-    ("net.minecraft.world.level.block.state.BlockBehaviour$Properties", [], 90),
-    (
-        "net.minecraft.world.level.block.Block",
-        ["BLOCK_STATE_REGISTRY", "getId", "defaultBlockState", "initCache", "Block("],
-        30,
-    ),
-    ("net.minecraft.world.level.block.state.BlockState", ["initCache"], 10),
-    ("net.minecraft.world.phys.shapes.Shapes", [], 60),
-    ("com.mojang.math.OctahedralGroup", ["ROT_90", "BLOCK_ROT"], 30),
-    # -- model baking, phase 3 --
-    ("net.minecraft.client.resources.model.ModelBakery", [], 40),
-    ("net.minecraft.client.resources.model.ModelManager", ["Dispatch", "bake"], 30),
-    ("net.minecraft.client.resources.model.ModelBaker", [], 30),
-    ("net.minecraft.client.resources.model.sprite.MaterialBaker", [], 30),
-    ("net.minecraft.client.resources.model.sprite.Material", [], 40),
-    ("net.minecraft.client.resources.model.sprite.TextureSlots", [], 40),
-    ("net.minecraft.client.resources.model.cuboid.FaceBakery", [], 40),
-    ("net.minecraft.client.resources.model.cuboid.CuboidFace", [], 40),
-    ("net.minecraft.client.resources.model.geometry.QuadCollection", [], 40),
-    ("net.minecraft.client.resources.model.geometry.BakedQuad", [], 40),
-    ("net.minecraft.client.resources.model.SimpleModelWrapper", [], 30),
-    ("net.minecraft.client.renderer.block.dispatch.BlockStateModel", [], 30),
-    ("net.minecraft.client.renderer.block.dispatch.SingleVariant", [], 30),
-    # -- ViaBedrock side, phase 4 --
-    ("net.raphimc.viabedrock.protocol.storage.ResourcePackStorage", [], 60),
-    ("net.raphimc.viabedrock.api.resourcepack.definition.ModelDefinitions", [], 40),
-    ("net.raphimc.viabedrock.protocol.rewriter.BlockStateRewriter", [], 60),
-    ("net.raphimc.viabedrock.protocol.rewriter.ResourcePackRewriter", [], 30),
-    ("net.raphimc.viabedrock.api.model.BedrockBlockState", [], 40),
-    ("net.raphimc.viabedrock.api.util.MoLangEngine", [], 30),
-    # -- regression guard for the crash that started all this --
-    (
-        "net.minecraft.client.renderer.entity.EntityRenderDispatcher",
-        ["getRenderer"],
-        20,
-    ),
-]
+# (class, member filter). A filter keeps the output readable for the huge
+# classes; None dumps every member.
+TARGETS = (
+	# -- phase 2: turning Bedrock block definitions into real blocks --
+	(
+		"net.minecraft.world.level.block.state.BlockBehaviour",
+		r"class net|getShape|getCollisionShape|getOcclusionShape|getVisualShape"
+		r"|getInteractionShape|getLightBlock|isPathfindable|getDestroyProgress"
+		r"|propagatesSkylightDown|getBlockSupportShape",
+	),
+	(
+		"net.minecraft.world.level.block.Block",
+		r"class net|BLOCK_STATE_REGISTRY|static int getId|Block\(net.minecraft.world.level.block.state.BlockBehaviour"
+		r"|defaultBlockState|createBlockStateDefinition|getStateDefinition|registerDefaultState",
+	),
+	(
+		"net.minecraft.world.level.block.state.BlockState",
+		r"class net|initCache|getBlock|BlockState\(",
+	),
+	(
+		"net.minecraft.world.level.block.state.StateDefinition",
+		r"class net|any\(|getPossibleStates|owner|StateDefinition\(",
+	),
+	("net.minecraft.core.RegistrationInfo", None),
+	("net.minecraft.core.WritableRegistry", None),
+	(
+		"net.minecraft.core.registries.BuiltInRegistries",
+		r"class net|Registry<net.minecraft.world.level.block.Block>|\bBLOCK\b",
+	),
+	(
+		"net.minecraft.resources.Identifier",
+		r"class net|public static|Identifier\(",
+	),
+	(
+		"net.minecraft.world.phys.shapes.CollisionContext",
+		r"interface net|class net|empty\(|of\(",
+	),
+	# -- phase 4: the ViaBedrock side the hooks attach to --
+	("net.raphimc.viabedrock.api.model.BedrockBlockState", None),
+	("net.raphimc.viabedrock.protocol.rewriter.BlockStateRewriter", None),
+	("net.raphimc.viabedrock.api.util.MoLangEngine", None),
+	(
+		"net.raphimc.viabedrock.protocol.storage.ResourcePackStorage",
+		r"class net|public",
+	),
+	("net.raphimc.viabedrock.api.resourcepack.definition.ModelDefinitions", None),
+	(
+		"net.raphimc.viabedrock.protocol.rewriter.ResourcePackRewriter",
+		r"class net|public|static",
+	),
+	# -- regression guard for the crash that started all of this --
+	(
+		"net.minecraft.client.renderer.entity.EntityRenderDispatcher",
+		r"getRenderer",
+	),
+)
+
+MAX_LINES = 90
 
 
-def _walk_jars():
-    for base in JAR_ROOTS:
-        if not os.path.isdir(base):
-            continue
-        for dirpath, _dirnames, filenames in os.walk(base):
-            for fn in filenames:
-                if not fn.endswith(".jar"):
-                    continue
-                if "sources" in fn or "javadoc" in fn:
-                    continue
-                yield os.path.join(dirpath, fn)
+def all_jars():
+	found = {}
+	for directory in SEARCH_DIRS:
+		if not directory.is_dir():
+			continue
+		for path in directory.rglob("*.jar"):
+			found.setdefault(path.name, path)
+	return found
 
 
-def _class_count(path):
-    try:
-        with zipfile.ZipFile(path) as zf:
-            return sum(1 for nm in zf.namelist() if nm.endswith(".class"))
-    except Exception:
-        return -1
+def class_count(path):
+	try:
+		with zipfile.ZipFile(path) as archive:
+			return sum(1 for name in archive.namelist() if name.endswith(".class"))
+	except Exception:
+		return 0
 
 
-def find_minecraft_jar():
-    best, count = None, -1
-    for path in _walk_jars():
-        if not os.path.basename(path).startswith("minecraft"):
-            continue
-        found = _class_count(path)
-        if found > count:
-            best, count = path, found
-    return best, count
+def class_names(path, pattern):
+	names = []
+	try:
+		with zipfile.ZipFile(path) as archive:
+			for name in archive.namelist():
+				if not name.endswith(".class"):
+					continue
+				clazz = name[:-6].replace("/", ".")
+				if pattern.search(clazz):
+					names.append(clazz)
+	except Exception:
+		return []
+	return sorted(names)
 
 
-def find_libs():
-    # Keep the biggest jar per file name, so a stale partial download loses.
-    picked = {}
-    for path in _walk_jars():
-        name = os.path.basename(path)
-        lowered = name.lower()
-        if not any(kw in lowered for kw in LIB_KEYWORDS):
-            continue
-        found = _class_count(path)
-        if found <= 0:
-            continue
-        if name not in picked or found > picked[name][1]:
-            picked[name] = (path, found)
-    return sorted(picked.items())
+def main():
+	jars = all_jars()
+
+	minecraft = None
+	for name, path in jars.items():
+		if not name.startswith("minecraft"):
+			continue
+		if minecraft is None or path.stat().st_size > minecraft.stat().st_size:
+			minecraft = path
+
+	if minecraft is None:
+		print("no minecraft jar found; searched:")
+		for directory in SEARCH_DIRS:
+			print(f"   {directory}")
+		return
+
+	libs = sorted(
+		(
+			path
+			for name, path in jars.items()
+			if path != minecraft
+			and any(keyword in name.lower() for keyword in LIB_KEYWORDS)
+		),
+		key=lambda path: path.name,
+	)
+
+	print(f"jar: {minecraft.name} ({class_count(minecraft)} classes)")
+	print()
+	print(f"== CLASSPATH LIBS ({len(libs)}) ==")
+	for path in libs:
+		print(f"   {path.name:<60} {class_count(path)} classes")
+
+	for keyword, pattern in INDEXES:
+		matches = [path for path in libs if keyword in path.name.lower()]
+		if not matches:
+			print()
+			print(f"== CLASS INDEX: {keyword} == (jar not on the classpath)")
+			continue
+		for path in matches:
+			names = class_names(path, pattern)
+			print()
+			print(f"== CLASS INDEX: {path.name} ({len(names)} matched) ==")
+			for clazz in names:
+				print(f"   {clazz}")
+
+	classpath = ":".join(str(path) for path in [minecraft, *libs])
+
+	print()
+	print("== SIGNATURES ==")
+	for target, member_filter in TARGETS:
+		print(f"-- {target} --")
+		result = subprocess.run(
+			["javap", "-p", "-classpath", classpath, target],
+			capture_output=True,
+			text=True,
+		)
+		if result.returncode != 0:
+			detail = (result.stderr or result.stdout).strip().splitlines()
+			print(f"   javap error: {detail[0] if detail else 'unknown'}")
+			continue
+
+		lines = [line.rstrip() for line in result.stdout.splitlines() if line.strip()]
+		if member_filter:
+			pattern = re.compile(member_filter)
+			lines = [line for line in lines if pattern.search(line)]
+			if not lines:
+				print(f"   (no member matched: {member_filter})")
+				continue
+
+		for line in lines[:MAX_LINES]:
+			print(f"   {line.strip()}")
+		if len(lines) > MAX_LINES:
+			print(f"   ... truncated ({len(lines) - MAX_LINES} more)")
 
 
-jar, jarcount = find_minecraft_jar()
-print("jar: %s (%d classes)" % (os.path.basename(jar) if jar else "NOT FOUND", jarcount))
-if not jar:
-    raise SystemExit(0)
-
-libs = find_libs()
-print("")
-print("== CLASSPATH LIBS (%d) ==" % len(libs))
-for name, (_path, found) in libs:
-    print("   %-60s %d classes" % (name, found))
-
-classpath = os.pathsep.join([jar] + [path for _name, (path, _c) in libs])
-
-print("")
-print("== SIGNATURES ==")
-for cls, keywords, limit in TARGETS:
-    print("-- %s --" % cls)
-    try:
-        proc = subprocess.run(
-            ["javap", "-p", "-cp", classpath, cls],
-            capture_output=True,
-            text=True,
-            timeout=120,
-        )
-    except Exception as exc:
-        print("   javap crashed: %s" % exc)
-        continue
-    if proc.returncode != 0:
-        err = (proc.stderr or "").strip().split("\n")
-        print("   javap error: %s" % (err[0][:200] if err else "unknown"))
-        continue
-    shown = 0
-    for line in proc.stdout.split("\n"):
-        text = line.strip()
-        if not text:
-            continue
-        if keywords and not any(k in text for k in keywords):
-            continue
-        print("   %s" % text[:400])
-        shown += 1
-        if shown >= limit:
-            print("   ... truncated")
-            break
-    if shown == 0:
-        print("   (no member matched: %s)" % ", ".join(keywords))
+if __name__ == "__main__":
+	main()
