@@ -9,6 +9,7 @@ import java.util.Locale;
 import java.util.Map;
 import net.minecraft.client.renderer.block.dispatch.BlockModelRotation;
 import net.minecraft.client.renderer.block.dispatch.BlockStateModel;
+import net.minecraft.client.renderer.block.dispatch.SingleVariant;
 import net.minecraft.client.resources.model.ModelBaker;
 import net.minecraft.client.resources.model.ModelDebugName;
 import net.minecraft.client.resources.model.SimpleModelWrapper;
@@ -19,7 +20,6 @@ import net.minecraft.client.resources.model.cuboid.UnbakedCuboidGeometry;
 import net.minecraft.client.resources.model.geometry.QuadCollection;
 import net.minecraft.client.resources.model.sprite.Material;
 import net.minecraft.client.resources.model.sprite.TextureSlots;
-import net.minecraft.client.renderer.block.dispatch.SingleVariant;
 import net.minecraft.core.Direction;
 import net.minecraft.resources.Identifier;
 import net.minecraft.world.level.block.state.BlockState;
@@ -138,9 +138,12 @@ public final class BlockModelBaker {
 		final JavaItemModel converted =
 				geometry.toJavaItemModel(CONVERTER_TEXTURES, RotationType.POST_1_21_11);
 
+		// The UV space belongs to the geometry. The converted model's scale is a
+		// size limiter CubeConverter sets for models that do not fit Java's bounds,
+		// so it says nothing about the texture.
 		float textureWidth = DEFAULT_TEXTURE_SIZE;
 		float textureHeight = DEFAULT_TEXTURE_SIZE;
-		final Position2V textureSize = converted.getScale();
+		final Position2V textureSize = geometry.getTextureSize();
 		if (textureSize != null) {
 			if (textureSize.getX() > 0.0F) {
 				textureWidth = textureSize.getX();
