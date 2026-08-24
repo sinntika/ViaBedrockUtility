@@ -1,4 +1,4 @@
-jar: minecraft-server.jar (4 classes)
+jar: minecraft-merged-a76db1c7b4-26.2.jar (10952 classes)
 
 == CLASSPATH LIBS (5) ==
    CubeConverter-abecffaaea.jar                                 36 classes
@@ -7,212 +7,244 @@ jar: minecraft-server.jar (4 classes)
    mocha-3.0.1.jar                                              93 classes
    viaversion-common-5.12.0-SNAPSHOT.jar                        3312 classes
 
-== CLASS INDEX: ViaBedrock-0.0.29-SNAPSHOT.jar (10 matched) ==
+== CLASS INDEX: ViaBedrock-0.0.29-SNAPSHOT.jar (56 matched) ==
    net.raphimc.viabedrock.api.model.BedrockBlockState
+   net.raphimc.viabedrock.api.model.BlockState
+   net.raphimc.viabedrock.api.model.container.ChestContainer
+   net.raphimc.viabedrock.api.model.container.Container
+   net.raphimc.viabedrock.api.model.container.dynamic.BundleContainer
+   net.raphimc.viabedrock.api.model.container.player.ArmorContainer
+   net.raphimc.viabedrock.api.model.container.player.HudContainer
+   net.raphimc.viabedrock.api.model.container.player.InventoryContainer
+   net.raphimc.viabedrock.api.model.container.player.InventoryRedirectContainer
+   net.raphimc.viabedrock.api.model.container.player.InventorySubContainer
+   net.raphimc.viabedrock.api.model.container.player.OffhandContainer
+   net.raphimc.viabedrock.api.model.entity.AbstractHorseEntity
+   net.raphimc.viabedrock.api.model.entity.ClientPlayerEntity
+   net.raphimc.viabedrock.api.model.entity.ClientPlayerEntity$1
+   net.raphimc.viabedrock.api.model.entity.ClientPlayerEntity$AuthInputBlockAction
+   net.raphimc.viabedrock.api.model.entity.ClientPlayerEntity$BlockBreakingInfo
+   net.raphimc.viabedrock.api.model.entity.ClientPlayerEntity$DimensionChangeInfo
+   net.raphimc.viabedrock.api.model.entity.CustomEntity
+   net.raphimc.viabedrock.api.model.entity.CustomEntity$EvaluatedModel
+   net.raphimc.viabedrock.api.model.entity.CustomEntity$ItemDisplayEntity
+   net.raphimc.viabedrock.api.model.entity.Entity
+   net.raphimc.viabedrock.api.model.entity.LivingEntity
+   net.raphimc.viabedrock.api.model.entity.MobEntity
+   net.raphimc.viabedrock.api.model.entity.PlayerEntity
+   net.raphimc.viabedrock.api.model.scoreboard.ScoreboardEntry
+   net.raphimc.viabedrock.api.model.scoreboard.ScoreboardEntry$1
+   net.raphimc.viabedrock.api.model.scoreboard.ScoreboardObjective
+   net.raphimc.viabedrock.api.resourcepack.content.Content
+   net.raphimc.viabedrock.api.resourcepack.content.Content$LazyImage
+   net.raphimc.viabedrock.api.resourcepack.content.DirectoryContent
+   net.raphimc.viabedrock.api.resourcepack.content.InMemoryContent
+   net.raphimc.viabedrock.api.resourcepack.content.ZipContent
+   net.raphimc.viabedrock.api.resourcepack.definition.AttachableDefinitions
+   net.raphimc.viabedrock.api.resourcepack.definition.AttachableDefinitions$AttachableDefinition
+   net.raphimc.viabedrock.api.resourcepack.definition.BiomeDefinitions
+   net.raphimc.viabedrock.api.resourcepack.definition.BiomeDefinitions$BiomeDefinition
    net.raphimc.viabedrock.api.resourcepack.definition.BlockDefinitions
    net.raphimc.viabedrock.api.resourcepack.definition.BlockDefinitions$BlockDefinition
+   net.raphimc.viabedrock.api.resourcepack.definition.EntityDefinitions
+   net.raphimc.viabedrock.api.resourcepack.definition.EntityDefinitions$EntityDefinition
+   net.raphimc.viabedrock.api.resourcepack.definition.FogDefinitions
+   net.raphimc.viabedrock.api.resourcepack.definition.FogDefinitions$FogDefinition
+   net.raphimc.viabedrock.api.resourcepack.definition.ItemDefinitions
+   net.raphimc.viabedrock.api.resourcepack.definition.ItemDefinitions$ItemDefinition
    net.raphimc.viabedrock.api.resourcepack.definition.ModelDefinitions
-   net.raphimc.viabedrock.api.util.MoLangEngine
-   net.raphimc.viabedrock.protocol.data.enums.bedrock.generated.MolangVersion
-   net.raphimc.viabedrock.protocol.rewriter.BlockStateRewriter
-   net.raphimc.viabedrock.protocol.rewriter.ResourcePackRewriter
-   net.raphimc.viabedrock.protocol.rewriter.ResourcePackRewriter$Rewriter
-   net.raphimc.viabedrock.protocol.storage.ResourcePackStorage
-
-== CLASS INDEX: mocha-3.0.1.jar (93 matched) ==
-   team.unnamed.mocha.MochaEngine
-   team.unnamed.mocha.MochaEngineImpl
-   team.unnamed.mocha.MochaEngineImpl$1
-   team.unnamed.mocha.MochaEngineImpl$2
-   team.unnamed.mocha.MochaEngineImpl$3
-   team.unnamed.mocha.lexer.Characters
-   team.unnamed.mocha.lexer.Cursor
-   team.unnamed.mocha.lexer.MolangLexer
-   team.unnamed.mocha.lexer.MolangLexerImpl
-   team.unnamed.mocha.lexer.Token
-   team.unnamed.mocha.lexer.TokenKind
-   team.unnamed.mocha.lexer.TokenKind$Tag
-   team.unnamed.mocha.parser.MolangParser
-   team.unnamed.mocha.parser.MolangParserImpl
-   team.unnamed.mocha.parser.MolangParserImpl$1
-   team.unnamed.mocha.parser.ParseException
-   team.unnamed.mocha.parser.ast.AccessExpression
-   team.unnamed.mocha.parser.ast.ArrayAccessExpression
-   team.unnamed.mocha.parser.ast.BinaryExpression
-   team.unnamed.mocha.parser.ast.BinaryExpression$Op
-   team.unnamed.mocha.parser.ast.CallExpression
-   team.unnamed.mocha.parser.ast.DoubleExpression
-   team.unnamed.mocha.parser.ast.ExecutionScopeExpression
-   team.unnamed.mocha.parser.ast.Expression
-   team.unnamed.mocha.parser.ast.ExpressionVisitor
-   team.unnamed.mocha.parser.ast.IdentifierExpression
-   team.unnamed.mocha.parser.ast.StatementExpression
-   team.unnamed.mocha.parser.ast.StatementExpression$Op
-   team.unnamed.mocha.parser.ast.StringExpression
-   team.unnamed.mocha.parser.ast.TernaryConditionalExpression
-   team.unnamed.mocha.parser.ast.UnaryExpression
-   team.unnamed.mocha.parser.ast.UnaryExpression$Op
-   team.unnamed.mocha.runtime.CompileVisitResult
-   team.unnamed.mocha.runtime.ExecutionContext
-   team.unnamed.mocha.runtime.ExpressionInliner
-   team.unnamed.mocha.runtime.ExpressionInterpreter
-   team.unnamed.mocha.runtime.ExpressionInterpreter$1
-   team.unnamed.mocha.runtime.ExpressionInterpreter$ArithmeticOperator
-   team.unnamed.mocha.runtime.ExpressionInterpreter$BooleanOperator
-   team.unnamed.mocha.runtime.ExpressionInterpreter$Comparator
-   team.unnamed.mocha.runtime.ExpressionInterpreter$EmptyFunctionArgument
-   team.unnamed.mocha.runtime.ExpressionInterpreter$Evaluator
-   team.unnamed.mocha.runtime.ExpressionInterpreter$FunctionArgumentImpl
-   team.unnamed.mocha.runtime.ExpressionInterpreter$FunctionArguments
-   team.unnamed.mocha.runtime.ExpressionInterpreter$LazyEvaluableBoolean
-   team.unnamed.mocha.runtime.ExpressionInterpreter$LazyEvaluableDouble
-   team.unnamed.mocha.runtime.FunctionCompileState
-   team.unnamed.mocha.runtime.IsConstantExpression
-   team.unnamed.mocha.runtime.JavaTypes
-   team.unnamed.mocha.runtime.MochaFunction
-   team.unnamed.mocha.runtime.MolangCompiler
-   team.unnamed.mocha.runtime.MolangCompilingVisitor
-   team.unnamed.mocha.runtime.MolangCompilingVisitor$1
-   team.unnamed.mocha.runtime.MolangCompilingVisitor$2
-   team.unnamed.mocha.runtime.MolangCompilingVisitor$3
-   team.unnamed.mocha.runtime.NopMochaFunctionHolder
-   team.unnamed.mocha.runtime.Scope
-   team.unnamed.mocha.runtime.Scope$Builder
-   team.unnamed.mocha.runtime.ScopeImpl
-   team.unnamed.mocha.runtime.ScopeImpl$BuilderImpl
-   team.unnamed.mocha.runtime.TypeCastException
-   team.unnamed.mocha.runtime.binding.BindExternalFunction
-   team.unnamed.mocha.runtime.binding.BindExternalFunction$Multiple
-   team.unnamed.mocha.runtime.binding.Binding
-   team.unnamed.mocha.runtime.binding.Entity
-   team.unnamed.mocha.runtime.binding.JavaFieldBinding
-   team.unnamed.mocha.runtime.binding.JavaFunction
-   team.unnamed.mocha.runtime.binding.JavaObjectBinding
-   team.unnamed.mocha.runtime.binding.Lazy
-   team.unnamed.mocha.runtime.binding.ReflectiveFunction
-   team.unnamed.mocha.runtime.binding.RegisteredBinding
-   team.unnamed.mocha.runtime.compiled.MochaCompiledFunction
-   team.unnamed.mocha.runtime.compiled.Named
-   team.unnamed.mocha.runtime.standard.MochaMath
-   team.unnamed.mocha.runtime.value.ArrayValue
-   team.unnamed.mocha.runtime.value.Function
-   team.unnamed.mocha.runtime.value.Function$Argument
-   team.unnamed.mocha.runtime.value.Function$Arguments
-   team.unnamed.mocha.runtime.value.JavaValue
-   team.unnamed.mocha.runtime.value.MutableObjectBinding
-   team.unnamed.mocha.runtime.value.NumberValue
-   team.unnamed.mocha.runtime.value.ObjectProperty
-   team.unnamed.mocha.runtime.value.ObjectPropertyImpl
-   team.unnamed.mocha.runtime.value.ObjectValue
-   team.unnamed.mocha.runtime.value.ObjectValue$DoubleFunction1
-   team.unnamed.mocha.runtime.value.ObjectValue$DoubleFunction2
-   team.unnamed.mocha.runtime.value.ObjectValue$DoubleFunction3
-   team.unnamed.mocha.runtime.value.StringValue
-   team.unnamed.mocha.runtime.value.Value
-   team.unnamed.mocha.util.CaseInsensitiveStringHashMap
-   team.unnamed.mocha.util.CaseInsensitiveStringHashMap$CaseInsensitiveEntrySet
-   team.unnamed.mocha.util.CaseInsensitiveStringHashMap$CaseInsensitiveKeySet
-   team.unnamed.mocha.util.JavassistUtil
+   net.raphimc.viabedrock.api.resourcepack.definition.ParticleDefinitions
+   net.raphimc.viabedrock.api.resourcepack.definition.ParticleDefinitions$ParticleDefinition
+   net.raphimc.viabedrock.api.resourcepack.definition.RenderControllerDefinitions
+   net.raphimc.viabedrock.api.resourcepack.definition.SoundDefinitions
+   net.raphimc.viabedrock.api.resourcepack.definition.SoundDefinitions$ConfiguredSound
+   net.raphimc.viabedrock.api.resourcepack.definition.SoundDefinitions$EventSound
+   net.raphimc.viabedrock.api.resourcepack.definition.SoundDefinitions$EventSounds
+   net.raphimc.viabedrock.api.resourcepack.definition.SoundDefinitions$SoundDefinition
+   net.raphimc.viabedrock.api.resourcepack.definition.TextDefinitions
+   net.raphimc.viabedrock.api.resourcepack.definition.TextureDefinitions
+   net.raphimc.viabedrock.api.resourcepack.definition.TextureDefinitions$ItemTextureDefinition
 
 == SIGNATURES ==
 -- net.minecraft.world.level.block.state.BlockBehaviour --
-   javap error: Error: class not found: net.minecraft.world.level.block.state.BlockBehaviour
+   public abstract class net.minecraft.world.level.block.state.BlockBehaviour implements net.minecraft.world.flag.FeatureElement {
+   protected boolean isPathfindable(net.minecraft.world.level.block.state.BlockState, net.minecraft.world.level.pathfinder.PathComputationType);
+   protected net.minecraft.world.phys.shapes.VoxelShape getOcclusionShape(net.minecraft.world.level.block.state.BlockState);
+   protected net.minecraft.world.phys.shapes.VoxelShape getBlockSupportShape(net.minecraft.world.level.block.state.BlockState, net.minecraft.world.level.BlockGetter, net.minecraft.core.BlockPos);
+   protected net.minecraft.world.phys.shapes.VoxelShape getInteractionShape(net.minecraft.world.level.block.state.BlockState, net.minecraft.world.level.BlockGetter, net.minecraft.core.BlockPos);
+   protected net.minecraft.world.phys.shapes.VoxelShape getShape(net.minecraft.world.level.block.state.BlockState, net.minecraft.world.level.BlockGetter, net.minecraft.core.BlockPos, net.minecraft.world.phys.shapes.CollisionContext);
+   protected net.minecraft.world.phys.shapes.VoxelShape getCollisionShape(net.minecraft.world.level.block.state.BlockState, net.minecraft.world.level.BlockGetter, net.minecraft.core.BlockPos, net.minecraft.world.phys.shapes.CollisionContext);
+   protected net.minecraft.world.phys.shapes.VoxelShape getVisualShape(net.minecraft.world.level.block.state.BlockState, net.minecraft.world.level.BlockGetter, net.minecraft.core.BlockPos, net.minecraft.world.phys.shapes.CollisionContext);
+   protected float getDestroyProgress(net.minecraft.world.level.block.state.BlockState, net.minecraft.world.entity.player.Player, net.minecraft.world.level.BlockGetter, net.minecraft.core.BlockPos);
+   protected boolean propagatesSkylightDown(net.minecraft.world.level.block.state.BlockState);
 -- net.minecraft.world.level.block.Block --
-   javap error: Error: class not found: net.minecraft.world.level.block.Block
+   public class net.minecraft.world.level.block.Block extends net.minecraft.world.level.block.state.BlockBehaviour implements net.minecraft.world.level.ItemLike,net.fabricmc.fabric.api.block.v1.FabricBlock {
+   public static final net.minecraft.core.IdMapper<net.minecraft.world.level.block.state.BlockState> BLOCK_STATE_REGISTRY;
+   private net.minecraft.world.level.block.state.BlockState defaultBlockState;
+   public static int getId(net.minecraft.world.level.block.state.BlockState);
+   public net.minecraft.world.level.block.Block(net.minecraft.world.level.block.state.BlockBehaviour$Properties);
+   protected void createBlockStateDefinition(net.minecraft.world.level.block.state.StateDefinition$Builder<net.minecraft.world.level.block.Block, net.minecraft.world.level.block.state.BlockState>);
+   public net.minecraft.world.level.block.state.StateDefinition<net.minecraft.world.level.block.Block, net.minecraft.world.level.block.state.BlockState> getStateDefinition();
+   protected final void registerDefaultState(net.minecraft.world.level.block.state.BlockState);
+   public final net.minecraft.world.level.block.state.BlockState defaultBlockState();
 -- net.minecraft.world.level.block.state.BlockState --
-   javap error: Error: class not found: net.minecraft.world.level.block.state.BlockState
+   public class net.minecraft.world.level.block.state.BlockState extends net.minecraft.world.level.block.state.BlockBehaviour$BlockStateBase implements net.fabricmc.fabric.api.block.v1.FabricBlockState {
+   public net.minecraft.world.level.block.state.BlockState(net.minecraft.world.level.block.Block, net.minecraft.world.level.block.state.properties.Property<?>[], java.lang.Comparable<?>[]);
 -- net.minecraft.world.level.block.state.StateDefinition --
-   javap error: Error: class not found: net.minecraft.world.level.block.state.StateDefinition
+   public class net.minecraft.world.level.block.state.StateDefinition<O, S extends net.minecraft.world.level.block.state.StateHolder<O, S>> {
+   private final O owner;
+   protected net.minecraft.world.level.block.state.StateDefinition(java.util.function.Function<O, S>, O, net.minecraft.world.level.block.state.StateDefinition$Factory<O, S>, java.util.Map<java.lang.String, net.minecraft.world.level.block.state.properties.Property<?>>);
+   public com.google.common.collect.ImmutableList<S> getPossibleStates();
+   public S any();
 -- net.minecraft.core.RegistrationInfo --
-   javap error: Error: class not found: net.minecraft.core.RegistrationInfo
+   Compiled from "RegistrationInfo.java"
+   public final class net.minecraft.core.RegistrationInfo extends java.lang.Record {
+   private final java.util.Optional<net.minecraft.server.packs.repository.KnownPack> knownPackInfo;
+   private final com.mojang.serialization.Lifecycle lifecycle;
+   public static final net.minecraft.core.RegistrationInfo BUILT_IN;
+   public net.minecraft.core.RegistrationInfo(java.util.Optional<net.minecraft.server.packs.repository.KnownPack>, com.mojang.serialization.Lifecycle);
+   public final java.lang.String toString();
+   public final int hashCode();
+   public final boolean equals(java.lang.Object);
+   public java.util.Optional<net.minecraft.server.packs.repository.KnownPack> knownPackInfo();
+   public com.mojang.serialization.Lifecycle lifecycle();
+   static {};
+   }
 -- net.minecraft.core.WritableRegistry --
-   javap error: Error: class not found: net.minecraft.core.WritableRegistry
+   Compiled from "WritableRegistry.java"
+   public interface net.minecraft.core.WritableRegistry<T> extends net.minecraft.core.Registry<T> {
+   public abstract net.minecraft.core.Holder$Reference<T> register(net.minecraft.resources.ResourceKey<T>, T, net.minecraft.core.RegistrationInfo);
+   public abstract void bindTags(java.util.Map<net.minecraft.tags.TagKey<T>, java.util.List<net.minecraft.core.Holder<T>>>);
+   public abstract boolean isEmpty();
+   public abstract net.minecraft.core.HolderGetter<T> createRegistrationLookup();
+   }
 -- net.minecraft.core.registries.BuiltInRegistries --
-   javap error: Error: class not found: net.minecraft.core.registries.BuiltInRegistries
+   public class net.minecraft.core.registries.BuiltInRegistries {
+   public static final net.minecraft.core.DefaultedRegistry<net.minecraft.world.level.block.Block> BLOCK;
 -- net.minecraft.resources.Identifier --
-   javap error: Error: class not found: net.minecraft.resources.Identifier
+   public final class net.minecraft.resources.Identifier implements java.lang.Comparable<net.minecraft.resources.Identifier> {
+   public static final com.mojang.serialization.Codec<net.minecraft.resources.Identifier> CODEC;
+   public static final net.minecraft.network.codec.StreamCodec<io.netty.buffer.ByteBuf, net.minecraft.resources.Identifier> STREAM_CODEC;
+   public static final com.mojang.brigadier.exceptions.SimpleCommandExceptionType ERROR_INVALID;
+   public static final char NAMESPACE_SEPARATOR;
+   public static final java.lang.String DEFAULT_NAMESPACE;
+   public static final java.lang.String REALMS_NAMESPACE;
+   public static final java.lang.String ALLOWED_NAMESPACE_CHARACTERS;
+   private net.minecraft.resources.Identifier(java.lang.String, java.lang.String);
+   public static net.minecraft.resources.Identifier fromNamespaceAndPath(java.lang.String, java.lang.String);
+   public static net.minecraft.resources.Identifier parse(java.lang.String);
+   public static net.minecraft.resources.Identifier withDefaultNamespace(java.lang.String);
+   public static net.minecraft.resources.Identifier tryParse(java.lang.String);
+   public static net.minecraft.resources.Identifier tryBuild(java.lang.String, java.lang.String);
+   public static net.minecraft.resources.Identifier bySeparator(java.lang.String, char);
+   public static net.minecraft.resources.Identifier tryBySeparator(java.lang.String, char);
+   public static com.mojang.serialization.DataResult<net.minecraft.resources.Identifier> read(java.lang.String);
+   public static net.minecraft.resources.Identifier read(com.mojang.brigadier.StringReader) throws com.mojang.brigadier.exceptions.CommandSyntaxException;
+   public static net.minecraft.resources.Identifier readNonEmpty(com.mojang.brigadier.StringReader) throws com.mojang.brigadier.exceptions.CommandSyntaxException;
+   public static boolean isAllowedInIdentifier(char);
+   public static boolean isValidPath(java.lang.String);
+   public static boolean isValidNamespace(java.lang.String);
+   public static boolean validPathChar(char);
 -- net.minecraft.world.phys.shapes.CollisionContext --
-   javap error: Error: class not found: net.minecraft.world.phys.shapes.CollisionContext
--- net.raphimc.viabedrock.api.model.BedrockBlockState --
-   Compiled from "BedrockBlockState.java"
-   public class net.raphimc.viabedrock.api.model.BedrockBlockState extends net.raphimc.viabedrock.api.model.BlockState {
-   public static final net.raphimc.viabedrock.api.model.BlockState AIR;
-   public static final net.raphimc.viabedrock.api.model.BlockState STONE;
-   public static final net.raphimc.viabedrock.api.model.BlockState INFO_UPDATE;
-   private final com.viaversion.nbt.tag.CompoundTag blockStateTag;
-   private net.raphimc.viabedrock.api.model.BedrockBlockState(java.lang.String, java.lang.String, java.util.Map<java.lang.String, java.lang.String>, com.viaversion.nbt.tag.CompoundTag);
-   public static net.raphimc.viabedrock.api.model.BedrockBlockState fromNbt(com.viaversion.nbt.tag.CompoundTag);
-   public static void sanitizeName(com.viaversion.nbt.tag.CompoundTag);
-   public com.viaversion.nbt.tag.CompoundTag blockStateTag();
-   static {};
+   public interface net.minecraft.world.phys.shapes.CollisionContext {
+   public static net.minecraft.world.phys.shapes.CollisionContext empty();
+   public static net.minecraft.world.phys.shapes.CollisionContext of(net.minecraft.world.entity.Entity);
+   public static net.minecraft.world.phys.shapes.CollisionContext of(net.minecraft.world.entity.Entity, boolean);
+-- net.raphimc.viabedrock.api.resourcepack.definition.BlockDefinitions --
+   Compiled from "BlockDefinitions.java"
+   public class net.raphimc.viabedrock.api.resourcepack.definition.BlockDefinitions {
+   private final java.util.Map<java.lang.String, net.raphimc.viabedrock.api.resourcepack.definition.BlockDefinitions$BlockDefinition> blocks;
+   public net.raphimc.viabedrock.api.resourcepack.definition.BlockDefinitions(net.raphimc.viabedrock.protocol.storage.ResourcePackStorage);
+   public net.raphimc.viabedrock.api.resourcepack.definition.BlockDefinitions$BlockDefinition get(java.lang.String);
+   public java.util.Map<java.lang.String, net.raphimc.viabedrock.api.resourcepack.definition.BlockDefinitions$BlockDefinition> blocks();
    }
--- net.raphimc.viabedrock.protocol.rewriter.BlockStateRewriter --
-   Compiled from "BlockStateRewriter.java"
-   public class net.raphimc.viabedrock.protocol.rewriter.BlockStateRewriter implements com.viaversion.viaversion.api.connection.StorableObject {
-   private final com.viaversion.viaversion.libs.fastutil.ints.Int2IntMap blockStateIdMappings;
-   private final com.viaversion.viaversion.libs.fastutil.ints.Int2IntMap legacyBlockStateIdMappings;
-   private final com.google.common.collect.BiMap<net.raphimc.viabedrock.api.model.BlockState, java.lang.Integer> blockStateMappings;
-   private final com.viaversion.viaversion.libs.fastutil.objects.Object2ObjectMap<java.lang.String, com.viaversion.viaversion.libs.fastutil.ints.IntSortedSet> validBlockStates;
-   private final com.viaversion.viaversion.libs.fastutil.ints.Int2ObjectMap<java.lang.String> blockStateTags;
-   private final net.raphimc.viabedrock.api.chunk.blockstate.BlockStateSanitizer blockStateSanitizer;
-   public net.raphimc.viabedrock.protocol.rewriter.BlockStateRewriter(net.raphimc.viabedrock.protocol.model.BlockProperties[], boolean);
-   public int bedrockId(com.viaversion.nbt.tag.CompoundTag);
-   public int bedrockId(net.raphimc.viabedrock.api.model.BlockState);
-   public net.raphimc.viabedrock.api.model.BlockState blockState(int);
-   public int bedrockId(int);
-   public int javaId(int);
-   public int waterlog(int);
-   public com.viaversion.viaversion.libs.fastutil.ints.IntSortedSet validBlockStates(java.lang.String);
-   public java.lang.String tag(int);
-   private static com.viaversion.viaversion.libs.fastutil.ints.IntSortedSet lambda$new$2(java.lang.Object);
-   private static int lambda$new$1(net.raphimc.viabedrock.api.model.BedrockBlockState, net.raphimc.viabedrock.api.model.BedrockBlockState);
-   private static com.viaversion.nbt.tag.CompoundTag lambda$new$0(java.util.Map);
+-- net.raphimc.viabedrock.api.resourcepack.definition.BlockDefinitions$BlockDefinition --
+   Compiled from "BlockDefinitions.java"
+   public final class net.raphimc.viabedrock.api.resourcepack.definition.BlockDefinitions$BlockDefinition extends java.lang.Record {
+   private final java.lang.String identifier;
+   private final java.lang.String sound;
+   public net.raphimc.viabedrock.api.resourcepack.definition.BlockDefinitions$BlockDefinition(java.lang.String, java.lang.String);
+   public final java.lang.String toString();
+   public final int hashCode();
+   public final boolean equals(java.lang.Object);
+   public java.lang.String identifier();
+   public java.lang.String sound();
    }
--- net.raphimc.viabedrock.api.util.MoLangEngine --
-   Compiled from "MoLangEngine.java"
-   public class net.raphimc.viabedrock.api.util.MoLangEngine {
-   public net.raphimc.viabedrock.api.util.MoLangEngine();
-   public static team.unnamed.mocha.runtime.value.Value eval(team.unnamed.mocha.runtime.Scope, java.lang.String) throws java.io.IOException;
-   public static team.unnamed.mocha.runtime.value.Value eval(team.unnamed.mocha.runtime.Scope, java.util.List<team.unnamed.mocha.parser.ast.Expression>);
-   public static java.util.List<team.unnamed.mocha.parser.ast.Expression> parse(java.lang.String) throws java.io.IOException;
-   public static java.util.List<team.unnamed.mocha.parser.ast.Expression> parse(java.io.Reader) throws java.io.IOException;
+-- net.raphimc.viabedrock.api.resourcepack.definition.TextureDefinitions --
+   public class net.raphimc.viabedrock.api.resourcepack.definition.TextureDefinitions {
+   public net.raphimc.viabedrock.api.resourcepack.definition.TextureDefinitions(net.raphimc.viabedrock.protocol.storage.ResourcePackStorage);
+   public java.util.Map<java.lang.String, java.util.List<net.raphimc.viabedrock.api.resourcepack.definition.TextureDefinitions$ItemTextureDefinition>> itemTextures();
+-- net.raphimc.viabedrock.api.model.BlockState --
+   Compiled from "BlockState.java"
+   public class net.raphimc.viabedrock.api.model.BlockState {
+   private final java.lang.String namespace;
+   private final java.lang.String identifier;
+   private final java.util.Map<java.lang.String, java.lang.String> properties;
+   public net.raphimc.viabedrock.api.model.BlockState(java.lang.String, java.util.Map<java.lang.String, java.lang.String>);
+   public net.raphimc.viabedrock.api.model.BlockState(java.lang.String, java.lang.String, java.util.Map<java.lang.String, java.lang.String>);
+   public static net.raphimc.viabedrock.api.model.BlockState fromString(java.lang.String);
+   public net.raphimc.viabedrock.api.model.BlockState withNamespace(java.lang.String);
+   public net.raphimc.viabedrock.api.model.BlockState withIdentifier(java.lang.String);
+   public net.raphimc.viabedrock.api.model.BlockState withNamespacedIdentifier(java.lang.String);
+   public net.raphimc.viabedrock.api.model.BlockState withProperty(java.lang.String, java.lang.String);
+   public net.raphimc.viabedrock.api.model.BlockState withProperties(java.util.Map<java.lang.String, java.lang.String>);
+   public net.raphimc.viabedrock.api.model.BlockState withoutProperties(java.lang.String...);
+   public net.raphimc.viabedrock.api.model.BlockState replaceProperty(java.lang.String, java.lang.String);
+   public net.raphimc.viabedrock.api.model.BlockState replaceProperties(java.util.Map<java.lang.String, java.lang.String>);
+   public java.lang.String toBlockStateString();
+   public java.lang.String toBlockStateString(boolean);
+   public boolean hasProperty(java.lang.String, java.lang.String);
+   public java.lang.String namespace();
+   public java.lang.String identifier();
+   public java.lang.String namespacedIdentifier();
+   public java.util.Map<java.lang.String, java.lang.String> properties();
+   public boolean equals(java.lang.Object);
+   public int hashCode();
+   public java.lang.String toString();
    }
--- net.raphimc.viabedrock.protocol.storage.ResourcePackStorage --
-   public class net.raphimc.viabedrock.protocol.storage.ResourcePackStorage implements com.viaversion.viaversion.api.connection.StorableObject {
-   public net.raphimc.viabedrock.protocol.storage.ResourcePackStorage(java.util.List<net.raphimc.viabedrock.api.resourcepack.ResourcePack>);
-   public java.util.Collection<net.raphimc.viabedrock.api.resourcepack.ResourcePack> getPackStackBottomToTop();
-   public java.util.Collection<net.raphimc.viabedrock.api.resourcepack.ResourcePack> getPackStackTopToBottom();
-   public boolean isLoadedOnJavaClient();
-   public void setLoadedOnJavaClient();
-   public java.util.Map<java.lang.String, java.lang.Object> getConverterData();
-   public net.raphimc.viabedrock.api.resourcepack.definition.TextDefinitions getTexts();
-   public net.raphimc.viabedrock.api.resourcepack.definition.BlockDefinitions getBlocks();
-   public net.raphimc.viabedrock.api.resourcepack.definition.ItemDefinitions getItems();
-   public net.raphimc.viabedrock.api.resourcepack.definition.AttachableDefinitions getAttachables();
-   public net.raphimc.viabedrock.api.resourcepack.definition.TextureDefinitions getTextures();
-   public net.raphimc.viabedrock.api.resourcepack.definition.SoundDefinitions getSounds();
-   public net.raphimc.viabedrock.api.resourcepack.definition.ParticleDefinitions getParticles();
-   public net.raphimc.viabedrock.api.resourcepack.definition.EntityDefinitions getEntities();
-   public net.raphimc.viabedrock.api.resourcepack.definition.ModelDefinitions getModels();
-   public net.raphimc.viabedrock.api.resourcepack.definition.FogDefinitions getFogs();
-   public net.raphimc.viabedrock.api.resourcepack.definition.BiomeDefinitions getBiomes();
-   public net.raphimc.viabedrock.api.resourcepack.definition.RenderControllerDefinitions getRenderControllers();
--- net.raphimc.viabedrock.api.resourcepack.definition.ModelDefinitions --
-   Compiled from "ModelDefinitions.java"
-   public class net.raphimc.viabedrock.api.resourcepack.definition.ModelDefinitions {
-   private final java.util.Map<java.lang.String, org.cube.converter.model.impl.bedrock.BedrockGeometryModel> entityModels;
-   public net.raphimc.viabedrock.api.resourcepack.definition.ModelDefinitions(net.raphimc.viabedrock.protocol.storage.ResourcePackStorage);
-   public org.cube.converter.model.impl.bedrock.BedrockGeometryModel getEntityModel(java.lang.String);
-   public java.util.Map<java.lang.String, org.cube.converter.model.impl.bedrock.BedrockGeometryModel> entityModels();
+-- team.unnamed.mocha.runtime.Scope --
+   Compiled from "Scope.java"
+   public interface team.unnamed.mocha.runtime.Scope extends team.unnamed.mocha.runtime.value.ObjectValue {
+   public static team.unnamed.mocha.runtime.Scope create();
+   public static team.unnamed.mocha.runtime.Scope$Builder builder();
+   public abstract team.unnamed.mocha.runtime.Scope copy();
+   public abstract void readOnly(boolean);
+   public abstract boolean readOnly();
    }
--- net.raphimc.viabedrock.protocol.rewriter.ResourcePackRewriter --
-   public class net.raphimc.viabedrock.protocol.rewriter.ResourcePackRewriter {
-   private static final java.util.List<net.raphimc.viabedrock.protocol.rewriter.ResourcePackRewriter$Rewriter> REWRITERS;
-   public net.raphimc.viabedrock.protocol.rewriter.ResourcePackRewriter();
-   public static net.raphimc.viabedrock.api.resourcepack.content.Content bedrockToJava(net.raphimc.viabedrock.protocol.storage.ResourcePackStorage) throws java.lang.InterruptedException;
-   private static com.viaversion.viaversion.libs.gson.JsonObject createPackManifest();
-   private static void lambda$bedrockToJava$1(java.util.List, java.util.concurrent.ExecutorService, java.util.function.Supplier);
-   private static java.util.concurrent.ForkJoinWorkerThread lambda$bedrockToJava$0(java.util.concurrent.ForkJoinPool);
-   static {};
+-- team.unnamed.mocha.runtime.value.MutableObjectBinding --
+   Compiled from "MutableObjectBinding.java"
+   public class team.unnamed.mocha.runtime.value.MutableObjectBinding implements team.unnamed.mocha.runtime.value.ObjectValue {
+   private final java.util.Map<java.lang.String, team.unnamed.mocha.runtime.value.ObjectProperty> properties;
+   private boolean blocked;
+   public team.unnamed.mocha.runtime.value.MutableObjectBinding();
+   public team.unnamed.mocha.runtime.value.ObjectProperty getProperty(java.lang.String);
+   public boolean set(java.lang.String, team.unnamed.mocha.runtime.value.Value);
+   public void setAllFrom(team.unnamed.mocha.runtime.value.MutableObjectBinding);
+   public boolean blocked();
+   public void block();
+   }
+-- team.unnamed.mocha.runtime.binding.JavaObjectBinding --
+   public final class team.unnamed.mocha.runtime.binding.JavaObjectBinding implements team.unnamed.mocha.runtime.value.ObjectValue {
+   private static <T extends team.unnamed.mocha.runtime.value.Value> T getBacking(java.util.Map<java.lang.String, team.unnamed.mocha.runtime.value.ObjectProperty>, java.lang.String, java.lang.Class<T>);
+   public static <T> team.unnamed.mocha.runtime.binding.JavaObjectBinding of(java.lang.Class<T>, T, team.unnamed.mocha.runtime.value.ObjectValue);
+   public java.lang.String[] names();
+   public team.unnamed.mocha.runtime.binding.JavaFieldBinding getField(java.lang.String);
+   public team.unnamed.mocha.runtime.value.ObjectProperty getProperty(java.lang.String);
+   public boolean set(java.lang.String, team.unnamed.mocha.runtime.value.Value);
+   private static team.unnamed.mocha.runtime.value.Value lambda$of$0(team.unnamed.mocha.runtime.value.Value);
+-- team.unnamed.mocha.runtime.value.Value --
+   Compiled from "Value.java"
+   public interface team.unnamed.mocha.runtime.value.Value {
+   public static team.unnamed.mocha.runtime.value.Value of(java.lang.Object);
+   public static team.unnamed.mocha.runtime.value.Value of(boolean);
+   public static team.unnamed.mocha.runtime.value.Value of(double);
+   public static team.unnamed.mocha.runtime.value.Value of(java.lang.String);
+   public static team.unnamed.mocha.runtime.value.Value nil();
+   public default double getAsNumber();
+   public default boolean getAsBoolean();
+   public default boolean isString();
+   public default java.lang.String getAsString();
+   }
 -- net.minecraft.client.renderer.entity.EntityRenderDispatcher --
-   javap error: Error: class not found: net.minecraft.client.renderer.entity.EntityRenderDispatcher
+   public <T extends net.minecraft.world.entity.Entity> net.minecraft.client.renderer.entity.EntityRenderer<? super T, ?> getRenderer(T);
+   public <S extends net.minecraft.client.renderer.entity.state.EntityRenderState> net.minecraft.client.renderer.entity.EntityRenderer<?, ? super S> getRenderer(S);
