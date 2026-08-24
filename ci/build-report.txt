@@ -1,6 +1,6 @@
-commit:  d48c9559556dda7a09082a2d78760a1d7cd6bb23
-run_id:  32675232920
-outcome: success
+commit:  0680fe8ebb3904a096a651077da009f1dff1d776
+run_id:  32676492000
+outcome: failure
 
 ===== RENAME =====
 loaded mappings.tsv
@@ -23,8 +23,8 @@ unique errors: 0
 resolved in cache: 1.18.46
 
 == DIFF VS MASTER ==
-  origin/master (8369667) ... HEAD (d48c955)
-  61 files changed, 2609 insertions(+), 427 deletions(-)
+  origin/master (8369667) ... HEAD (0680fe8)
+  67 files changed, 2846 insertions(+), 427 deletions(-)
   -- deleted or renamed (1) --
      R083	src/main/java/org/oryxel/viabedrockutility/animation/vanilla/AnimationHelper.java	src/main/java/org/oryxel/viabedrockutility/animation/vanilla/KeyframeAnimations.java
 
@@ -571,7 +571,7 @@ resolved in cache: 1.18.46
    }
 
 == JAR ==
-10952 classes  minecraft-merged-a76db1c7b4-26.2.jar
+10952 classes  minecraft-merged.jar
 
 == BAD IMPORTS (0) ==
 
@@ -579,18 +579,18 @@ resolved in cache: 1.18.46
   none
 
 ===== TAIL =====
-> Task :processIncludeJars
-> Task :jar
-> Task :compileTestJava
-> Task :assemble
-> Task :processTestResources NO-SOURCE
-> Task :testClasses
-> Task :test
-> Task :validateAccessWidener
-> Task :check
-> Task :build
+Caused by: org.gradle.internal.resolve.ModuleVersionNotFoundException: Could not find net.raphimc:ViaBedrock:0.0.29-20260720.172239-5.
+Searched in the following locations:
+  - file:/home/runner/work/ViaBedrockUtility/ViaBedrockUtility/.gradle/loom-cache/remapped_mods/net/raphimc/ViaBedrock/0.0.29-SNAPSHOT/ViaBedrock-0.0.29-20260720.172239-5.pom
+  - file:/home/runner/.gradle/caches/fabric-loom/minecraftMaven/net/raphimc/ViaBedrock/0.0.29-SNAPSHOT/ViaBedrock-0.0.29-20260720.172239-5.pom
+  - file:/home/runner/work/ViaBedrockUtility/ViaBedrockUtility/.gradle/loom-cache/minecraftMaven/net/raphimc/ViaBedrock/0.0.29-SNAPSHOT/ViaBedrock-0.0.29-20260720.172239-5.pom
+  - https://maven.fabricmc.net/net/raphimc/ViaBedrock/0.0.29-SNAPSHOT/ViaBedrock-0.0.29-20260720.172239-5.pom
+  - https://libraries.minecraft.net/net/raphimc/ViaBedrock/0.0.29-SNAPSHOT/ViaBedrock-0.0.29-20260720.172239-5.pom
+  - https://libraries.minecraft.net/net/raphimc/ViaBedrock/0.0.29-SNAPSHOT/ViaBedrock-0.0.29-20260720.172239-5.jar
+  - https://repo.viaversion.com/net/raphimc/ViaBedrock/0.0.29-SNAPSHOT/ViaBedrock-0.0.29-20260720.172239-5.pom
+Required by:
+    root project 'ViaBedrockUtility'
 
-[Incubating] Problems report is available at: file:///home/runner/work/ViaBedrockUtility/ViaBedrockUtility/build/reports/problems/problems-report.html
 
-BUILD SUCCESSFUL in 1m 6s
-11 actionable tasks: 11 executed
+BUILD FAILED in 49s
+3 actionable tasks: 3 executed

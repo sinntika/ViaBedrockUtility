@@ -1,173 +1,584 @@
-jar: minecraft-merged-a76db1c7b4-26.2.jar (10952 classes)
+jar: minecraft-merged.jar (10952 classes)
+
+== CLASSPATH LIBS (2) ==
+   CubeConverter-abecffaaea.jar                                 36 classes
+   mocha-3.0.1.jar                                              93 classes
 
 == SIGNATURES ==
--- net.minecraft.client.renderer.entity.EntityRenderDispatcher --
-   public <T extends net.minecraft.world.entity.Entity> net.minecraft.client.renderer.entity.EntityRenderer<? super T, ?> getRenderer(T);
-   public <S extends net.minecraft.client.renderer.entity.state.EntityRenderState> net.minecraft.client.renderer.entity.EntityRenderer<?, ? super S> getRenderer(S);
--- net.minecraft.client.renderer.entity.state.EntityRenderState --
-   Compiled from "EntityRenderState.java"
-   public class net.minecraft.client.renderer.entity.state.EntityRenderState implements net.fabricmc.fabric.api.client.rendering.v1.FabricRenderState {
-   public static final int NO_OUTLINE;
-   public net.minecraft.world.entity.EntityType<?> entityType;
-   public double x;
-   public double y;
-   public double z;
-   public float ageInTicks;
-   public float boundingBoxWidth;
-   public float boundingBoxHeight;
-   public float eyeHeight;
-   public double distanceToCameraSq;
-   public boolean isInvisible;
-   public boolean isDiscrete;
-   public boolean displayFireAnimation;
-   public int lightCoords;
-   public int outlineColor;
-   public net.minecraft.world.phys.Vec3 passengerOffset;
-   public net.minecraft.network.chat.Component nameTag;
-   public net.minecraft.network.chat.Component scoreText;
-   public net.minecraft.world.phys.Vec3 nameTagAttachment;
-   public java.util.List<net.minecraft.client.renderer.entity.state.EntityRenderState$LeashState> leashStates;
-   public float shadowRadius;
-   public final java.util.List<net.minecraft.client.renderer.entity.state.EntityRenderState$ShadowPiece> shadowPieces;
-   public net.minecraft.client.renderer.entity.state.EntityRenderState();
-   public boolean appearsGlowing();
-   public void fillCrashReportCategory(net.minecraft.CrashReportCategory);
+-- net.minecraft.core.MappedRegistry --
+   Compiled from "MappedRegistry.java"
+   public class net.minecraft.core.MappedRegistry<T> implements net.minecraft.core.WritableRegistry<T> {
+   private final net.minecraft.resources.ResourceKey<? extends net.minecraft.core.Registry<T>> key;
+   private final it.unimi.dsi.fastutil.objects.ObjectList<net.minecraft.core.Holder$Reference<T>> byId;
+   private final it.unimi.dsi.fastutil.objects.Reference2IntMap<T> toId;
+   private final java.util.Map<net.minecraft.resources.Identifier, net.minecraft.core.Holder$Reference<T>> byLocation;
+   private final java.util.Map<net.minecraft.resources.ResourceKey<T>, net.minecraft.core.Holder$Reference<T>> byKey;
+   private final java.util.Map<T, net.minecraft.core.Holder$Reference<T>> byValue;
+   private final java.util.Map<net.minecraft.resources.ResourceKey<T>, net.minecraft.core.RegistrationInfo> registrationInfos;
+   private com.mojang.serialization.Lifecycle registryLifecycle;
+   private final java.util.Map<net.minecraft.tags.TagKey<T>, net.minecraft.core.HolderSet$Named<T>> frozenTags;
+   private net.minecraft.core.MappedRegistry$TagSet<T> allTags;
+   private net.minecraft.core.component.DataComponentLookup<T> componentLookup;
+   private boolean frozen;
+   private java.util.Map<T, net.minecraft.core.Holder$Reference<T>> unregisteredIntrusiveHolders;
+   public java.util.stream.Stream<net.minecraft.core.HolderSet$Named<T>> listTags();
+   public net.minecraft.core.MappedRegistry(net.minecraft.resources.ResourceKey<? extends net.minecraft.core.Registry<T>>, com.mojang.serialization.Lifecycle);
+   public net.minecraft.core.MappedRegistry(net.minecraft.resources.ResourceKey<? extends net.minecraft.core.Registry<T>>, com.mojang.serialization.Lifecycle, boolean);
+   public net.minecraft.resources.ResourceKey<? extends net.minecraft.core.Registry<T>> key();
+   public java.lang.String toString();
+   private void validateWrite();
+   private void validateWrite(net.minecraft.resources.ResourceKey<T>);
+   public net.minecraft.core.Holder$Reference<T> register(net.minecraft.resources.ResourceKey<T>, T, net.minecraft.core.RegistrationInfo);
+   public net.minecraft.resources.Identifier getKey(T);
+   public java.util.Optional<net.minecraft.resources.ResourceKey<T>> getResourceKey(T);
+   public int getId(T);
+   public T getValue(net.minecraft.resources.ResourceKey<T>);
+   public T byId(int);
+   public java.util.Optional<net.minecraft.core.Holder$Reference<T>> get(int);
+   public java.util.Optional<net.minecraft.core.Holder$Reference<T>> get(net.minecraft.resources.Identifier);
+   public java.util.Optional<net.minecraft.core.Holder$Reference<T>> get(net.minecraft.resources.ResourceKey<T>);
+   public java.util.Optional<net.minecraft.core.Holder$Reference<T>> getAny();
+   public net.minecraft.core.Holder<T> wrapAsHolder(T);
+   private net.minecraft.core.Holder$Reference<T> getOrCreateHolderOrThrow(net.minecraft.resources.ResourceKey<T>);
+   public int size();
+   public java.util.Optional<net.minecraft.core.RegistrationInfo> registrationInfo(net.minecraft.resources.ResourceKey<T>);
+   public com.mojang.serialization.Lifecycle registryLifecycle();
+   public java.util.Iterator<T> iterator();
+   public T getValue(net.minecraft.resources.Identifier);
+   private static <T> T getValueFromNullable(net.minecraft.core.Holder$Reference<T>);
+   public java.util.Set<net.minecraft.resources.Identifier> keySet();
+   public java.util.Set<net.minecraft.resources.ResourceKey<T>> registryKeySet();
+   public java.util.Set<java.util.Map$Entry<net.minecraft.resources.ResourceKey<T>, T>> entrySet();
+   public java.util.stream.Stream<net.minecraft.core.Holder$Reference<T>> listElements();
+   public java.util.stream.Stream<net.minecraft.core.HolderSet$Named<T>> getTags();
+   private net.minecraft.core.HolderSet$Named<T> getOrCreateTagForRegistration(net.minecraft.tags.TagKey<T>);
+   private net.minecraft.core.HolderSet$Named<T> createTag(net.minecraft.tags.TagKey<T>);
+   public boolean isEmpty();
+   public java.util.Optional<net.minecraft.core.Holder$Reference<T>> getRandom(net.minecraft.util.RandomSource);
+   public boolean containsKey(net.minecraft.resources.Identifier);
+   public boolean containsKey(net.minecraft.resources.ResourceKey<T>);
+   public net.minecraft.core.component.DataComponentLookup<T> componentLookup();
+   public net.minecraft.core.Registry<T> freeze();
+   public net.minecraft.core.Holder$Reference<T> createIntrusiveHolder(T);
+   public java.util.Optional<net.minecraft.core.HolderSet$Named<T>> get(net.minecraft.tags.TagKey<T>);
+   private net.minecraft.core.Holder$Reference<T> validateAndUnwrapTagElement(net.minecraft.tags.TagKey<T>, net.minecraft.core.Holder<T>);
+   public void bindTags(java.util.Map<net.minecraft.tags.TagKey<T>, java.util.List<net.minecraft.core.Holder<T>>>);
+   private void refreshTagsInHolders();
+   public void bindAllTagsToEmpty();
+   public net.minecraft.core.HolderGetter<T> createRegistrationLookup();
+   public net.minecraft.core.Registry$PendingTags<T> prepareTagReload(net.minecraft.tags.TagLoader$LoadResult<T>);
+   private void lambda$prepareTagReload$0(com.google.common.collect.ImmutableMap$Builder, java.util.Map, net.minecraft.tags.TagKey, java.util.List);
+   private static void lambda$bindAllTagsToEmpty$0(net.minecraft.core.HolderSet$Named);
+   private void lambda$refreshTagsInHolders$1(java.util.Map, net.minecraft.tags.TagKey, net.minecraft.core.HolderSet$Named);
+   private static void lambda$refreshTagsInHolders$0(java.util.Map, net.minecraft.core.Holder$Reference);
+   private void lambda$bindTags$0(net.minecraft.tags.TagKey, java.util.List);
+   private net.minecraft.core.Holder$Reference lambda$createIntrusiveHolder$0(java.lang.Object);
+   private static net.minecraft.resources.Identifier lambda$freeze$4(java.util.Map$Entry);
+   private static boolean lambda$freeze$3(java.util.Map$Entry);
+   private static net.minecraft.resources.Identifier lambda$freeze$2(java.util.Map$Entry);
+   private static boolean lambda$freeze$1(java.util.Map$Entry);
+   private static void lambda$freeze$0(java.lang.Object, net.minecraft.core.Holder$Reference);
+   private net.minecraft.core.Holder$Reference lambda$getOrCreateHolderOrThrow$0(net.minecraft.resources.ResourceKey);
+   private net.minecraft.core.Holder$Reference lambda$register$0(net.minecraft.resources.ResourceKey);
+   private static void lambda$new$0(it.unimi.dsi.fastutil.objects.Reference2IntOpenHashMap);
    }
--- net.minecraft.client.renderer.entity.state.PlayerRenderState --
-   javap error: Error: class not found: net.minecraft.client.renderer.entity.state.PlayerRenderState
--- net.minecraft.client.renderer.entity.state.LivingEntityRenderState --
-   Compiled from "LivingEntityRenderState.java"
-   public class net.minecraft.client.renderer.entity.state.LivingEntityRenderState extends net.minecraft.client.renderer.entity.state.EntityRenderState {
-   public float bodyRot;
-   public float yRot;
-   public float xRot;
-   public float deathTime;
-   public float walkAnimationPos;
-   public float walkAnimationSpeed;
-   public float scale;
-   public float ageScale;
-   public float ticksSinceKineticHitFeedback;
-   public boolean isUpsideDown;
-   public boolean isFullyFrozen;
-   public boolean isBaby;
-   public boolean isInWater;
-   public boolean isAutoSpinAttack;
-   public boolean hasRedOverlay;
-   public boolean isInvisibleToPlayer;
-   public net.minecraft.core.Direction bedOrientation;
-   public net.minecraft.world.entity.Pose pose;
-   public final net.minecraft.client.renderer.item.ItemStackRenderState headItem;
-   public float wornHeadAnimationPos;
-   public net.minecraft.world.level.block.SkullBlock$Type wornHeadType;
-   public net.minecraft.world.item.component.ResolvableProfile wornHeadProfile;
-   public net.minecraft.client.renderer.entity.state.LivingEntityRenderState();
-   public boolean hasPose(net.minecraft.world.entity.Pose);
+-- net.minecraft.core.IdMapper --
+   Compiled from "IdMapper.java"
+   public class net.minecraft.core.IdMapper<T> implements net.minecraft.core.IdMap<T> {
+   private int nextId;
+   private final it.unimi.dsi.fastutil.objects.Reference2IntMap<T> tToId;
+   private final java.util.List<T> idToT;
+   public net.minecraft.core.IdMapper();
+   public net.minecraft.core.IdMapper(int);
+   public void addMapping(T, int);
+   public void add(T);
+   public int getId(T);
+   public final T byId(int);
+   public java.util.Iterator<T> iterator();
+   public boolean contains(int);
+   public int size();
    }
--- net.minecraft.world.entity.player.PlayerSkin --
-   Compiled from "PlayerSkin.java"
-   public final class net.minecraft.world.entity.player.PlayerSkin extends java.lang.Record {
-   private final net.minecraft.core.ClientAsset$Texture body;
-   private final net.minecraft.core.ClientAsset$Texture cape;
-   private final net.minecraft.core.ClientAsset$Texture elytra;
-   private final net.minecraft.world.entity.player.PlayerModelType model;
-   private final boolean secure;
-   public net.minecraft.world.entity.player.PlayerSkin(net.minecraft.core.ClientAsset$Texture, net.minecraft.core.ClientAsset$Texture, net.minecraft.core.ClientAsset$Texture, net.minecraft.world.entity.player.PlayerModelType, boolean);
-   public static net.minecraft.world.entity.player.PlayerSkin insecure(net.minecraft.core.ClientAsset$Texture, net.minecraft.core.ClientAsset$Texture, net.minecraft.core.ClientAsset$Texture, net.minecraft.world.entity.player.PlayerModelType);
-   public net.minecraft.world.entity.player.PlayerSkin with(net.minecraft.world.entity.player.PlayerSkin$Patch);
+-- net.minecraft.core.Holder$Reference --
+   Compiled from "Holder.java"
+   public class net.minecraft.core.Holder$Reference<T> implements net.minecraft.core.Holder<T> {
+   private final net.minecraft.core.HolderOwner<T> owner;
+   private java.util.Set<net.minecraft.tags.TagKey<T>> tags;
+   private net.minecraft.core.component.DataComponentMap components;
+   private final net.minecraft.core.Holder$Reference$Type type;
+   private net.minecraft.resources.ResourceKey<T> key;
+   private T value;
+   protected net.minecraft.core.Holder$Reference(net.minecraft.core.Holder$Reference$Type, net.minecraft.core.HolderOwner<T>, net.minecraft.resources.ResourceKey<T>, T);
+   public static <T> net.minecraft.core.Holder$Reference<T> createStandAlone(net.minecraft.core.HolderOwner<T>, net.minecraft.resources.ResourceKey<T>);
+   public static <T> net.minecraft.core.Holder$Reference<T> createIntrusive(net.minecraft.core.HolderOwner<T>, T);
+   public net.minecraft.resources.ResourceKey<T> key();
+   public T value();
+   public boolean is(net.minecraft.resources.Identifier);
+   public boolean is(net.minecraft.resources.ResourceKey<T>);
+   private java.util.Set<net.minecraft.tags.TagKey<T>> boundTags();
+   public boolean is(net.minecraft.tags.TagKey<T>);
+   public boolean is(net.minecraft.core.Holder<T>);
+   public boolean is(java.util.function.Predicate<net.minecraft.resources.ResourceKey<T>>);
+   public boolean canSerializeIn(net.minecraft.core.HolderOwner<T>);
+   public com.mojang.datafixers.util.Either<net.minecraft.resources.ResourceKey<T>, T> unwrap();
+   public java.util.Optional<net.minecraft.resources.ResourceKey<T>> unwrapKey();
+   public net.minecraft.core.Holder$Kind kind();
+   public boolean isBound();
+   public boolean areComponentsBound();
+   void bindKey(net.minecraft.resources.ResourceKey<T>);
+   protected void bindValue(T);
+   void bindTags(java.util.Collection<net.minecraft.tags.TagKey<T>>);
+   public void bindComponents(net.minecraft.core.component.DataComponentMap);
+   public java.util.stream.Stream<net.minecraft.tags.TagKey<T>> tags();
+   public net.minecraft.core.component.DataComponentMap components();
+   public java.lang.String toString();
+   }
+-- net.minecraft.resources.ResourceKey --
+   Compiled from "ResourceKey.java"
+   public class net.minecraft.resources.ResourceKey<T> {
+   private static final java.util.concurrent.ConcurrentMap<net.minecraft.resources.ResourceKey$InternKey, net.minecraft.resources.ResourceKey<?>> VALUES;
+   private final net.minecraft.resources.Identifier registryName;
+   private final net.minecraft.resources.Identifier identifier;
+   public static <T> com.mojang.serialization.Codec<net.minecraft.resources.ResourceKey<T>> codec(net.minecraft.resources.ResourceKey<? extends net.minecraft.core.Registry<T>>);
+   public static <T> net.minecraft.network.codec.StreamCodec<io.netty.buffer.ByteBuf, net.minecraft.resources.ResourceKey<T>> streamCodec(net.minecraft.resources.ResourceKey<? extends net.minecraft.core.Registry<T>>);
+   public static <T> net.minecraft.resources.ResourceKey<T> create(net.minecraft.resources.ResourceKey<? extends net.minecraft.core.Registry<T>>, net.minecraft.resources.Identifier);
+   public static <T> net.minecraft.resources.ResourceKey<net.minecraft.core.Registry<T>> createRegistryKey(net.minecraft.resources.Identifier);
+   private static <T> net.minecraft.resources.ResourceKey<T> create(net.minecraft.resources.Identifier, net.minecraft.resources.Identifier);
+   private net.minecraft.resources.ResourceKey(net.minecraft.resources.Identifier, net.minecraft.resources.Identifier);
+   public java.lang.String toString();
+   public boolean isFor(net.minecraft.resources.ResourceKey<? extends net.minecraft.core.Registry<?>>);
+   public <E> java.util.Optional<net.minecraft.resources.ResourceKey<E>> cast(net.minecraft.resources.ResourceKey<? extends net.minecraft.core.Registry<E>>);
+   public <E> net.minecraft.resources.ResourceKey<E> dependent(net.minecraft.resources.ResourceKey<? extends net.minecraft.core.Registry<E>>, java.lang.String);
+   public <E> net.minecraft.resources.ResourceKey<E> dependent(net.minecraft.resources.ResourceKey<? extends net.minecraft.core.Registry<E>>, java.util.function.UnaryOperator<java.lang.String>);
+   public net.minecraft.resources.Identifier identifier();
+   public net.minecraft.resources.Identifier registry();
+   public net.minecraft.resources.ResourceKey<net.minecraft.core.Registry<T>> registryKey();
+   private static net.minecraft.resources.ResourceKey lambda$create$0(net.minecraft.resources.ResourceKey$InternKey);
+   private static net.minecraft.resources.ResourceKey lambda$streamCodec$0(net.minecraft.resources.ResourceKey, net.minecraft.resources.Identifier);
+   private static net.minecraft.resources.ResourceKey lambda$codec$0(net.minecraft.resources.ResourceKey, net.minecraft.resources.Identifier);
+   static {};
+   }
+-- net.minecraft.world.level.block.state.BlockBehaviour$Properties --
+   Compiled from "BlockBehaviour.java"
+   public class net.minecraft.world.level.block.state.BlockBehaviour$Properties {
+   public static final com.mojang.serialization.Codec<net.minecraft.world.level.block.state.BlockBehaviour$Properties> CODEC;
+   private java.util.function.Function<net.minecraft.world.level.block.state.BlockState, net.minecraft.world.level.material.MapColor> mapColor;
+   private boolean hasCollision;
+   private net.minecraft.world.level.block.SoundType soundType;
+   private java.util.function.ToIntFunction<net.minecraft.world.level.block.state.BlockState> lightEmission;
+   private float explosionResistance;
+   private float destroyTime;
+   private boolean requiresCorrectToolForDrops;
+   private boolean isRandomlyTicking;
+   private float friction;
+   private float speedFactor;
+   private float jumpFactor;
+   private float bounceRestitution;
+   private net.minecraft.resources.ResourceKey<net.minecraft.world.level.block.Block> id;
+   private net.minecraft.resources.DependantName<net.minecraft.world.level.block.Block, java.util.Optional<net.minecraft.resources.ResourceKey<net.minecraft.world.level.storage.loot.LootTable>>> drops;
+   private net.minecraft.resources.DependantName<net.minecraft.world.level.block.Block, java.lang.String> descriptionId;
+   private boolean canOcclude;
+   private boolean isAir;
+   private boolean ignitedByLava;
+   private boolean liquid;
+   private boolean forceSolidOff;
+   private boolean forceSolidOn;
+   private net.minecraft.world.level.material.PushReaction pushReaction;
+   private boolean spawnTerrainParticles;
+   private net.minecraft.world.level.block.state.properties.NoteBlockInstrument instrument;
+   private boolean replaceable;
+   private net.minecraft.world.level.block.state.BlockBehaviour$StateArgumentPredicate<net.minecraft.world.entity.EntityType<?>> isValidSpawn;
+   private net.minecraft.world.level.block.state.BlockBehaviour$StatePredicate isRedstoneConductor;
+   private net.minecraft.world.level.block.state.BlockBehaviour$StatePredicate isSuffocating;
+   private net.minecraft.world.level.block.state.BlockBehaviour$StatePredicate isViewBlocking;
+   private net.minecraft.world.level.block.state.BlockBehaviour$PostProcess postProcess;
+   private java.util.function.Predicate<net.minecraft.world.level.block.state.BlockState> emissiveRendering;
+   private boolean dynamicShape;
+   private net.minecraft.world.flag.FeatureFlagSet requiredFeatures;
+   private net.minecraft.world.level.block.state.BlockBehaviour$OffsetFunction offsetFunction;
+   private net.minecraft.world.level.block.state.BlockBehaviour$Properties();
+   public static net.minecraft.world.level.block.state.BlockBehaviour$Properties of();
+   public static net.minecraft.world.level.block.state.BlockBehaviour$Properties ofFullCopy(net.minecraft.world.level.block.state.BlockBehaviour);
+   public static net.minecraft.world.level.block.state.BlockBehaviour$Properties ofLegacyCopy(net.minecraft.world.level.block.state.BlockBehaviour);
+   public net.minecraft.world.level.block.state.BlockBehaviour$Properties mapColor(net.minecraft.world.item.DyeColor);
+   public net.minecraft.world.level.block.state.BlockBehaviour$Properties mapColor(net.minecraft.world.level.material.MapColor);
+   public net.minecraft.world.level.block.state.BlockBehaviour$Properties mapColor(java.util.function.Function<net.minecraft.world.level.block.state.BlockState, net.minecraft.world.level.material.MapColor>);
+   public net.minecraft.world.level.block.state.BlockBehaviour$Properties noCollision();
+   public net.minecraft.world.level.block.state.BlockBehaviour$Properties noOcclusion();
+   public net.minecraft.world.level.block.state.BlockBehaviour$Properties friction(float);
+   public net.minecraft.world.level.block.state.BlockBehaviour$Properties speedFactor(float);
+   public net.minecraft.world.level.block.state.BlockBehaviour$Properties jumpFactor(float);
+   public net.minecraft.world.level.block.state.BlockBehaviour$Properties bounceRestitution(float);
+   public net.minecraft.world.level.block.state.BlockBehaviour$Properties sound(net.minecraft.world.level.block.SoundType);
+   public net.minecraft.world.level.block.state.BlockBehaviour$Properties lightLevel(java.util.function.ToIntFunction<net.minecraft.world.level.block.state.BlockState>);
+   public net.minecraft.world.level.block.state.BlockBehaviour$Properties strength(float, float);
+   public net.minecraft.world.level.block.state.BlockBehaviour$Properties instabreak();
+   public net.minecraft.world.level.block.state.BlockBehaviour$Properties strength(float);
+   public net.minecraft.world.level.block.state.BlockBehaviour$Properties randomTicks();
+   public net.minecraft.world.level.block.state.BlockBehaviour$Properties dynamicShape();
+   public net.minecraft.world.level.block.state.BlockBehaviour$Properties noLootTable();
+   public net.minecraft.world.level.block.state.BlockBehaviour$Properties overrideLootTable(java.util.Optional<net.minecraft.resources.ResourceKey<net.minecraft.world.level.storage.loot.LootTable>>);
+   protected java.util.Optional<net.minecraft.resources.ResourceKey<net.minecraft.world.level.storage.loot.LootTable>> effectiveDrops();
+   public net.minecraft.world.level.block.state.BlockBehaviour$Properties ignitedByLava();
+   public net.minecraft.world.level.block.state.BlockBehaviour$Properties liquid();
+   public net.minecraft.world.level.block.state.BlockBehaviour$Properties forceSolidOn();
+   public net.minecraft.world.level.block.state.BlockBehaviour$Properties forceSolidOff();
+   public net.minecraft.world.level.block.state.BlockBehaviour$Properties pushReaction(net.minecraft.world.level.material.PushReaction);
+   public net.minecraft.world.level.block.state.BlockBehaviour$Properties air();
+   public net.minecraft.world.level.block.state.BlockBehaviour$Properties isValidSpawn(net.minecraft.world.level.block.state.BlockBehaviour$StateArgumentPredicate<net.minecraft.world.entity.EntityType<?>>);
+   public net.minecraft.world.level.block.state.BlockBehaviour$Properties isRedstoneConductor(net.minecraft.world.level.block.state.BlockBehaviour$StatePredicate);
+   public net.minecraft.world.level.block.state.BlockBehaviour$Properties isSuffocating(net.minecraft.world.level.block.state.BlockBehaviour$StatePredicate);
+   public net.minecraft.world.level.block.state.BlockBehaviour$Properties isViewBlocking(net.minecraft.world.level.block.state.BlockBehaviour$StatePredicate);
+   public net.minecraft.world.level.block.state.BlockBehaviour$Properties postProcess(net.minecraft.world.level.block.state.BlockBehaviour$PostProcess);
+   public net.minecraft.world.level.block.state.BlockBehaviour$Properties emissiveRendering(java.util.function.Predicate<net.minecraft.world.level.block.state.BlockState>);
+   public net.minecraft.world.level.block.state.BlockBehaviour$Properties requiresCorrectToolForDrops();
+   public net.minecraft.world.level.block.state.BlockBehaviour$Properties destroyTime(float);
+   public net.minecraft.world.level.block.state.BlockBehaviour$Properties explosionResistance(float);
+   public net.minecraft.world.level.block.state.BlockBehaviour$Properties offsetType(net.minecraft.world.level.block.state.BlockBehaviour$OffsetType);
+   public net.minecraft.world.level.block.state.BlockBehaviour$Properties noTerrainParticles();
+   public net.minecraft.world.level.block.state.BlockBehaviour$Properties requiredFeatures(net.minecraft.world.flag.FeatureFlag...);
+   public net.minecraft.world.level.block.state.BlockBehaviour$Properties instrument(net.minecraft.world.level.block.state.properties.NoteBlockInstrument);
+   public net.minecraft.world.level.block.state.BlockBehaviour$Properties replaceable();
+   public net.minecraft.world.level.block.state.BlockBehaviour$Properties setId(net.minecraft.resources.ResourceKey<net.minecraft.world.level.block.Block>);
+   public net.minecraft.world.level.block.state.BlockBehaviour$Properties overrideDescription(java.lang.String);
+   protected java.lang.String effectiveDescriptionId();
+   private static net.minecraft.world.phys.Vec3 lambda$offsetType$1(net.minecraft.world.level.block.state.BlockState, net.minecraft.core.BlockPos);
+   private static net.minecraft.world.phys.Vec3 lambda$offsetType$0(net.minecraft.world.level.block.state.BlockState, net.minecraft.core.BlockPos);
+   private static net.minecraft.world.level.material.MapColor lambda$mapColor$1(net.minecraft.world.level.material.MapColor, net.minecraft.world.level.block.state.BlockState);
+   private static net.minecraft.world.level.material.MapColor lambda$mapColor$0(net.minecraft.world.item.DyeColor, net.minecraft.world.level.block.state.BlockState);
+   private static boolean lambda$new$7(net.minecraft.world.level.block.state.BlockState);
+   private static net.minecraft.core.BlockPos lambda$new$6(net.minecraft.world.level.block.state.BlockState, net.minecraft.world.level.BlockGetter, net.minecraft.core.BlockPos);
+   private static boolean lambda$new$5(net.minecraft.world.level.block.state.BlockState, net.minecraft.world.level.BlockGetter, net.minecraft.core.BlockPos);
+   ... truncated
+-- net.minecraft.world.level.block.Block --
+   public static final net.minecraft.core.IdMapper<net.minecraft.world.level.block.state.BlockState> BLOCK_STATE_REGISTRY;
+   private net.minecraft.world.level.block.state.BlockState defaultBlockState;
+   public static int getId(net.minecraft.world.level.block.state.BlockState);
+   public net.minecraft.world.level.block.Block(net.minecraft.world.level.block.state.BlockBehaviour$Properties);
+   public static boolean canSupportRigidBlock(net.minecraft.world.level.BlockGetter, net.minecraft.core.BlockPos);
+   public static boolean isShapeFullBlock(net.minecraft.world.phys.shapes.VoxelShape);
+   public final net.minecraft.world.level.block.state.BlockState defaultBlockState();
+   protected net.minecraft.world.level.block.Block asBlock();
+-- net.minecraft.world.level.block.state.BlockState --
+   (no member matched: initCache)
+-- net.minecraft.world.phys.shapes.Shapes --
+   Compiled from "Shapes.java"
+   public final class net.minecraft.world.phys.shapes.Shapes {
+   public static final double EPSILON;
+   public static final double BIG_EPSILON;
+   private static final net.minecraft.world.phys.shapes.VoxelShape BLOCK;
+   private static final net.minecraft.world.phys.Vec3 BLOCK_CENTER;
+   public static final net.minecraft.world.phys.shapes.VoxelShape INFINITY;
+   private static final net.minecraft.world.phys.shapes.VoxelShape EMPTY;
+   public net.minecraft.world.phys.shapes.Shapes();
+   public static net.minecraft.world.phys.shapes.VoxelShape empty();
+   public static net.minecraft.world.phys.shapes.VoxelShape block();
+   public static net.minecraft.world.phys.shapes.VoxelShape box(double, double, double, double, double, double);
+   public static net.minecraft.world.phys.shapes.VoxelShape create(double, double, double, double, double, double);
+   public static net.minecraft.world.phys.shapes.VoxelShape create(net.minecraft.world.phys.AABB);
+   static int findBits(double, double);
+   static long lcm(int, int);
+   public static net.minecraft.world.phys.shapes.VoxelShape or(net.minecraft.world.phys.shapes.VoxelShape, net.minecraft.world.phys.shapes.VoxelShape);
+   public static net.minecraft.world.phys.shapes.VoxelShape or(net.minecraft.world.phys.shapes.VoxelShape, net.minecraft.world.phys.shapes.VoxelShape...);
+   public static net.minecraft.world.phys.shapes.VoxelShape join(net.minecraft.world.phys.shapes.VoxelShape, net.minecraft.world.phys.shapes.VoxelShape, net.minecraft.world.phys.shapes.BooleanOp);
+   public static net.minecraft.world.phys.shapes.VoxelShape joinUnoptimized(net.minecraft.world.phys.shapes.VoxelShape, net.minecraft.world.phys.shapes.VoxelShape, net.minecraft.world.phys.shapes.BooleanOp);
+   public static boolean joinIsNotEmpty(net.minecraft.world.phys.shapes.VoxelShape, net.minecraft.world.phys.shapes.VoxelShape, net.minecraft.world.phys.shapes.BooleanOp);
+   private static boolean joinIsNotEmpty(net.minecraft.world.phys.shapes.IndexMerger, net.minecraft.world.phys.shapes.IndexMerger, net.minecraft.world.phys.shapes.IndexMerger, net.minecraft.world.phys.shapes.DiscreteVoxelShape, net.minecraft.world.phys.shapes.DiscreteVoxelShape, net.minecraft.world.phys.shapes.BooleanOp);
+   public static double collide(net.minecraft.core.Direction$Axis, net.minecraft.world.phys.AABB, java.lang.Iterable<net.minecraft.world.phys.shapes.VoxelShape>, double);
+   public static boolean blockOccludes(net.minecraft.world.phys.shapes.VoxelShape, net.minecraft.world.phys.shapes.VoxelShape, net.minecraft.core.Direction);
+   public static boolean mergedFaceOccludes(net.minecraft.world.phys.shapes.VoxelShape, net.minecraft.world.phys.shapes.VoxelShape, net.minecraft.core.Direction);
+   public static boolean faceShapeOccludes(net.minecraft.world.phys.shapes.VoxelShape, net.minecraft.world.phys.shapes.VoxelShape);
+   static net.minecraft.world.phys.shapes.IndexMerger createIndexMerger(int, it.unimi.dsi.fastutil.doubles.DoubleList, it.unimi.dsi.fastutil.doubles.DoubleList, boolean, boolean);
+   public static net.minecraft.world.phys.shapes.VoxelShape rotate(net.minecraft.world.phys.shapes.VoxelShape, com.mojang.math.OctahedralGroup);
+   public static net.minecraft.world.phys.shapes.VoxelShape rotate(net.minecraft.world.phys.shapes.VoxelShape, com.mojang.math.OctahedralGroup, net.minecraft.world.phys.Vec3);
+   static it.unimi.dsi.fastutil.doubles.DoubleList flipAxisIfNeeded(it.unimi.dsi.fastutil.doubles.DoubleList, boolean, double, double);
+   public static boolean equal(net.minecraft.world.phys.shapes.VoxelShape, net.minecraft.world.phys.shapes.VoxelShape);
+   public static java.util.Map<net.minecraft.core.Direction$Axis, net.minecraft.world.phys.shapes.VoxelShape> rotateHorizontalAxis(net.minecraft.world.phys.shapes.VoxelShape);
+   public static java.util.Map<net.minecraft.core.Direction$Axis, net.minecraft.world.phys.shapes.VoxelShape> rotateHorizontalAxis(net.minecraft.world.phys.shapes.VoxelShape, net.minecraft.world.phys.Vec3);
+   public static java.util.Map<net.minecraft.core.Direction$Axis, net.minecraft.world.phys.shapes.VoxelShape> rotateAllAxis(net.minecraft.world.phys.shapes.VoxelShape);
+   public static java.util.Map<net.minecraft.core.Direction$Axis, net.minecraft.world.phys.shapes.VoxelShape> rotateAllAxis(net.minecraft.world.phys.shapes.VoxelShape, net.minecraft.world.phys.Vec3);
+   public static java.util.Map<net.minecraft.core.Direction, net.minecraft.world.phys.shapes.VoxelShape> rotateHorizontal(net.minecraft.world.phys.shapes.VoxelShape);
+   public static java.util.Map<net.minecraft.core.Direction, net.minecraft.world.phys.shapes.VoxelShape> rotateHorizontal(net.minecraft.world.phys.shapes.VoxelShape, com.mojang.math.OctahedralGroup);
+   public static java.util.Map<net.minecraft.core.Direction, net.minecraft.world.phys.shapes.VoxelShape> rotateHorizontal(net.minecraft.world.phys.shapes.VoxelShape, com.mojang.math.OctahedralGroup, net.minecraft.world.phys.Vec3);
+   public static java.util.Map<net.minecraft.core.Direction, net.minecraft.world.phys.shapes.VoxelShape> rotateAll(net.minecraft.world.phys.shapes.VoxelShape);
+   public static java.util.Map<net.minecraft.core.Direction, net.minecraft.world.phys.shapes.VoxelShape> rotateAll(net.minecraft.world.phys.shapes.VoxelShape, net.minecraft.world.phys.Vec3);
+   public static java.util.Map<net.minecraft.core.Direction, net.minecraft.world.phys.shapes.VoxelShape> rotateAll(net.minecraft.world.phys.shapes.VoxelShape, com.mojang.math.OctahedralGroup, net.minecraft.world.phys.Vec3);
+   public static java.util.Map<net.minecraft.world.level.block.state.properties.AttachFace, java.util.Map<net.minecraft.core.Direction, net.minecraft.world.phys.shapes.VoxelShape>> rotateAttachFace(net.minecraft.world.phys.shapes.VoxelShape);
+   public static java.util.Map<net.minecraft.world.level.block.state.properties.AttachFace, java.util.Map<net.minecraft.core.Direction, net.minecraft.world.phys.shapes.VoxelShape>> rotateAttachFace(net.minecraft.world.phys.shapes.VoxelShape, com.mojang.math.OctahedralGroup);
+   private static boolean lambda$joinIsNotEmpty$0(net.minecraft.world.phys.shapes.IndexMerger, net.minecraft.world.phys.shapes.IndexMerger, net.minecraft.world.phys.shapes.BooleanOp, net.minecraft.world.phys.shapes.DiscreteVoxelShape, net.minecraft.world.phys.shapes.DiscreteVoxelShape, int, int, int);
+   private static boolean lambda$joinIsNotEmpty$1(net.minecraft.world.phys.shapes.IndexMerger, net.minecraft.world.phys.shapes.BooleanOp, net.minecraft.world.phys.shapes.DiscreteVoxelShape, int, net.minecraft.world.phys.shapes.DiscreteVoxelShape, int, int, int, int);
+   private static boolean lambda$joinIsNotEmpty$2(net.minecraft.world.phys.shapes.BooleanOp, net.minecraft.world.phys.shapes.DiscreteVoxelShape, int, int, net.minecraft.world.phys.shapes.DiscreteVoxelShape, int, int, int, int, int);
+   private static net.minecraft.world.phys.shapes.CubeVoxelShape lambda$static$0();
+   static {};
+   }
+-- com.mojang.math.OctahedralGroup --
+   public static final com.mojang.math.OctahedralGroup ROT_90_X_NEG;
+   public static final com.mojang.math.OctahedralGroup ROT_90_X_POS;
+   public static final com.mojang.math.OctahedralGroup ROT_90_Y_NEG;
+   public static final com.mojang.math.OctahedralGroup ROT_90_Y_POS;
+   public static final com.mojang.math.OctahedralGroup ROT_90_Z_NEG;
+   public static final com.mojang.math.OctahedralGroup ROT_90_Z_POS;
+   public static final com.mojang.math.OctahedralGroup ROT_90_REF_X_NEG;
+   public static final com.mojang.math.OctahedralGroup ROT_90_REF_X_POS;
+   public static final com.mojang.math.OctahedralGroup ROT_90_REF_Y_NEG;
+   public static final com.mojang.math.OctahedralGroup ROT_90_REF_Y_POS;
+   public static final com.mojang.math.OctahedralGroup ROT_90_REF_Z_NEG;
+   public static final com.mojang.math.OctahedralGroup ROT_90_REF_Z_POS;
+   public static final com.mojang.math.OctahedralGroup BLOCK_ROT_X_270;
+   public static final com.mojang.math.OctahedralGroup BLOCK_ROT_X_180;
+   public static final com.mojang.math.OctahedralGroup BLOCK_ROT_X_90;
+   public static final com.mojang.math.OctahedralGroup BLOCK_ROT_Y_270;
+   public static final com.mojang.math.OctahedralGroup BLOCK_ROT_Y_180;
+   public static final com.mojang.math.OctahedralGroup BLOCK_ROT_Y_90;
+   public static final com.mojang.math.OctahedralGroup BLOCK_ROT_Z_270;
+   public static final com.mojang.math.OctahedralGroup BLOCK_ROT_Z_180;
+   public static final com.mojang.math.OctahedralGroup BLOCK_ROT_Z_90;
+-- net.minecraft.client.resources.model.ModelBakery --
+   Compiled from "ModelBakery.java"
+   public class net.minecraft.client.resources.model.ModelBakery {
+   private static final org.slf4j.Logger LOGGER;
+   public static final net.minecraft.client.resources.model.sprite.SpriteId FIRE_0;
+   public static final net.minecraft.client.resources.model.sprite.SpriteId FIRE_1;
+   public static final int DESTROY_STAGE_COUNT;
+   public static final java.util.List<net.minecraft.resources.Identifier> DESTROY_STAGES;
+   public static final java.util.List<net.minecraft.resources.Identifier> BREAKING_LOCATIONS;
+   public static final java.util.List<net.minecraft.client.renderer.rendertype.RenderType> DESTROY_TYPES;
+   private static final org.joml.Matrix4fc IDENTITY;
+   private final net.minecraft.client.model.geom.EntityModelSet entityModelSet;
+   private final net.minecraft.client.resources.model.sprite.SpriteGetter sprites;
+   private final net.minecraft.client.renderer.PlayerSkinRenderCache playerSkinRenderCache;
+   private final java.util.Map<net.minecraft.world.level.block.state.BlockState, net.minecraft.client.renderer.block.dispatch.BlockStateModel$UnbakedRoot> unbakedBlockStateModels;
+   private final java.util.Map<net.minecraft.resources.Identifier, net.minecraft.client.renderer.item.ClientItem> clientInfos;
+   private final java.util.Map<net.minecraft.resources.Identifier, net.minecraft.client.resources.model.ResolvedModel> resolvedModels;
+   private final net.minecraft.client.resources.model.ResolvedModel missingModel;
+   public net.minecraft.client.resources.model.ModelBakery(net.minecraft.client.model.geom.EntityModelSet, net.minecraft.client.resources.model.sprite.SpriteGetter, net.minecraft.client.renderer.PlayerSkinRenderCache, java.util.Map<net.minecraft.world.level.block.state.BlockState, net.minecraft.client.renderer.block.dispatch.BlockStateModel$UnbakedRoot>, java.util.Map<net.minecraft.resources.Identifi
+   public java.util.concurrent.CompletableFuture<net.minecraft.client.resources.model.ModelBakery$BakingResult> bakeModels(net.minecraft.client.resources.model.sprite.MaterialBaker, java.util.concurrent.Executor);
+   private static net.minecraft.client.resources.model.ModelBakery$BakingResult lambda$bakeModels$3(net.minecraft.client.resources.model.ModelBakery$MissingModels, java.util.Map, java.util.Map, java.util.Map);
+   private static void lambda$bakeModels$2(java.util.Map, net.minecraft.resources.Identifier, net.minecraft.client.renderer.item.ClientItem);
+   private net.minecraft.client.renderer.item.ItemModel lambda$bakeModels$1(net.minecraft.client.resources.model.ModelBakery$ModelBakerImpl, net.minecraft.client.resources.model.ModelBakery$MissingModels, net.minecraft.resources.Identifier, net.minecraft.client.renderer.item.ClientItem);
+   private static net.minecraft.client.renderer.block.dispatch.BlockStateModel lambda$bakeModels$0(net.minecraft.client.resources.model.ModelBakery$ModelBakerImpl, net.minecraft.world.level.block.state.BlockState, net.minecraft.client.renderer.block.dispatch.BlockStateModel$UnbakedRoot);
+   private static net.minecraft.resources.Identifier lambda$static$1(net.minecraft.resources.Identifier);
+   private static java.lang.String lambda$static$2(java.lang.String);
+   private static net.minecraft.resources.Identifier lambda$static$0(int);
+   static {};
+   }
+-- net.minecraft.client.resources.model.ModelManager --
+   private java.util.Map<net.minecraft.resources.Identifier, net.minecraft.client.renderer.item.ItemModel> bakedItemStackModels;
+   private static java.util.concurrent.CompletableFuture<java.util.Map<net.minecraft.resources.Identifier, net.minecraft.client.resources.model.UnbakedModel>> loadBlockModels(net.minecraft.server.packs.resources.ResourceManager, java.util.concurrent.Executor);
+   private static net.minecraft.client.resources.model.ModelManager$ResolvedModels discoverModelDependencies(java.util.Map<net.minecraft.resources.Identifier, net.minecraft.client.resources.model.UnbakedModel>, net.minecraft.client.resources.model.BlockStateModelLoader$LoadedModels, net.minecraft.client.resources.model.ClientItemInfoLoader$LoadedClientInfos);
+   private static java.util.Map<net.minecraft.world.level.block.state.BlockState, net.minecraft.client.renderer.block.dispatch.BlockStateModel> createBlockStateToModelDispatch(java.util.Map<net.minecraft.world.level.block.state.BlockState, net.minecraft.client.renderer.block.dispatch.BlockStateModel>, net.minecraft.client.renderer.block.dispatch.BlockStateModel);
+   private static void lambda$createBlockStateToModelDispatch$0(java.util.Map, net.minecraft.client.renderer.block.dispatch.BlockStateModel, net.minecraft.world.level.block.state.BlockState);
+-- net.minecraft.client.resources.model.ModelBaker --
+   Compiled from "ModelBaker.java"
+   public interface net.minecraft.client.resources.model.ModelBaker {
+   public abstract net.minecraft.client.resources.model.ResolvedModel getModel(net.minecraft.resources.Identifier);
+   public abstract net.minecraft.client.renderer.block.dispatch.BlockStateModelPart missingBlockModelPart();
+   public abstract net.minecraft.client.resources.model.sprite.MaterialBaker materials();
+   public abstract net.minecraft.client.resources.model.ModelBaker$Interner interner();
+   public abstract <T> T compute(net.minecraft.client.resources.model.ModelBaker$SharedOperationKey<T>);
+   }
+-- net.minecraft.client.resources.model.sprite.MaterialBaker --
+   Compiled from "MaterialBaker.java"
+   public abstract class net.minecraft.client.resources.model.sprite.MaterialBaker {
+   private static final org.slf4j.Logger LOGGER;
+   private final net.minecraft.client.resources.model.sprite.Material$Baked missingSprite;
+   private final net.minecraft.client.resources.model.sprite.Material$Baked missingSpriteForceTranslucent;
+   private final com.google.common.collect.Multimap<java.lang.String, net.minecraft.resources.Identifier> missingSprites;
+   private final com.google.common.collect.Multimap<java.lang.String, java.lang.String> missingReferences;
+   private final java.util.Map<net.minecraft.client.resources.model.sprite.Material, net.minecraft.client.resources.model.sprite.Material$Baked> bakedMaterials;
+   private final java.util.function.Function<net.minecraft.client.resources.model.sprite.Material, net.minecraft.client.resources.model.sprite.Material$Baked> bakerFunction;
+   public net.minecraft.client.resources.model.sprite.MaterialBaker(net.minecraft.client.renderer.texture.TextureAtlasSprite);
+   public net.minecraft.client.resources.model.sprite.Material$Baked replacementForMissingMaterial(net.minecraft.client.resources.model.sprite.Material);
+   public net.minecraft.client.resources.model.sprite.Material$Baked get(net.minecraft.client.resources.model.sprite.Material, net.minecraft.client.resources.model.ModelDebugName);
+   protected abstract net.minecraft.client.resources.model.sprite.Material$Baked bake(net.minecraft.client.resources.model.sprite.Material);
+   protected static net.minecraft.client.resources.model.sprite.Material$Baked bakeForAtlas(net.minecraft.client.resources.model.sprite.Material, net.minecraft.client.renderer.texture.SpriteLoader$Preparations);
+   public net.minecraft.client.resources.model.sprite.Material$Baked resolveSlot(net.minecraft.client.resources.model.sprite.TextureSlots, java.lang.String, net.minecraft.client.resources.model.ModelDebugName);
+   public net.minecraft.client.resources.model.sprite.Material$Baked reportMissingReference(java.lang.String, net.minecraft.client.resources.model.ModelDebugName);
+   public void logMissingTextures();
+   private static void lambda$logMissingTextures$2(java.lang.String, java.util.Collection);
+   private static java.lang.String lambda$logMissingTextures$3(java.lang.String);
+   private static void lambda$logMissingTextures$0(java.lang.String, java.util.Collection);
+   private static java.lang.String lambda$logMissingTextures$1(net.minecraft.resources.Identifier);
+   static {};
+   }
+-- net.minecraft.client.resources.model.sprite.Material --
+   Compiled from "Material.java"
+   public final class net.minecraft.client.resources.model.sprite.Material extends java.lang.Record {
+   private final net.minecraft.resources.Identifier sprite;
+   private final boolean forceTranslucent;
+   private static final com.mojang.serialization.Codec<net.minecraft.client.resources.model.sprite.Material> SIMPLE_CODEC;
+   private static final com.mojang.serialization.Codec<net.minecraft.client.resources.model.sprite.Material> FULL_CODEC;
+   public static final com.mojang.serialization.Codec<net.minecraft.client.resources.model.sprite.Material> CODEC;
+   public net.minecraft.client.resources.model.sprite.Material(net.minecraft.resources.Identifier);
+   public net.minecraft.client.resources.model.sprite.Material(net.minecraft.resources.Identifier, boolean);
+   public net.minecraft.client.resources.model.sprite.Material withForceTranslucent(boolean);
    public final java.lang.String toString();
    public final int hashCode();
    public final boolean equals(java.lang.Object);
-   public net.minecraft.core.ClientAsset$Texture body();
-   public net.minecraft.core.ClientAsset$Texture cape();
-   public net.minecraft.core.ClientAsset$Texture elytra();
-   public net.minecraft.world.entity.player.PlayerModelType model();
-   public boolean secure();
+   public net.minecraft.resources.Identifier sprite();
+   public boolean forceTranslucent();
+   private static com.mojang.datafixers.util.Either lambda$static$1(net.minecraft.client.resources.model.sprite.Material);
+   private static com.mojang.datafixers.kinds.App lambda$static$0(com.mojang.serialization.codecs.RecordCodecBuilder$Instance);
+   static {};
    }
--- net.minecraft.client.renderer.entity.EntityRenderer --
-   public abstract class net.minecraft.client.renderer.entity.EntityRenderer<T extends net.minecraft.world.entity.Entity, S extends net.minecraft.client.renderer.entity.state.EntityRenderState> {
-   public void submit(S, com.mojang.blaze3d.vertex.PoseStack, net.minecraft.client.renderer.SubmitNodeCollector, net.minecraft.client.renderer.state.level.CameraRenderState);
-   protected void submitNameDisplay(S, com.mojang.blaze3d.vertex.PoseStack, net.minecraft.client.renderer.SubmitNodeCollector, net.minecraft.client.renderer.state.level.CameraRenderState);
-   protected final <S extends net.minecraft.client.renderer.entity.state.EntityRenderState> void submitNameDisplay(S, com.mojang.blaze3d.vertex.PoseStack, net.minecraft.client.renderer.SubmitNodeCollector, net.minecraft.client.renderer.state.level.CameraRenderState, int);
-   public abstract S createRenderState();
-   public final S createRenderState(T, float);
-   public void extractRenderState(T, S, float);
-   protected void finalizeRenderState(T, S);
-
-== BYTECODE net.minecraft.client.renderer.entity.EntityRenderDispatcher ==
+-- net.minecraft.client.resources.model.sprite.TextureSlots --
+   Compiled from "TextureSlots.java"
+   public class net.minecraft.client.resources.model.sprite.TextureSlots {
+   public static final net.minecraft.client.resources.model.sprite.TextureSlots EMPTY;
+   private static final char REFERENCE_CHAR;
+   private final java.util.Map<java.lang.String, net.minecraft.client.resources.model.sprite.Material> resolvedValues;
+   private net.minecraft.client.resources.model.sprite.TextureSlots(java.util.Map<java.lang.String, net.minecraft.client.resources.model.sprite.Material>);
+   public net.minecraft.client.resources.model.sprite.Material getMaterial(java.lang.String);
+   private static boolean isTextureReference(java.lang.String);
+   public static net.minecraft.client.resources.model.sprite.TextureSlots$Data parseTextureMap(com.google.gson.JsonObject);
+   private static void parseEntry(java.lang.String, com.google.gson.JsonElement, net.minecraft.client.resources.model.sprite.TextureSlots$Data$Builder);
+   static {};
+   }
+-- net.minecraft.client.resources.model.cuboid.FaceBakery --
+   Compiled from "FaceBakery.java"
+   public class net.minecraft.client.resources.model.cuboid.FaceBakery {
+   private static final org.joml.Vector3fc BLOCK_MIDDLE;
+   public net.minecraft.client.resources.model.cuboid.FaceBakery();
+   static net.minecraft.client.resources.model.cuboid.CuboidFace$UVs defaultFaceUV(org.joml.Vector3fc, org.joml.Vector3fc, net.minecraft.core.Direction);
+   private static com.mojang.blaze3d.platform.Transparency computeMaterialTransparency(net.minecraft.client.resources.model.sprite.Material$Baked, net.minecraft.client.resources.model.cuboid.CuboidFace$UVs);
+   public static net.minecraft.client.resources.model.geometry.BakedQuad bakeQuad(net.minecraft.client.resources.model.ModelBaker, org.joml.Vector3fc, org.joml.Vector3fc, net.minecraft.client.resources.model.cuboid.CuboidFace, net.minecraft.client.resources.model.sprite.Material$Baked, net.minecraft.core.Direction, net.minecraft.client.renderer.block.dispatch.ModelState, net.minecraft.client.resource
+   public static net.minecraft.client.resources.model.geometry.BakedQuad bakeQuad(net.minecraft.client.resources.model.ModelBaker$Interner, org.joml.Vector3fc, org.joml.Vector3fc, net.minecraft.client.resources.model.cuboid.CuboidFace$UVs, com.mojang.math.Quadrant, net.minecraft.client.resources.model.geometry.BakedQuad$MaterialInfo, net.minecraft.core.Direction, net.minecraft.client.renderer.block.d
+   private static void bakeVertex(int, net.minecraft.client.renderer.FaceInfo, net.minecraft.client.resources.model.cuboid.CuboidFace$UVs, com.mojang.math.Quadrant, org.joml.Matrix4fc, org.joml.Vector3fc, org.joml.Vector3fc, net.minecraft.client.resources.model.geometry.BakedQuad$MaterialInfo, com.mojang.math.Transformation, net.minecraft.client.resources.model.cuboid.CuboidRotation, org.joml.Vector3
+   private static float cornerToCenter(float);
+   private static float centerToCorner(float);
+   private static void rotateVertexBy(org.joml.Vector3f, org.joml.Vector3fc, org.joml.Matrix4fc);
+   private static net.minecraft.core.Direction calculateFacing(org.joml.Vector3fc[]);
+   private static net.minecraft.core.Direction findClosestDirection(org.joml.Vector3f);
+   private static void recalculateWinding(org.joml.Vector3fc[], long[], net.minecraft.core.Direction);
+   private static int findVertex(org.joml.Vector3fc[], int, float, float, float);
+   private static void swap(org.joml.Vector3fc[], int, int);
+   private static void swap(long[], int, int);
+   static {};
+   }
+-- net.minecraft.client.resources.model.cuboid.CuboidFace --
+   Compiled from "CuboidFace.java"
+   public final class net.minecraft.client.resources.model.cuboid.CuboidFace extends java.lang.Record {
+   private final net.minecraft.core.Direction cullForDirection;
+   private final int tintIndex;
+   private final java.lang.String texture;
+   private final net.minecraft.client.resources.model.cuboid.CuboidFace$UVs uvs;
+   private final com.mojang.math.Quadrant rotation;
+   public static final int NO_TINT;
+   public net.minecraft.client.resources.model.cuboid.CuboidFace(net.minecraft.core.Direction, int, java.lang.String, net.minecraft.client.resources.model.cuboid.CuboidFace$UVs, com.mojang.math.Quadrant);
+   public static float getU(net.minecraft.client.resources.model.cuboid.CuboidFace$UVs, com.mojang.math.Quadrant, int);
+   public static float getV(net.minecraft.client.resources.model.cuboid.CuboidFace$UVs, com.mojang.math.Quadrant, int);
+   public final java.lang.String toString();
+   public final int hashCode();
+   public final boolean equals(java.lang.Object);
+   public net.minecraft.core.Direction cullForDirection();
+   public int tintIndex();
+   public java.lang.String texture();
+   public net.minecraft.client.resources.model.cuboid.CuboidFace$UVs uvs();
+   public com.mojang.math.Quadrant rotation();
+   }
+-- net.minecraft.client.resources.model.geometry.QuadCollection --
+   Compiled from "QuadCollection.java"
+   public class net.minecraft.client.resources.model.geometry.QuadCollection {
+   public static final net.minecraft.client.resources.model.geometry.QuadCollection EMPTY;
+   private static final int FLAGS_NOT_COMPUTED;
+   private final java.util.List<net.minecraft.client.resources.model.geometry.BakedQuad> all;
+   private final java.util.List<net.minecraft.client.resources.model.geometry.BakedQuad> unculled;
+   private final java.util.List<net.minecraft.client.resources.model.geometry.BakedQuad> north;
+   private final java.util.List<net.minecraft.client.resources.model.geometry.BakedQuad> south;
+   private final java.util.List<net.minecraft.client.resources.model.geometry.BakedQuad> east;
+   private final java.util.List<net.minecraft.client.resources.model.geometry.BakedQuad> west;
+   private final java.util.List<net.minecraft.client.resources.model.geometry.BakedQuad> up;
+   private final java.util.List<net.minecraft.client.resources.model.geometry.BakedQuad> down;
+   private int materialFlags;
+   private net.minecraft.client.resources.model.geometry.QuadCollection(java.util.List<net.minecraft.client.resources.model.geometry.BakedQuad>, java.util.List<net.minecraft.client.resources.model.geometry.BakedQuad>, java.util.List<net.minecraft.client.resources.model.geometry.BakedQuad>, java.util.List<net.minecraft.client.resources.model.geometry.BakedQuad>, java.util.List<net.minecraft.client.res
+   private static int computeMaterialFlags(java.util.List<net.minecraft.client.resources.model.geometry.BakedQuad>);
+   public java.util.List<net.minecraft.client.resources.model.geometry.BakedQuad> getQuads(net.minecraft.core.Direction);
+   public java.util.List<net.minecraft.client.resources.model.geometry.BakedQuad> getAll();
+   public int materialFlags();
+   public boolean hasMaterialFlag(int);
+   static {};
+   }
+-- net.minecraft.client.resources.model.geometry.BakedQuad --
+   Compiled from "BakedQuad.java"
+   public final class net.minecraft.client.resources.model.geometry.BakedQuad extends java.lang.Record {
+   private final org.joml.Vector3fc position0;
+   private final org.joml.Vector3fc position1;
+   private final org.joml.Vector3fc position2;
+   private final org.joml.Vector3fc position3;
+   private final long packedUV0;
+   private final long packedUV1;
+   private final long packedUV2;
+   private final long packedUV3;
+   private final net.minecraft.core.Direction direction;
+   private final net.minecraft.client.resources.model.geometry.BakedQuad$MaterialInfo materialInfo;
+   public static final int VERTEX_COUNT;
+   public static final int FLAG_TRANSLUCENT;
+   public static final int FLAG_ANIMATED;
+   public net.minecraft.client.resources.model.geometry.BakedQuad(org.joml.Vector3fc, org.joml.Vector3fc, org.joml.Vector3fc, org.joml.Vector3fc, long, long, long, long, net.minecraft.core.Direction, net.minecraft.client.resources.model.geometry.BakedQuad$MaterialInfo);
+   public org.joml.Vector3fc position(int);
+   public long packedUV(int);
+   public final java.lang.String toString();
+   public final int hashCode();
+   public final boolean equals(java.lang.Object);
+   public org.joml.Vector3fc position0();
+   public org.joml.Vector3fc position1();
+   public org.joml.Vector3fc position2();
+   public org.joml.Vector3fc position3();
+   public long packedUV0();
+   public long packedUV1();
+   public long packedUV2();
+   public long packedUV3();
+   public net.minecraft.core.Direction direction();
+   public net.minecraft.client.resources.model.geometry.BakedQuad$MaterialInfo materialInfo();
+   }
+-- net.minecraft.client.resources.model.SimpleModelWrapper --
+   Compiled from "SimpleModelWrapper.java"
+   public final class net.minecraft.client.resources.model.SimpleModelWrapper extends java.lang.Record implements net.minecraft.client.renderer.block.dispatch.BlockStateModelPart {
+   private final net.minecraft.client.resources.model.geometry.QuadCollection quads;
+   private final boolean useAmbientOcclusion;
+   private final net.minecraft.client.resources.model.sprite.Material$Baked particleMaterial;
+   private static final org.slf4j.Logger LOGGER;
+   public net.minecraft.client.resources.model.SimpleModelWrapper(net.minecraft.client.resources.model.geometry.QuadCollection, boolean, net.minecraft.client.resources.model.sprite.Material$Baked);
+   public static net.minecraft.client.renderer.block.dispatch.BlockStateModelPart bake(net.minecraft.client.resources.model.ModelBaker, net.minecraft.resources.Identifier, net.minecraft.client.renderer.block.dispatch.ModelState);
+   public static com.google.common.collect.Multimap<net.minecraft.resources.Identifier, net.minecraft.resources.Identifier> findNonBlockSprites(net.minecraft.client.resources.model.geometry.QuadCollection);
+   public java.util.List<net.minecraft.client.resources.model.geometry.BakedQuad> getQuads(net.minecraft.core.Direction);
+   public int materialFlags();
+   public final java.lang.String toString();
+   public final int hashCode();
+   public final boolean equals(java.lang.Object);
+   public net.minecraft.client.resources.model.geometry.QuadCollection quads();
+   public boolean useAmbientOcclusion();
+   public net.minecraft.client.resources.model.sprite.Material$Baked particleMaterial();
+   static {};
+   }
+-- net.minecraft.client.renderer.block.dispatch.BlockStateModel --
+   Compiled from "BlockStateModel.java"
+   public interface net.minecraft.client.renderer.block.dispatch.BlockStateModel {
+   public abstract void collectParts(net.minecraft.util.RandomSource, java.util.List<net.minecraft.client.renderer.block.dispatch.BlockStateModelPart>);
+   public abstract net.minecraft.client.resources.model.sprite.Material$Baked particleMaterial();
+   public abstract int materialFlags();
+   public default boolean hasMaterialFlag(int);
+   }
+-- net.minecraft.client.renderer.block.dispatch.SingleVariant --
+   Compiled from "SingleVariant.java"
+   public class net.minecraft.client.renderer.block.dispatch.SingleVariant implements net.minecraft.client.renderer.block.dispatch.BlockStateModel {
+   private final net.minecraft.client.renderer.block.dispatch.BlockStateModelPart model;
+   public net.minecraft.client.renderer.block.dispatch.SingleVariant(net.minecraft.client.renderer.block.dispatch.BlockStateModelPart);
+   public void collectParts(net.minecraft.util.RandomSource, java.util.List<net.minecraft.client.renderer.block.dispatch.BlockStateModelPart>);
+   public net.minecraft.client.resources.model.sprite.Material$Baked particleMaterial();
+   public int materialFlags();
+   }
+-- net.raphimc.viabedrock.protocol.storage.ResourcePackStorage --
+   javap error: Error: class not found: net.raphimc.viabedrock.protocol.storage.ResourcePackStorage
+-- net.raphimc.viabedrock.api.resourcepack.definition.ModelDefinitions --
+   javap error: Error: class not found: net.raphimc.viabedrock.api.resourcepack.definition.ModelDefinitions
+-- net.raphimc.viabedrock.protocol.rewriter.BlockStateRewriter --
+   javap error: Error: class not found: net.raphimc.viabedrock.protocol.rewriter.BlockStateRewriter
+-- net.raphimc.viabedrock.protocol.rewriter.ResourcePackRewriter --
+   javap error: Error: class not found: net.raphimc.viabedrock.protocol.rewriter.ResourcePackRewriter
+-- net.raphimc.viabedrock.api.model.BedrockBlockState --
+   javap error: Error: class not found: net.raphimc.viabedrock.api.model.BedrockBlockState
+-- net.raphimc.viabedrock.api.util.MoLangEngine --
+   javap error: Error: class not found: net.raphimc.viabedrock.api.util.MoLangEngine
+-- net.minecraft.client.renderer.entity.EntityRenderDispatcher --
    public <T extends net.minecraft.world.entity.Entity> net.minecraft.client.renderer.entity.EntityRenderer<? super T, ?> getRenderer(T);
-   Code:
-   0: aload_1
-   1: dup
-   2: invokestatic  #128                // Method java/util/Objects.requireNonNull:(Ljava/lang/Object;)Ljava/lang/Object;
-   5: pop
-   6: astore_2
-   7: iconst_0
-   8: istore_3
-   9: aload_2
-   10: iload_3
-   11: invokedynamic #144,  0            // InvokeDynamic #0:typeSwitch:(Lnet/minecraft/world/entity/Entity;I)I
-   16: lookupswitch  { // 2
-   0: 44
-   1: 63
-   default: 82
-   }
-   44: aload_2
-   45: checkcast     #132                // class net/minecraft/client/player/AbstractClientPlayer
-   48: astore        4
-   50: aload_0
-   51: aload_0
-   52: getfield      #91                 // Field playerRenderers:Ljava/util/Map;
-   55: aload         4
-   57: invokevirtual #148                // Method getAvatarRenderer:(Ljava/util/Map;Lnet/minecraft/world/entity/Avatar;)Lnet/minecraft/client/renderer/entity/player/AvatarRenderer;
-   60: goto          98
-   63: aload_2
-   64: checkcast     #134                // class net/minecraft/client/entity/ClientMannequin
-   67: astore        5
-   69: aload_0
-   70: aload_0
-   71: getfield      #93                 // Field mannequinRenderers:Ljava/util/Map;
-   74: aload         5
-   76: invokevirtual #148                // Method getAvatarRenderer:(Ljava/util/Map;Lnet/minecraft/world/entity/Avatar;)Lnet/minecraft/client/renderer/entity/player/AvatarRenderer;
-   79: goto          98
-   82: aload_0
-   83: getfield      #84                 // Field renderers:Ljava/util/Map;
-   86: aload_1
-   87: invokevirtual #152                // Method net/minecraft/world/entity/Entity.getType:()Lnet/minecraft/world/entity/EntityType;
-   90: invokeinterface #155,  2          // InterfaceMethod java/util/Map.get:(Ljava/lang/Object;)Ljava/lang/Object;
-   95: checkcast     #63                 // class net/minecraft/client/renderer/entity/EntityRenderer
-   98: areturn
    public <S extends net.minecraft.client.renderer.entity.state.EntityRenderState> net.minecraft.client.renderer.entity.EntityRenderer<?, ? super S> getRenderer(S);
-   Code:
-   0: aload_1
-   1: instanceof    #194                // class net/minecraft/client/renderer/entity/state/AvatarRenderState
-   4: ifeq          59
-   7: aload_1
-   8: checkcast     #194                // class net/minecraft/client/renderer/entity/state/AvatarRenderState
-   11: astore_2
-   12: aload_2
-   13: getfield      #198                // Field net/minecraft/client/renderer/entity/state/AvatarRenderState.skin:Lnet/minecraft/world/entity/player/PlayerSkin;
-   16: invokevirtual #176                // Method net/minecraft/world/entity/player/PlayerSkin.model:()Lnet/minecraft/world/entity/player/PlayerModelType;
-   19: astore_3
-   20: aload_0
-   21: getfield      #91                 // Field playerRenderers:Ljava/util/Map;
-   24: aload_3
-   25: invokeinterface #155,  2          // InterfaceMethod java/util/Map.get:(Ljava/lang/Object;)Ljava/lang/Object;
-   30: checkcast     #63                 // class net/minecraft/client/renderer/entity/EntityRenderer
-   33: astore        4
-   35: aload         4
-   37: ifnull        43
-   40: aload         4
-   42: areturn
-   43: aload_0
-   44: getfield      #91                 // Field playerRenderers:Ljava/util/Map;
-   47: getstatic     #184                // Field net/minecraft/world/entity/player/PlayerModelType.WIDE:Lnet/minecraft/world/entity/player/PlayerModelType;
-   50: invokeinterface #155,  2          // InterfaceMethod java/util/Map.get:(Ljava/lang/Object;)Ljava/lang/Object;
-   55: checkcast     #63                 // class net/minecraft/client/renderer/entity/EntityRenderer
-   58: areturn
-   59: aload_0
-   60: getfield      #84                 // Field renderers:Ljava/util/Map;
-   63: aload_1
-   64: getfield      #204                // Field net/minecraft/client/renderer/entity/state/EntityRenderState.entityType:Lnet/minecraft/world/entity/EntityType;
-   67: invokeinterface #155,  2          // InterfaceMethod java/util/Map.get:(Ljava/lang/Object;)Ljava/lang/Object;
-   72: checkcast     #63                 // class net/minecraft/client/renderer/entity/EntityRenderer
-   75: areturn
