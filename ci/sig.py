@@ -25,17 +25,17 @@ SEARCH_DIRS = [
 # the library classes below to resolve their own field/parameter types.
 LIB_KEYWORDS = ("viabedrock", "viaversion", "cubeconverter", "mocha", "fastutil")
 
-# Class-name indexes. Package paths inside ViaBedrock move between snapshots, so
+# The bundled server jar is ~50 MB but contains four loader classes, so it wins
+# on file size and loses on everything that matters.
+JAR_NAME_SKIP = ("server", "sources", "javadoc")
+
+# Class-name index. Package paths inside ViaBedrock move between snapshots, so
 # list the candidates instead of hard-coding a guess.
 INDEXES = (
 	(
 		"viabedrock",
-		re.compile(
-			r"(?i)(bedrockblockstate|blockstaterewriter|resourcepackstorage"
-			r"|modeldefinitions|molang|resourcepackrewriter|blockdefinitions)"
-		),
+		re.compile(r"(?i)(api\.model\.|resourcepack\.definition\.|resourcepack\.content\.)"),
 	),
-	("mocha", re.compile(r".")),
 )
 
 # (class, member filter). A filter keeps the output readable for the huge
@@ -76,18 +76,21 @@ TARGETS = (
 		r"interface net|class net|empty\(|of\(",
 	),
 	# -- phase 4: the ViaBedrock side the hooks attach to --
-	("net.raphimc.viabedrock.api.model.BedrockBlockState", None),
-	("net.raphimc.viabedrock.protocol.rewriter.BlockStateRewriter", None),
-	("net.raphimc.viabedrock.api.util.MoLangEngine", None),
+	("net.raphimc.viabedrock.api.resourcepack.definition.BlockDefinitions", None),
 	(
-		"net.raphimc.viabedrock.protocol.storage.ResourcePackStorage",
+		"net.raphimc.viabedrock.api.resourcepack.definition.BlockDefinitions$BlockDefinition",
+		None,
+	),
+	(
+		"net.raphimc.viabedrock.api.resourcepack.definition.TextureDefinitions",
 		r"class net|public",
 	),
-	("net.raphimc.viabedrock.api.resourcepack.definition.ModelDefinitions", None),
-	(
-		"net.raphimc.viabedrock.protocol.rewriter.ResourcePackRewriter",
-		r"class net|public|static",
-	),
+	("net.raphimc.viabedrock.api.model.BlockState", None),
+	# -- mocha, for evaluating the MoLang conditions on block permutations --
+	("team.unnamed.mocha.runtime.Scope", None),
+	("team.unnamed.mocha.runtime.value.MutableObjectBinding", None),
+	("team.unnamed.mocha.runtime.binding.JavaObjectBinding", r"class team|public|static"),
+	("team.unnamed.mocha.runtime.value.Value", None),
 	# -- regression guard for the crash that started all of this --
 	(
 		"net.minecraft.client.renderer.entity.EntityRenderDispatcher",
@@ -131,15 +134,24 @@ def class_names(path, pattern):
 	return sorted(names)
 
 
+def pick_minecraft(jars):
+	best = None
+	best_count = 0
+	for name, path in jars.items():
+		lowered = name.lower()
+		if not lowered.startswith("minecraft"):
+			continue
+		if any(skip in lowered for skip in JAR_NAME_SKIP):
+			continue
+		count = class_count(path)
+		if count > best_count:
+			best, best_count = path, count
+	return best, best_count
+
+
 def main():
 	jars = all_jars()
-
-	minecraft = None
-	for name, path in jars.items():
-		if not name.startswith("minecraft"):
-			continue
-		if minecraft is None or path.stat().st_size > minecraft.stat().st_size:
-			minecraft = path
+	minecraft, minecraft_classes = pick_minecraft(jars)
 
 	if minecraft is None:
 		print("no minecraft jar found; searched:")
@@ -157,7 +169,7 @@ def main():
 		key=lambda path: path.name,
 	)
 
-	print(f"jar: {minecraft.name} ({class_count(minecraft)} classes)")
+	print(f"jar: {minecraft.name} ({minecraft_classes} classes)")
 	print()
 	print(f"== CLASSPATH LIBS ({len(libs)}) ==")
 	for path in libs:
