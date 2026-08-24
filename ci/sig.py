@@ -36,30 +36,44 @@ LIB_KEYWORDS = (
 # file size and loses on everything that matters.
 JAR_NAME_SKIP = ("server", "sources", "javadoc")
 
-INDEXES = ()
-
-# Whole-package listings. Cheaper than guessing one class at a time when a
-# package has been reshuffled.
-MC_INDEX = re.compile(
-	r"^net\.minecraft\.client\.resources\.model\.(?:cuboid|geometry)\.[A-Za-z0-9_$]+$"
+# Phase 4 needs the real home of the ViaBedrock pack classes.
+INDEXES = (
+	(
+		"viabedrock",
+		re.compile(
+			r"\.(?:ResourcePackStorage|ModelDefinitions|ResourcePackRewriter"
+			r"|BlockStateRewriter|TextureDefinitions|BlockDefinitions)"
+			r"(?:\$[A-Za-z0-9_]+)?$"
+		),
+	),
 )
+
+MC_INDEX = re.compile(r"^net\.minecraft\.client\.resources\.model\.sprite\.[A-Za-z0-9_$]+$")
 
 # (class, member filter). The filter keeps the output readable for the huge
 # classes; None dumps every member.
 TARGETS = (
-	# -- the missing piece of FaceBakery.bakeQuad --
-	("net.minecraft.client.resources.model.cuboid.CuboidRotation", None),
-	("net.minecraft.client.resources.model.cuboid.Cuboid", None),
-	("net.minecraft.client.resources.model.geometry.UnbakedGeometry", None),
-	("net.minecraft.client.resources.model.geometry.SimpleUnbakedGeometry", None),
-	# -- needed only if the quads have to be assembled by hand --
-	("com.mojang.blaze3d.platform.Transparency", r"class com|public static final"),
-	("net.minecraft.core.Direction", r"class net|public static|public net|getName"),
-	# -- phase 4 --
+	# -- letting vanilla bake the elements --
+	("net.minecraft.client.resources.model.cuboid.UnbakedCuboidGeometry", None),
+	("net.minecraft.client.resources.model.cuboid.CuboidModelElement", None),
+	("net.minecraft.client.resources.model.cuboid.CuboidModel", r"class net|public"),
+	("net.minecraft.client.resources.model.cuboid.CuboidRotation$RotationValue", None),
 	(
-		"net.raphimc.viabedrock.api.model.resourcepack.ResourcePackStorage",
-		r"class net|public",
+		"net.minecraft.client.resources.model.cuboid.CuboidRotation$SingleAxisRotation",
+		None,
 	),
+	(
+		"net.minecraft.client.resources.model.cuboid.CuboidRotation$EulerXYZRotation",
+		None,
+	),
+	# -- the texture side of bake() --
+	("net.minecraft.client.resources.model.sprite.TextureSlots$Data", None),
+	("net.minecraft.client.resources.model.sprite.TextureSlots$Data$Builder", None),
+	("net.minecraft.client.resources.model.sprite.TextureSlots$Resolver", None),
+	("net.minecraft.client.resources.model.sprite.TextureSlots$Value", None),
+	("net.minecraft.client.resources.model.sprite.TextureSlots$Reference", None),
+	("net.minecraft.client.resources.model.sprite.TextureSlots$SlotContents", None),
+	("net.minecraft.client.resources.model.sprite.SpriteId", None),
 	# -- regression guard for the crash that started all of this --
 	(
 		"net.minecraft.client.renderer.entity.EntityRenderDispatcher",
@@ -153,7 +167,7 @@ def main():
 	for path in libs:
 		print(f"   {path.name:<60} {class_count(path)} classes")
 
-	print_index("CUBOID + GEOMETRY PACKAGES", class_names(minecraft, MC_INDEX))
+	print_index("SPRITE PACKAGE", class_names(minecraft, MC_INDEX))
 
 	for keyword, pattern in INDEXES:
 		matches = [path for path in libs if keyword in path.name.lower()]
