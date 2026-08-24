@@ -8,190 +8,320 @@ jar: minecraft-merged-a76db1c7b4-26.2.jar (10952 classes)
    nbt-5.3.0.jar                                                47 classes
    viaversion-common-5.12.0-SNAPSHOT.jar                        3312 classes
 
-== SPRITE PACKAGE (17 matched) ==
-   net.minecraft.client.resources.model.sprite.AtlasManager
-   net.minecraft.client.resources.model.sprite.AtlasManager$AtlasConfig
-   net.minecraft.client.resources.model.sprite.AtlasManager$AtlasEntry
-   net.minecraft.client.resources.model.sprite.AtlasManager$PendingStitch
-   net.minecraft.client.resources.model.sprite.AtlasManager$PendingStitchResults
-   net.minecraft.client.resources.model.sprite.Material
-   net.minecraft.client.resources.model.sprite.Material$Baked
-   net.minecraft.client.resources.model.sprite.MaterialBaker
-   net.minecraft.client.resources.model.sprite.SpriteGetter
-   net.minecraft.client.resources.model.sprite.SpriteId
-   net.minecraft.client.resources.model.sprite.TextureSlots
-   net.minecraft.client.resources.model.sprite.TextureSlots$Data
-   net.minecraft.client.resources.model.sprite.TextureSlots$Data$Builder
-   net.minecraft.client.resources.model.sprite.TextureSlots$Reference
-   net.minecraft.client.resources.model.sprite.TextureSlots$Resolver
-   net.minecraft.client.resources.model.sprite.TextureSlots$SlotContents
-   net.minecraft.client.resources.model.sprite.TextureSlots$Value
+== MC MODEL PACKAGE (39 matched) ==
+   net.minecraft.client.resources.model.BlockStateDefinitions
+   net.minecraft.client.resources.model.BlockStateModelLoader
+   net.minecraft.client.resources.model.BlockStateModelLoader$LoadedBlockStateModelDispatcher
+   net.minecraft.client.resources.model.BlockStateModelLoader$LoadedModels
+   net.minecraft.client.resources.model.ClientItemInfoLoader
+   net.minecraft.client.resources.model.ClientItemInfoLoader$LoadedClientInfos
+   net.minecraft.client.resources.model.ClientItemInfoLoader$PendingLoad
+   net.minecraft.client.resources.model.EquipmentAssetManager
+   net.minecraft.client.resources.model.EquipmentClientInfo
+   net.minecraft.client.resources.model.EquipmentClientInfo$Builder
+   net.minecraft.client.resources.model.EquipmentClientInfo$Dyeable
+   net.minecraft.client.resources.model.EquipmentClientInfo$Layer
+   net.minecraft.client.resources.model.EquipmentClientInfo$LayerType
+   net.minecraft.client.resources.model.ModelBaker
+   net.minecraft.client.resources.model.ModelBaker$Interner
+   net.minecraft.client.resources.model.ModelBaker$SharedOperationKey
+   net.minecraft.client.resources.model.ModelBakery
+   net.minecraft.client.resources.model.ModelBakery$BakingResult
+   net.minecraft.client.resources.model.ModelBakery$InternerImpl
+   net.minecraft.client.resources.model.ModelBakery$MissingModels
+   net.minecraft.client.resources.model.ModelBakery$MissingModels$1
+   net.minecraft.client.resources.model.ModelBakery$ModelBakerImpl
+   net.minecraft.client.resources.model.ModelDebugName
+   net.minecraft.client.resources.model.ModelDiscovery
+   net.minecraft.client.resources.model.ModelDiscovery$ModelWrapper
+   net.minecraft.client.resources.model.ModelDiscovery$Slot
+   net.minecraft.client.resources.model.ModelGroupCollector
+   net.minecraft.client.resources.model.ModelGroupCollector$GroupKey
+   net.minecraft.client.resources.model.ModelManager
+   net.minecraft.client.resources.model.ModelManager$BlockOnlyMaterialBaker
+   net.minecraft.client.resources.model.ModelManager$CombinedBlockItemMaterialBaker
+   net.minecraft.client.resources.model.ModelManager$ReloadState
+   net.minecraft.client.resources.model.ModelManager$ResolvedModels
+   net.minecraft.client.resources.model.ResolvableModel
+   net.minecraft.client.resources.model.ResolvableModel$Resolver
+   net.minecraft.client.resources.model.ResolvedModel
+   net.minecraft.client.resources.model.SimpleModelWrapper
+   net.minecraft.client.resources.model.UnbakedModel
+   net.minecraft.client.resources.model.UnbakedModel$GuiLight
 
-== CLASS INDEX: ViaBedrock-0.0.29-SNAPSHOT.jar (9 matched) ==
+== CLASS INDEX: ViaBedrock-0.0.29-SNAPSHOT.jar (106 matched) ==
+   net.raphimc.viabedrock.api.resourcepack.ResourcePack
+   net.raphimc.viabedrock.api.resourcepack.ResourcePack$Key
+   net.raphimc.viabedrock.api.resourcepack.content.Content
+   net.raphimc.viabedrock.api.resourcepack.content.Content$LazyImage
+   net.raphimc.viabedrock.api.resourcepack.content.DirectoryContent
+   net.raphimc.viabedrock.api.resourcepack.content.InMemoryContent
+   net.raphimc.viabedrock.api.resourcepack.content.ZipContent
+   net.raphimc.viabedrock.api.resourcepack.definition.AttachableDefinitions
+   net.raphimc.viabedrock.api.resourcepack.definition.AttachableDefinitions$AttachableDefinition
+   net.raphimc.viabedrock.api.resourcepack.definition.BiomeDefinitions
+   net.raphimc.viabedrock.api.resourcepack.definition.BiomeDefinitions$BiomeDefinition
    net.raphimc.viabedrock.api.resourcepack.definition.BlockDefinitions
    net.raphimc.viabedrock.api.resourcepack.definition.BlockDefinitions$BlockDefinition
+   net.raphimc.viabedrock.api.resourcepack.definition.EntityDefinitions
+   net.raphimc.viabedrock.api.resourcepack.definition.EntityDefinitions$EntityDefinition
+   net.raphimc.viabedrock.api.resourcepack.definition.FogDefinitions
+   net.raphimc.viabedrock.api.resourcepack.definition.FogDefinitions$FogDefinition
+   net.raphimc.viabedrock.api.resourcepack.definition.ItemDefinitions
+   net.raphimc.viabedrock.api.resourcepack.definition.ItemDefinitions$ItemDefinition
    net.raphimc.viabedrock.api.resourcepack.definition.ModelDefinitions
+   net.raphimc.viabedrock.api.resourcepack.definition.ParticleDefinitions
+   net.raphimc.viabedrock.api.resourcepack.definition.ParticleDefinitions$ParticleDefinition
+   net.raphimc.viabedrock.api.resourcepack.definition.RenderControllerDefinitions
+   net.raphimc.viabedrock.api.resourcepack.definition.SoundDefinitions
+   net.raphimc.viabedrock.api.resourcepack.definition.SoundDefinitions$ConfiguredSound
+   net.raphimc.viabedrock.api.resourcepack.definition.SoundDefinitions$EventSound
+   net.raphimc.viabedrock.api.resourcepack.definition.SoundDefinitions$EventSounds
+   net.raphimc.viabedrock.api.resourcepack.definition.SoundDefinitions$SoundDefinition
+   net.raphimc.viabedrock.api.resourcepack.definition.TextDefinitions
    net.raphimc.viabedrock.api.resourcepack.definition.TextureDefinitions
    net.raphimc.viabedrock.api.resourcepack.definition.TextureDefinitions$ItemTextureDefinition
+   net.raphimc.viabedrock.api.resourcepack.http.BedrockPackDownloader
+   net.raphimc.viabedrock.api.resourcepack.http.ResourcePackHttpServer
+   net.raphimc.viabedrock.api.resourcepack.http.ResourcePackHttpServer$1
+   net.raphimc.viabedrock.api.resourcepack.http.ResourcePackHttpServer$1$1
+   net.raphimc.viabedrock.protocol.rewriter.BlockEntityRewriter
+   net.raphimc.viabedrock.protocol.rewriter.BlockEntityRewriter$Rewriter
    net.raphimc.viabedrock.protocol.rewriter.BlockStateRewriter
+   net.raphimc.viabedrock.protocol.rewriter.GameTypeRewriter
+   net.raphimc.viabedrock.protocol.rewriter.GameTypeRewriter$1
+   net.raphimc.viabedrock.protocol.rewriter.ItemRewriter
+   net.raphimc.viabedrock.protocol.rewriter.ItemRewriter$NbtRewriter
    net.raphimc.viabedrock.protocol.rewriter.ResourcePackRewriter
    net.raphimc.viabedrock.protocol.rewriter.ResourcePackRewriter$Rewriter
+   net.raphimc.viabedrock.protocol.rewriter.blockentity.BannerBlockEntityRewriter
+   net.raphimc.viabedrock.protocol.rewriter.blockentity.BeaconBlockEntityRewriter
+   net.raphimc.viabedrock.protocol.rewriter.blockentity.BedBlockEntityRewriter
+   net.raphimc.viabedrock.protocol.rewriter.blockentity.BeehiveBlockEntityRewriter
+   net.raphimc.viabedrock.protocol.rewriter.blockentity.BrewingStandBlockEntityRewriter
+   net.raphimc.viabedrock.protocol.rewriter.blockentity.BrushableBlockBlockEntityRewriter
+   net.raphimc.viabedrock.protocol.rewriter.blockentity.CampfireBlockEntityRewriter
+   net.raphimc.viabedrock.protocol.rewriter.blockentity.ChiseledBookshelfBlockEntityRewriter
+   net.raphimc.viabedrock.protocol.rewriter.blockentity.CommandBlockBlockEntityRewriter
+   net.raphimc.viabedrock.protocol.rewriter.blockentity.ComparatorBlockEntityRewriter
+   net.raphimc.viabedrock.protocol.rewriter.blockentity.ConduitBlockEntityRewriter
+   net.raphimc.viabedrock.protocol.rewriter.blockentity.CrafterBlockEntityRewriter
+   net.raphimc.viabedrock.protocol.rewriter.blockentity.CreakingHeartBlockEntityRewriter
+   net.raphimc.viabedrock.protocol.rewriter.blockentity.DecoratedPotBlockEntityRewriter
+   net.raphimc.viabedrock.protocol.rewriter.blockentity.EndGatewayBlockEntityRewriter
+   net.raphimc.viabedrock.protocol.rewriter.blockentity.FlowerPotBlockEntityRewriter
+   net.raphimc.viabedrock.protocol.rewriter.blockentity.FurnaceBlockEntityRewriter
+   net.raphimc.viabedrock.protocol.rewriter.blockentity.HopperBlockEntityRewriter
+   net.raphimc.viabedrock.protocol.rewriter.blockentity.JigsawBlockEntityRewriter
+   net.raphimc.viabedrock.protocol.rewriter.blockentity.JukeboxBlockEntityRewriter
+   net.raphimc.viabedrock.protocol.rewriter.blockentity.LecternBlockEntityRewriter
+   net.raphimc.viabedrock.protocol.rewriter.blockentity.LootableContainerBlockEntityRewriter
+   net.raphimc.viabedrock.protocol.rewriter.blockentity.MobSpawnerBlockEntityRewriter
+   net.raphimc.viabedrock.protocol.rewriter.blockentity.NamedBlockEntityRewriter
+   net.raphimc.viabedrock.protocol.rewriter.blockentity.ShelfBlockEntityRewriter
+   net.raphimc.viabedrock.protocol.rewriter.blockentity.SignBlockEntityRewriter
+   net.raphimc.viabedrock.protocol.rewriter.blockentity.SkullBlockEntityRewriter
+   net.raphimc.viabedrock.protocol.rewriter.blockentity.StructureBlockBlockEntityRewriter
+   net.raphimc.viabedrock.protocol.rewriter.blockentity.TrialSpawnerBlockEntityRewriter
+   net.raphimc.viabedrock.protocol.rewriter.blockentity.VaultBlockEntityRewriter
+   net.raphimc.viabedrock.protocol.rewriter.item.BundleItemRewriter
+   net.raphimc.viabedrock.protocol.rewriter.resourcepack.CustomAttachableResourceRewriter
+   net.raphimc.viabedrock.protocol.rewriter.resourcepack.CustomEntityResourceRewriter
+   net.raphimc.viabedrock.protocol.rewriter.resourcepack.CustomItemTextureResourceRewriter
+   net.raphimc.viabedrock.protocol.rewriter.resourcepack.GlyphSheetResourceRewriter
+   net.raphimc.viabedrock.protocol.rewriter.resourcepack.ItemModelResourceRewriter
+   net.raphimc.viabedrock.protocol.rewriter.resourcepack.ItemModelResourceRewriter$ItemModelContent
+   net.raphimc.viabedrock.protocol.storage.AuthData
+   net.raphimc.viabedrock.protocol.storage.BlobCache
+   net.raphimc.viabedrock.protocol.storage.BreakingTracker
+   net.raphimc.viabedrock.protocol.storage.BreakingTracker$BlockCrackingInfo
+   net.raphimc.viabedrock.protocol.storage.ChannelStorage
+   net.raphimc.viabedrock.protocol.storage.ChunkTracker
+   net.raphimc.viabedrock.protocol.storage.ChunkTracker$BiomeAggregator
+   net.raphimc.viabedrock.protocol.storage.ChunkTracker$SubChunkPosition
+   net.raphimc.viabedrock.protocol.storage.ClientSettingsStorage
+   net.raphimc.viabedrock.protocol.storage.CommandsStorage
+   net.raphimc.viabedrock.protocol.storage.CommandsStorage$1
+   net.raphimc.viabedrock.protocol.storage.EntityTracker
+   net.raphimc.viabedrock.protocol.storage.GameRulesStorage
+   net.raphimc.viabedrock.protocol.storage.GameSessionStorage
+   net.raphimc.viabedrock.protocol.storage.HandshakeStorage
+   net.raphimc.viabedrock.protocol.storage.InventoryTracker
+   net.raphimc.viabedrock.protocol.storage.JoinGameStorage
+   net.raphimc.viabedrock.protocol.storage.PacketSyncStorage
+   net.raphimc.viabedrock.protocol.storage.PlayerListStorage
+   net.raphimc.viabedrock.protocol.storage.ResourcePackDownloadTracker
+   net.raphimc.viabedrock.protocol.storage.ResourcePackDownloadTracker$Download
+   net.raphimc.viabedrock.protocol.storage.ResourcePackLoadStateTracker
+   net.raphimc.viabedrock.protocol.storage.ResourcePackLoadStateTracker$Info
    net.raphimc.viabedrock.protocol.storage.ResourcePackStorage
+   net.raphimc.viabedrock.protocol.storage.ScoreboardTracker
 
 == SIGNATURES ==
--- net.minecraft.client.resources.model.cuboid.UnbakedCuboidGeometry --
-   Compiled from "UnbakedCuboidGeometry.java"
-   public final class net.minecraft.client.resources.model.cuboid.UnbakedCuboidGeometry extends java.lang.Record implements net.minecraft.client.resources.model.geometry.UnbakedGeometry {
-   private final java.util.List<net.minecraft.client.resources.model.cuboid.CuboidModelElement> elements;
-   public net.minecraft.client.resources.model.cuboid.UnbakedCuboidGeometry(java.util.List<net.minecraft.client.resources.model.cuboid.CuboidModelElement>);
-   public net.minecraft.client.resources.model.geometry.QuadCollection bake(net.minecraft.client.resources.model.sprite.TextureSlots, net.minecraft.client.resources.model.ModelBaker, net.minecraft.client.renderer.block.dispatch.ModelState, net.minecraft.client.resources.model.ModelDebugName);
-   public static net.minecraft.client.resources.model.geometry.QuadCollection bake(java.util.List<net.minecraft.client.resources.model.cuboid.CuboidModelElement>, net.minecraft.client.resources.model.sprite.TextureSlots, net.minecraft.client.resources.model.ModelBaker, net.minecraft.client.renderer.block.dispatch.ModelState, net.minecraft.client.resources.model.ModelDebugName);
-   public final java.lang.String toString();
-   public final int hashCode();
-   public final boolean equals(java.lang.Object);
-   public java.util.List<net.minecraft.client.resources.model.cuboid.CuboidModelElement> elements();
+-- net.raphimc.viabedrock.protocol.storage.ResourcePackStorage --
+   Compiled from "ResourcePackStorage.java"
+   public class net.raphimc.viabedrock.protocol.storage.ResourcePackStorage implements com.viaversion.viaversion.api.connection.StorableObject {
+   private final java.util.Set<net.raphimc.viabedrock.api.resourcepack.ResourcePack> packStackBottomToTop;
+   private final java.util.Set<net.raphimc.viabedrock.api.resourcepack.ResourcePack> packStackTopToBottom;
+   private boolean loadedOnJavaClient;
+   private final java.util.Map<java.lang.String, java.lang.Object> converterData;
+   private final net.raphimc.viabedrock.api.resourcepack.definition.TextDefinitions texts;
+   private final net.raphimc.viabedrock.api.resourcepack.definition.BlockDefinitions blocks;
+   private final net.raphimc.viabedrock.api.resourcepack.definition.ItemDefinitions items;
+   private final net.raphimc.viabedrock.api.resourcepack.definition.AttachableDefinitions attachables;
+   private final net.raphimc.viabedrock.api.resourcepack.definition.TextureDefinitions textures;
+   private final net.raphimc.viabedrock.api.resourcepack.definition.SoundDefinitions sounds;
+   private final net.raphimc.viabedrock.api.resourcepack.definition.ParticleDefinitions particles;
+   private final net.raphimc.viabedrock.api.resourcepack.definition.EntityDefinitions entities;
+   private final net.raphimc.viabedrock.api.resourcepack.definition.ModelDefinitions models;
+   private final net.raphimc.viabedrock.api.resourcepack.definition.FogDefinitions fogs;
+   private final net.raphimc.viabedrock.api.resourcepack.definition.BiomeDefinitions biomes;
+   private final net.raphimc.viabedrock.api.resourcepack.definition.RenderControllerDefinitions renderControllers;
+   public net.raphimc.viabedrock.protocol.storage.ResourcePackStorage(java.util.List<net.raphimc.viabedrock.api.resourcepack.ResourcePack>);
+   public java.util.Collection<net.raphimc.viabedrock.api.resourcepack.ResourcePack> getPackStackBottomToTop();
+   public java.util.Collection<net.raphimc.viabedrock.api.resourcepack.ResourcePack> getPackStackTopToBottom();
+   public boolean isLoadedOnJavaClient();
+   public void setLoadedOnJavaClient();
+   public java.util.Map<java.lang.String, java.lang.Object> getConverterData();
+   public net.raphimc.viabedrock.api.resourcepack.definition.TextDefinitions getTexts();
+   public net.raphimc.viabedrock.api.resourcepack.definition.BlockDefinitions getBlocks();
+   public net.raphimc.viabedrock.api.resourcepack.definition.ItemDefinitions getItems();
+   public net.raphimc.viabedrock.api.resourcepack.definition.AttachableDefinitions getAttachables();
+   public net.raphimc.viabedrock.api.resourcepack.definition.TextureDefinitions getTextures();
+   public net.raphimc.viabedrock.api.resourcepack.definition.SoundDefinitions getSounds();
+   public net.raphimc.viabedrock.api.resourcepack.definition.ParticleDefinitions getParticles();
+   public net.raphimc.viabedrock.api.resourcepack.definition.EntityDefinitions getEntities();
+   public net.raphimc.viabedrock.api.resourcepack.definition.ModelDefinitions getModels();
+   public net.raphimc.viabedrock.api.resourcepack.definition.FogDefinitions getFogs();
+   public net.raphimc.viabedrock.api.resourcepack.definition.BiomeDefinitions getBiomes();
+   public net.raphimc.viabedrock.api.resourcepack.definition.RenderControllerDefinitions getRenderControllers();
    }
--- net.minecraft.client.resources.model.cuboid.CuboidModelElement --
-   Compiled from "CuboidModelElement.java"
-   public final class net.minecraft.client.resources.model.cuboid.CuboidModelElement extends java.lang.Record {
-   private final org.joml.Vector3fc from;
-   private final org.joml.Vector3fc to;
-   private final java.util.Map<net.minecraft.core.Direction, net.minecraft.client.resources.model.cuboid.CuboidFace> faces;
-   private final net.minecraft.client.resources.model.cuboid.CuboidRotation rotation;
-   private final boolean shade;
-   private final int lightEmission;
-   private static final boolean DEFAULT_RESCALE;
-   private static final float MIN_EXTENT;
-   private static final float MAX_EXTENT;
-   public net.minecraft.client.resources.model.cuboid.CuboidModelElement(org.joml.Vector3fc, org.joml.Vector3fc, java.util.Map<net.minecraft.core.Direction, net.minecraft.client.resources.model.cuboid.CuboidFace>);
-   public net.minecraft.client.resources.model.cuboid.CuboidModelElement(org.joml.Vector3fc, org.joml.Vector3fc, java.util.Map<net.minecraft.core.Direction, net.minecraft.client.resources.model.cuboid.CuboidFace>, net.minecraft.client.resources.model.cuboid.CuboidRotation, boolean, int);
-   public final java.lang.String toString();
-   public final int hashCode();
-   public final boolean equals(java.lang.Object);
-   public org.joml.Vector3fc from();
-   public org.joml.Vector3fc to();
-   public java.util.Map<net.minecraft.core.Direction, net.minecraft.client.resources.model.cuboid.CuboidFace> faces();
-   public net.minecraft.client.resources.model.cuboid.CuboidRotation rotation();
-   public boolean shade();
-   public int lightEmission();
+-- net.raphimc.viabedrock.api.resourcepack.definition.ModelDefinitions --
+   Compiled from "ModelDefinitions.java"
+   public class net.raphimc.viabedrock.api.resourcepack.definition.ModelDefinitions {
+   private final java.util.Map<java.lang.String, org.cube.converter.model.impl.bedrock.BedrockGeometryModel> entityModels;
+   public net.raphimc.viabedrock.api.resourcepack.definition.ModelDefinitions(net.raphimc.viabedrock.protocol.storage.ResourcePackStorage);
+   public org.cube.converter.model.impl.bedrock.BedrockGeometryModel getEntityModel(java.lang.String);
+   public java.util.Map<java.lang.String, org.cube.converter.model.impl.bedrock.BedrockGeometryModel> entityModels();
    }
--- net.minecraft.client.resources.model.cuboid.CuboidModel --
-   public final class net.minecraft.client.resources.model.cuboid.CuboidModel extends java.lang.Record implements net.minecraft.client.resources.model.UnbakedModel {
-   public net.minecraft.client.resources.model.cuboid.CuboidModel(net.minecraft.client.resources.model.geometry.UnbakedGeometry, net.minecraft.client.resources.model.UnbakedModel$GuiLight, java.lang.Boolean, net.minecraft.client.resources.model.cuboid.ItemTransforms, net.minecraft.client.resources.model.sprite.TextureSlots$Data, net.minecraft.resources.Identifier);
-   public static net.minecraft.client.resources.model.cuboid.CuboidModel fromStream(java.io.Reader);
-   public final java.lang.String toString();
-   public final int hashCode();
-   public final boolean equals(java.lang.Object);
-   public net.minecraft.client.resources.model.geometry.UnbakedGeometry geometry();
-   public net.minecraft.client.resources.model.UnbakedModel$GuiLight guiLight();
-   public java.lang.Boolean ambientOcclusion();
-   public net.minecraft.client.resources.model.cuboid.ItemTransforms transforms();
-   public net.minecraft.client.resources.model.sprite.TextureSlots$Data textureSlots();
-   public net.minecraft.resources.Identifier parent();
--- net.minecraft.client.resources.model.cuboid.CuboidRotation$RotationValue --
-   Compiled from "CuboidRotation.java"
-   public interface net.minecraft.client.resources.model.cuboid.CuboidRotation$RotationValue {
-   public abstract org.joml.Matrix4f transformation();
+-- net.raphimc.viabedrock.api.resourcepack.definition.TextureDefinitions --
+   Compiled from "TextureDefinitions.java"
+   public class net.raphimc.viabedrock.api.resourcepack.definition.TextureDefinitions {
+   private final java.util.Map<java.lang.String, java.util.List<net.raphimc.viabedrock.api.resourcepack.definition.TextureDefinitions$ItemTextureDefinition>> itemTextures;
+   public net.raphimc.viabedrock.api.resourcepack.definition.TextureDefinitions(net.raphimc.viabedrock.protocol.storage.ResourcePackStorage);
+   public java.util.Map<java.lang.String, java.util.List<net.raphimc.viabedrock.api.resourcepack.definition.TextureDefinitions$ItemTextureDefinition>> itemTextures();
    }
--- net.minecraft.client.resources.model.cuboid.CuboidRotation$SingleAxisRotation --
-   Compiled from "CuboidRotation.java"
-   public final class net.minecraft.client.resources.model.cuboid.CuboidRotation$SingleAxisRotation extends java.lang.Record implements net.minecraft.client.resources.model.cuboid.CuboidRotation$RotationValue {
-   private final net.minecraft.core.Direction$Axis axis;
-   private final float angle;
-   public net.minecraft.client.resources.model.cuboid.CuboidRotation$SingleAxisRotation(net.minecraft.core.Direction$Axis, float);
-   public org.joml.Matrix4f transformation();
-   public final java.lang.String toString();
-   public final int hashCode();
-   public final boolean equals(java.lang.Object);
-   public net.minecraft.core.Direction$Axis axis();
-   public float angle();
+-- net.raphimc.viabedrock.api.resourcepack.definition.BlockDefinitions --
+   Compiled from "BlockDefinitions.java"
+   public class net.raphimc.viabedrock.api.resourcepack.definition.BlockDefinitions {
+   private final java.util.Map<java.lang.String, net.raphimc.viabedrock.api.resourcepack.definition.BlockDefinitions$BlockDefinition> blocks;
+   public net.raphimc.viabedrock.api.resourcepack.definition.BlockDefinitions(net.raphimc.viabedrock.protocol.storage.ResourcePackStorage);
+   public net.raphimc.viabedrock.api.resourcepack.definition.BlockDefinitions$BlockDefinition get(java.lang.String);
+   public java.util.Map<java.lang.String, net.raphimc.viabedrock.api.resourcepack.definition.BlockDefinitions$BlockDefinition> blocks();
    }
--- net.minecraft.client.resources.model.cuboid.CuboidRotation$EulerXYZRotation --
-   Compiled from "CuboidRotation.java"
-   public final class net.minecraft.client.resources.model.cuboid.CuboidRotation$EulerXYZRotation extends java.lang.Record implements net.minecraft.client.resources.model.cuboid.CuboidRotation$RotationValue {
-   private final float x;
-   private final float y;
-   private final float z;
-   public net.minecraft.client.resources.model.cuboid.CuboidRotation$EulerXYZRotation(float, float, float);
-   public org.joml.Matrix4f transformation();
+-- net.raphimc.viabedrock.api.resourcepack.definition.BlockDefinitions$BlockDefinition --
+   Compiled from "BlockDefinitions.java"
+   public final class net.raphimc.viabedrock.api.resourcepack.definition.BlockDefinitions$BlockDefinition extends java.lang.Record {
+   private final java.lang.String identifier;
+   private final java.lang.String sound;
+   public net.raphimc.viabedrock.api.resourcepack.definition.BlockDefinitions$BlockDefinition(java.lang.String, java.lang.String);
    public final java.lang.String toString();
    public final int hashCode();
    public final boolean equals(java.lang.Object);
-   public float x();
-   public float y();
-   public float z();
+   public java.lang.String identifier();
+   public java.lang.String sound();
    }
--- net.minecraft.client.resources.model.sprite.TextureSlots$Data --
-   Compiled from "TextureSlots.java"
-   public final class net.minecraft.client.resources.model.sprite.TextureSlots$Data extends java.lang.Record {
-   private final java.util.Map<java.lang.String, net.minecraft.client.resources.model.sprite.TextureSlots$SlotContents> values;
-   public static final net.minecraft.client.resources.model.sprite.TextureSlots$Data EMPTY;
-   public net.minecraft.client.resources.model.sprite.TextureSlots$Data(java.util.Map<java.lang.String, net.minecraft.client.resources.model.sprite.TextureSlots$SlotContents>);
-   public final java.lang.String toString();
-   public final int hashCode();
-   public final boolean equals(java.lang.Object);
-   public java.util.Map<java.lang.String, net.minecraft.client.resources.model.sprite.TextureSlots$SlotContents> values();
+-- net.raphimc.viabedrock.api.resourcepack.content.Content --
+   Compiled from "Content.java"
+   public abstract class net.raphimc.viabedrock.api.resourcepack.content.Content {
+   private final java.util.Map<java.lang.String, java.util.Map<java.lang.String, java.lang.String>> langCache;
+   public net.raphimc.viabedrock.api.resourcepack.content.Content();
+   public abstract java.util.List<java.lang.String> getFilesShallow(java.lang.String, java.lang.String);
+   public abstract java.util.List<java.lang.String> getFilesDeep(java.lang.String, java.lang.String);
+   public java.lang.String getFullPath(java.lang.String, java.lang.String...);
+   public abstract boolean contains(java.lang.String);
+   public abstract byte[] get(java.lang.String);
+   public abstract boolean put(java.lang.String, byte[]);
+   public java.lang.String getString(java.lang.String);
+   public boolean putString(java.lang.String, java.lang.String);
+   public java.util.List<java.lang.String> getLines(java.lang.String);
+   public boolean putLines(java.lang.String, java.util.List<java.lang.String>);
+   public java.util.Map<java.lang.String, java.lang.String> getLang(java.lang.String);
+   public com.viaversion.viaversion.libs.gson.JsonObject getJson(java.lang.String);
+   public com.viaversion.viaversion.libs.gson.JsonObject getSortedJson(java.lang.String);
+   public boolean putJson(java.lang.String, com.viaversion.viaversion.libs.gson.JsonObject);
+   public net.raphimc.viabedrock.api.resourcepack.content.Content$LazyImage getShortnameImage(java.lang.String);
+   public net.raphimc.viabedrock.api.resourcepack.content.Content$LazyImage getImage(java.lang.String);
+   public boolean putPngImage(java.lang.String, net.raphimc.viabedrock.api.resourcepack.content.Content$LazyImage);
+   public boolean putPngImage(java.lang.String, java.awt.image.BufferedImage);
+   public void putAll(net.raphimc.viabedrock.api.resourcepack.content.Content);
+   public void copyFrom(net.raphimc.viabedrock.api.resourcepack.content.Content, java.lang.String, java.lang.String);
+   public byte[] toZip() throws java.io.IOException;
+   private java.util.Map lambda$getLang$7(java.lang.String);
+   private static java.lang.String lambda$getLang$6(java.lang.String, java.lang.String);
+   private static java.lang.String lambda$getLang$5(java.lang.String[]);
+   private static java.lang.String lambda$getLang$4(java.lang.String[]);
+   private static java.lang.String[] lambda$getLang$3(java.lang.String);
+   private static java.lang.String lambda$getLang$2(java.lang.String);
+   private static boolean lambda$getLang$1(java.lang.String);
+   private static boolean lambda$getLang$0(java.lang.String);
+   }
+-- net.raphimc.viabedrock.protocol.rewriter.BlockStateRewriter --
+   Compiled from "BlockStateRewriter.java"
+   public class net.raphimc.viabedrock.protocol.rewriter.BlockStateRewriter implements com.viaversion.viaversion.api.connection.StorableObject {
+   private final com.viaversion.viaversion.libs.fastutil.ints.Int2IntMap blockStateIdMappings;
+   private final com.viaversion.viaversion.libs.fastutil.ints.Int2IntMap legacyBlockStateIdMappings;
+   private final com.google.common.collect.BiMap<net.raphimc.viabedrock.api.model.BlockState, java.lang.Integer> blockStateMappings;
+   private final com.viaversion.viaversion.libs.fastutil.objects.Object2ObjectMap<java.lang.String, com.viaversion.viaversion.libs.fastutil.ints.IntSortedSet> validBlockStates;
+   private final com.viaversion.viaversion.libs.fastutil.ints.Int2ObjectMap<java.lang.String> blockStateTags;
+   private final net.raphimc.viabedrock.api.chunk.blockstate.BlockStateSanitizer blockStateSanitizer;
+   public net.raphimc.viabedrock.protocol.rewriter.BlockStateRewriter(net.raphimc.viabedrock.protocol.model.BlockProperties[], boolean);
+   public int bedrockId(com.viaversion.nbt.tag.CompoundTag);
+   public int bedrockId(net.raphimc.viabedrock.api.model.BlockState);
+   public net.raphimc.viabedrock.api.model.BlockState blockState(int);
+   public int bedrockId(int);
+   public int javaId(int);
+   public int waterlog(int);
+   public com.viaversion.viaversion.libs.fastutil.ints.IntSortedSet validBlockStates(java.lang.String);
+   public java.lang.String tag(int);
+   private static com.viaversion.viaversion.libs.fastutil.ints.IntSortedSet lambda$new$2(java.lang.Object);
+   private static int lambda$new$1(net.raphimc.viabedrock.api.model.BedrockBlockState, net.raphimc.viabedrock.api.model.BedrockBlockState);
+   private static com.viaversion.nbt.tag.CompoundTag lambda$new$0(java.util.Map);
+   }
+-- net.raphimc.viabedrock.protocol.rewriter.ResourcePackRewriter --
+   Compiled from "ResourcePackRewriter.java"
+   public class net.raphimc.viabedrock.protocol.rewriter.ResourcePackRewriter {
+   private static final java.util.List<net.raphimc.viabedrock.protocol.rewriter.ResourcePackRewriter$Rewriter> REWRITERS;
+   public net.raphimc.viabedrock.protocol.rewriter.ResourcePackRewriter();
+   public static net.raphimc.viabedrock.api.resourcepack.content.Content bedrockToJava(net.raphimc.viabedrock.protocol.storage.ResourcePackStorage) throws java.lang.InterruptedException;
+   private static com.viaversion.viaversion.libs.gson.JsonObject createPackManifest();
+   private static void lambda$bedrockToJava$1(java.util.List, java.util.concurrent.ExecutorService, java.util.function.Supplier);
+   private static java.util.concurrent.ForkJoinWorkerThread lambda$bedrockToJava$0(java.util.concurrent.ForkJoinPool);
    static {};
    }
--- net.minecraft.client.resources.model.sprite.TextureSlots$Data$Builder --
-   Compiled from "TextureSlots.java"
-   public class net.minecraft.client.resources.model.sprite.TextureSlots$Data$Builder {
-   private final java.util.Map<java.lang.String, net.minecraft.client.resources.model.sprite.TextureSlots$SlotContents> textureMap;
-   public net.minecraft.client.resources.model.sprite.TextureSlots$Data$Builder();
-   public net.minecraft.client.resources.model.sprite.TextureSlots$Data$Builder addReference(java.lang.String, java.lang.String);
-   public net.minecraft.client.resources.model.sprite.TextureSlots$Data$Builder addTexture(java.lang.String, net.minecraft.client.resources.model.sprite.Material);
-   public net.minecraft.client.resources.model.sprite.TextureSlots$Data build();
-   }
--- net.minecraft.client.resources.model.sprite.TextureSlots$Resolver --
-   Compiled from "TextureSlots.java"
-   public class net.minecraft.client.resources.model.sprite.TextureSlots$Resolver {
-   private static final org.slf4j.Logger LOGGER;
-   private final java.util.List<net.minecraft.client.resources.model.sprite.TextureSlots$Data> entries;
-   public net.minecraft.client.resources.model.sprite.TextureSlots$Resolver();
-   public net.minecraft.client.resources.model.sprite.TextureSlots$Resolver addLast(net.minecraft.client.resources.model.sprite.TextureSlots$Data);
-   public net.minecraft.client.resources.model.sprite.TextureSlots$Resolver addFirst(net.minecraft.client.resources.model.sprite.TextureSlots$Data);
-   public net.minecraft.client.resources.model.sprite.TextureSlots resolve(net.minecraft.client.resources.model.ModelDebugName);
-   private static java.lang.String lambda$resolve$1(java.util.Map$Entry);
-   private static void lambda$resolve$0(it.unimi.dsi.fastutil.objects.Object2ObjectMap, it.unimi.dsi.fastutil.objects.Object2ObjectMap, java.lang.String, net.minecraft.client.resources.model.sprite.TextureSlots$SlotContents);
-   static {};
-   }
--- net.minecraft.client.resources.model.sprite.TextureSlots$Value --
-   Compiled from "TextureSlots.java"
-   final class net.minecraft.client.resources.model.sprite.TextureSlots$Value extends java.lang.Record implements net.minecraft.client.resources.model.sprite.TextureSlots$SlotContents {
-   private final net.minecraft.client.resources.model.sprite.Material material;
-   private net.minecraft.client.resources.model.sprite.TextureSlots$Value(net.minecraft.client.resources.model.sprite.Material);
-   public final java.lang.String toString();
-   public final int hashCode();
-   public final boolean equals(java.lang.Object);
-   public net.minecraft.client.resources.model.sprite.Material material();
-   }
--- net.minecraft.client.resources.model.sprite.TextureSlots$Reference --
-   Compiled from "TextureSlots.java"
-   final class net.minecraft.client.resources.model.sprite.TextureSlots$Reference extends java.lang.Record implements net.minecraft.client.resources.model.sprite.TextureSlots$SlotContents {
-   private final java.lang.String target;
-   private net.minecraft.client.resources.model.sprite.TextureSlots$Reference(java.lang.String);
-   public final java.lang.String toString();
-   public final int hashCode();
-   public final boolean equals(java.lang.Object);
-   public java.lang.String target();
-   }
--- net.minecraft.client.resources.model.sprite.TextureSlots$SlotContents --
-   Compiled from "TextureSlots.java"
-   public interface net.minecraft.client.resources.model.sprite.TextureSlots$SlotContents {
-   }
--- net.minecraft.client.resources.model.sprite.SpriteId --
-   Compiled from "SpriteId.java"
-   public final class net.minecraft.client.resources.model.sprite.SpriteId extends java.lang.Record {
-   private final net.minecraft.resources.Identifier atlasLocation;
-   private final net.minecraft.resources.Identifier texture;
-   public net.minecraft.client.resources.model.sprite.SpriteId(net.minecraft.resources.Identifier, net.minecraft.resources.Identifier);
-   public net.minecraft.client.renderer.rendertype.RenderType renderType(java.util.function.Function<net.minecraft.resources.Identifier, net.minecraft.client.renderer.rendertype.RenderType>);
-   public final java.lang.String toString();
-   public final int hashCode();
-   public final boolean equals(java.lang.Object);
-   public net.minecraft.resources.Identifier atlasLocation();
-   public net.minecraft.resources.Identifier texture();
-   }
+-- net.minecraft.client.resources.model.ModelBakery --
+   public class net.minecraft.client.resources.model.ModelBakery {
+   public java.util.concurrent.CompletableFuture<net.minecraft.client.resources.model.ModelBakery$BakingResult> bakeModels(net.minecraft.client.resources.model.sprite.MaterialBaker, java.util.concurrent.Executor);
+   private static net.minecraft.client.resources.model.ModelBakery$BakingResult lambda$bakeModels$3(net.minecraft.client.resources.model.ModelBakery$MissingModels, java.util.Map, java.util.Map, java.util.Map);
+   private static void lambda$bakeModels$2(java.util.Map, net.minecraft.resources.Identifier, net.minecraft.client.renderer.item.ClientItem);
+   private net.minecraft.client.renderer.item.ItemModel lambda$bakeModels$1(net.minecraft.client.resources.model.ModelBakery$ModelBakerImpl, net.minecraft.client.resources.model.ModelBakery$MissingModels, net.minecraft.resources.Identifier, net.minecraft.client.renderer.item.ClientItem);
+   private static net.minecraft.client.renderer.block.dispatch.BlockStateModel lambda$bakeModels$0(net.minecraft.client.resources.model.ModelBakery$ModelBakerImpl, net.minecraft.world.level.block.state.BlockState, net.minecraft.client.renderer.block.dispatch.BlockStateModel$UnbakedRoot);
+-- net.minecraft.client.resources.model.ModelManager --
+   public class net.minecraft.client.resources.model.ModelManager implements net.minecraft.server.packs.resources.PreparableReloadListener,net.fabricmc.fabric.api.client.model.loading.v1.FabricModelManager {
+   public net.minecraft.client.renderer.block.BlockStateModelSet getBlockStateModelSet();
+   private static java.util.Map<net.minecraft.world.level.block.state.BlockState, net.minecraft.client.renderer.block.dispatch.BlockStateModel> createBlockStateToModelDispatch(java.util.Map<net.minecraft.world.level.block.state.BlockState, net.minecraft.client.renderer.block.dispatch.BlockStateModel>, net.minecraft.client.renderer.block.dispatch.BlockStateModel);
+   private static void lambda$createBlockStateToModelDispatch$0(java.util.Map, net.minecraft.client.renderer.block.dispatch.BlockStateModel, net.minecraft.world.level.block.state.BlockState);
+   private static net.minecraft.client.resources.model.ModelManager$ReloadState lambda$loadModels$1(net.minecraft.client.resources.model.sprite.MaterialBaker, net.minecraft.client.resources.model.sprite.MaterialBaker, it.unimi.dsi.fastutil.objects.Object2IntMap, net.minecraft.client.model.geom.EntityModelSet, net.minecraft.client.resources.model.ModelBakery$BakingResult, java.util.Map);
+   private static java.util.concurrent.CompletionStage lambda$loadModels$0(net.minecraft.client.renderer.block.LoadedBlockModels, java.util.concurrent.Executor, net.minecraft.client.resources.model.ModelBakery$BakingResult);
+-- net.minecraft.client.Minecraft --
+   public class net.minecraft.client.Minecraft extends net.minecraft.util.thread.ReentrantBlockableEventLoop<java.lang.Runnable> implements com.mojang.blaze3d.platform.WindowEventHandler {
+   public void disconnectFromWorld(net.minecraft.network.chat.Component);
+   public void disconnectWithSavingScreen();
+   public void disconnectWithProgressScreen();
+   public void disconnectWithProgressScreen(boolean);
+   public void disconnect(net.minecraft.client.gui.screens.Screen, boolean);
+   public void disconnect(net.minecraft.client.gui.screens.Screen, boolean, boolean);
+   public void clearClientLevel(net.minecraft.client.gui.screens.Screen);
 -- net.minecraft.client.renderer.entity.EntityRenderDispatcher --
    public <T extends net.minecraft.world.entity.Entity> net.minecraft.client.renderer.entity.EntityRenderer<? super T, ?> getRenderer(T);
    public <S extends net.minecraft.client.renderer.entity.state.EntityRenderState> net.minecraft.client.renderer.entity.EntityRenderer<?, ? super S> getRenderer(S);
