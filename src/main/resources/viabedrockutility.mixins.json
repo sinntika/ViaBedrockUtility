@@ -17,6 +17,7 @@
     "entity.player.AbstractClientPlayerMixin",
     "network.ClientLoginNetworkHandlerMixin",
     "network.ClientPlayNetworkHandlerMixin",
+    "pack.ResourcePackRewriterMixin",
     "pack.ServerResourcePackLoaderMixin",
     "render.EntityRendererMixin",
     "render.ModelPartMixin",
