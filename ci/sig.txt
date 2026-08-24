@@ -1,8 +1,11 @@
-jar: minecraft-merged.jar (10952 classes)
+jar: minecraft-merged-a76db1c7b4-26.2.jar (10952 classes)
 
-== CLASSPATH LIBS (2) ==
+== CLASSPATH LIBS (5) ==
    CubeConverter-abecffaaea.jar                                 36 classes
+   ViaBedrock-0.0.29-SNAPSHOT.jar                               651 classes
+   fastutil-8.5.18.jar                                          12965 classes
    mocha-3.0.1.jar                                              93 classes
+   viaversion-common-5.12.0-SNAPSHOT.jar                        3312 classes
 
 == SIGNATURES ==
 -- net.minecraft.core.MappedRegistry --
@@ -159,7 +162,7 @@ jar: minecraft-merged.jar (10952 classes)
    }
 -- net.minecraft.world.level.block.state.BlockBehaviour$Properties --
    Compiled from "BlockBehaviour.java"
-   public class net.minecraft.world.level.block.state.BlockBehaviour$Properties {
+   public class net.minecraft.world.level.block.state.BlockBehaviour$Properties implements net.fabricmc.fabric.api.block.v1.FabricBlock$FabricProperties {
    public static final com.mojang.serialization.Codec<net.minecraft.world.level.block.state.BlockBehaviour$Properties> CODEC;
    private java.util.function.Function<net.minecraft.world.level.block.state.BlockState, net.minecraft.world.level.material.MapColor> mapColor;
    private boolean hasCollision;
@@ -378,7 +381,7 @@ jar: minecraft-merged.jar (10952 classes)
    }
 -- net.minecraft.client.resources.model.sprite.MaterialBaker --
    Compiled from "MaterialBaker.java"
-   public abstract class net.minecraft.client.resources.model.sprite.MaterialBaker {
+   public abstract class net.minecraft.client.resources.model.sprite.MaterialBaker implements net.fabricmc.fabric.api.client.renderer.v1.sprite.FabricMaterialBaker {
    private static final org.slf4j.Logger LOGGER;
    private final net.minecraft.client.resources.model.sprite.Material$Baked missingSprite;
    private final net.minecraft.client.resources.model.sprite.Material$Baked missingSpriteForceTranslucent;
@@ -552,7 +555,7 @@ jar: minecraft-merged.jar (10952 classes)
    }
 -- net.minecraft.client.renderer.block.dispatch.BlockStateModel --
    Compiled from "BlockStateModel.java"
-   public interface net.minecraft.client.renderer.block.dispatch.BlockStateModel {
+   public interface net.minecraft.client.renderer.block.dispatch.BlockStateModel extends net.fabricmc.fabric.api.client.renderer.v1.model.FabricBlockStateModel {
    public abstract void collectParts(net.minecraft.util.RandomSource, java.util.List<net.minecraft.client.renderer.block.dispatch.BlockStateModelPart>);
    public abstract net.minecraft.client.resources.model.sprite.Material$Baked particleMaterial();
    public abstract int materialFlags();
@@ -568,17 +571,106 @@ jar: minecraft-merged.jar (10952 classes)
    public int materialFlags();
    }
 -- net.raphimc.viabedrock.protocol.storage.ResourcePackStorage --
-   javap error: Error: class not found: net.raphimc.viabedrock.protocol.storage.ResourcePackStorage
+   Compiled from "ResourcePackStorage.java"
+   public class net.raphimc.viabedrock.protocol.storage.ResourcePackStorage implements com.viaversion.viaversion.api.connection.StorableObject {
+   private final java.util.Set<net.raphimc.viabedrock.api.resourcepack.ResourcePack> packStackBottomToTop;
+   private final java.util.Set<net.raphimc.viabedrock.api.resourcepack.ResourcePack> packStackTopToBottom;
+   private boolean loadedOnJavaClient;
+   private final java.util.Map<java.lang.String, java.lang.Object> converterData;
+   private final net.raphimc.viabedrock.api.resourcepack.definition.TextDefinitions texts;
+   private final net.raphimc.viabedrock.api.resourcepack.definition.BlockDefinitions blocks;
+   private final net.raphimc.viabedrock.api.resourcepack.definition.ItemDefinitions items;
+   private final net.raphimc.viabedrock.api.resourcepack.definition.AttachableDefinitions attachables;
+   private final net.raphimc.viabedrock.api.resourcepack.definition.TextureDefinitions textures;
+   private final net.raphimc.viabedrock.api.resourcepack.definition.SoundDefinitions sounds;
+   private final net.raphimc.viabedrock.api.resourcepack.definition.ParticleDefinitions particles;
+   private final net.raphimc.viabedrock.api.resourcepack.definition.EntityDefinitions entities;
+   private final net.raphimc.viabedrock.api.resourcepack.definition.ModelDefinitions models;
+   private final net.raphimc.viabedrock.api.resourcepack.definition.FogDefinitions fogs;
+   private final net.raphimc.viabedrock.api.resourcepack.definition.BiomeDefinitions biomes;
+   private final net.raphimc.viabedrock.api.resourcepack.definition.RenderControllerDefinitions renderControllers;
+   public net.raphimc.viabedrock.protocol.storage.ResourcePackStorage(java.util.List<net.raphimc.viabedrock.api.resourcepack.ResourcePack>);
+   public java.util.Collection<net.raphimc.viabedrock.api.resourcepack.ResourcePack> getPackStackBottomToTop();
+   public java.util.Collection<net.raphimc.viabedrock.api.resourcepack.ResourcePack> getPackStackTopToBottom();
+   public boolean isLoadedOnJavaClient();
+   public void setLoadedOnJavaClient();
+   public java.util.Map<java.lang.String, java.lang.Object> getConverterData();
+   public net.raphimc.viabedrock.api.resourcepack.definition.TextDefinitions getTexts();
+   public net.raphimc.viabedrock.api.resourcepack.definition.BlockDefinitions getBlocks();
+   public net.raphimc.viabedrock.api.resourcepack.definition.ItemDefinitions getItems();
+   public net.raphimc.viabedrock.api.resourcepack.definition.AttachableDefinitions getAttachables();
+   public net.raphimc.viabedrock.api.resourcepack.definition.TextureDefinitions getTextures();
+   public net.raphimc.viabedrock.api.resourcepack.definition.SoundDefinitions getSounds();
+   public net.raphimc.viabedrock.api.resourcepack.definition.ParticleDefinitions getParticles();
+   public net.raphimc.viabedrock.api.resourcepack.definition.EntityDefinitions getEntities();
+   public net.raphimc.viabedrock.api.resourcepack.definition.ModelDefinitions getModels();
+   public net.raphimc.viabedrock.api.resourcepack.definition.FogDefinitions getFogs();
+   public net.raphimc.viabedrock.api.resourcepack.definition.BiomeDefinitions getBiomes();
+   public net.raphimc.viabedrock.api.resourcepack.definition.RenderControllerDefinitions getRenderControllers();
+   }
 -- net.raphimc.viabedrock.api.resourcepack.definition.ModelDefinitions --
-   javap error: Error: class not found: net.raphimc.viabedrock.api.resourcepack.definition.ModelDefinitions
+   Compiled from "ModelDefinitions.java"
+   public class net.raphimc.viabedrock.api.resourcepack.definition.ModelDefinitions {
+   private final java.util.Map<java.lang.String, org.cube.converter.model.impl.bedrock.BedrockGeometryModel> entityModels;
+   public net.raphimc.viabedrock.api.resourcepack.definition.ModelDefinitions(net.raphimc.viabedrock.protocol.storage.ResourcePackStorage);
+   public org.cube.converter.model.impl.bedrock.BedrockGeometryModel getEntityModel(java.lang.String);
+   public java.util.Map<java.lang.String, org.cube.converter.model.impl.bedrock.BedrockGeometryModel> entityModels();
+   }
 -- net.raphimc.viabedrock.protocol.rewriter.BlockStateRewriter --
-   javap error: Error: class not found: net.raphimc.viabedrock.protocol.rewriter.BlockStateRewriter
+   Compiled from "BlockStateRewriter.java"
+   public class net.raphimc.viabedrock.protocol.rewriter.BlockStateRewriter implements com.viaversion.viaversion.api.connection.StorableObject {
+   private final com.viaversion.viaversion.libs.fastutil.ints.Int2IntMap blockStateIdMappings;
+   private final com.viaversion.viaversion.libs.fastutil.ints.Int2IntMap legacyBlockStateIdMappings;
+   private final com.google.common.collect.BiMap<net.raphimc.viabedrock.api.model.BlockState, java.lang.Integer> blockStateMappings;
+   private final com.viaversion.viaversion.libs.fastutil.objects.Object2ObjectMap<java.lang.String, com.viaversion.viaversion.libs.fastutil.ints.IntSortedSet> validBlockStates;
+   private final com.viaversion.viaversion.libs.fastutil.ints.Int2ObjectMap<java.lang.String> blockStateTags;
+   private final net.raphimc.viabedrock.api.chunk.blockstate.BlockStateSanitizer blockStateSanitizer;
+   public net.raphimc.viabedrock.protocol.rewriter.BlockStateRewriter(net.raphimc.viabedrock.protocol.model.BlockProperties[], boolean);
+   public int bedrockId(com.viaversion.nbt.tag.CompoundTag);
+   public int bedrockId(net.raphimc.viabedrock.api.model.BlockState);
+   public net.raphimc.viabedrock.api.model.BlockState blockState(int);
+   public int bedrockId(int);
+   public int javaId(int);
+   public int waterlog(int);
+   public com.viaversion.viaversion.libs.fastutil.ints.IntSortedSet validBlockStates(java.lang.String);
+   public java.lang.String tag(int);
+   private static com.viaversion.viaversion.libs.fastutil.ints.IntSortedSet lambda$new$2(java.lang.Object);
+   private static int lambda$new$1(net.raphimc.viabedrock.api.model.BedrockBlockState, net.raphimc.viabedrock.api.model.BedrockBlockState);
+   private static com.viaversion.nbt.tag.CompoundTag lambda$new$0(java.util.Map);
+   }
 -- net.raphimc.viabedrock.protocol.rewriter.ResourcePackRewriter --
-   javap error: Error: class not found: net.raphimc.viabedrock.protocol.rewriter.ResourcePackRewriter
+   Compiled from "ResourcePackRewriter.java"
+   public class net.raphimc.viabedrock.protocol.rewriter.ResourcePackRewriter {
+   private static final java.util.List<net.raphimc.viabedrock.protocol.rewriter.ResourcePackRewriter$Rewriter> REWRITERS;
+   public net.raphimc.viabedrock.protocol.rewriter.ResourcePackRewriter();
+   public static net.raphimc.viabedrock.api.resourcepack.content.Content bedrockToJava(net.raphimc.viabedrock.protocol.storage.ResourcePackStorage) throws java.lang.InterruptedException;
+   private static com.viaversion.viaversion.libs.gson.JsonObject createPackManifest();
+   private static void lambda$bedrockToJava$1(java.util.List, java.util.concurrent.ExecutorService, java.util.function.Supplier);
+   private static java.util.concurrent.ForkJoinWorkerThread lambda$bedrockToJava$0(java.util.concurrent.ForkJoinPool);
+   static {};
+   }
 -- net.raphimc.viabedrock.api.model.BedrockBlockState --
-   javap error: Error: class not found: net.raphimc.viabedrock.api.model.BedrockBlockState
+   Compiled from "BedrockBlockState.java"
+   public class net.raphimc.viabedrock.api.model.BedrockBlockState extends net.raphimc.viabedrock.api.model.BlockState {
+   public static final net.raphimc.viabedrock.api.model.BlockState AIR;
+   public static final net.raphimc.viabedrock.api.model.BlockState STONE;
+   public static final net.raphimc.viabedrock.api.model.BlockState INFO_UPDATE;
+   private final com.viaversion.nbt.tag.CompoundTag blockStateTag;
+   private net.raphimc.viabedrock.api.model.BedrockBlockState(java.lang.String, java.lang.String, java.util.Map<java.lang.String, java.lang.String>, com.viaversion.nbt.tag.CompoundTag);
+   public static net.raphimc.viabedrock.api.model.BedrockBlockState fromNbt(com.viaversion.nbt.tag.CompoundTag);
+   public static void sanitizeName(com.viaversion.nbt.tag.CompoundTag);
+   public com.viaversion.nbt.tag.CompoundTag blockStateTag();
+   static {};
+   }
 -- net.raphimc.viabedrock.api.util.MoLangEngine --
-   javap error: Error: class not found: net.raphimc.viabedrock.api.util.MoLangEngine
+   Compiled from "MoLangEngine.java"
+   public class net.raphimc.viabedrock.api.util.MoLangEngine {
+   public net.raphimc.viabedrock.api.util.MoLangEngine();
+   public static team.unnamed.mocha.runtime.value.Value eval(team.unnamed.mocha.runtime.Scope, java.lang.String) throws java.io.IOException;
+   public static team.unnamed.mocha.runtime.value.Value eval(team.unnamed.mocha.runtime.Scope, java.util.List<team.unnamed.mocha.parser.ast.Expression>);
+   public static java.util.List<team.unnamed.mocha.parser.ast.Expression> parse(java.lang.String) throws java.io.IOException;
+   public static java.util.List<team.unnamed.mocha.parser.ast.Expression> parse(java.io.Reader) throws java.io.IOException;
+   }
 -- net.minecraft.client.renderer.entity.EntityRenderDispatcher --
    public <T extends net.minecraft.world.entity.Entity> net.minecraft.client.renderer.entity.EntityRenderer<? super T, ?> getRenderer(T);
    public <S extends net.minecraft.client.renderer.entity.state.EntityRenderState> net.minecraft.client.renderer.entity.EntityRenderer<?, ? super S> getRenderer(S);
