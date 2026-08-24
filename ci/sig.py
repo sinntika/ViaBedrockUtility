@@ -36,44 +36,44 @@ LIB_KEYWORDS = (
 # file size and loses on everything that matters.
 JAR_NAME_SKIP = ("server", "sources", "javadoc")
 
-# Phase 4 needs the real home of the ViaBedrock pack classes.
+# Phase 4 reads the pack as ViaBedrock stores it, so the whole resourcepack
+# side is indexed rather than guessed one class at a time.
 INDEXES = (
 	(
 		"viabedrock",
 		re.compile(
-			r"\.(?:ResourcePackStorage|ModelDefinitions|ResourcePackRewriter"
-			r"|BlockStateRewriter|TextureDefinitions|BlockDefinitions)"
-			r"(?:\$[A-Za-z0-9_]+)?$"
+			r"^net\.raphimc\.viabedrock\.(?:api\.resourcepack|protocol\.storage"
+			r"|protocol\.rewriter)\.[A-Za-z0-9_.$]+$"
 		),
 	),
 )
 
-MC_INDEX = re.compile(r"^net\.minecraft\.client\.resources\.model\.sprite\.[A-Za-z0-9_$]+$")
+# Confirms where the baking classes live before a mixin names them.
+MC_INDEX = re.compile(r"^net\.minecraft\.client\.resources\.model\.[A-Za-z0-9_$]+$")
 
 # (class, member filter). The filter keeps the output readable for the huge
 # classes; None dumps every member.
 TARGETS = (
-	# -- letting vanilla bake the elements --
-	("net.minecraft.client.resources.model.cuboid.UnbakedCuboidGeometry", None),
-	("net.minecraft.client.resources.model.cuboid.CuboidModelElement", None),
-	("net.minecraft.client.resources.model.cuboid.CuboidModel", r"class net|public"),
-	("net.minecraft.client.resources.model.cuboid.CuboidRotation$RotationValue", None),
+	# -- where the converted pack lives --
+	("net.raphimc.viabedrock.protocol.storage.ResourcePackStorage", None),
+	("net.raphimc.viabedrock.api.resourcepack.definition.ModelDefinitions", None),
+	("net.raphimc.viabedrock.api.resourcepack.definition.TextureDefinitions", None),
+	("net.raphimc.viabedrock.api.resourcepack.definition.BlockDefinitions", None),
 	(
-		"net.minecraft.client.resources.model.cuboid.CuboidRotation$SingleAxisRotation",
+		"net.raphimc.viabedrock.api.resourcepack.definition.BlockDefinitions$BlockDefinition",
 		None,
 	),
+	("net.raphimc.viabedrock.api.resourcepack.content.Content", None),
+	# -- where the block states are translated --
+	("net.raphimc.viabedrock.protocol.rewriter.BlockStateRewriter", None),
+	("net.raphimc.viabedrock.protocol.rewriter.ResourcePackRewriter", None),
+	# -- the vanilla hooks phase 4 injects into --
+	("net.minecraft.client.resources.model.ModelBakery", r"bakeModels|class net"),
 	(
-		"net.minecraft.client.resources.model.cuboid.CuboidRotation$EulerXYZRotation",
-		None,
+		"net.minecraft.client.resources.model.ModelManager",
+		r"createBlockStateToModelDispatch|getBlockStateModelSet|BakingResult|class net",
 	),
-	# -- the texture side of bake() --
-	("net.minecraft.client.resources.model.sprite.TextureSlots$Data", None),
-	("net.minecraft.client.resources.model.sprite.TextureSlots$Data$Builder", None),
-	("net.minecraft.client.resources.model.sprite.TextureSlots$Resolver", None),
-	("net.minecraft.client.resources.model.sprite.TextureSlots$Value", None),
-	("net.minecraft.client.resources.model.sprite.TextureSlots$Reference", None),
-	("net.minecraft.client.resources.model.sprite.TextureSlots$SlotContents", None),
-	("net.minecraft.client.resources.model.sprite.SpriteId", None),
+	("net.minecraft.client.Minecraft", r"disconnect|clearClientLevel|class net"),
 	# -- regression guard for the crash that started all of this --
 	(
 		"net.minecraft.client.renderer.entity.EntityRenderDispatcher",
@@ -167,7 +167,7 @@ def main():
 	for path in libs:
 		print(f"   {path.name:<60} {class_count(path)} classes")
 
-	print_index("SPRITE PACKAGE", class_names(minecraft, MC_INDEX))
+	print_index("MC MODEL PACKAGE", class_names(minecraft, MC_INDEX))
 
 	for keyword, pattern in INDEXES:
 		matches = [path for path in libs if keyword in path.name.lower()]
