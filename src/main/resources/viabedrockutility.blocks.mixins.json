@@ -1,0 +1,13 @@
+{
+  "required": false,
+  "minVersion": "0.8",
+  "package": "org.oryxel.viabedrockutility.mixin.blocks",
+  "compatibilityLevel": "JAVA_25",
+  "client": [
+    "BlockStateRewriterMixin",
+    "MinecraftDisconnectMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 0
+  }
+}

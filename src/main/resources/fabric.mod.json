@@ -17,7 +17,8 @@
 		]
 	},
 	"mixins": [
-		"viabedrockutility.mixins.json"
+		"viabedrockutility.mixins.json",
+		"viabedrockutility.blocks.mixins.json"
 	],
 	"accessWidener": "viabedrockutility.accesswidener",
 	"depends": {
