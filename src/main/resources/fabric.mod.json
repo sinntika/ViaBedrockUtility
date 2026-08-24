@@ -11,6 +11,9 @@
 	"entrypoints": {
 		"main": [
 			"org.oryxel.viabedrockutility.fabric.ViaBedrockUtilityFabric"
+		],
+		"client": [
+			"org.oryxel.viabedrockutility.fabric.ViaBedrockUtilityFabricClient"
 		]
 	},
 	"mixins": [
