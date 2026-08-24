@@ -1,5 +1,5 @@
-commit:  ae617cb5d903e474590e84700b0ea9b0f53be814
-run_id:  32682198493
+commit:  e08e48385bd099ae8d0c232023f46afdf84de79e
+run_id:  32682312491
 outcome: failure
 
 ===== RENAME =====
@@ -25,8 +25,8 @@ block/model/FullBlockGeometry.java:5: cannot find symbol   [symbol: class Bedroc
 resolved in cache: 1.18.46
 
 == DIFF VS MASTER ==
-  origin/master (8369667) ... HEAD (ae617cb)
-  73 files changed, 4206 insertions(+), 427 deletions(-)
+  origin/master (8369667) ... HEAD (e08e483)
+  73 files changed, 4214 insertions(+), 427 deletions(-)
   -- deleted or renamed (1) --
      R083	src/main/java/org/oryxel/viabedrockutility/animation/vanilla/AnimationHelper.java	src/main/java/org/oryxel/viabedrockutility/animation/vanilla/KeyframeAnimations.java
 
@@ -597,5 +597,5 @@ import org.cube.converter.parser.bedrock.BedrockGeometryParser;
 	... 30 more
 
 
-BUILD FAILED in 1m
+BUILD FAILED in 1m 2s
 5 actionable tasks: 5 executed
