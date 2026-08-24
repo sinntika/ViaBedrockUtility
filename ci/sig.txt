@@ -8,6 +8,56 @@ jar: minecraft-merged-a76db1c7b4-26.2.jar (10952 classes)
    nbt-5.3.0.jar                                                47 classes
    viaversion-common-5.12.0-SNAPSHOT.jar                        3312 classes
 
+== MODEL CLASS INDEX (48 matched) ==
+   com.mojang.math.OctahedralGroup
+   com.mojang.math.OctahedralGroup$1
+   com.mojang.math.Quadrant
+   net.minecraft.client.model.geom.builders.UVPair
+   net.minecraft.client.renderer.FaceInfo
+   net.minecraft.client.renderer.FaceInfo$Extent
+   net.minecraft.client.renderer.FaceInfo$VertexInfo
+   net.minecraft.client.renderer.block.dispatch.BlockModelRotation
+   net.minecraft.client.renderer.block.dispatch.BlockModelRotation$WithUvLock
+   net.minecraft.client.renderer.block.dispatch.BlockStateModel
+   net.minecraft.client.renderer.block.dispatch.BlockStateModel$SimpleCachedUnbakedRoot
+   net.minecraft.client.renderer.block.dispatch.BlockStateModel$Unbaked
+   net.minecraft.client.renderer.block.dispatch.BlockStateModel$UnbakedRoot
+   net.minecraft.client.renderer.block.dispatch.BlockStateModelPart
+   net.minecraft.client.renderer.block.dispatch.BlockStateModelPart$Unbaked
+   net.minecraft.client.renderer.block.dispatch.ModelState
+   net.minecraft.client.renderer.block.dispatch.SingleVariant
+   net.minecraft.client.renderer.block.dispatch.SingleVariant$Unbaked
+   net.minecraft.client.resources.model.ModelBaker
+   net.minecraft.client.resources.model.ModelBaker$Interner
+   net.minecraft.client.resources.model.ModelBaker$SharedOperationKey
+   net.minecraft.client.resources.model.ModelBakery
+   net.minecraft.client.resources.model.ModelBakery$BakingResult
+   net.minecraft.client.resources.model.ModelBakery$InternerImpl
+   net.minecraft.client.resources.model.ModelBakery$MissingModels
+   net.minecraft.client.resources.model.ModelBakery$ModelBakerImpl
+   net.minecraft.client.resources.model.ModelDebugName
+   net.minecraft.client.resources.model.SimpleModelWrapper
+   net.minecraft.client.resources.model.UnbakedModel
+   net.minecraft.client.resources.model.UnbakedModel$GuiLight
+   net.minecraft.client.resources.model.cuboid.CuboidFace
+   net.minecraft.client.resources.model.cuboid.CuboidFace$Deserializer
+   net.minecraft.client.resources.model.cuboid.CuboidFace$UVs
+   net.minecraft.client.resources.model.cuboid.FaceBakery
+   net.minecraft.client.resources.model.cuboid.FaceBakery$1
+   net.minecraft.client.resources.model.geometry.BakedQuad
+   net.minecraft.client.resources.model.geometry.BakedQuad$MaterialFlags
+   net.minecraft.client.resources.model.geometry.BakedQuad$MaterialInfo
+   net.minecraft.client.resources.model.geometry.QuadCollection
+   net.minecraft.client.resources.model.geometry.QuadCollection$Builder
+   net.minecraft.client.resources.model.sprite.MaterialBaker
+   net.minecraft.client.resources.model.sprite.SpriteGetter
+   net.minecraft.client.resources.model.sprite.TextureSlots
+   net.minecraft.client.resources.model.sprite.TextureSlots$Data
+   net.minecraft.client.resources.model.sprite.TextureSlots$Reference
+   net.minecraft.client.resources.model.sprite.TextureSlots$Resolver
+   net.minecraft.client.resources.model.sprite.TextureSlots$SlotContents
+   net.minecraft.client.resources.model.sprite.TextureSlots$Value
+
 == CLASS INDEX: nbt-5.3.0.jar (16 matched) ==
    com.viaversion.nbt.tag.ByteArrayTag
    com.viaversion.nbt.tag.ByteTag
@@ -26,339 +76,173 @@ jar: minecraft-merged-a76db1c7b4-26.2.jar (10952 classes)
    com.viaversion.nbt.tag.StringTag
    com.viaversion.nbt.tag.Tag
 
-== CLASS INDEX: viaversion-common-5.12.0-SNAPSHOT.jar (16 matched) ==
-   com.viaversion.nbt.tag.ByteArrayTag
-   com.viaversion.nbt.tag.ByteTag
-   com.viaversion.nbt.tag.CompoundTag
-   com.viaversion.nbt.tag.DoubleTag
-   com.viaversion.nbt.tag.FloatTag
-   com.viaversion.nbt.tag.IntArrayTag
-   com.viaversion.nbt.tag.IntTag
-   com.viaversion.nbt.tag.ListTag
-   com.viaversion.nbt.tag.LongArrayTag
-   com.viaversion.nbt.tag.LongTag
-   com.viaversion.nbt.tag.MixedListTag
-   com.viaversion.nbt.tag.NumberArrayTag
-   com.viaversion.nbt.tag.NumberTag
-   com.viaversion.nbt.tag.ShortTag
-   com.viaversion.nbt.tag.StringTag
-   com.viaversion.nbt.tag.Tag
-
 == SIGNATURES ==
--- com.viaversion.nbt.tag.Tag --
-   Compiled from "Tag.java"
-   public interface com.viaversion.nbt.tag.Tag {
-   public abstract java.lang.Object getValue();
-   public abstract java.lang.String asRawString();
-   public abstract void write(java.io.DataOutput) throws java.io.IOException;
-   public abstract int getTagId();
-   public abstract com.viaversion.nbt.tag.Tag copy();
+-- net.minecraft.client.resources.model.ModelBaker --
+   Compiled from "ModelBaker.java"
+   public interface net.minecraft.client.resources.model.ModelBaker {
+   public abstract net.minecraft.client.resources.model.ResolvedModel getModel(net.minecraft.resources.Identifier);
+   public abstract net.minecraft.client.renderer.block.dispatch.BlockStateModelPart missingBlockModelPart();
+   public abstract net.minecraft.client.resources.model.sprite.MaterialBaker materials();
+   public abstract net.minecraft.client.resources.model.ModelBaker$Interner interner();
+   public abstract <T> T compute(net.minecraft.client.resources.model.ModelBaker$SharedOperationKey<T>);
    }
--- com.viaversion.nbt.tag.CompoundTag --
-   public final class com.viaversion.nbt.tag.CompoundTag implements com.viaversion.nbt.tag.Tag, java.lang.Iterable<java.util.Map$Entry<java.lang.String, com.viaversion.nbt.tag.Tag>> {
-   public static final int ID;
-   public com.viaversion.nbt.tag.CompoundTag();
-   public com.viaversion.nbt.tag.CompoundTag(java.util.Map<java.lang.String, com.viaversion.nbt.tag.Tag>);
-   public com.viaversion.nbt.tag.CompoundTag(java.util.LinkedHashMap<java.lang.String, com.viaversion.nbt.tag.Tag>);
-   public static com.viaversion.nbt.tag.CompoundTag read(java.io.DataInput, com.viaversion.nbt.limiter.TagLimiter, int) throws java.io.IOException;
-   public java.util.Map<java.lang.String, com.viaversion.nbt.tag.Tag> getValue();
-   public java.lang.String asRawString();
-   public void setValue(java.util.Map<java.lang.String, com.viaversion.nbt.tag.Tag>);
-   public void setValue(java.util.LinkedHashMap<java.lang.String, com.viaversion.nbt.tag.Tag>);
-   public boolean isEmpty();
-   public boolean contains(java.lang.String);
-   public com.viaversion.nbt.tag.Tag get(java.lang.String);
-   public <T extends com.viaversion.nbt.tag.Tag> T getUnchecked(java.lang.String);
-   public com.viaversion.nbt.tag.StringTag getStringTag(java.lang.String);
-   public com.viaversion.nbt.tag.CompoundTag getCompoundTag(java.lang.String);
-   public com.viaversion.nbt.tag.ListTag<?> getListTag(java.lang.String);
-   public <T extends com.viaversion.nbt.tag.Tag> com.viaversion.nbt.tag.ListTag<T> getListTag(java.lang.String, java.lang.Class<T>);
-   public com.viaversion.nbt.tag.ListTag<? extends com.viaversion.nbt.tag.NumberTag> getNumberListTag(java.lang.String);
-   public com.viaversion.nbt.tag.IntTag getIntTag(java.lang.String);
-   public com.viaversion.nbt.tag.LongTag getLongTag(java.lang.String);
-   public com.viaversion.nbt.tag.ShortTag getShortTag(java.lang.String);
-   public com.viaversion.nbt.tag.ByteTag getByteTag(java.lang.String);
-   public com.viaversion.nbt.tag.FloatTag getFloatTag(java.lang.String);
-   public com.viaversion.nbt.tag.DoubleTag getDoubleTag(java.lang.String);
-   public com.viaversion.nbt.tag.NumberTag getNumberTag(java.lang.String);
-   public com.viaversion.nbt.tag.ByteArrayTag getByteArrayTag(java.lang.String);
-   public com.viaversion.nbt.tag.IntArrayTag getIntArrayTag(java.lang.String);
-   public com.viaversion.nbt.tag.LongArrayTag getLongArrayTag(java.lang.String);
-   public java.lang.String getString(java.lang.String);
-   public java.lang.String getString(java.lang.String, java.lang.String);
-   public int getInt(java.lang.String);
-   public int getInt(java.lang.String, int);
-   public long getLong(java.lang.String);
-   public long getLong(java.lang.String, long);
-   public short getShort(java.lang.String);
-   public short getShort(java.lang.String, short);
-   public byte getByte(java.lang.String);
-   public byte getByte(java.lang.String, byte);
-   public float getFloat(java.lang.String);
-   public float getFloat(java.lang.String, float);
-   public double getDouble(java.lang.String);
-   public double getDouble(java.lang.String, double);
-   public boolean getBoolean(java.lang.String);
-   public boolean getBoolean(java.lang.String, boolean);
-   public int getIntStrict(java.lang.String);
-   public int getIntStrict(java.lang.String, int);
-   public long getLongStrict(java.lang.String);
-   public long getLongStrict(java.lang.String, long);
-   public short getShortStrict(java.lang.String);
-   public short getShortStrict(java.lang.String, short);
-   public byte getByteStrict(java.lang.String);
-   public byte getByteStrict(java.lang.String, byte);
-   public float getFloatStrict(java.lang.String);
-   public float getFloatStrict(java.lang.String, float);
-   public double getDoubleStrict(java.lang.String);
-   public double getDoubleStrict(java.lang.String, double);
-   public com.viaversion.nbt.tag.Tag put(java.lang.String, com.viaversion.nbt.tag.Tag);
-   public void putString(java.lang.String, java.lang.String);
-   public void putByte(java.lang.String, byte);
-   public void putInt(java.lang.String, int);
-   public void putShort(java.lang.String, short);
-   public void putLong(java.lang.String, long);
-   public void putFloat(java.lang.String, float);
-   public void putDouble(java.lang.String, double);
-   public void putBoolean(java.lang.String, boolean);
-   public void putAll(com.viaversion.nbt.tag.CompoundTag);
-   public com.viaversion.nbt.tag.Tag remove(java.lang.String);
-   public <T extends com.viaversion.nbt.tag.Tag> T removeUnchecked(java.lang.String);
-   public java.util.Set<java.lang.String> keySet();
-   public java.util.Collection<com.viaversion.nbt.tag.Tag> values();
-   public java.util.Set<java.util.Map$Entry<java.lang.String, com.viaversion.nbt.tag.Tag>> entrySet();
-   public int size();
-   public void clear();
-   public java.util.Iterator<java.util.Map$Entry<java.lang.String, com.viaversion.nbt.tag.Tag>> iterator();
-   public void write(java.io.DataOutput) throws java.io.IOException;
-   public boolean equals(java.lang.Object);
-   public int hashCode();
-   public com.viaversion.nbt.tag.CompoundTag copy();
-   public int getTagId();
-   public java.lang.String toString();
-   public com.viaversion.nbt.tag.Tag copy();
-   public java.lang.Object getValue();
--- com.viaversion.nbt.tag.ListTag --
-   public class com.viaversion.nbt.tag.ListTag<T extends com.viaversion.nbt.tag.Tag> implements com.viaversion.nbt.tag.Tag, java.lang.Iterable<T> {
-   public static final int ID;
-   public com.viaversion.nbt.tag.ListTag();
-   public com.viaversion.nbt.tag.ListTag(java.lang.Class<T>);
-   public com.viaversion.nbt.tag.ListTag(java.util.List<T>);
-   public static com.viaversion.nbt.tag.ListTag<?> of(java.util.List<com.viaversion.nbt.tag.Tag>);
-   public static com.viaversion.nbt.tag.ListTag<?> read(java.io.DataInput, com.viaversion.nbt.limiter.TagLimiter, int) throws java.io.IOException;
-   public java.util.List<T> getValue();
-   public java.lang.String asRawString();
-   public void setValue(java.util.List<T>);
-   public java.lang.Class<? extends com.viaversion.nbt.tag.Tag> getElementType();
-   public boolean add(T) throws java.lang.IllegalArgumentException;
-   public boolean remove(T);
-   public T get(int);
-   public T set(int, T);
-   public T remove(int);
-   public int size();
-   public boolean isEmpty();
-   public java.util.stream.Stream<T> stream();
-   public java.util.Iterator<T> iterator();
-   public void write(java.io.DataOutput) throws java.io.IOException;
-   public com.viaversion.nbt.tag.ListTag<T> copy();
-   public boolean equals(java.lang.Object);
-   public int hashCode();
-   public int getTagId();
-   public java.lang.String toString();
-   public com.viaversion.nbt.tag.Tag copy();
-   public java.lang.Object getValue();
--- com.viaversion.nbt.tag.NumberTag --
-   Compiled from "NumberTag.java"
-   public interface com.viaversion.nbt.tag.NumberTag extends com.viaversion.nbt.tag.Tag {
-   public abstract java.lang.Number getValue();
-   public abstract byte asByte();
-   public abstract short asShort();
-   public abstract int asInt();
-   public abstract long asLong();
-   public abstract float asFloat();
-   public abstract double asDouble();
-   public default boolean asBoolean();
-   public default com.viaversion.nbt.tag.NumberTag copy();
-   public default com.viaversion.nbt.tag.Tag copy();
-   public default java.lang.Object getValue();
+-- net.minecraft.client.resources.model.ModelBakery --
+   public class net.minecraft.client.resources.model.ModelBakery {
+   public static final net.minecraft.client.resources.model.sprite.SpriteId FIRE_0;
+   public static final net.minecraft.client.resources.model.sprite.SpriteId FIRE_1;
+   public static final int DESTROY_STAGE_COUNT;
+   public static final java.util.List<net.minecraft.resources.Identifier> DESTROY_STAGES;
+   public static final java.util.List<net.minecraft.resources.Identifier> BREAKING_LOCATIONS;
+   public static final java.util.List<net.minecraft.client.renderer.rendertype.RenderType> DESTROY_TYPES;
+   public net.minecraft.client.resources.model.ModelBakery(net.minecraft.client.model.geom.EntityModelSet, net.minecraft.client.resources.model.sprite.SpriteGetter, net.minecraft.client.renderer.PlayerSkinRenderCache, java.util.Map<net.minecraft.world.level.block.state.BlockState, net.minecraft.client.renderer.block.dispatch.BlockStateModel$UnbakedRoot>, java.util.Map<net.minecraft.resources.Identifier, net.minecraft.client.renderer.item.ClientItem>, java.util.Map<net.minecraft.resources.Identifier, net.minecraft.client.resources.model.ResolvedModel>, net.minecraft.client.resources.model.ResolvedModel);
+   public java.util.concurrent.CompletableFuture<net.minecraft.client.resources.model.ModelBakery$BakingResult> bakeModels(net.minecraft.client.resources.model.sprite.MaterialBaker, java.util.concurrent.Executor);
+   private static net.minecraft.client.resources.model.ModelBakery$BakingResult lambda$bakeModels$3(net.minecraft.client.resources.model.ModelBakery$MissingModels, java.util.Map, java.util.Map, java.util.Map);
+   private static void lambda$bakeModels$2(java.util.Map, net.minecraft.resources.Identifier, net.minecraft.client.renderer.item.ClientItem);
+   private net.minecraft.client.renderer.item.ItemModel lambda$bakeModels$1(net.minecraft.client.resources.model.ModelBakery$ModelBakerImpl, net.minecraft.client.resources.model.ModelBakery$MissingModels, net.minecraft.resources.Identifier, net.minecraft.client.renderer.item.ClientItem);
+   private static net.minecraft.client.renderer.block.dispatch.BlockStateModel lambda$bakeModels$0(net.minecraft.client.resources.model.ModelBakery$ModelBakerImpl, net.minecraft.world.level.block.state.BlockState, net.minecraft.client.renderer.block.dispatch.BlockStateModel$UnbakedRoot);
+-- net.minecraft.client.resources.model.MaterialBaker --
+   javap error: Error: class not found: net.minecraft.client.resources.model.MaterialBaker
+-- net.minecraft.client.resources.model.QuadCollection --
+   javap error: Error: class not found: net.minecraft.client.resources.model.QuadCollection
+-- net.minecraft.client.resources.model.QuadCollection$Builder --
+   javap error: Error: class not found: net.minecraft.client.resources.model.QuadCollection$Builder
+-- net.minecraft.client.resources.model.ModelDebugName --
+   Compiled from "ModelDebugName.java"
+   public interface net.minecraft.client.resources.model.ModelDebugName {
+   public abstract java.lang.String debugName();
    }
--- com.viaversion.nbt.tag.StringTag --
-   public final class com.viaversion.nbt.tag.StringTag implements com.viaversion.nbt.tag.Tag {
-   public static final int ID;
-   public com.viaversion.nbt.tag.StringTag();
-   public com.viaversion.nbt.tag.StringTag(java.lang.String);
-   public static com.viaversion.nbt.tag.StringTag read(java.io.DataInput, com.viaversion.nbt.limiter.TagLimiter) throws java.io.IOException;
-   public java.lang.String getValue();
-   public java.lang.String asRawString();
-   public void setValue(java.lang.String);
-   public void write(java.io.DataOutput) throws java.io.IOException;
-   public boolean equals(java.lang.Object);
-   public int hashCode();
-   public com.viaversion.nbt.tag.StringTag copy();
-   public int getTagId();
-   public java.lang.String toString();
-   public com.viaversion.nbt.tag.Tag copy();
-   public java.lang.Object getValue();
--- net.minecraft.world.level.block.state.BlockBehaviour$Properties --
-   public class net.minecraft.world.level.block.state.BlockBehaviour$Properties implements net.fabricmc.fabric.api.block.v1.FabricBlock$FabricProperties {
-   private float destroyTime;
-   private float friction;
-   private boolean forceSolidOff;
-   private boolean forceSolidOn;
-   private net.minecraft.world.level.material.PushReaction pushReaction;
-   private boolean dynamicShape;
-   public static net.minecraft.world.level.block.state.BlockBehaviour$Properties of();
-   public net.minecraft.world.level.block.state.BlockBehaviour$Properties noOcclusion();
-   public net.minecraft.world.level.block.state.BlockBehaviour$Properties friction(float);
-   public net.minecraft.world.level.block.state.BlockBehaviour$Properties lightLevel(java.util.function.ToIntFunction<net.minecraft.world.level.block.state.BlockState>);
-   public net.minecraft.world.level.block.state.BlockBehaviour$Properties strength(float, float);
-   public net.minecraft.world.level.block.state.BlockBehaviour$Properties instabreak();
-   public net.minecraft.world.level.block.state.BlockBehaviour$Properties strength(float);
-   public net.minecraft.world.level.block.state.BlockBehaviour$Properties dynamicShape();
-   public net.minecraft.world.level.block.state.BlockBehaviour$Properties forceSolidOn();
-   public net.minecraft.world.level.block.state.BlockBehaviour$Properties forceSolidOff();
-   public net.minecraft.world.level.block.state.BlockBehaviour$Properties pushReaction(net.minecraft.world.level.material.PushReaction);
-   public net.minecraft.world.level.block.state.BlockBehaviour$Properties destroyTime(float);
-   public net.minecraft.world.level.block.state.BlockBehaviour$Properties setId(net.minecraft.resources.ResourceKey<net.minecraft.world.level.block.Block>);
--- net.minecraft.world.level.block.state.BlockBehaviour$BlockStateBase --
-   public abstract class net.minecraft.world.level.block.state.BlockBehaviour$BlockStateBase extends net.minecraft.world.level.block.state.StateHolder<net.minecraft.world.level.block.Block, net.minecraft.world.level.block.state.BlockState> implements net.minecraft.core.TypedInstance<net.minecraft.world.level.block.Block> {
-   private final boolean canOcclude;
-   private net.minecraft.world.level.block.state.BlockBehaviour$BlockStateBase$Cache cache;
-   public void initCache();
-   public boolean isSolidRender();
-   public boolean canOcclude();
--- net.minecraft.core.IdMapper --
-   Compiled from "IdMapper.java"
-   public class net.minecraft.core.IdMapper<T> implements net.minecraft.core.IdMap<T> {
-   private int nextId;
-   private final it.unimi.dsi.fastutil.objects.Reference2IntMap<T> tToId;
-   private final java.util.List<T> idToT;
-   public net.minecraft.core.IdMapper();
-   public net.minecraft.core.IdMapper(int);
-   public void addMapping(T, int);
-   public void add(T);
-   public int getId(T);
-   public final T byId(int);
-   public java.util.Iterator<T> iterator();
-   public boolean contains(int);
-   public int size();
-   }
--- net.minecraft.core.Holder$Reference --
-   public class net.minecraft.core.Holder$Reference<T> implements net.minecraft.core.Holder<T> {
-   private java.util.Set<net.minecraft.tags.TagKey<T>> tags;
-   public static <T> net.minecraft.core.Holder$Reference<T> createStandAlone(net.minecraft.core.HolderOwner<T>, net.minecraft.resources.ResourceKey<T>);
-   public static <T> net.minecraft.core.Holder$Reference<T> createIntrusive(net.minecraft.core.HolderOwner<T>, T);
-   public net.minecraft.resources.ResourceKey<T> key();
-   public T value();
-   public boolean is(net.minecraft.resources.Identifier);
-   public boolean is(net.minecraft.resources.ResourceKey<T>);
-   private java.util.Set<net.minecraft.tags.TagKey<T>> boundTags();
-   public boolean is(net.minecraft.tags.TagKey<T>);
-   public boolean is(net.minecraft.core.Holder<T>);
-   public boolean is(java.util.function.Predicate<net.minecraft.resources.ResourceKey<T>>);
-   public boolean canSerializeIn(net.minecraft.core.HolderOwner<T>);
-   public com.mojang.datafixers.util.Either<net.minecraft.resources.ResourceKey<T>, T> unwrap();
-   public java.util.Optional<net.minecraft.resources.ResourceKey<T>> unwrapKey();
-   public net.minecraft.core.Holder$Kind kind();
-   public boolean isBound();
-   public boolean areComponentsBound();
-   void bindTags(java.util.Collection<net.minecraft.tags.TagKey<T>>);
-   public void bindComponents(net.minecraft.core.component.DataComponentMap);
-   public java.util.stream.Stream<net.minecraft.tags.TagKey<T>> tags();
-   public net.minecraft.core.component.DataComponentMap components();
-   public java.lang.String toString();
--- net.minecraft.resources.ResourceKey --
-   public class net.minecraft.resources.ResourceKey<T> {
-   private final net.minecraft.resources.Identifier registryName;
-   private final net.minecraft.resources.Identifier identifier;
-   public static <T> com.mojang.serialization.Codec<net.minecraft.resources.ResourceKey<T>> codec(net.minecraft.resources.ResourceKey<? extends net.minecraft.core.Registry<T>>);
-   public static <T> net.minecraft.network.codec.StreamCodec<io.netty.buffer.ByteBuf, net.minecraft.resources.ResourceKey<T>> streamCodec(net.minecraft.resources.ResourceKey<? extends net.minecraft.core.Registry<T>>);
-   public static <T> net.minecraft.resources.ResourceKey<T> create(net.minecraft.resources.ResourceKey<? extends net.minecraft.core.Registry<T>>, net.minecraft.resources.Identifier);
-   public static <T> net.minecraft.resources.ResourceKey<net.minecraft.core.Registry<T>> createRegistryKey(net.minecraft.resources.Identifier);
-   public net.minecraft.resources.Identifier identifier();
-   public net.minecraft.resources.Identifier registry();
-   public net.minecraft.resources.ResourceKey<net.minecraft.core.Registry<T>> registryKey();
--- net.minecraft.core.registries.Registries --
-   public class net.minecraft.core.registries.Registries {
-   public static final net.minecraft.resources.ResourceKey<net.minecraft.core.Registry<net.minecraft.world.level.block.Block>> BLOCK;
--- net.minecraft.world.phys.shapes.VoxelShape --
-   public abstract class net.minecraft.world.phys.shapes.VoxelShape {
-   public net.minecraft.world.phys.AABB bounds();
-   public boolean isEmpty();
-   public net.minecraft.world.phys.shapes.VoxelShape move(net.minecraft.world.phys.Vec3);
-   public net.minecraft.world.phys.shapes.VoxelShape move(net.minecraft.core.Vec3i);
-   public net.minecraft.world.phys.shapes.VoxelShape move(double, double, double);
-   public net.minecraft.world.phys.shapes.VoxelShape optimize();
-   public java.util.List<net.minecraft.world.phys.AABB> toAabbs();
-   private static void lambda$toAabbs$0(java.util.List, double, double, double, double, double, double);
-   private static void lambda$optimize$0(net.minecraft.world.phys.shapes.VoxelShape[], double, double, double, double, double, double);
--- net.minecraft.world.phys.shapes.Shapes --
-   public final class net.minecraft.world.phys.shapes.Shapes {
-   public static final double EPSILON;
-   public static final double BIG_EPSILON;
-   public static final net.minecraft.world.phys.shapes.VoxelShape INFINITY;
-   public static net.minecraft.world.phys.shapes.VoxelShape empty();
-   public static net.minecraft.world.phys.shapes.VoxelShape block();
-   public static net.minecraft.world.phys.shapes.VoxelShape box(double, double, double, double, double, double);
-   public static net.minecraft.world.phys.shapes.VoxelShape create(double, double, double, double, double, double);
-   public static net.minecraft.world.phys.shapes.VoxelShape create(net.minecraft.world.phys.AABB);
-   public static net.minecraft.world.phys.shapes.VoxelShape or(net.minecraft.world.phys.shapes.VoxelShape, net.minecraft.world.phys.shapes.VoxelShape);
-   public static net.minecraft.world.phys.shapes.VoxelShape or(net.minecraft.world.phys.shapes.VoxelShape, net.minecraft.world.phys.shapes.VoxelShape...);
-   public static net.minecraft.world.phys.shapes.VoxelShape join(net.minecraft.world.phys.shapes.VoxelShape, net.minecraft.world.phys.shapes.VoxelShape, net.minecraft.world.phys.shapes.BooleanOp);
-   public static net.minecraft.world.phys.shapes.VoxelShape joinUnoptimized(net.minecraft.world.phys.shapes.VoxelShape, net.minecraft.world.phys.shapes.VoxelShape, net.minecraft.world.phys.shapes.BooleanOp);
-   public static boolean joinIsNotEmpty(net.minecraft.world.phys.shapes.VoxelShape, net.minecraft.world.phys.shapes.VoxelShape, net.minecraft.world.phys.shapes.BooleanOp);
-   public static double collide(net.minecraft.core.Direction$Axis, net.minecraft.world.phys.AABB, java.lang.Iterable<net.minecraft.world.phys.shapes.VoxelShape>, double);
-   public static boolean blockOccludes(net.minecraft.world.phys.shapes.VoxelShape, net.minecraft.world.phys.shapes.VoxelShape, net.minecraft.core.Direction);
-   public static boolean mergedFaceOccludes(net.minecraft.world.phys.shapes.VoxelShape, net.minecraft.world.phys.shapes.VoxelShape, net.minecraft.core.Direction);
-   public static boolean faceShapeOccludes(net.minecraft.world.phys.shapes.VoxelShape, net.minecraft.world.phys.shapes.VoxelShape);
-   public static net.minecraft.world.phys.shapes.VoxelShape rotate(net.minecraft.world.phys.shapes.VoxelShape, com.mojang.math.OctahedralGroup);
-   public static net.minecraft.world.phys.shapes.VoxelShape rotate(net.minecraft.world.phys.shapes.VoxelShape, com.mojang.math.OctahedralGroup, net.minecraft.world.phys.Vec3);
-   public static boolean equal(net.minecraft.world.phys.shapes.VoxelShape, net.minecraft.world.phys.shapes.VoxelShape);
-   public static java.util.Map<net.minecraft.core.Direction$Axis, net.minecraft.world.phys.shapes.VoxelShape> rotateHorizontalAxis(net.minecraft.world.phys.shapes.VoxelShape);
-   public static java.util.Map<net.minecraft.core.Direction$Axis, net.minecraft.world.phys.shapes.VoxelShape> rotateHorizontalAxis(net.minecraft.world.phys.shapes.VoxelShape, net.minecraft.world.phys.Vec3);
-   public static java.util.Map<net.minecraft.core.Direction$Axis, net.minecraft.world.phys.shapes.VoxelShape> rotateAllAxis(net.minecraft.world.phys.shapes.VoxelShape);
-   public static java.util.Map<net.minecraft.core.Direction$Axis, net.minecraft.world.phys.shapes.VoxelShape> rotateAllAxis(net.minecraft.world.phys.shapes.VoxelShape, net.minecraft.world.phys.Vec3);
-   public static java.util.Map<net.minecraft.core.Direction, net.minecraft.world.phys.shapes.VoxelShape> rotateHorizontal(net.minecraft.world.phys.shapes.VoxelShape);
-   public static java.util.Map<net.minecraft.core.Direction, net.minecraft.world.phys.shapes.VoxelShape> rotateHorizontal(net.minecraft.world.phys.shapes.VoxelShape, com.mojang.math.OctahedralGroup);
-   public static java.util.Map<net.minecraft.core.Direction, net.minecraft.world.phys.shapes.VoxelShape> rotateHorizontal(net.minecraft.world.phys.shapes.VoxelShape, com.mojang.math.OctahedralGroup, net.minecraft.world.phys.Vec3);
-   public static java.util.Map<net.minecraft.core.Direction, net.minecraft.world.phys.shapes.VoxelShape> rotateAll(net.minecraft.world.phys.shapes.VoxelShape);
-   public static java.util.Map<net.minecraft.core.Direction, net.minecraft.world.phys.shapes.VoxelShape> rotateAll(net.minecraft.world.phys.shapes.VoxelShape, net.minecraft.world.phys.Vec3);
-   public static java.util.Map<net.minecraft.core.Direction, net.minecraft.world.phys.shapes.VoxelShape> rotateAll(net.minecraft.world.phys.shapes.VoxelShape, com.mojang.math.OctahedralGroup, net.minecraft.world.phys.Vec3);
-   public static java.util.Map<net.minecraft.world.level.block.state.properties.AttachFace, java.util.Map<net.minecraft.core.Direction, net.minecraft.world.phys.shapes.VoxelShape>> rotateAttachFace(net.minecraft.world.phys.shapes.VoxelShape);
-   public static java.util.Map<net.minecraft.world.level.block.state.properties.AttachFace, java.util.Map<net.minecraft.core.Direction, net.minecraft.world.phys.shapes.VoxelShape>> rotateAttachFace(net.minecraft.world.phys.shapes.VoxelShape, com.mojang.math.OctahedralGroup);
--- net.raphimc.viabedrock.api.model.BedrockBlockState --
-   Compiled from "BedrockBlockState.java"
-   public class net.raphimc.viabedrock.api.model.BedrockBlockState extends net.raphimc.viabedrock.api.model.BlockState {
-   public static final net.raphimc.viabedrock.api.model.BlockState AIR;
-   public static final net.raphimc.viabedrock.api.model.BlockState STONE;
-   public static final net.raphimc.viabedrock.api.model.BlockState INFO_UPDATE;
-   private final com.viaversion.nbt.tag.CompoundTag blockStateTag;
-   private net.raphimc.viabedrock.api.model.BedrockBlockState(java.lang.String, java.lang.String, java.util.Map<java.lang.String, java.lang.String>, com.viaversion.nbt.tag.CompoundTag);
-   public static net.raphimc.viabedrock.api.model.BedrockBlockState fromNbt(com.viaversion.nbt.tag.CompoundTag);
-   public static void sanitizeName(com.viaversion.nbt.tag.CompoundTag);
-   public com.viaversion.nbt.tag.CompoundTag blockStateTag();
+-- net.minecraft.client.resources.model.ModelState --
+   javap error: Error: class not found: net.minecraft.client.resources.model.ModelState
+-- net.minecraft.client.resources.model.sprite.Material --
+   Compiled from "Material.java"
+   public final class net.minecraft.client.resources.model.sprite.Material extends java.lang.Record {
+   private final net.minecraft.resources.Identifier sprite;
+   private final boolean forceTranslucent;
+   private static final com.mojang.serialization.Codec<net.minecraft.client.resources.model.sprite.Material> SIMPLE_CODEC;
+   private static final com.mojang.serialization.Codec<net.minecraft.client.resources.model.sprite.Material> FULL_CODEC;
+   public static final com.mojang.serialization.Codec<net.minecraft.client.resources.model.sprite.Material> CODEC;
+   public net.minecraft.client.resources.model.sprite.Material(net.minecraft.resources.Identifier);
+   public net.minecraft.client.resources.model.sprite.Material(net.minecraft.resources.Identifier, boolean);
+   public net.minecraft.client.resources.model.sprite.Material withForceTranslucent(boolean);
+   public final java.lang.String toString();
+   public final int hashCode();
+   public final boolean equals(java.lang.Object);
+   public net.minecraft.resources.Identifier sprite();
+   public boolean forceTranslucent();
+   private static com.mojang.datafixers.util.Either lambda$static$1(net.minecraft.client.resources.model.sprite.Material);
+   private static com.mojang.datafixers.kinds.App lambda$static$0(com.mojang.serialization.codecs.RecordCodecBuilder$Instance);
    static {};
    }
--- net.raphimc.viabedrock.protocol.rewriter.BlockStateRewriter --
-   public class net.raphimc.viabedrock.protocol.rewriter.BlockStateRewriter implements com.viaversion.viaversion.api.connection.StorableObject {
-   private final com.viaversion.viaversion.libs.fastutil.ints.Int2IntMap blockStateIdMappings;
-   private final com.viaversion.viaversion.libs.fastutil.ints.Int2IntMap legacyBlockStateIdMappings;
-   private final com.google.common.collect.BiMap<net.raphimc.viabedrock.api.model.BlockState, java.lang.Integer> blockStateMappings;
-   private final com.viaversion.viaversion.libs.fastutil.objects.Object2ObjectMap<java.lang.String, com.viaversion.viaversion.libs.fastutil.ints.IntSortedSet> validBlockStates;
-   private final com.viaversion.viaversion.libs.fastutil.ints.Int2ObjectMap<java.lang.String> blockStateTags;
-   private final net.raphimc.viabedrock.api.chunk.blockstate.BlockStateSanitizer blockStateSanitizer;
-   public net.raphimc.viabedrock.protocol.rewriter.BlockStateRewriter(net.raphimc.viabedrock.protocol.model.BlockProperties[], boolean);
-   public int bedrockId(com.viaversion.nbt.tag.CompoundTag);
-   public int bedrockId(net.raphimc.viabedrock.api.model.BlockState);
-   public net.raphimc.viabedrock.api.model.BlockState blockState(int);
-   public int bedrockId(int);
-   public int javaId(int);
-   public int waterlog(int);
-   public com.viaversion.viaversion.libs.fastutil.ints.IntSortedSet validBlockStates(java.lang.String);
-   public java.lang.String tag(int);
-   private static com.viaversion.viaversion.libs.fastutil.ints.IntSortedSet lambda$new$2(java.lang.Object);
-   private static int lambda$new$1(net.raphimc.viabedrock.api.model.BedrockBlockState, net.raphimc.viabedrock.api.model.BedrockBlockState);
-   private static com.viaversion.nbt.tag.CompoundTag lambda$new$0(java.util.Map);
+-- net.minecraft.client.renderer.block.model.cuboid.FaceBakery --
+   javap error: Error: class not found: net.minecraft.client.renderer.block.model.cuboid.FaceBakery
+-- net.minecraft.client.renderer.block.model.cuboid.CuboidFace --
+   javap error: Error: class not found: net.minecraft.client.renderer.block.model.cuboid.CuboidFace
+-- net.minecraft.client.renderer.block.model.geometry.BakedQuad --
+   javap error: Error: class not found: net.minecraft.client.renderer.block.model.geometry.BakedQuad
+-- net.minecraft.client.renderer.block.model.TextureSlots --
+   javap error: Error: class not found: net.minecraft.client.renderer.block.model.TextureSlots
+-- net.minecraft.client.renderer.block.model.SimpleModelWrapper --
+   javap error: Error: class not found: net.minecraft.client.renderer.block.model.SimpleModelWrapper
+-- net.minecraft.client.renderer.block.dispatch.BlockStateModel --
+   Compiled from "BlockStateModel.java"
+   public interface net.minecraft.client.renderer.block.dispatch.BlockStateModel extends net.fabricmc.fabric.api.client.renderer.v1.model.FabricBlockStateModel {
+   public abstract void collectParts(net.minecraft.util.RandomSource, java.util.List<net.minecraft.client.renderer.block.dispatch.BlockStateModelPart>);
+   public abstract net.minecraft.client.resources.model.sprite.Material$Baked particleMaterial();
+   public abstract int materialFlags();
+   public default boolean hasMaterialFlag(int);
+   }
+-- net.minecraft.client.renderer.block.dispatch.SingleVariant --
+   Compiled from "SingleVariant.java"
+   public class net.minecraft.client.renderer.block.dispatch.SingleVariant implements net.minecraft.client.renderer.block.dispatch.BlockStateModel {
+   private final net.minecraft.client.renderer.block.dispatch.BlockStateModelPart model;
+   public net.minecraft.client.renderer.block.dispatch.SingleVariant(net.minecraft.client.renderer.block.dispatch.BlockStateModelPart);
+   public void collectParts(net.minecraft.util.RandomSource, java.util.List<net.minecraft.client.renderer.block.dispatch.BlockStateModelPart>);
+   public net.minecraft.client.resources.model.sprite.Material$Baked particleMaterial();
+   public int materialFlags();
+   }
+-- net.minecraft.client.renderer.block.model.BlockModelRotation --
+   javap error: Error: class not found: net.minecraft.client.renderer.block.model.BlockModelRotation
+-- com.mojang.math.OctahedralGroup --
+   public final class com.mojang.math.OctahedralGroup extends java.lang.Enum<com.mojang.math.OctahedralGroup> implements net.minecraft.util.StringRepresentable {
+   public static final com.mojang.math.OctahedralGroup IDENTITY;
+   public static final com.mojang.math.OctahedralGroup ROT_180_FACE_XY;
+   public static final com.mojang.math.OctahedralGroup ROT_180_FACE_XZ;
+   public static final com.mojang.math.OctahedralGroup ROT_180_FACE_YZ;
+   public static final com.mojang.math.OctahedralGroup ROT_120_NNN;
+   public static final com.mojang.math.OctahedralGroup ROT_120_NNP;
+   public static final com.mojang.math.OctahedralGroup ROT_120_NPN;
+   public static final com.mojang.math.OctahedralGroup ROT_120_NPP;
+   public static final com.mojang.math.OctahedralGroup ROT_120_PNN;
+   public static final com.mojang.math.OctahedralGroup ROT_120_PNP;
+   public static final com.mojang.math.OctahedralGroup ROT_120_PPN;
+   public static final com.mojang.math.OctahedralGroup ROT_120_PPP;
+   public static final com.mojang.math.OctahedralGroup ROT_180_EDGE_XY_NEG;
+   public static final com.mojang.math.OctahedralGroup ROT_180_EDGE_XY_POS;
+   public static final com.mojang.math.OctahedralGroup ROT_180_EDGE_XZ_NEG;
+   public static final com.mojang.math.OctahedralGroup ROT_180_EDGE_XZ_POS;
+   public static final com.mojang.math.OctahedralGroup ROT_180_EDGE_YZ_NEG;
+   public static final com.mojang.math.OctahedralGroup ROT_180_EDGE_YZ_POS;
+   public static final com.mojang.math.OctahedralGroup ROT_90_X_NEG;
+   public static final com.mojang.math.OctahedralGroup ROT_90_X_POS;
+   public static final com.mojang.math.OctahedralGroup ROT_90_Y_NEG;
+   public static final com.mojang.math.OctahedralGroup ROT_90_Y_POS;
+   public static final com.mojang.math.OctahedralGroup ROT_90_Z_NEG;
+   public static final com.mojang.math.OctahedralGroup ROT_90_Z_POS;
+   public static final com.mojang.math.OctahedralGroup INVERSION;
+   public static final com.mojang.math.OctahedralGroup INVERT_X;
+   public static final com.mojang.math.OctahedralGroup INVERT_Y;
+   public static final com.mojang.math.OctahedralGroup INVERT_Z;
+   public static final com.mojang.math.OctahedralGroup ROT_60_REF_NNN;
+   public static final com.mojang.math.OctahedralGroup ROT_60_REF_NNP;
+   public static final com.mojang.math.OctahedralGroup ROT_60_REF_NPN;
+   public static final com.mojang.math.OctahedralGroup ROT_60_REF_NPP;
+   public static final com.mojang.math.OctahedralGroup ROT_60_REF_PNN;
+   public static final com.mojang.math.OctahedralGroup ROT_60_REF_PNP;
+   public static final com.mojang.math.OctahedralGroup ROT_60_REF_PPN;
+   public static final com.mojang.math.OctahedralGroup ROT_60_REF_PPP;
+   public static final com.mojang.math.OctahedralGroup SWAP_XY;
+   public static final com.mojang.math.OctahedralGroup SWAP_YZ;
+   public static final com.mojang.math.OctahedralGroup SWAP_XZ;
+   public static final com.mojang.math.OctahedralGroup SWAP_NEG_XY;
+   public static final com.mojang.math.OctahedralGroup SWAP_NEG_YZ;
+   public static final com.mojang.math.OctahedralGroup SWAP_NEG_XZ;
+   public static final com.mojang.math.OctahedralGroup ROT_90_REF_X_NEG;
+   public static final com.mojang.math.OctahedralGroup ROT_90_REF_X_POS;
+   public static final com.mojang.math.OctahedralGroup ROT_90_REF_Y_NEG;
+   public static final com.mojang.math.OctahedralGroup ROT_90_REF_Y_POS;
+   public static final com.mojang.math.OctahedralGroup ROT_90_REF_Z_NEG;
+   public static final com.mojang.math.OctahedralGroup ROT_90_REF_Z_POS;
+   public static final com.mojang.math.OctahedralGroup BLOCK_ROT_X_270;
+   public static final com.mojang.math.OctahedralGroup BLOCK_ROT_X_180;
+   public static final com.mojang.math.OctahedralGroup BLOCK_ROT_X_90;
+   public static final com.mojang.math.OctahedralGroup BLOCK_ROT_Y_270;
+   public static final com.mojang.math.OctahedralGroup BLOCK_ROT_Y_180;
+   public static final com.mojang.math.OctahedralGroup BLOCK_ROT_Y_90;
+   public static final com.mojang.math.OctahedralGroup BLOCK_ROT_Z_270;
+   public static final com.mojang.math.OctahedralGroup BLOCK_ROT_Z_180;
+   public static final com.mojang.math.OctahedralGroup BLOCK_ROT_Z_90;
+-- net.minecraft.client.resources.model.ModelManager --
+   public class net.minecraft.client.resources.model.ModelManager implements net.minecraft.server.packs.resources.PreparableReloadListener,net.fabricmc.fabric.api.client.model.loading.v1.FabricModelManager {
+   public net.minecraft.client.resources.model.ModelManager(net.minecraft.client.color.block.BlockColors, net.minecraft.client.resources.model.sprite.AtlasManager, net.minecraft.client.renderer.PlayerSkinRenderCache);
+   public net.minecraft.client.renderer.item.ItemModel getItemModel(net.minecraft.resources.Identifier);
+   public net.minecraft.client.renderer.item.ClientItem$Properties getItemProperties(net.minecraft.resources.Identifier);
+   public net.minecraft.client.renderer.block.BlockStateModelSet getBlockStateModelSet();
+   public net.minecraft.client.renderer.block.BlockModelSet getBlockModelSet();
+   public net.minecraft.client.renderer.block.FluidStateModelSet getFluidStateModelSet();
+   public final java.util.concurrent.CompletableFuture<java.lang.Void> reload(net.minecraft.server.packs.resources.PreparableReloadListener$SharedState, java.util.concurrent.Executor, net.minecraft.server.packs.resources.PreparableReloadListener$PreparationBarrier, java.util.concurrent.Executor);
+   private static java.util.Map<net.minecraft.world.level.block.state.BlockState, net.minecraft.client.renderer.block.dispatch.BlockStateModel> createBlockStateToModelDispatch(java.util.Map<net.minecraft.world.level.block.state.BlockState, net.minecraft.client.renderer.block.dispatch.BlockStateModel>, net.minecraft.client.renderer.block.dispatch.BlockStateModel);
+   public boolean requiresRender(net.minecraft.world.level.block.state.BlockState, net.minecraft.world.level.block.state.BlockState);
+   public java.util.function.Supplier<net.minecraft.client.model.geom.EntityModelSet> entityModels();
+   private static void lambda$createBlockStateToModelDispatch$0(java.util.Map, net.minecraft.client.renderer.block.dispatch.BlockStateModel, net.minecraft.world.level.block.state.BlockState);
+   private static net.minecraft.client.resources.model.ModelManager$ReloadState lambda$loadModels$1(net.minecraft.client.resources.model.sprite.MaterialBaker, net.minecraft.client.resources.model.sprite.MaterialBaker, it.unimi.dsi.fastutil.objects.Object2IntMap, net.minecraft.client.model.geom.EntityModelSet, net.minecraft.client.resources.model.ModelBakery$BakingResult, java.util.Map);
+   private static java.util.concurrent.CompletionStage lambda$loadModels$0(net.minecraft.client.renderer.block.LoadedBlockModels, java.util.concurrent.Executor, net.minecraft.client.resources.model.ModelBakery$BakingResult);
+-- net.minecraft.client.Minecraft --
+   public void disconnectFromWorld(net.minecraft.network.chat.Component);
+   public void disconnectWithSavingScreen();
+   public void disconnectWithProgressScreen();
+   public void disconnectWithProgressScreen(boolean);
+   public void disconnect(net.minecraft.client.gui.screens.Screen, boolean);
+   public void disconnect(net.minecraft.client.gui.screens.Screen, boolean, boolean);
 -- net.minecraft.client.renderer.entity.EntityRenderDispatcher --
    public <T extends net.minecraft.world.entity.Entity> net.minecraft.client.renderer.entity.EntityRenderer<? super T, ?> getRenderer(T);
    public <S extends net.minecraft.client.renderer.entity.state.EntityRenderState> net.minecraft.client.renderer.entity.EntityRenderer<?, ? super S> getRenderer(S);
