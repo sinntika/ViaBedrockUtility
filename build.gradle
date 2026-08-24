@@ -84,6 +84,16 @@ dependencies {
 		transitive = false
 	}
 
+	// Bedrock block definitions arrive as ViaNBT tags, which live in their own
+	// artifact instead of inside viaversion-common. Compile only, because
+	// ViaFabricPlus already ships it at runtime. Resolved as the newest release
+	// rather than a pinned version: nothing in this build can read which ViaNBT
+	// build ViaVersion 5.12 pulls in, and a wrong pin fails the same way the dead
+	// ViaBedrock timestamp did.
+	compileOnly("com.viaversion:nbt:latest.release") {
+		transitive = false
+	}
+
 	// Compile only, never shaded: ViaFabricPlus jar-in-jars this library, so the
 	// classes are already on the runtime classpath. Requested as a plain snapshot
 	// rather than the timestamp ViaFabricPlus 4.6.2 pins, because the repository
@@ -107,8 +117,8 @@ tasks.register("printViaBedrock") {
 	doLast {
 		configurations.compileClasspath.resolvedConfiguration.lenientConfiguration
 				.getArtifacts { true }
-				.findAll { it.moduleVersion.id.group == "net.raphimc" }
-				.each { println "viabedrock: ${it.moduleVersion.id} -> ${it.file.name}" }
+				.findAll { it.moduleVersion.id.group == "net.raphimc" || it.moduleVersion.id.group == "com.viaversion" }
+				.each { println "dependency: ${it.moduleVersion.id} -> ${it.file.name}" }
 	}
 }
 

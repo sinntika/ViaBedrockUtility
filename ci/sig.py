@@ -2,8 +2,8 @@
 """Dump ground-truth signatures from the real 26.2 jar and the compile classpath.
 
 The sandbox this port is driven from cannot download Minecraft or decompile it,
-so every signature the mixins depend on is read back out of the jar that CI
-actually compiled against. Guessed signatures are what produced the original
+so every signature the port depends on is read back out of the jars CI actually
+compiled against. Guessed signatures are what produced the original
 InvalidInjectionException crash.
 """
 
@@ -21,76 +21,73 @@ SEARCH_DIRS = [
 	HOME / ".gradle" / "caches" / "modules-2",
 ]
 
-# Everything that has to be on javap's classpath for the Minecraft classes and
-# the library classes below to resolve their own field/parameter types.
-LIB_KEYWORDS = ("viabedrock", "viaversion", "cubeconverter", "mocha", "fastutil")
-
-# The bundled server jar is ~50 MB but contains four loader classes, so it wins
-# on file size and loses on everything that matters.
-JAR_NAME_SKIP = ("server", "sources", "javadoc")
-
-# Class-name index. Package paths inside ViaBedrock move between snapshots, so
-# list the candidates instead of hard-coding a guess.
-INDEXES = (
-	(
-		"viabedrock",
-		re.compile(r"(?i)(api\.model\.|resourcepack\.definition\.|resourcepack\.content\.)"),
-	),
+# Everything that has to be on javap's classpath for the classes below to
+# resolve their own field and parameter types.
+LIB_KEYWORDS = (
+	"viabedrock",
+	"viaversion",
+	"nbt",
+	"cubeconverter",
+	"mocha",
+	"fastutil",
 )
 
-# (class, member filter). A filter keeps the output readable for the huge
+# The bundled server jar is ~50 MB but holds four loader classes, so it wins on
+# file size and loses on everything that matters.
+JAR_NAME_SKIP = ("server", "sources", "javadoc")
+
+# Class-name indexes, for packages that move between snapshots.
+INDEXES = (
+	("nbt", re.compile(r"tag\.")),
+	("viaversion-common", re.compile(r"(?i)nbt\.tag\.[A-Z]")),
+)
+
+# (class, member filter). The filter keeps the output readable for the huge
 # classes; None dumps every member.
 TARGETS = (
-	# -- phase 2: turning Bedrock block definitions into real blocks --
+	# -- ViaNBT, the tag types the component translator reads --
+	("com.viaversion.nbt.tag.Tag", None),
+	("com.viaversion.nbt.tag.CompoundTag", r"class com|public"),
+	("com.viaversion.nbt.tag.ListTag", r"class com|public"),
+	("com.viaversion.nbt.tag.NumberTag", None),
+	("com.viaversion.nbt.tag.StringTag", r"class com|public"),
+	# -- the vanilla side of block registration --
 	(
-		"net.minecraft.world.level.block.state.BlockBehaviour",
-		r"class net|getShape|getCollisionShape|getOcclusionShape|getVisualShape"
-		r"|getInteractionShape|getLightBlock|isPathfindable|getDestroyProgress"
-		r"|propagatesSkylightDown|getBlockSupportShape",
+		"net.minecraft.world.level.block.state.BlockBehaviour$Properties",
+		r"class net|static.*of\(|noOcclusion|friction|destroyTime|setId|lightLevel"
+		r"|dynamicShape|strength|instabreak|forceSolidOn|forceSolidOff|pushReaction",
 	),
 	(
-		"net.minecraft.world.level.block.Block",
-		r"class net|BLOCK_STATE_REGISTRY|static int getId|Block\(net.minecraft.world.level.block.state.BlockBehaviour"
-		r"|defaultBlockState|createBlockStateDefinition|getStateDefinition|registerDefaultState",
+		"net.minecraft.world.level.block.state.BlockBehaviour$BlockStateBase",
+		r"class net|initCache|Cache|isSolidRender|canOcclude",
+	),
+	("net.minecraft.core.IdMapper", None),
+	(
+		"net.minecraft.core.Holder$Reference",
+		r"class net|public|tags",
 	),
 	(
-		"net.minecraft.world.level.block.state.BlockState",
-		r"class net|initCache|getBlock|BlockState\(",
+		"net.minecraft.resources.ResourceKey",
+		r"class net|public static|identifier|registry",
 	),
 	(
-		"net.minecraft.world.level.block.state.StateDefinition",
-		r"class net|any\(|getPossibleStates|owner|StateDefinition\(",
-	),
-	("net.minecraft.core.RegistrationInfo", None),
-	("net.minecraft.core.WritableRegistry", None),
-	(
-		"net.minecraft.core.registries.BuiltInRegistries",
-		r"class net|Registry<net.minecraft.world.level.block.Block>|\bBLOCK\b",
+		"net.minecraft.core.registries.Registries",
+		r"class net|Registry<net.minecraft.world.level.block.Block>",
 	),
 	(
-		"net.minecraft.resources.Identifier",
-		r"class net|public static|Identifier\(",
+		"net.minecraft.world.phys.shapes.VoxelShape",
+		r"class net|toAabbs|bounds|isEmpty|optimize|move",
 	),
 	(
-		"net.minecraft.world.phys.shapes.CollisionContext",
-		r"interface net|class net|empty\(|of\(",
+		"net.minecraft.world.phys.shapes.Shapes",
+		r"class net|public static",
 	),
-	# -- phase 4: the ViaBedrock side the hooks attach to --
-	("net.raphimc.viabedrock.api.resourcepack.definition.BlockDefinitions", None),
+	# -- phase 4: the ViaBedrock hooks the blocks will be driven from --
+	("net.raphimc.viabedrock.api.model.BedrockBlockState", None),
 	(
-		"net.raphimc.viabedrock.api.resourcepack.definition.BlockDefinitions$BlockDefinition",
-		None,
+		"net.raphimc.viabedrock.protocol.rewriter.BlockStateRewriter",
+		r"class net|public|private",
 	),
-	(
-		"net.raphimc.viabedrock.api.resourcepack.definition.TextureDefinitions",
-		r"class net|public",
-	),
-	("net.raphimc.viabedrock.api.model.BlockState", None),
-	# -- mocha, for evaluating the MoLang conditions on block permutations --
-	("team.unnamed.mocha.runtime.Scope", None),
-	("team.unnamed.mocha.runtime.value.MutableObjectBinding", None),
-	("team.unnamed.mocha.runtime.binding.JavaObjectBinding", r"class team|public|static"),
-	("team.unnamed.mocha.runtime.value.Value", None),
 	# -- regression guard for the crash that started all of this --
 	(
 		"net.minecraft.client.renderer.entity.EntityRenderDispatcher",
@@ -185,8 +182,10 @@ def main():
 			names = class_names(path, pattern)
 			print()
 			print(f"== CLASS INDEX: {path.name} ({len(names)} matched) ==")
-			for clazz in names:
+			for clazz in names[:MAX_LINES]:
 				print(f"   {clazz}")
+			if len(names) > MAX_LINES:
+				print(f"   ... truncated ({len(names) - MAX_LINES} more)")
 
 	classpath = ":".join(str(path) for path in [minecraft, *libs])
 
