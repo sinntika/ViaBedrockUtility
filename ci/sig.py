@@ -36,55 +36,29 @@ LIB_KEYWORDS = (
 # file size and loses on everything that matters.
 JAR_NAME_SKIP = ("server", "sources", "javadoc")
 
-# Class-name indexes, for packages that move between snapshots.
 INDEXES = ()
 
-# Same idea, but against the Minecraft jar. Kept around because this is what
-# proved the upstream pull request targets 1.21 packages that no longer exist.
+# Whole-package listings. Cheaper than guessing one class at a time when a
+# package has been reshuffled.
 MC_INDEX = re.compile(
-	r"\.(?:"
-	r"ResolvedModel|SpriteGetter|AtlasManager|BlockStateModelSet|LoadedBlockModels"
-	r")(?:\$[A-Za-z0-9_]+)?$"
+	r"^net\.minecraft\.client\.resources\.model\.(?:cuboid|geometry)\.[A-Za-z0-9_$]+$"
 )
 
 # (class, member filter). The filter keeps the output readable for the huge
 # classes; None dumps every member.
 TARGETS = (
-	# -- phase 3: turning pack geometry into baked quads --
-	("net.minecraft.client.resources.model.cuboid.FaceBakery", None),
-	("net.minecraft.client.resources.model.cuboid.CuboidFace", None),
-	("net.minecraft.client.resources.model.cuboid.CuboidFace$UVs", None),
-	("net.minecraft.client.resources.model.geometry.BakedQuad", None),
-	("net.minecraft.client.resources.model.geometry.BakedQuad$MaterialInfo", None),
-	("net.minecraft.client.resources.model.geometry.BakedQuad$MaterialFlags", None),
-	("net.minecraft.client.resources.model.geometry.QuadCollection", None),
-	("net.minecraft.client.resources.model.geometry.QuadCollection$Builder", None),
-	("net.minecraft.client.resources.model.sprite.MaterialBaker", None),
-	("net.minecraft.client.resources.model.sprite.SpriteGetter", None),
+	# -- the missing piece of FaceBakery.bakeQuad --
+	("net.minecraft.client.resources.model.cuboid.CuboidRotation", None),
+	("net.minecraft.client.resources.model.cuboid.Cuboid", None),
+	("net.minecraft.client.resources.model.geometry.UnbakedGeometry", None),
+	("net.minecraft.client.resources.model.geometry.SimpleUnbakedGeometry", None),
+	# -- needed only if the quads have to be assembled by hand --
+	("com.mojang.blaze3d.platform.Transparency", r"class com|public static final"),
+	("net.minecraft.core.Direction", r"class net|public static|public net|getName"),
+	# -- phase 4 --
 	(
-		"net.minecraft.client.resources.model.sprite.TextureSlots",
-		r"class net|public|static",
-	),
-	("net.minecraft.client.resources.model.sprite.Material$Baked", None),
-	("net.minecraft.client.resources.model.SimpleModelWrapper", None),
-	("net.minecraft.client.resources.model.ModelBaker$Interner", None),
-	("net.minecraft.client.resources.model.ModelBakery$InternerImpl", None),
-	("net.minecraft.client.resources.model.ModelBakery$ModelBakerImpl", None),
-	("net.minecraft.client.resources.model.ModelBakery$BakingResult", None),
-	("net.minecraft.client.resources.model.ModelBakery$MissingModels", None),
-	("net.minecraft.client.renderer.block.dispatch.BlockStateModelPart", None),
-	("net.minecraft.client.renderer.block.dispatch.ModelState", None),
-	(
-		"net.minecraft.client.renderer.block.dispatch.BlockModelRotation",
-		r"class net|public|static",
-	),
-	("com.mojang.math.Quadrant", r"class com|public"),
-	("net.minecraft.client.renderer.FaceInfo", r"class net|public static|public"),
-	# -- phase 4: where the baked models get handed to the client --
-	("net.minecraft.client.renderer.block.BlockStateModelSet", None),
-	(
-		"net.minecraft.client.resources.model.ResolvedModel",
-		r"interface|class net|public",
+		"net.raphimc.viabedrock.api.model.resourcepack.ResourcePackStorage",
+		r"class net|public",
 	),
 	# -- regression guard for the crash that started all of this --
 	(
@@ -179,7 +153,7 @@ def main():
 	for path in libs:
 		print(f"   {path.name:<60} {class_count(path)} classes")
 
-	print_index("MODEL CLASS INDEX", class_names(minecraft, MC_INDEX))
+	print_index("CUBOID + GEOMETRY PACKAGES", class_names(minecraft, MC_INDEX))
 
 	for keyword, pattern in INDEXES:
 		matches = [path for path in libs if keyword in path.name.lower()]
