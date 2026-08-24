@@ -8,125 +8,190 @@ jar: minecraft-merged-a76db1c7b4-26.2.jar (10952 classes)
    nbt-5.3.0.jar                                                47 classes
    viaversion-common-5.12.0-SNAPSHOT.jar                        3312 classes
 
-== CUBOID + GEOMETRY PACKAGES (31 matched) ==
-   net.minecraft.client.resources.model.cuboid.CuboidFace
-   net.minecraft.client.resources.model.cuboid.CuboidFace$Deserializer
-   net.minecraft.client.resources.model.cuboid.CuboidFace$UVs
-   net.minecraft.client.resources.model.cuboid.CuboidModel
-   net.minecraft.client.resources.model.cuboid.CuboidModel$Deserializer
-   net.minecraft.client.resources.model.cuboid.CuboidModelElement
-   net.minecraft.client.resources.model.cuboid.CuboidModelElement$Deserializer
-   net.minecraft.client.resources.model.cuboid.CuboidRotation
-   net.minecraft.client.resources.model.cuboid.CuboidRotation$EulerXYZRotation
-   net.minecraft.client.resources.model.cuboid.CuboidRotation$RotationValue
-   net.minecraft.client.resources.model.cuboid.CuboidRotation$SingleAxisRotation
-   net.minecraft.client.resources.model.cuboid.FaceBakery
-   net.minecraft.client.resources.model.cuboid.FaceBakery$1
-   net.minecraft.client.resources.model.cuboid.ItemModelGenerator
-   net.minecraft.client.resources.model.cuboid.ItemModelGenerator$ItemLayerKey
-   net.minecraft.client.resources.model.cuboid.ItemModelGenerator$SideDirection
-   net.minecraft.client.resources.model.cuboid.ItemModelGenerator$SideFace
-   net.minecraft.client.resources.model.cuboid.ItemTransform
-   net.minecraft.client.resources.model.cuboid.ItemTransform$Deserializer
-   net.minecraft.client.resources.model.cuboid.ItemTransforms
-   net.minecraft.client.resources.model.cuboid.ItemTransforms$1
-   net.minecraft.client.resources.model.cuboid.ItemTransforms$Deserializer
-   net.minecraft.client.resources.model.cuboid.MissingCuboidModel
-   net.minecraft.client.resources.model.cuboid.UnbakedCuboidGeometry
-   net.minecraft.client.resources.model.cuboid.UnbakedCuboidGeometry$1
-   net.minecraft.client.resources.model.geometry.BakedQuad
-   net.minecraft.client.resources.model.geometry.BakedQuad$MaterialFlags
-   net.minecraft.client.resources.model.geometry.BakedQuad$MaterialInfo
-   net.minecraft.client.resources.model.geometry.QuadCollection
-   net.minecraft.client.resources.model.geometry.QuadCollection$Builder
-   net.minecraft.client.resources.model.geometry.UnbakedGeometry
+== SPRITE PACKAGE (17 matched) ==
+   net.minecraft.client.resources.model.sprite.AtlasManager
+   net.minecraft.client.resources.model.sprite.AtlasManager$AtlasConfig
+   net.minecraft.client.resources.model.sprite.AtlasManager$AtlasEntry
+   net.minecraft.client.resources.model.sprite.AtlasManager$PendingStitch
+   net.minecraft.client.resources.model.sprite.AtlasManager$PendingStitchResults
+   net.minecraft.client.resources.model.sprite.Material
+   net.minecraft.client.resources.model.sprite.Material$Baked
+   net.minecraft.client.resources.model.sprite.MaterialBaker
+   net.minecraft.client.resources.model.sprite.SpriteGetter
+   net.minecraft.client.resources.model.sprite.SpriteId
+   net.minecraft.client.resources.model.sprite.TextureSlots
+   net.minecraft.client.resources.model.sprite.TextureSlots$Data
+   net.minecraft.client.resources.model.sprite.TextureSlots$Data$Builder
+   net.minecraft.client.resources.model.sprite.TextureSlots$Reference
+   net.minecraft.client.resources.model.sprite.TextureSlots$Resolver
+   net.minecraft.client.resources.model.sprite.TextureSlots$SlotContents
+   net.minecraft.client.resources.model.sprite.TextureSlots$Value
+
+== CLASS INDEX: ViaBedrock-0.0.29-SNAPSHOT.jar (9 matched) ==
+   net.raphimc.viabedrock.api.resourcepack.definition.BlockDefinitions
+   net.raphimc.viabedrock.api.resourcepack.definition.BlockDefinitions$BlockDefinition
+   net.raphimc.viabedrock.api.resourcepack.definition.ModelDefinitions
+   net.raphimc.viabedrock.api.resourcepack.definition.TextureDefinitions
+   net.raphimc.viabedrock.api.resourcepack.definition.TextureDefinitions$ItemTextureDefinition
+   net.raphimc.viabedrock.protocol.rewriter.BlockStateRewriter
+   net.raphimc.viabedrock.protocol.rewriter.ResourcePackRewriter
+   net.raphimc.viabedrock.protocol.rewriter.ResourcePackRewriter$Rewriter
+   net.raphimc.viabedrock.protocol.storage.ResourcePackStorage
 
 == SIGNATURES ==
--- net.minecraft.client.resources.model.cuboid.CuboidRotation --
-   Compiled from "CuboidRotation.java"
-   public final class net.minecraft.client.resources.model.cuboid.CuboidRotation extends java.lang.Record {
-   private final org.joml.Vector3fc origin;
-   private final net.minecraft.client.resources.model.cuboid.CuboidRotation$RotationValue value;
-   private final boolean rescale;
-   private final org.joml.Matrix4fc transform;
-   public net.minecraft.client.resources.model.cuboid.CuboidRotation(org.joml.Vector3fc, net.minecraft.client.resources.model.cuboid.CuboidRotation$RotationValue, boolean);
-   public net.minecraft.client.resources.model.cuboid.CuboidRotation(org.joml.Vector3fc, net.minecraft.client.resources.model.cuboid.CuboidRotation$RotationValue, boolean, org.joml.Matrix4fc);
-   private static org.joml.Matrix4f computeTransform(net.minecraft.client.resources.model.cuboid.CuboidRotation$RotationValue, boolean);
-   private static org.joml.Vector3fc computeRescale(org.joml.Matrix4fc);
-   private static float scaleFactorForAxis(org.joml.Matrix4fc, net.minecraft.core.Direction$Axis, org.joml.Vector3f);
+-- net.minecraft.client.resources.model.cuboid.UnbakedCuboidGeometry --
+   Compiled from "UnbakedCuboidGeometry.java"
+   public final class net.minecraft.client.resources.model.cuboid.UnbakedCuboidGeometry extends java.lang.Record implements net.minecraft.client.resources.model.geometry.UnbakedGeometry {
+   private final java.util.List<net.minecraft.client.resources.model.cuboid.CuboidModelElement> elements;
+   public net.minecraft.client.resources.model.cuboid.UnbakedCuboidGeometry(java.util.List<net.minecraft.client.resources.model.cuboid.CuboidModelElement>);
+   public net.minecraft.client.resources.model.geometry.QuadCollection bake(net.minecraft.client.resources.model.sprite.TextureSlots, net.minecraft.client.resources.model.ModelBaker, net.minecraft.client.renderer.block.dispatch.ModelState, net.minecraft.client.resources.model.ModelDebugName);
+   public static net.minecraft.client.resources.model.geometry.QuadCollection bake(java.util.List<net.minecraft.client.resources.model.cuboid.CuboidModelElement>, net.minecraft.client.resources.model.sprite.TextureSlots, net.minecraft.client.resources.model.ModelBaker, net.minecraft.client.renderer.block.dispatch.ModelState, net.minecraft.client.resources.model.ModelDebugName);
    public final java.lang.String toString();
    public final int hashCode();
    public final boolean equals(java.lang.Object);
-   public org.joml.Vector3fc origin();
-   public net.minecraft.client.resources.model.cuboid.CuboidRotation$RotationValue value();
-   public boolean rescale();
-   public org.joml.Matrix4fc transform();
+   public java.util.List<net.minecraft.client.resources.model.cuboid.CuboidModelElement> elements();
    }
--- net.minecraft.client.resources.model.cuboid.Cuboid --
-   javap error: Error: class not found: net.minecraft.client.resources.model.cuboid.Cuboid
--- net.minecraft.client.resources.model.geometry.UnbakedGeometry --
-   Compiled from "UnbakedGeometry.java"
-   public interface net.minecraft.client.resources.model.geometry.UnbakedGeometry {
-   public static final net.minecraft.client.resources.model.geometry.UnbakedGeometry EMPTY;
-   public abstract net.minecraft.client.resources.model.geometry.QuadCollection bake(net.minecraft.client.resources.model.sprite.TextureSlots, net.minecraft.client.resources.model.ModelBaker, net.minecraft.client.renderer.block.dispatch.ModelState, net.minecraft.client.resources.model.ModelDebugName);
-   private static net.minecraft.client.resources.model.geometry.QuadCollection lambda$static$0(net.minecraft.client.resources.model.sprite.TextureSlots, net.minecraft.client.resources.model.ModelBaker, net.minecraft.client.renderer.block.dispatch.ModelState, net.minecraft.client.resources.model.ModelDebugName);
+-- net.minecraft.client.resources.model.cuboid.CuboidModelElement --
+   Compiled from "CuboidModelElement.java"
+   public final class net.minecraft.client.resources.model.cuboid.CuboidModelElement extends java.lang.Record {
+   private final org.joml.Vector3fc from;
+   private final org.joml.Vector3fc to;
+   private final java.util.Map<net.minecraft.core.Direction, net.minecraft.client.resources.model.cuboid.CuboidFace> faces;
+   private final net.minecraft.client.resources.model.cuboid.CuboidRotation rotation;
+   private final boolean shade;
+   private final int lightEmission;
+   private static final boolean DEFAULT_RESCALE;
+   private static final float MIN_EXTENT;
+   private static final float MAX_EXTENT;
+   public net.minecraft.client.resources.model.cuboid.CuboidModelElement(org.joml.Vector3fc, org.joml.Vector3fc, java.util.Map<net.minecraft.core.Direction, net.minecraft.client.resources.model.cuboid.CuboidFace>);
+   public net.minecraft.client.resources.model.cuboid.CuboidModelElement(org.joml.Vector3fc, org.joml.Vector3fc, java.util.Map<net.minecraft.core.Direction, net.minecraft.client.resources.model.cuboid.CuboidFace>, net.minecraft.client.resources.model.cuboid.CuboidRotation, boolean, int);
+   public final java.lang.String toString();
+   public final int hashCode();
+   public final boolean equals(java.lang.Object);
+   public org.joml.Vector3fc from();
+   public org.joml.Vector3fc to();
+   public java.util.Map<net.minecraft.core.Direction, net.minecraft.client.resources.model.cuboid.CuboidFace> faces();
+   public net.minecraft.client.resources.model.cuboid.CuboidRotation rotation();
+   public boolean shade();
+   public int lightEmission();
+   }
+-- net.minecraft.client.resources.model.cuboid.CuboidModel --
+   public final class net.minecraft.client.resources.model.cuboid.CuboidModel extends java.lang.Record implements net.minecraft.client.resources.model.UnbakedModel {
+   public net.minecraft.client.resources.model.cuboid.CuboidModel(net.minecraft.client.resources.model.geometry.UnbakedGeometry, net.minecraft.client.resources.model.UnbakedModel$GuiLight, java.lang.Boolean, net.minecraft.client.resources.model.cuboid.ItemTransforms, net.minecraft.client.resources.model.sprite.TextureSlots$Data, net.minecraft.resources.Identifier);
+   public static net.minecraft.client.resources.model.cuboid.CuboidModel fromStream(java.io.Reader);
+   public final java.lang.String toString();
+   public final int hashCode();
+   public final boolean equals(java.lang.Object);
+   public net.minecraft.client.resources.model.geometry.UnbakedGeometry geometry();
+   public net.minecraft.client.resources.model.UnbakedModel$GuiLight guiLight();
+   public java.lang.Boolean ambientOcclusion();
+   public net.minecraft.client.resources.model.cuboid.ItemTransforms transforms();
+   public net.minecraft.client.resources.model.sprite.TextureSlots$Data textureSlots();
+   public net.minecraft.resources.Identifier parent();
+-- net.minecraft.client.resources.model.cuboid.CuboidRotation$RotationValue --
+   Compiled from "CuboidRotation.java"
+   public interface net.minecraft.client.resources.model.cuboid.CuboidRotation$RotationValue {
+   public abstract org.joml.Matrix4f transformation();
+   }
+-- net.minecraft.client.resources.model.cuboid.CuboidRotation$SingleAxisRotation --
+   Compiled from "CuboidRotation.java"
+   public final class net.minecraft.client.resources.model.cuboid.CuboidRotation$SingleAxisRotation extends java.lang.Record implements net.minecraft.client.resources.model.cuboid.CuboidRotation$RotationValue {
+   private final net.minecraft.core.Direction$Axis axis;
+   private final float angle;
+   public net.minecraft.client.resources.model.cuboid.CuboidRotation$SingleAxisRotation(net.minecraft.core.Direction$Axis, float);
+   public org.joml.Matrix4f transformation();
+   public final java.lang.String toString();
+   public final int hashCode();
+   public final boolean equals(java.lang.Object);
+   public net.minecraft.core.Direction$Axis axis();
+   public float angle();
+   }
+-- net.minecraft.client.resources.model.cuboid.CuboidRotation$EulerXYZRotation --
+   Compiled from "CuboidRotation.java"
+   public final class net.minecraft.client.resources.model.cuboid.CuboidRotation$EulerXYZRotation extends java.lang.Record implements net.minecraft.client.resources.model.cuboid.CuboidRotation$RotationValue {
+   private final float x;
+   private final float y;
+   private final float z;
+   public net.minecraft.client.resources.model.cuboid.CuboidRotation$EulerXYZRotation(float, float, float);
+   public org.joml.Matrix4f transformation();
+   public final java.lang.String toString();
+   public final int hashCode();
+   public final boolean equals(java.lang.Object);
+   public float x();
+   public float y();
+   public float z();
+   }
+-- net.minecraft.client.resources.model.sprite.TextureSlots$Data --
+   Compiled from "TextureSlots.java"
+   public final class net.minecraft.client.resources.model.sprite.TextureSlots$Data extends java.lang.Record {
+   private final java.util.Map<java.lang.String, net.minecraft.client.resources.model.sprite.TextureSlots$SlotContents> values;
+   public static final net.minecraft.client.resources.model.sprite.TextureSlots$Data EMPTY;
+   public net.minecraft.client.resources.model.sprite.TextureSlots$Data(java.util.Map<java.lang.String, net.minecraft.client.resources.model.sprite.TextureSlots$SlotContents>);
+   public final java.lang.String toString();
+   public final int hashCode();
+   public final boolean equals(java.lang.Object);
+   public java.util.Map<java.lang.String, net.minecraft.client.resources.model.sprite.TextureSlots$SlotContents> values();
    static {};
    }
--- net.minecraft.client.resources.model.geometry.SimpleUnbakedGeometry --
-   javap error: Error: class not found: net.minecraft.client.resources.model.geometry.SimpleUnbakedGeometry
--- com.mojang.blaze3d.platform.Transparency --
-   public final class com.mojang.blaze3d.platform.Transparency extends java.lang.Record {
-   public static final com.mojang.blaze3d.platform.Transparency NONE;
-   public static final com.mojang.blaze3d.platform.Transparency TRANSPARENT;
-   public static final com.mojang.blaze3d.platform.Transparency TRANSLUCENT;
-   public static final com.mojang.blaze3d.platform.Transparency TRANSPARENT_AND_TRANSLUCENT;
--- net.minecraft.core.Direction --
-   public final class net.minecraft.core.Direction extends java.lang.Enum<net.minecraft.core.Direction> implements net.minecraft.util.StringRepresentable {
-   public static final net.minecraft.core.Direction DOWN;
-   public static final net.minecraft.core.Direction UP;
-   public static final net.minecraft.core.Direction NORTH;
-   public static final net.minecraft.core.Direction SOUTH;
-   public static final net.minecraft.core.Direction WEST;
-   public static final net.minecraft.core.Direction EAST;
-   public static final net.minecraft.util.StringRepresentable$EnumCodec<net.minecraft.core.Direction> CODEC;
-   public static final com.mojang.serialization.Codec<net.minecraft.core.Direction> VERTICAL_CODEC;
-   public static final java.util.function.IntFunction<net.minecraft.core.Direction> BY_ID;
-   public static final net.minecraft.network.codec.StreamCodec<io.netty.buffer.ByteBuf, net.minecraft.core.Direction> STREAM_CODEC;
-   public static final com.mojang.serialization.Codec<net.minecraft.core.Direction> LEGACY_ID_CODEC;
-   public static final com.mojang.serialization.Codec<net.minecraft.core.Direction> LEGACY_ID_CODEC_2D;
-   public static net.minecraft.core.Direction[] values();
-   public static net.minecraft.core.Direction valueOf(java.lang.String);
-   public static net.minecraft.core.Direction[] orderedByNearest(net.minecraft.world.entity.Entity);
-   public static net.minecraft.core.Direction rotate(org.joml.Matrix4fc, net.minecraft.core.Direction);
-   public static java.util.Collection<net.minecraft.core.Direction> allShuffled(net.minecraft.util.RandomSource);
-   public static java.util.stream.Stream<net.minecraft.core.Direction> stream();
-   public static float getYRot(net.minecraft.core.Direction);
-   public net.minecraft.core.Direction$AxisDirection getAxisDirection();
-   public static net.minecraft.core.Direction getFacingAxis(net.minecraft.world.entity.Entity, net.minecraft.core.Direction$Axis);
-   public net.minecraft.core.Direction getOpposite();
-   public net.minecraft.core.Direction getClockWise(net.minecraft.core.Direction$Axis);
-   public net.minecraft.core.Direction getCounterClockWise(net.minecraft.core.Direction$Axis);
-   public net.minecraft.core.Direction getClockWise();
-   public net.minecraft.core.Direction getCounterClockWise();
-   public java.lang.String getName();
-   public net.minecraft.core.Direction$Axis getAxis();
-   public static net.minecraft.core.Direction byName(java.lang.String);
-   public static net.minecraft.core.Direction from3DDataValue(int);
-   public static net.minecraft.core.Direction from2DDataValue(int);
-   public static net.minecraft.core.Direction fromYRot(double);
-   public static net.minecraft.core.Direction fromAxisAndDirection(net.minecraft.core.Direction$Axis, net.minecraft.core.Direction$AxisDirection);
-   public static net.minecraft.core.Direction getRandom(net.minecraft.util.RandomSource);
-   public static net.minecraft.core.Direction getApproximateNearest(double, double, double);
-   public static net.minecraft.core.Direction getApproximateNearest(float, float, float);
-   public static net.minecraft.core.Direction getApproximateNearest(net.minecraft.world.phys.Vec3);
-   public static net.minecraft.core.Direction getNearest(int, int, int, net.minecraft.core.Direction);
-   public static net.minecraft.core.Direction getNearest(net.minecraft.core.Vec3i, net.minecraft.core.Direction);
-   public static net.minecraft.core.Direction get(net.minecraft.core.Direction$AxisDirection, net.minecraft.core.Direction$Axis);
-   public static com.google.common.collect.ImmutableList<net.minecraft.core.Direction$Axis> axisStepOrder(net.minecraft.world.phys.Vec3);
-   public net.minecraft.core.Vec3i getUnitVec3i();
-   public net.minecraft.world.phys.Vec3 getUnitVec3();
--- net.raphimc.viabedrock.api.model.resourcepack.ResourcePackStorage --
-   javap error: Error: class not found: net.raphimc.viabedrock.api.model.resourcepack.ResourcePackStorage
+-- net.minecraft.client.resources.model.sprite.TextureSlots$Data$Builder --
+   Compiled from "TextureSlots.java"
+   public class net.minecraft.client.resources.model.sprite.TextureSlots$Data$Builder {
+   private final java.util.Map<java.lang.String, net.minecraft.client.resources.model.sprite.TextureSlots$SlotContents> textureMap;
+   public net.minecraft.client.resources.model.sprite.TextureSlots$Data$Builder();
+   public net.minecraft.client.resources.model.sprite.TextureSlots$Data$Builder addReference(java.lang.String, java.lang.String);
+   public net.minecraft.client.resources.model.sprite.TextureSlots$Data$Builder addTexture(java.lang.String, net.minecraft.client.resources.model.sprite.Material);
+   public net.minecraft.client.resources.model.sprite.TextureSlots$Data build();
+   }
+-- net.minecraft.client.resources.model.sprite.TextureSlots$Resolver --
+   Compiled from "TextureSlots.java"
+   public class net.minecraft.client.resources.model.sprite.TextureSlots$Resolver {
+   private static final org.slf4j.Logger LOGGER;
+   private final java.util.List<net.minecraft.client.resources.model.sprite.TextureSlots$Data> entries;
+   public net.minecraft.client.resources.model.sprite.TextureSlots$Resolver();
+   public net.minecraft.client.resources.model.sprite.TextureSlots$Resolver addLast(net.minecraft.client.resources.model.sprite.TextureSlots$Data);
+   public net.minecraft.client.resources.model.sprite.TextureSlots$Resolver addFirst(net.minecraft.client.resources.model.sprite.TextureSlots$Data);
+   public net.minecraft.client.resources.model.sprite.TextureSlots resolve(net.minecraft.client.resources.model.ModelDebugName);
+   private static java.lang.String lambda$resolve$1(java.util.Map$Entry);
+   private static void lambda$resolve$0(it.unimi.dsi.fastutil.objects.Object2ObjectMap, it.unimi.dsi.fastutil.objects.Object2ObjectMap, java.lang.String, net.minecraft.client.resources.model.sprite.TextureSlots$SlotContents);
+   static {};
+   }
+-- net.minecraft.client.resources.model.sprite.TextureSlots$Value --
+   Compiled from "TextureSlots.java"
+   final class net.minecraft.client.resources.model.sprite.TextureSlots$Value extends java.lang.Record implements net.minecraft.client.resources.model.sprite.TextureSlots$SlotContents {
+   private final net.minecraft.client.resources.model.sprite.Material material;
+   private net.minecraft.client.resources.model.sprite.TextureSlots$Value(net.minecraft.client.resources.model.sprite.Material);
+   public final java.lang.String toString();
+   public final int hashCode();
+   public final boolean equals(java.lang.Object);
+   public net.minecraft.client.resources.model.sprite.Material material();
+   }
+-- net.minecraft.client.resources.model.sprite.TextureSlots$Reference --
+   Compiled from "TextureSlots.java"
+   final class net.minecraft.client.resources.model.sprite.TextureSlots$Reference extends java.lang.Record implements net.minecraft.client.resources.model.sprite.TextureSlots$SlotContents {
+   private final java.lang.String target;
+   private net.minecraft.client.resources.model.sprite.TextureSlots$Reference(java.lang.String);
+   public final java.lang.String toString();
+   public final int hashCode();
+   public final boolean equals(java.lang.Object);
+   public java.lang.String target();
+   }
+-- net.minecraft.client.resources.model.sprite.TextureSlots$SlotContents --
+   Compiled from "TextureSlots.java"
+   public interface net.minecraft.client.resources.model.sprite.TextureSlots$SlotContents {
+   }
+-- net.minecraft.client.resources.model.sprite.SpriteId --
+   Compiled from "SpriteId.java"
+   public final class net.minecraft.client.resources.model.sprite.SpriteId extends java.lang.Record {
+   private final net.minecraft.resources.Identifier atlasLocation;
+   private final net.minecraft.resources.Identifier texture;
+   public net.minecraft.client.resources.model.sprite.SpriteId(net.minecraft.resources.Identifier, net.minecraft.resources.Identifier);
+   public net.minecraft.client.renderer.rendertype.RenderType renderType(java.util.function.Function<net.minecraft.resources.Identifier, net.minecraft.client.renderer.rendertype.RenderType>);
+   public final java.lang.String toString();
+   public final int hashCode();
+   public final boolean equals(java.lang.Object);
+   public net.minecraft.resources.Identifier atlasLocation();
+   public net.minecraft.resources.Identifier texture();
+   }
 -- net.minecraft.client.renderer.entity.EntityRenderDispatcher --
    public <T extends net.minecraft.world.entity.Entity> net.minecraft.client.renderer.entity.EntityRenderer<? super T, ?> getRenderer(T);
    public <S extends net.minecraft.client.renderer.entity.state.EntityRenderState> net.minecraft.client.renderer.entity.EntityRenderer<?, ? super S> getRenderer(S);
