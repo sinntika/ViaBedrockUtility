@@ -22,8 +22,7 @@ SEARCH_DIRS = [
 ]
 
 # Everything that has to be on javap's classpath for the classes below to
-# resolve their own field and parameter types. The fabric modules are here
-# because a supported hook is worth far more than a mixin into vanilla.
+# resolve their own field and parameter types.
 LIB_KEYWORDS = (
 	"viabedrock",
 	"viaversion",
@@ -39,44 +38,24 @@ LIB_KEYWORDS = (
 # file size and loses on everything that matters.
 JAR_NAME_SKIP = ("server", "sources", "javadoc")
 
-# Whether fabric still offers a way to contribute block models for blocks that
-# only exist once a bedrock server has told us about them.
+# The models of the block palette the server sends during login.
 INDEXES = (
 	(
-		"fabric-model-loading",
-		re.compile(
-			r"^net\.fabricmc\.fabric\.api\.client\.model\.loading\.v1\."
-			r"[A-Za-z0-9_.$]+$"
-		),
+		"viabedrock",
+		re.compile(r"^net\.raphimc\.viabedrock\.protocol\.model\.[A-Za-z0-9_$]+$"),
 	),
 )
 
-# The models a block state resolver has to hand back live in this package.
-MC_INDEX = re.compile(
-	r"^net\.minecraft\.client\.renderer\.block\.dispatch\.[A-Za-z0-9_$]+$"
-)
+# Nothing new is needed from the client this round, so this stays cheap.
+MC_INDEX = re.compile(r"^net\.minecraft\.world\.level\.block\.SoundType$")
 
 # (class, member filter). The filter keeps the output readable for the huge
 # classes; None dumps every member.
 TARGETS = (
-	# -- the supported alternative to mixing into the baker --
-	("net.fabricmc.fabric.api.client.model.loading.v1.ModelLoadingPlugin", None),
-	(
-		"net.fabricmc.fabric.api.client.model.loading.v1.ModelLoadingPlugin$Context",
-		None,
-	),
-	("net.fabricmc.fabric.api.client.model.loading.v1.BlockStateResolver", None),
-	(
-		"net.fabricmc.fabric.api.client.model.loading.v1.BlockStateResolver$Context",
-		None,
-	),
-	# -- what such a resolver has to produce --
-	("net.minecraft.client.renderer.block.dispatch.BlockStateModel$UnbakedRoot", None),
-	("net.minecraft.client.renderer.block.dispatch.BlockStateModel$Unbaked", None),
-	("net.minecraft.client.renderer.block.dispatch.SingleVariant", None),
-	("net.minecraft.client.renderer.block.dispatch.SingleVariant$Unbaked", None),
-	# -- and the baker it would be hbaked with --
-	("net.minecraft.client.resources.model.ModelBaker", None),
+	# -- the palette entry the custom blocks have to be built from --
+	("net.raphimc.viabedrock.protocol.model.BlockProperties", None),
+	("net.raphimc.viabedrock.protocol.rewriter.BlockStateRewriter", None),
+	("net.raphimc.viabedrock.api.model.BlockState", None),
 	# -- regression guard for the crash that started all of this --
 	(
 		"net.minecraft.client.renderer.entity.EntityRenderDispatcher",
@@ -170,7 +149,7 @@ def main():
 	for path in libs:
 		print(f"   {path.name:<60} {class_count(path)} classes")
 
-	print_index("MC BLOCK DISPATCH PACKAGE", class_names(minecraft, MC_INDEX))
+	print_index("MC INDEX", class_names(minecraft, MC_INDEX))
 
 	for keyword, pattern in INDEXES:
 		matches = [path for path in libs if keyword in path.name.lower()]
