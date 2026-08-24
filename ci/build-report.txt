@@ -1,6 +1,6 @@
-commit:  44b75304a04b55a2e04ea4ad52787e612f10b7ef
-run_id:  32686524113
-outcome: failure
+commit:  d4449133619f2724a7de5c5f02085e37be71a5e2
+run_id:  32686916760
+outcome: success
 
 ===== RENAME =====
 loaded mappings.tsv
@@ -12,21 +12,19 @@ loaded mappings6.tsv
 loaded mappings7.tsv
 loaded mappings8.tsv
 loaded mappings9.tsv
-rewrote 1 files
+rewrote 0 files
 renamed 0 files
 
 ===== COMPILE ERRORS =====
-unique errors: 1
-block/model/PackBlockResources.java:11: cannot find symbol   [symbol: class PackResources | location: package net.raphimc.viabedrock.api.resourcepack]
-      src: import net.raphimc.viabedrock.api.resourcepack.PackResources;
+unique errors: 0
 
 ===== CLASSPATH PROBE =====
 == LOMBOK ==
 resolved in cache: 1.18.46
 
 == DIFF VS MASTER ==
-  origin/master (8369667) ... HEAD (44b7530)
-  75 files changed, 4498 insertions(+), 427 deletions(-)
+  origin/master (8369667) ... HEAD (d444913)
+  75 files changed, 4502 insertions(+), 427 deletions(-)
   -- deleted or renamed (1) --
      R083	src/main/java/org/oryxel/viabedrockutility/animation/vanilla/AnimationHelper.java	src/main/java/org/oryxel/viabedrockutility/animation/vanilla/KeyframeAnimations.java
 
@@ -581,18 +579,18 @@ resolved in cache: 1.18.46
   none
 
 ===== TAIL =====
+> Task :processIncludeJars
+> Task :jar
+> Task :compileTestJava
+> Task :assemble
+> Task :processTestResources NO-SOURCE
+> Task :testClasses
+> Task :test
+> Task :validateAccessWidener
+> Task :check
+> Task :build
 
-* Exception is:
-org.gradle.api.tasks.TaskExecutionException: Execution failed for task ':compileJava' (registered by plugin class 'org.gradle.api.plugins.JavaBasePlugin').
-Caused by: org.gradle.api.internal.tasks.compile.CompilationFailedException: Compilation failed; see the compiler output below.
-/home/runner/work/ViaBedrockUtility/ViaBedrockUtility/src/main/java/org/oryxel/viabedrockutility/block/model/PackBlockResources.java:11: error: cannot find symbol
-import net.raphimc.viabedrock.api.resourcepack.PackResources;
-                                              ^
-  symbol:   class PackResources
-  location: package net.raphimc.viabedrock.api.resourcepack
-1 error
-	... 61 more
+[Incubating] Problems report is available at: file:///home/runner/work/ViaBedrockUtility/ViaBedrockUtility/build/reports/problems/problems-report.html
 
-
-BUILD FAILED in 1m 2s
-5 actionable tasks: 5 executed
+BUILD SUCCESSFUL in 3m 31s
+11 actionable tasks: 11 executed
